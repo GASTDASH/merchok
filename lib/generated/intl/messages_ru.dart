@@ -24,7 +24,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
+    "creationDate": MessageLookupByLibrary.simpleMessage(
+      "Дата создания: дд.мм.гггг",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
+    "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),

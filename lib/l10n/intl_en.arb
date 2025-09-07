@@ -12,5 +12,7 @@
   "fromExcel": "From Excel",
   "fromCSV": "From CSV",
   "notAvailableYet": "(not available yet)",
-  "recommended": "(recommended)"
+  "recommended": "(recommended)",
+  "festivals": "Festivals",
+  "creationDate": "Creation Date: dd.mm.yyyy"
 }

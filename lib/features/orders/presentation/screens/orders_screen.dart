@@ -18,7 +18,7 @@ class OrdersScreen extends StatelessWidget {
             sliver: SliverList.separated(
               itemCount: 4,
               separatorBuilder: (context, index) =>
-                  Divider(indent: 24, endIndent: 24, height: 48),
+                  Divider(indent: 32, endIndent: 32, height: 48),
               itemBuilder: (context, index) => Column(
                 children: [
                   Row(

@@ -153,6 +153,21 @@ class S {
       args: [],
     );
   }
+
+  /// `Festivals`
+  String get festivals {
+    return Intl.message('Festivals', name: 'festivals', desc: '', args: []);
+  }
+
+  /// `Creation Date: dd.mm.yyyy`
+  String get creationDate {
+    return Intl.message(
+      'Creation Date: dd.mm.yyyy',
+      name: 'creationDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

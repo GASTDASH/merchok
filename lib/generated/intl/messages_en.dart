@@ -24,7 +24,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "creationDate": MessageLookupByLibrary.simpleMessage(
+      "Creation Date: dd.mm.yyyy",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
+    "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
     "import": MessageLookupByLibrary.simpleMessage("Import"),

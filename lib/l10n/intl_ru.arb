@@ -12,5 +12,7 @@
   "fromExcel": "Из Excel",
   "fromCSV": "Из CSV",
   "notAvailableYet": "(пока недоступно)",
-  "recommended": "(рекомендуется)"
+  "recommended": "(рекомендуется)",
+  "festivals": "Фестивали",
+  "creationDate": "Дата создания: дд.мм.гггг"
 }
