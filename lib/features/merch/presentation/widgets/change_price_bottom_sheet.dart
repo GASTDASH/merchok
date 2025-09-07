@@ -28,7 +28,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
                 },
                 child: Text(
                   S.of(context).save,
-                  style: TextStyle(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                   ),
@@ -37,7 +37,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
             ),
           ),
           SizedBox(height: 32),
-          Text(S.of(context).price, style: TextStyle(fontSize: 16)),
+          Text(S.of(context).price, style: theme.textTheme.bodyLarge),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +63,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
                 width: 128,
                 child: TextField(
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
+                  style: theme.textTheme.headlineSmall,
                   decoration: InputDecoration(
                     hintText: '0 ₽',
                     hintStyle: TextStyle(color: theme.disabledColor),
@@ -90,7 +90,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 24),
-          Text(S.of(context).purchasePrice, style: TextStyle(fontSize: 16)),
+          Text(S.of(context).purchasePrice, style: theme.textTheme.bodyLarge),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +99,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
                 width: 128,
                 child: TextField(
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
+                  style: theme.textTheme.headlineSmall,
                   decoration: InputDecoration(
                     hintText: '0 ₽',
                     hintStyle: TextStyle(color: theme.disabledColor),

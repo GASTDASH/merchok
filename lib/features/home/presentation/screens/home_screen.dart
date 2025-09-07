@@ -31,7 +31,9 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).search,
-                      style: TextStyle(fontSize: 16, color: theme.hintColor),
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: theme.hintColor,
+                      ),
                     ),
                     SvgPicture.asset(
                       IconNames.search,
@@ -94,9 +96,8 @@ class HomeScreen extends StatelessWidget {
                     constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
                     child: Text(
                       S.of(context).all,
-                      style: TextStyle(
+                      style: theme.textTheme.bodyLarge?.copyWith(
                         color: Colors.white,
-                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -141,6 +142,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// TODO: Перенести в отдельный виджет
 class ImportBottomSheet extends StatelessWidget {
   const ImportBottomSheet({super.key});
 
@@ -158,7 +160,10 @@ class ImportBottomSheet extends StatelessWidget {
       child: Column(
         spacing: 12,
         children: [
-          Text(S.of(context).whereToImportFrom, style: TextStyle(fontSize: 20)),
+          Text(
+            S.of(context).whereToImportFrom,
+            style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+          ),
           Expanded(
             child: Row(
               spacing: 12,
@@ -173,8 +178,7 @@ class ImportBottomSheet extends StatelessWidget {
                       children: [
                         Text(
                           S.of(context).fromExcel,
-                          style: TextStyle(
-                            fontSize: 24,
+                          style: theme.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -193,8 +197,7 @@ class ImportBottomSheet extends StatelessWidget {
                       children: [
                         Text(
                           S.of(context).fromCSV,
-                          style: TextStyle(
-                            fontSize: 24,
+                          style: theme.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),

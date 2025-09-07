@@ -25,7 +25,7 @@ class MerchCard extends StatelessWidget {
             children: [
               Text(
                 S.of(context).merchDefaultName,
-                style: TextStyle(fontSize: 16),
+                style: theme.textTheme.bodyLarge,
               ),
               GestureDetector(
                 onTap: () {},
@@ -92,12 +92,11 @@ class MerchCard extends StatelessWidget {
                   child: TextField(
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    style: TextStyle(fontSize: 12),
+                    style: theme.textTheme.bodySmall,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).description,
-                      hintStyle: TextStyle(
-                        fontSize: 12,
+                      hintStyle: theme.textTheme.bodySmall?.copyWith(
                         color: theme.disabledColor,
                       ),
                     ),
@@ -113,7 +112,7 @@ class MerchCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 8,
                 children: [
-                  Text('150 ₽', style: TextStyle(fontSize: 24)),
+                  Text('150 ₽', style: theme.textTheme.headlineSmall),
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -153,7 +152,7 @@ class MerchCard extends StatelessWidget {
                           color: theme.disabledColor,
                           child: SvgPicture.asset(IconNames.remove),
                         ),
-                        Text('$count', style: TextStyle(fontSize: 24)),
+                        Text('$count', style: theme.textTheme.headlineSmall),
                         BaseButton(
                           onTap: () {},
                           constraints: BoxConstraints(
