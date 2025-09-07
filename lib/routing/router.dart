@@ -44,8 +44,19 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/festival',
-      pageBuilder: (context, state) =>
-          buildFadeTransitionPage(FestivalScreen()),
+      pageBuilder: (context, state) => CustomTransitionPage(
+        child: FestivalScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            SlideTransition(
+              position: Tween(begin: Offset(0, -1), end: Offset(0, 0)).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOutCubic,
+                ),
+              ),
+              child: child,
+            ),
+      ),
     ),
   ],
 );
