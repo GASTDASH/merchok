@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BaseContainer extends StatelessWidget {
   const BaseContainer({
     super.key,
-    required this.child,
+    this.child,
     this.width,
     this.height,
     this.margin,
@@ -12,7 +12,7 @@ class BaseContainer extends StatelessWidget {
     this.onTap,
   });
 
-  final Widget child;
+  final Widget? child;
   final double? height;
   final double? width;
   final EdgeInsetsGeometry? margin;
