@@ -1,0 +1,16 @@
+{
+  "all": "All",
+  "search": "Search",
+  "description": "Description...",
+  "merchDefaultName": "Merch name",
+  "save": "Save",
+  "price": "Price",
+  "add": "Add",
+  "import": "Import",
+  "purchasePrice": "Purchase Price",
+  "whereToImportFrom": "Where to import from?",
+  "fromExcel": "From Excel",
+  "fromCSV": "From CSV",
+  "notAvailableYet": "(not available yet)",
+  "recommended": "(recommended)"
+}

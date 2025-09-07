@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/root/root.dart';
@@ -9,8 +11,8 @@ final router = GoRouter(
   initialLocation: '/home',
   routes: [
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) =>
-          RootScreen(navigationShell: navigationShell),
+      pageBuilder: (context, state, navigationShell) =>
+          buildFadeTransitionPage(RootScreen(navigationShell: navigationShell)),
       branches: [
         StatefulShellBranch(
           routes: [
@@ -40,5 +42,18 @@ final router = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      path: '/festival',
+      pageBuilder: (context, state) =>
+          buildFadeTransitionPage(FestivalScreen()),
+    ),
   ],
 );
+
+CustomTransitionPage<dynamic> buildFadeTransitionPage(Widget child) {
+  return CustomTransitionPage(
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+        FadeTransition(opacity: animation, child: child),
+  );
+}

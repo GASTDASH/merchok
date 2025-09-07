@@ -7,18 +7,23 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  dotted_border: ^3.1.0
   equatable: ^2.0.7
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.2.1
   get_it: ^8.2.0
   go_router: ^16.2.1
+  intl: ^0.20.2
   persistent_bottom_nav_bar: ^6.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  intl_utils: ^2.8.11
 
 flutter:
   uses-material-design: true
@@ -47,3 +52,6 @@ flutter:
           weight: 800
         - asset: assets/fonts/Montserrat-Black.ttf
           weight: 900
+          
+flutter_intl:
+  enabled: true

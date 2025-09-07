@@ -1,0 +1,16 @@
+{
+  "all": "Все",
+  "search": "Найти",
+  "description": "Описание...",
+  "merchDefaultName": "Название мерча",
+  "save": "Сохранить",
+  "price": "Цена",
+  "add": "Добавить",
+  "import": "Импортировать",
+  "purchasePrice": "Закупочная цена",
+  "whereToImportFrom": "Откуда будем импортировать?",
+  "fromExcel": "Из Excel",
+  "fromCSV": "Из CSV",
+  "notAvailableYet": "(пока недоступно)",
+  "recommended": "(рекомендуется)"
+}

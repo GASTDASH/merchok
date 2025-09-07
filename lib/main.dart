@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:merchok/generated/l10n.dart';
 import 'package:merchok/routing/router.dart';
 import 'package:merchok/theme/theme.dart';
 
@@ -11,6 +13,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: router, theme: theme);
+    return MaterialApp.router(
+      title: 'MerchOK',
+      routerConfig: router,
+      theme: theme,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+    );
   }
 }

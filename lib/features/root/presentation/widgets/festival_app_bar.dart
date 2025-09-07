@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 
 class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -28,7 +29,9 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push('/festival');
+              },
               icon: SvgPicture.asset(
                 IconNames.calendar,
                 colorFilter: ColorFilter.mode(
