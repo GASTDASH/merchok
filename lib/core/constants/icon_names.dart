@@ -12,4 +12,5 @@ abstract class IconNames {
   static const shoppingCart = 'assets/icons/Shopping_Cart_02.svg';
   static const remove = 'assets/icons/Remove_Minus.svg';
   static const import = 'assets/icons/File_Upload.svg';
+  static const delete = 'assets/icons/Trash_Full.svg';
 }
