@@ -13,16 +13,8 @@ class FestivalScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            pinned: true,
-            elevation: 12,
-            shadowColor: Colors.black26,
-            backgroundColor: theme.scaffoldBackgroundColor,
-            title: Text(
-              S.of(context).festivals,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            actionsPadding: EdgeInsets.only(right: 8),
+          BaseSliverAppBar(
+            title: S.of(context).festivals,
             actions: [
               IconButton(
                 tooltip: S.of(context).add,
