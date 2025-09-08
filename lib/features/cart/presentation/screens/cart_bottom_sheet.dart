@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -56,7 +57,9 @@ class CartBottomSheet extends StatelessWidget {
                       SliverToBoxAdapter(child: SizedBox(height: 24)),
                       SliverToBoxAdapter(
                         child: BaseButton(
-                          onTap: () {},
+                          onTap: () {
+                            context.push('/checkout');
+                          },
                           padding: EdgeInsetsGeometry.all(12),
                           child: Text(
                             S.of(context).checkout,

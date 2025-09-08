@@ -25,4 +25,10 @@ abstract class IconNames {
   static const tag = 'assets/icons/Tag.svg';
   static const delete = 'assets/icons/Trash_Full.svg';
   static const user = 'assets/icons/User_Circle.svg';
+  // BANKS
+  static const alfabank = 'assets/icons/banks/alfabank.svg';
+  static const sberbank = 'assets/icons/banks/sberbank.svg';
+  static const tbank = 'assets/icons/banks/tbank.svg';
+  static const vtb = 'assets/icons/banks/vtb.svg';
+  static const yoomoney = 'assets/icons/banks/yoomoney.svg';
 }

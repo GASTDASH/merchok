@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:merchok/features/checkout/checkout.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/orders/orders.dart';
@@ -57,6 +58,16 @@ final router = GoRouter(
               child: child,
             ),
       ),
+    ),
+    GoRoute(
+      path: '/checkout',
+      builder: (context, state) => CheckoutScreen(),
+      routes: [
+        GoRoute(
+          path: 'payment_methods',
+          builder: (context, state) => PaymentMethodsScreen(),
+        ),
+      ],
     ),
   ],
 );
