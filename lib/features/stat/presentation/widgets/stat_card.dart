@@ -21,6 +21,7 @@ class StatCard extends StatelessWidget {
       onTap: onTap,
       height: 400,
       padding: EdgeInsets.all(24),
+      elevation: 8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
