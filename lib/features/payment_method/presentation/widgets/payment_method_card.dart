@@ -9,19 +9,21 @@ class PaymentMethodCard extends StatelessWidget {
     required this.subtitle,
     required this.description,
     this.icon,
+    this.onTap,
   });
 
   final String title;
   final String subtitle;
   final String description;
   final String? icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return BaseContainer(
-      onTap: () {},
+      onTap: onTap,
       margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
       elevation: 8,
