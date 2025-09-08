@@ -7,6 +7,7 @@ abstract class IconNames {
   static const chartBar = 'assets/icons/Chart_Bar_Vertical_01.svg';
   static const chartLine = 'assets/icons/Chart_Line.svg';
   static const down = 'assets/icons/Chevron_Down.svg';
+  static const right = 'assets/icons/Chevron_Right.svg';
   static const discount = 'assets/icons/Discount.svg';
   static const dollar = 'assets/icons/Dollar.svg';
   static const edit = 'assets/icons/Edit_Pencil_01.svg';
@@ -14,6 +15,7 @@ abstract class IconNames {
   static const graph = 'assets/icons/Graph.svg';
   static const house = 'assets/icons/House_01.svg';
   static const like = 'assets/icons/Like.svg';
+  static const moon = 'assets/icons/Moon.svg';
   static const presentation = 'assets/icons/Presentation.svg';
   static const remove = 'assets/icons/Remove_Minus.svg';
   static const search = 'assets/icons/Search_Magnifying_Glass.svg';
@@ -22,6 +24,7 @@ abstract class IconNames {
   static const shoppingCart = 'assets/icons/Shopping_Cart_02.svg';
   static const slider = 'assets/icons/Slider_03.svg';
   static const star = 'assets/icons/Star.svg';
+  static const sun = 'assets/icons/Sun.svg';
   static const tag = 'assets/icons/Tag.svg';
   static const delete = 'assets/icons/Trash_Full.svg';
   static const user = 'assets/icons/User_Circle.svg';
