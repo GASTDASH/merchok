@@ -193,6 +193,61 @@ class S {
       args: [],
     );
   }
+
+  /// `General sales statistics`
+  String get generalSalesStatistics {
+    return Intl.message(
+      'General sales statistics',
+      name: 'generalSalesStatistics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popular merch`
+  String get popularMerch {
+    return Intl.message(
+      'Popular merch',
+      name: 'popularMerch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History of festivals`
+  String get historyOfFestivals {
+    return Intl.message(
+      'History of festivals',
+      name: 'historyOfFestivals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Average receipt`
+  String get averageReceipt {
+    return Intl.message(
+      'Average receipt',
+      name: 'averageReceipt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customer preferences`
+  String get customerPreferences {
+    return Intl.message(
+      'Customer preferences',
+      name: 'customerPreferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profit`
+  String get profit {
+    return Intl.message('Profit', name: 'profit', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

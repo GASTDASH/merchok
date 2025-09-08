@@ -18,5 +18,11 @@
   "emptyCart": "Cart is empty",
   "total": "Total:",
   "checkout": "Checkout",
-  "receiptFrom": "Receipt from "
+  "receiptFrom": "Receipt from ",
+  "generalSalesStatistics": "General sales statistics",
+  "popularMerch": "Popular merch",
+  "historyOfFestivals": "History of festivals",
+  "averageReceipt": "Average receipt",
+  "customerPreferences": "Customer preferences",
+  "profit": "Profit"
 }

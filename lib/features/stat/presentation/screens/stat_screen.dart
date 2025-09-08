@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
-import 'package:merchok/theme/theme.dart';
+import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class StatScreen extends StatelessWidget {
   const StatScreen({super.key});
@@ -23,71 +23,37 @@ class StatScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 StatCard(
                   onTap: () {},
-                  text: 'Общая статистика продаж',
+                  text: S.of(context).generalSalesStatistics,
                   icon: IconNames.graph,
                 ),
                 StatCard(
                   onTap: () {},
-                  text: 'Популярный мерч',
+                  text: S.of(context).popularMerch,
                   icon: IconNames.like,
                 ),
                 StatCard(
                   onTap: () {},
-                  text: 'История фестивалей',
+                  text: S.of(context).historyOfFestivals,
                   icon: IconNames.presentation,
                 ),
                 StatCard(
                   onTap: () {},
-                  text: 'Средний чек',
+                  text: S.of(context).averageReceipt,
                   icon: IconNames.dollar,
                 ),
                 StatCard(
                   onTap: () {},
-                  text: 'Предпочтения покупателей',
+                  text: S.of(context).customerPreferences,
                   icon: IconNames.book,
                 ),
                 StatCard(
                   onTap: () {},
-                  text: 'Выгода',
+                  text: S.of(context).profit,
                   icon: IconNames.discount,
                 ),
               ]),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class StatCard extends StatelessWidget {
-  const StatCard({
-    super.key,
-    required this.text,
-    required this.icon,
-    this.onTap,
-  });
-
-  final String text;
-  final String icon;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseContainer(
-      onTap: onTap,
-      height: 400,
-      padding: EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Expanded(child: SvgPicture.asset(icon, width: double.infinity)),
         ],
       ),
     );

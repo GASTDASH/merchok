@@ -24,21 +24,33 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Creation Date: dd.mm.yyyy",
+    ),
+    "customerPreferences": MessageLookupByLibrary.simpleMessage(
+      "Customer preferences",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
+    "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
+      "General sales statistics",
+    ),
+    "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
+      "History of festivals",
+    ),
     "import": MessageLookupByLibrary.simpleMessage("Import"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "popularMerch": MessageLookupByLibrary.simpleMessage("Popular merch"),
     "price": MessageLookupByLibrary.simpleMessage("Price"),
+    "profit": MessageLookupByLibrary.simpleMessage("Profit"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Receipt from "),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),

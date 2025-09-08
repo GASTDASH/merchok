@@ -18,5 +18,11 @@
   "emptyCart": "Корзина пуста",
   "total": "Итого:",
   "checkout": "Оформить",
-  "receiptFrom": "Чек от "
+  "receiptFrom": "Чек от ",
+  "generalSalesStatistics": "Общая статистика продаж",
+  "popularMerch": "Популярный мерч",
+  "historyOfFestivals": "История фестивалей",
+  "averageReceipt": "Средний чек",
+  "customerPreferences": "Предпочтения покупателей",
+  "profit": "Выгода"
 }

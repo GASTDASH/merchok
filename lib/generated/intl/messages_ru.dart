@@ -24,21 +24,33 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
+    "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Дата создания: дд.мм.гггг",
+    ),
+    "customerPreferences": MessageLookupByLibrary.simpleMessage(
+      "Предпочтения покупателей",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
+    "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
+      "Общая статистика продаж",
+    ),
+    "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
+      "История фестивалей",
+    ),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "popularMerch": MessageLookupByLibrary.simpleMessage("Популярный мерч"),
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
+    "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Чек от "),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
