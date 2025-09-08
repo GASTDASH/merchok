@@ -26,7 +26,9 @@ class SettingsScreen extends StatelessWidget {
                   iconSize: 32,
                 ),
                 SettingsButton(
-                  onTap: () {},
+                  onTap: () {
+                    context.push('/language');
+                  },
                   title: S.of(context).language,
                   subtitle: S.of(context).languageDescription,
                   icon: IconNames.language,

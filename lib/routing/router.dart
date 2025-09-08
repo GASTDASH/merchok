@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:merchok/features/checkout/checkout.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
+import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/root/root.dart';
 import 'package:merchok/features/settings/settings.dart';
@@ -71,6 +72,7 @@ final router = GoRouter(
       ],
     ),
     GoRoute(path: '/theme', builder: (context, state) => ThemeScreen()),
+    GoRoute(path: '/language', builder: (context, state) => LanguageScreen()),
   ],
 );
 
