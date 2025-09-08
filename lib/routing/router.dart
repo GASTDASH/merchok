@@ -6,6 +6,7 @@ import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/root/root.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/stat/stat.dart';
@@ -62,19 +63,14 @@ final router = GoRouter(
             ),
       ),
     ),
-    GoRoute(
-      path: '/checkout',
-      builder: (context, state) => CheckoutScreen(),
-      routes: [
-        GoRoute(
-          path: 'payment_methods',
-          builder: (context, state) => PaymentMethodsScreen(),
-        ),
-      ],
-    ),
+    GoRoute(path: '/checkout', builder: (context, state) => CheckoutScreen()),
     GoRoute(path: '/theme', builder: (context, state) => ThemeScreen()),
     GoRoute(path: '/language', builder: (context, state) => LanguageScreen()),
     GoRoute(path: '/export', builder: (context, state) => ExportScreen()),
+    GoRoute(
+      path: '/payment_methods',
+      builder: (context, state) => PaymentMethodsScreen(),
+    ),
   ],
 );
 

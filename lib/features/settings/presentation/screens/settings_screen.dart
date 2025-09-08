@@ -43,7 +43,9 @@ class SettingsScreen extends StatelessWidget {
                   icon: IconNames.downloadPackage,
                 ),
                 SettingsButton(
-                  onTap: () {},
+                  onTap: () {
+                    context.push('/payment_methods');
+                  },
                   title: S.of(context).paymentMethods,
                   subtitle: S.of(context).paymentMethodsDescription,
                   icon: IconNames.payment,
