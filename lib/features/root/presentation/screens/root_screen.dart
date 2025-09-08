@@ -28,13 +28,7 @@ class _RootScreenState extends State<RootScreen> {
         width: 64,
         child: FloatingActionButton(
           onPressed: () {
-            showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              useRootNavigator: true,
-              context: context,
-              builder: (context) => CartBottomSheet(),
-            );
+            showCartBottomSheet(context);
           },
           backgroundColor: theme.primaryColor,
           child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
@@ -76,6 +70,16 @@ class _RootScreenState extends State<RootScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> showCartBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      useRootNavigator: true,
+      context: context,
+      builder: (context) => CartBottomSheet(),
     );
   }
 }
