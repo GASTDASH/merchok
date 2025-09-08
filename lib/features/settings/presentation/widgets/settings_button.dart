@@ -7,11 +7,15 @@ class SettingsButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
+    this.icon,
+    this.iconSize = 24,
     this.onTap,
   });
 
   final String title;
   final String subtitle;
+  final String? icon;
+  final double? iconSize;
   final VoidCallback? onTap;
 
   @override
@@ -32,10 +36,25 @@ class SettingsButton extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: theme.textTheme.headlineSmall),
+                  Row(
+                    spacing: 12,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(title, style: theme.textTheme.headlineSmall),
+                      if (icon != null)
+                        SvgPicture.asset(
+                          icon!,
+                          width: iconSize,
+                          colorFilter: ColorFilter.mode(
+                            theme.colorScheme.onSurface,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                    ],
+                  ),
                   Text(
                     subtitle,
-                    style: theme.textTheme.bodyMedium?.copyWith(
+                    style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.hintColor,
                     ),
                   ),
