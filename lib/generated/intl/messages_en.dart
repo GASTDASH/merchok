@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "aboutDescription": MessageLookupByLibrary.simpleMessage("App information"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
@@ -58,10 +59,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Change regional settings",
     ),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
+    "merch": MessageLookupByLibrary.simpleMessage("Merch"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "orderHistory": MessageLookupByLibrary.simpleMessage("Order history"),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment methods"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Set up payment methods for your customers",
@@ -80,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
+    "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",
     ),

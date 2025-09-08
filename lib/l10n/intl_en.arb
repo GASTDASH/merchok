@@ -39,5 +39,9 @@
   "cash": "Cash",
   "transfer": "Transfer",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "whatToExport": "What to export?",
+  "allAtOnce": "All at once",
+  "merch": "Merch",
+  "orderHistory": "Order history"
 }

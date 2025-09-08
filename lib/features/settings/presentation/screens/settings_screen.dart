@@ -35,7 +35,9 @@ class SettingsScreen extends StatelessWidget {
                   iconSize: 32,
                 ),
                 SettingsButton(
-                  onTap: () {},
+                  onTap: () {
+                    context.push('/export');
+                  },
                   title: S.of(context).dataExport,
                   subtitle: S.of(context).exportDataDescription,
                   icon: IconNames.downloadPackage,

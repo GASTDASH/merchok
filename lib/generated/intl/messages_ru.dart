@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
+    "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
@@ -60,10 +61,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Изменение региональных настроек",
     ),
     "light": MessageLookupByLibrary.simpleMessage("Светлая"),
+    "merch": MessageLookupByLibrary.simpleMessage("Мерч"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "orderHistory": MessageLookupByLibrary.simpleMessage("История заказов"),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Способы оплаты"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Настроить способы оплаты для ваших покупателей",
@@ -82,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
+    "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",
     ),

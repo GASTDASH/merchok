@@ -353,6 +353,36 @@ class S {
   String get dark {
     return Intl.message('Dark', name: 'dark', desc: '', args: []);
   }
+
+  /// `What to export?`
+  String get whatToExport {
+    return Intl.message(
+      'What to export?',
+      name: 'whatToExport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All at once`
+  String get allAtOnce {
+    return Intl.message('All at once', name: 'allAtOnce', desc: '', args: []);
+  }
+
+  /// `Merch`
+  String get merch {
+    return Intl.message('Merch', name: 'merch', desc: '', args: []);
+  }
+
+  /// `Order history`
+  String get orderHistory {
+    return Intl.message(
+      'Order history',
+      name: 'orderHistory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

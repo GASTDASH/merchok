@@ -3,6 +3,7 @@ abstract class IconNames {
   static const archive = 'assets/icons/Archive.svg';
   static const book = 'assets/icons/Book.svg';
   static const calendar = 'assets/icons/Calendar_Event.svg';
+  static const event = 'assets/icons/Calendar.svg';
   static const cart = 'assets/icons/Cart.svg';
   static const chartBar = 'assets/icons/Chart_Bar_Vertical_01.svg';
   static const chartLine = 'assets/icons/Chart_Line.svg';
@@ -14,13 +15,16 @@ abstract class IconNames {
   static const edit = 'assets/icons/Edit_Pencil_01.svg';
   static const import = 'assets/icons/File_Upload.svg';
   static const graph = 'assets/icons/Graph.svg';
+  static const history = 'assets/icons/History.svg';
   static const house = 'assets/icons/House_01.svg';
   static const info = 'assets/icons/Info.svg';
   static const language = 'assets/icons/Language.svg';
   static const like = 'assets/icons/Like.svg';
   static const moon = 'assets/icons/Moon.svg';
   static const payment = 'assets/icons/Payment.svg';
+  static const paymentMethod = 'assets/icons/Payment1.svg';
   static const presentation = 'assets/icons/Presentation.svg';
+  static const puzzle = 'assets/icons/Puzzle.svg';
   static const remove = 'assets/icons/Remove_Minus.svg';
   static const search = 'assets/icons/Search_Magnifying_Glass.svg';
   static const settings = 'assets/icons/Settings.svg';
