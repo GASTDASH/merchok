@@ -4,7 +4,9 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key});
+  const SearchTextField({super.key, this.controller});
+
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,17 @@ class SearchTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
+        spacing: 10,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            S.of(context).search,
-            style: theme.textTheme.bodyLarge?.copyWith(color: theme.hintColor),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: S.of(context).search,
+              ),
+            ),
           ),
           SvgPicture.asset(
             IconNames.search,
