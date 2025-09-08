@@ -20,6 +20,7 @@ class OrdersScreen extends StatelessWidget {
               separatorBuilder: (context, index) =>
                   Divider(indent: 32, endIndent: 32, height: 48),
               itemBuilder: (context, index) => Column(
+                spacing: 12,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +50,6 @@ class OrdersScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 12),
                   Table(
                     columnWidths: {
                       0: FixedColumnWidth(64),
@@ -102,7 +102,22 @@ class OrdersScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // TODO: Добавить сумму заказа
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        S.of(context).total,
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      Text(
+                        '300 ₽',
+                        textAlign: TextAlign.right,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
