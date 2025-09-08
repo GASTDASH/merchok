@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Предпочтения покупателей",
     ),
+    "dark": MessageLookupByLibrary.simpleMessage("Тёмная"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение региональных настроек",
     ),
+    "light": MessageLookupByLibrary.simpleMessage("Светлая"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",

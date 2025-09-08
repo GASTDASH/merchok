@@ -37,5 +37,7 @@
   "aboutDescription": "App information",
   "enterName": "Enter name",
   "cash": "Cash",
-  "transfer": "Transfer"
+  "transfer": "Transfer",
+  "light": "Light",
+  "dark": "Dark"
 }

@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Customer preferences",
     ),
+    "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Change regional settings",
     ),
+    "light": MessageLookupByLibrary.simpleMessage("Light"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
