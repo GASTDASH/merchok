@@ -29,19 +29,13 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 onChanged: (value) => setState(() => themeStyle = value),
                 child: Column(
                   children: [
-                    ListTile(
-                      title: Text(
-                        S.of(context).light,
-                        style: theme.textTheme.titleLarge,
-                      ),
-                      trailing: Radio.adaptive(value: ThemeStyle.light),
+                    SettingsRadioOption(
+                      text: S.of(context).light,
+                      value: ThemeStyle.light,
                     ),
-                    ListTile(
-                      title: Text(
-                        S.of(context).dark,
-                        style: theme.textTheme.titleLarge,
-                      ),
-                      trailing: Radio.adaptive(value: ThemeStyle.dark),
+                    SettingsRadioOption(
+                      text: S.of(context).dark,
+                      value: ThemeStyle.dark,
                     ),
                   ],
                 ),
