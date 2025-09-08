@@ -14,5 +14,9 @@
   "notAvailableYet": "(not available yet)",
   "recommended": "(recommended)",
   "festivals": "Festivals",
-  "creationDate": "Creation Date: dd.mm.yyyy"
+  "creationDate": "Creation Date: dd.mm.yyyy",
+  "emptyCart": "Cart is empty",
+  "total": "Total:",
+  "checkout": "Checkout",
+  "receiptFrom": "Receipt from "
 }

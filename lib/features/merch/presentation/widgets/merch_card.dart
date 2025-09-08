@@ -5,16 +5,17 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class MerchCard extends StatelessWidget {
-  const MerchCard({super.key, this.count = 0});
+  const MerchCard({super.key, this.count = 0, this.showDelete = false});
 
   final int count;
+  final bool showDelete;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return BaseContainer(
-      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -27,16 +28,27 @@ class MerchCard extends StatelessWidget {
                 S.of(context).merchDefaultName,
                 style: theme.textTheme.bodyLarge,
               ),
-              GestureDetector(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  IconNames.tag,
-                  colorFilter: ColorFilter.mode(
-                    theme.colorScheme.onSurface,
-                    BlendMode.srcIn,
-                  ),
-                ),
-              ),
+              showDelete
+                  ? GestureDetector(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        IconNames.delete,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onSurface,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        IconNames.tag,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onSurface,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
             ],
           ),
           Row(

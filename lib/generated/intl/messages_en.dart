@@ -24,10 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
+    "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Creation Date: dd.mm.yyyy",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
+    "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "price": MessageLookupByLibrary.simpleMessage("Price"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
+    "receiptFrom": MessageLookupByLibrary.simpleMessage("Receipt from "),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",
     ),

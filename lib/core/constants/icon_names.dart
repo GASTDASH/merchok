@@ -3,6 +3,7 @@ abstract class IconNames {
   static const archive = 'assets/icons/Archive.svg';
   static const book = 'assets/icons/Book.svg';
   static const calendar = 'assets/icons/Calendar_Event.svg';
+  static const cart = 'assets/icons/Cart.svg';
   static const chartBar = 'assets/icons/Chart_Bar_Vertical_01.svg';
   static const chartLine = 'assets/icons/Chart_Line.svg';
   static const down = 'assets/icons/Chevron_Down.svg';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/root/root.dart';
 
 class RootScreen extends StatefulWidget {
@@ -26,7 +27,15 @@ class _RootScreenState extends State<RootScreen> {
         height: 64,
         width: 64,
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              useRootNavigator: true,
+              context: context,
+              builder: (context) => CartBottomSheet(),
+            );
+          },
           backgroundColor: theme.primaryColor,
           child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
         ),

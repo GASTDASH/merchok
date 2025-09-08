@@ -107,9 +107,12 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverList.builder(
-            itemCount: 1,
-            itemBuilder: (context, index) => MerchCard(count: 0),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            sliver: SliverList.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) => MerchCard(count: 0),
+            ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 12)),
           SliverPadding(

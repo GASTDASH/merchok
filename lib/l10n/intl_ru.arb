@@ -14,5 +14,9 @@
   "notAvailableYet": "(пока недоступно)",
   "recommended": "(рекомендуется)",
   "festivals": "Фестивали",
-  "creationDate": "Дата создания: дд.мм.гггг"
+  "creationDate": "Дата создания: дд.мм.гггг",
+  "emptyCart": "Корзина пуста",
+  "total": "Итого:",
+  "checkout": "Оформить",
+  "receiptFrom": "Чек от "
 }

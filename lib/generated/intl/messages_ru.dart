@@ -24,10 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
+    "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Дата создания: дд.мм.гггг",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
+    "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
+    "receiptFrom": MessageLookupByLibrary.simpleMessage("Чек от "),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
+    "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",
     ),

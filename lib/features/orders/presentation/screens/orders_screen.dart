@@ -26,7 +26,7 @@ class OrdersScreen extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: 'Чек от ',
+                          text: S.of(context).receiptFrom,
                           style: theme.textTheme.titleLarge,
                           children: [
                             TextSpan(
@@ -102,6 +102,7 @@ class OrdersScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  // TODO: Добавить сумму заказа
                 ],
               ),
             ),

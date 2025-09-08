@@ -168,6 +168,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Cart is empty`
+  String get emptyCart {
+    return Intl.message('Cart is empty', name: 'emptyCart', desc: '', args: []);
+  }
+
+  /// `Total:`
+  String get total {
+    return Intl.message('Total:', name: 'total', desc: '', args: []);
+  }
+
+  /// `Checkout`
+  String get checkout {
+    return Intl.message('Checkout', name: 'checkout', desc: '', args: []);
+  }
+
+  /// `Receipt from `
+  String get receiptFrom {
+    return Intl.message(
+      'Receipt from ',
+      name: 'receiptFrom',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
