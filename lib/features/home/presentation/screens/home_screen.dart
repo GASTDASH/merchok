@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/category/categories.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -18,34 +18,7 @@ class HomeScreen extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 48,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: theme.hintColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      S.of(context).search,
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.hintColor,
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      IconNames.search,
-                      colorFilter: ColorFilter.mode(
-                        theme.hintColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            sliver: SliverToBoxAdapter(child: SearchTextField()),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverPadding(
@@ -56,43 +29,45 @@ class HomeScreen extends StatelessWidget {
                 runSpacing: 0,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  ChoiceChip(
-                    label: Text('asdf'),
+                  CategoryChip(
+                    text: 'asdf',
                     selected: true,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('123124124'),
+                  CategoryChip(
+                    text: '123124124',
                     selected: false,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('43434349'),
+                  CategoryChip(
+                    text: '43434349',
                     selected: false,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('3434'),
+                  CategoryChip(
+                    text: '3434',
                     selected: false,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('34343434'),
+                  CategoryChip(
+                    text: '34343434',
                     selected: false,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('123123123'),
+                  CategoryChip(
+                    text: '123123123',
                     selected: false,
                     onSelected: (value) {},
                   ),
-                  ChoiceChip(
-                    label: Text('asdf'),
+                  CategoryChip(
+                    text: 'asdf',
                     selected: false,
                     onSelected: (value) {},
                   ),
                   BaseButton(
-                    onTap: () {},
+                    onTap: () {
+                      showCategoriesBottomSheet(context);
+                    },
                     constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
                     child: Text(
                       S.of(context).all,
@@ -126,11 +101,7 @@ class HomeScreen extends StatelessWidget {
                   AddButton(text: S.of(context).add, icon: IconNames.add),
                   AddButton(
                     onTap: () {
-                      showModalBottomSheet(
-                        useRootNavigator: true,
-                        context: context,
-                        builder: (context) => ImportBottomSheet(),
-                      );
+                      showImportBottomSheet(context);
                     },
                     text: S.of(context).import,
                     icon: IconNames.import,
@@ -141,6 +112,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<dynamic> showImportBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      useRootNavigator: true,
+      context: context,
+      builder: (context) => ImportBottomSheet(),
     );
   }
 }

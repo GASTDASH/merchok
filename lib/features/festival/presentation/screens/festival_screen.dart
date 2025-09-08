@@ -26,7 +26,9 @@ class FestivalScreen extends StatelessWidget {
             actions: [
               IconButton(
                 tooltip: S.of(context).add,
-                onPressed: () {},
+                onPressed: () {
+                  showAddDialog(context);
+                },
                 icon: SvgPicture.asset(
                   IconNames.add,
                   colorFilter: ColorFilter.mode(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/category/categories.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -40,7 +41,9 @@ class MerchCard extends StatelessWidget {
                       ),
                     )
                   : GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        showCategoriesBottomSheet(context);
+                      },
                       child: SvgPicture.asset(
                         IconNames.tag,
                         colorFilter: ColorFilter.mode(
