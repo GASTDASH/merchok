@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
@@ -19,7 +20,10 @@ class CheckoutScreen extends StatelessWidget {
               child: BaseContainer(
                 onTap: () {},
                 child: Center(
-                  child: Text('Наличными', style: theme.textTheme.displaySmall),
+                  child: Text(
+                    S.of(context).cash,
+                    style: theme.textTheme.displaySmall,
+                  ),
                 ),
               ),
             ),
@@ -29,7 +33,10 @@ class CheckoutScreen extends StatelessWidget {
                   context.push('/checkout/payment_methods');
                 },
                 child: Center(
-                  child: Text('Переводом', style: theme.textTheme.displaySmall),
+                  child: Text(
+                    S.of(context).transfer,
+                    style: theme.textTheme.displaySmall,
+                  ),
                 ),
               ),
             ),

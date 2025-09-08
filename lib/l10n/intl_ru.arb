@@ -24,5 +24,18 @@
   "historyOfFestivals": "История фестивалей",
   "averageReceipt": "Средний чек",
   "customerPreferences": "Предпочтения покупателей",
-  "profit": "Выгода"
+  "profit": "Выгода",
+  "theme": "Тема",
+  "themeDescription": "Изменение темы приложения",
+  "language": "Язык",
+  "languageDescription": "Изменение региональных настроек",
+  "dataExport": "Экспорт данных",
+  "exportDataDescription": "Экспортировать данные для переноса на другое устройство",
+  "paymentMethods": "Способы оплаты",
+  "paymentMethodsDescription": "Настроить способы оплаты для ваших покупателей",
+  "about": "О приложении",
+  "aboutDescription": "Информация о приложении",
+  "enterName": "Введите имя",
+  "cash": "Наличными",
+  "transfer": "Переводом"
 }

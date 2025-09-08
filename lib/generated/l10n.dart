@@ -248,6 +248,101 @@ class S {
   String get profit {
     return Intl.message('Profit', name: 'profit', desc: '', args: []);
   }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message('Theme', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Change app theme`
+  String get themeDescription {
+    return Intl.message(
+      'Change app theme',
+      name: 'themeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `Change regional settings`
+  String get languageDescription {
+    return Intl.message(
+      'Change regional settings',
+      name: 'languageDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data export`
+  String get dataExport {
+    return Intl.message('Data export', name: 'dataExport', desc: '', args: []);
+  }
+
+  /// `Export data to transfer to another device`
+  String get exportDataDescription {
+    return Intl.message(
+      'Export data to transfer to another device',
+      name: 'exportDataDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment methods`
+  String get paymentMethods {
+    return Intl.message(
+      'Payment methods',
+      name: 'paymentMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set up payment methods for your customers`
+  String get paymentMethodsDescription {
+    return Intl.message(
+      'Set up payment methods for your customers',
+      name: 'paymentMethodsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message('About', name: 'about', desc: '', args: []);
+  }
+
+  /// `App information`
+  String get aboutDescription {
+    return Intl.message(
+      'App information',
+      name: 'aboutDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter name`
+  String get enterName {
+    return Intl.message('Enter name', name: 'enterName', desc: '', args: []);
+  }
+
+  /// `Cash`
+  String get cash {
+    return Intl.message('Cash', name: 'cash', desc: '', args: []);
+  }
+
+  /// `Transfer`
+  String get transfer {
+    return Intl.message('Transfer', name: 'transfer', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

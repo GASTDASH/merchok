@@ -22,9 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("About"),
+    "aboutDescription": MessageLookupByLibrary.simpleMessage("App information"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
+    "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Creation Date: dd.mm.yyyy",
@@ -32,8 +35,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Customer preferences",
     ),
+    "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "enterName": MessageLookupByLibrary.simpleMessage("Enter name"),
+    "exportDataDescription": MessageLookupByLibrary.simpleMessage(
+      "Export data to transfer to another device",
+    ),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
@@ -44,9 +52,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "History of festivals",
     ),
     "import": MessageLookupByLibrary.simpleMessage("Import"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "languageDescription": MessageLookupByLibrary.simpleMessage(
+      "Change regional settings",
+    ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
+    ),
+    "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment methods"),
+    "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
+      "Set up payment methods for your customers",
     ),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Popular merch"),
     "price": MessageLookupByLibrary.simpleMessage("Price"),
@@ -56,7 +72,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "themeDescription": MessageLookupByLibrary.simpleMessage(
+      "Change app theme",
+    ),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
+    "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",
     ),

@@ -24,5 +24,18 @@
   "historyOfFestivals": "History of festivals",
   "averageReceipt": "Average receipt",
   "customerPreferences": "Customer preferences",
-  "profit": "Profit"
+  "profit": "Profit",
+  "theme": "Theme",
+  "themeDescription": "Change app theme",
+  "language": "Language",
+  "languageDescription": "Change regional settings",
+  "dataExport": "Data export",
+  "exportDataDescription": "Export data to transfer to another device",
+  "paymentMethods": "Payment methods",
+  "paymentMethodsDescription": "Set up payment methods for your customers",
+  "about": "About",
+  "aboutDescription": "App information",
+  "enterName": "Enter name",
+  "cash": "Cash",
+  "transfer": "Transfer"
 }

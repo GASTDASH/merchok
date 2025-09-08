@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class AddDialog extends StatelessWidget {
   const AddDialog({super.key});
@@ -18,7 +19,7 @@ class AddDialog extends StatelessWidget {
           children: [
             TextField(
               style: theme.textTheme.bodyLarge,
-              decoration: InputDecoration(hintText: 'Введите имя'),
+              decoration: InputDecoration(hintText: S.of(context).enterName),
             ),
             Align(
               alignment: AlignmentGeometry.centerRight,
@@ -28,7 +29,7 @@ class AddDialog extends StatelessWidget {
                     context.pop();
                   },
                   child: Text(
-                    'Добавить',
+                    S.of(context).add,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: Colors.white,

@@ -22,9 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("О приложении"),
+    "aboutDescription": MessageLookupByLibrary.simpleMessage(
+      "Информация о приложении",
+    ),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
+    "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
       "Дата создания: дд.мм.гггг",
@@ -32,8 +37,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Предпочтения покупателей",
     ),
+    "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
+    "enterName": MessageLookupByLibrary.simpleMessage("Введите имя"),
+    "exportDataDescription": MessageLookupByLibrary.simpleMessage(
+      "Экспортировать данные для переноса на другое устройство",
+    ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
@@ -44,9 +54,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "История фестивалей",
     ),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
+    "language": MessageLookupByLibrary.simpleMessage("Язык"),
+    "languageDescription": MessageLookupByLibrary.simpleMessage(
+      "Изменение региональных настроек",
+    ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
+    ),
+    "paymentMethods": MessageLookupByLibrary.simpleMessage("Способы оплаты"),
+    "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
+      "Настроить способы оплаты для ваших покупателей",
     ),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Популярный мерч"),
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
@@ -56,7 +74,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
+    "theme": MessageLookupByLibrary.simpleMessage("Тема"),
+    "themeDescription": MessageLookupByLibrary.simpleMessage(
+      "Изменение темы приложения",
+    ),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
+    "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",
     ),
