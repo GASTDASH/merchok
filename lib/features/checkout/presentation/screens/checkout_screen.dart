@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
+@Deprecated(
+  'Уже не нужен. Заменой будет диалоговое окно после оформления в [CartBottomSheet]',
+)
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 

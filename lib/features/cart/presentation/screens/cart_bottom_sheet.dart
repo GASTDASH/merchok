@@ -54,6 +54,54 @@ class CartBottomSheet extends StatelessWidget {
                           ],
                         ),
                       ),
+                      SliverToBoxAdapter(child: SizedBox(height: 12)),
+                      SliverToBoxAdapter(
+                        child: Text(
+                          'Способ оплаты:',
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ),
+                      SliverToBoxAdapter(child: SizedBox(height: 8)),
+                      SliverToBoxAdapter(
+                        child: DropdownMenu(
+                          width: double.infinity,
+                          leadingIcon: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: SvgPicture.asset(
+                              IconNames.sberbank,
+                              height: 32,
+                            ),
+                          ),
+                          inputDecorationTheme: InputDecorationTheme(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onSelected: (value) {},
+                          initialSelection: 'paymentMethodN',
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(
+                              leadingIcon: SvgPicture.asset(
+                                IconNames.money,
+                                height: 32,
+                              ),
+                              value: 'paymentMethodN',
+                              label: 'Наличка',
+                            ),
+                            ...List.generate(
+                              5,
+                              (index) => DropdownMenuEntry(
+                                leadingIcon: SvgPicture.asset(
+                                  IconNames.sberbank,
+                                  height: 32,
+                                ),
+                                value: 'paymentMethod${++index}',
+                                label: 'Способ оплаты $index',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       SliverToBoxAdapter(child: SizedBox(height: 24)),
                       SliverToBoxAdapter(
                         child: BaseButton(
