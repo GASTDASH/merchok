@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:merchok/core/constants/language_codes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/language/language.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class LanguageScreen extends StatefulWidget {
@@ -12,13 +12,13 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
-  String? locale;
+  late final LanguageCubit languageCubit;
 
   @override
   void initState() {
     super.initState();
 
-    locale = Intl.getCurrentLocale();
+    languageCubit = context.read<LanguageCubit>();
   }
 
   @override
@@ -30,18 +30,26 @@ class _LanguageScreenState extends State<LanguageScreen> {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             sliver: SliverToBoxAdapter(
-              child: RadioGroup(
-                groupValue: locale,
-                onChanged: (value) => setState(() => locale = value),
-                child: Column(
-                  children: [
-                    for (Locale l in S.delegate.supportedLocales)
-                      SettingsRadioOption(
-                        text: languageCodes[l.toLanguageTag()]!,
-                        value: l.languageCode,
-                      ),
-                  ],
-                ),
+              child: BlocBuilder<LanguageCubit, LanguageState>(
+                bloc: languageCubit,
+                builder: (context, state) {
+                  return RadioGroup(
+                    groupValue: state.languageCode,
+                    onChanged: (newLanguageCode) {
+                      if (newLanguageCode == null) return;
+                      languageCubit.changeLanguage(newLanguageCode);
+                    },
+                    child: Column(
+                      children: [
+                        for (Locale l in S.delegate.supportedLocales)
+                          SettingsRadioOption(
+                            text: languageCodes[l.toLanguageTag()]!,
+                            value: l.languageCode,
+                          ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
