@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
       "История фестивалей",
     ),
+    "icon": MessageLookupByLibrary.simpleMessage("Иконка"),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),

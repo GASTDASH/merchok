@@ -493,6 +493,11 @@ class S {
   String get apply {
     return Intl.message('Apply', name: 'apply', desc: '', args: []);
   }
+
+  /// `Icon`
+  String get icon {
+    return Intl.message('Icon', name: 'icon', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

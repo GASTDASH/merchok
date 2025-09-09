@@ -57,5 +57,6 @@
   "orderAmount": "Order amount",
   "orderCreationPeriod": "Order creation period",
   "selectPeriod": "Select a period",
-  "apply": "Apply"
+  "apply": "Apply",
+  "icon": "Icon"
 }

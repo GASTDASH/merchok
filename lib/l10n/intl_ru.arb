@@ -57,5 +57,6 @@
   "orderAmount": "Сумма заказа",
   "orderCreationPeriod": "Период создания заказа",
   "selectPeriod": "Выбрать период",
-  "apply": "Применить"
+  "apply": "Применить",
+  "icon": "Иконка"
 }

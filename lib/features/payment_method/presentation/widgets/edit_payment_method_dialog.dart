@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class EditPaymentMethodDialog extends StatelessWidget {
+class EditPaymentMethodDialog extends StatefulWidget {
   const EditPaymentMethodDialog({super.key});
+
+  @override
+  State<EditPaymentMethodDialog> createState() =>
+      _EditPaymentMethodDialogState();
+}
+
+class _EditPaymentMethodDialogState extends State<EditPaymentMethodDialog> {
+  String? selectedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +34,50 @@ class EditPaymentMethodDialog extends StatelessWidget {
               TextFormField(
                 validator: (value) =>
                     value!.isEmpty ? S.of(context).enterTitle : null,
+              ),
+              SizedBox(height: 24),
+              Row(
+                spacing: 12,
+                children: [
+                  Text(
+                    '${S.of(context).icon}:',
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  SizedBox(
+                    width: 64,
+                    child: DropdownButtonFormField(
+                      initialValue: selectedIcon,
+                      items: [
+                        DropdownMenuItem(value: null, child: SizedBox.shrink()),
+                        DropdownMenuItem(
+                          value: IconNames.money,
+                          child: SvgPicture.asset(IconNames.money),
+                        ),
+                        DropdownMenuItem(
+                          value: IconNames.alfabank,
+                          child: SvgPicture.asset(IconNames.alfabank),
+                        ),
+                        DropdownMenuItem(
+                          value: IconNames.sberbank,
+                          child: SvgPicture.asset(IconNames.sberbank),
+                        ),
+                        DropdownMenuItem(
+                          value: IconNames.tbank,
+                          child: SvgPicture.asset(IconNames.tbank),
+                        ),
+                        DropdownMenuItem(
+                          value: IconNames.vtb,
+                          child: SvgPicture.asset(IconNames.vtb),
+                        ),
+                        DropdownMenuItem(
+                          value: IconNames.yoomoney,
+                          child: SvgPicture.asset(IconNames.yoomoney),
+                        ),
+                      ],
+                      onChanged: (value) {},
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 24),
               Text(
