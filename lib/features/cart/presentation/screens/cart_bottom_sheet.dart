@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/cart/presentation/widgets/order_created_dialog.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -57,7 +58,7 @@ class CartBottomSheet extends StatelessWidget {
                       SliverToBoxAdapter(child: SizedBox(height: 12)),
                       SliverToBoxAdapter(
                         child: Text(
-                          'Способ оплаты:',
+                          '${S.of(context).paymentMethod}:',
                           style: theme.textTheme.bodyLarge,
                         ),
                       ),
@@ -106,13 +107,18 @@ class CartBottomSheet extends StatelessWidget {
                       SliverToBoxAdapter(
                         child: BaseButton(
                           onTap: () {
-                            context.push('/checkout');
+                            context.pop();
+                            showDialog(
+                              context: context,
+                              builder: (context) => OrderCreatedDialog(),
+                            );
                           },
                           padding: EdgeInsetsGeometry.all(12),
                           child: Text(
                             S.of(context).checkout,
                             style: theme.textTheme.titleLarge?.copyWith(
                               color: Colors.white,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),

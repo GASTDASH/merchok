@@ -43,5 +43,9 @@
   "whatToExport": "Что экспортировать?",
   "allAtOnce": "Всё сразу",
   "merch": "Мерч",
-  "orderHistory": "История заказов"
+  "orderHistory": "История заказов",
+  "paymentMethod": "Способ оплаты",
+  "orderSuccessfullyCreated": "Заказ успешно создан!",
+  "goToOrders": "Перейти к заказам",
+  "back": "Назад"
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:merchok/features/checkout/checkout.dart';
 import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
@@ -63,7 +62,6 @@ final router = GoRouter(
             ),
       ),
     ),
-    GoRoute(path: '/checkout', builder: (context, state) => CheckoutScreen()),
     GoRoute(path: '/theme', builder: (context, state) => ThemeScreen()),
     GoRoute(path: '/language', builder: (context, state) => LanguageScreen()),
     GoRoute(path: '/export', builder: (context, state) => ExportScreen()),

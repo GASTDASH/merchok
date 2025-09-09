@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
+    "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
@@ -52,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "Общая статистика продаж",
     ),
+    "goToOrders": MessageLookupByLibrary.simpleMessage("Перейти к заказам"),
     "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
       "История фестивалей",
     ),
@@ -67,6 +69,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "(пока недоступно)",
     ),
     "orderHistory": MessageLookupByLibrary.simpleMessage("История заказов"),
+    "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
+      "Заказ успешно создан!",
+    ),
+    "paymentMethod": MessageLookupByLibrary.simpleMessage("Способ оплаты"),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Способы оплаты"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Настроить способы оплаты для ваших покупателей",

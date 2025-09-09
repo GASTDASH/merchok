@@ -43,5 +43,9 @@
   "whatToExport": "What to export?",
   "allAtOnce": "All at once",
   "merch": "Merch",
-  "orderHistory": "Order history"
+  "orderHistory": "Order history",
+  "paymentMethod": "Payment method",
+  "orderSuccessfullyCreated": "Order successfully created!",
+  "goToOrders": "Go to Orders",
+  "back": "Back"
 }

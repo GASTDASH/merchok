@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
+    "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "creationDate": MessageLookupByLibrary.simpleMessage(
@@ -50,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "General sales statistics",
     ),
+    "goToOrders": MessageLookupByLibrary.simpleMessage("Go to Orders"),
     "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
       "History of festivals",
     ),
@@ -65,6 +67,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "(not available yet)",
     ),
     "orderHistory": MessageLookupByLibrary.simpleMessage("Order history"),
+    "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
+      "Order successfully created!",
+    ),
+    "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment methods"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Set up payment methods for your customers",

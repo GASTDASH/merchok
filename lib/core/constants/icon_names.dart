@@ -33,6 +33,7 @@ abstract class IconNames {
   static const shoppingCart = 'assets/icons/Shopping_Cart_02.svg';
   static const slider = 'assets/icons/Slider_03.svg';
   static const star = 'assets/icons/Star.svg';
+  static const success = 'assets/icons/Success.svg';
   static const sun = 'assets/icons/Sun.svg';
   static const tag = 'assets/icons/Tag.svg';
   static const theme = 'assets/icons/Theme.svg';

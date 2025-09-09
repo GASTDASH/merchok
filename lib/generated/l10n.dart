@@ -383,6 +383,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Payment method`
+  String get paymentMethod {
+    return Intl.message(
+      'Payment method',
+      name: 'paymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order successfully created!`
+  String get orderSuccessfullyCreated {
+    return Intl.message(
+      'Order successfully created!',
+      name: 'orderSuccessfullyCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Orders`
+  String get goToOrders {
+    return Intl.message('Go to Orders', name: 'goToOrders', desc: '', args: []);
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message('Back', name: 'back', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
