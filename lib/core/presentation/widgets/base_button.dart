@@ -40,7 +40,17 @@ class BaseButton extends StatelessWidget {
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [child],
+                  children: [
+                    DefaultTextStyle(
+                      style:
+                          theme.textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ) ??
+                          TextStyle(),
+                      child: child,
+                    ),
+                  ],
                 ),
               ),
             ),

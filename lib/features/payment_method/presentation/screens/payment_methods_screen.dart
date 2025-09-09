@@ -88,13 +88,7 @@ class EditPaymentMethodDialog extends StatelessWidget {
                 onTap: () {
                   context.pop();
                 },
-                child: Text(
-                  'Сохранить',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child: Text('Сохранить'),
               ),
             ],
           ),

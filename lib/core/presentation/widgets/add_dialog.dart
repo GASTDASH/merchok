@@ -28,13 +28,7 @@ class AddDialog extends StatelessWidget {
                   onTap: () {
                     context.pop();
                   },
-                  child: Text(
-                    S.of(context).add,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: Text(S.of(context).add),
                 ),
               ),
             ),

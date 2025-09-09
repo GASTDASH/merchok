@@ -26,13 +26,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
                 onTap: () {
                   context.pop();
                 },
-                child: Text(
-                  S.of(context).save,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child: Text(S.of(context).save),
               ),
             ),
           ),
@@ -124,10 +118,7 @@ class ChangePriceBottomSheet extends StatelessWidget {
       constraints: BoxConstraints(minWidth: 38),
       padding: EdgeInsetsGeometry.all(4),
       color: color,
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-      ),
+      child: Text(text),
     );
   }
 }
