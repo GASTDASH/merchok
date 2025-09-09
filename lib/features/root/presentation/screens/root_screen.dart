@@ -74,10 +74,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   Future<dynamic> showCartBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      useRootNavigator: true,
+    return showBaseDraggableBottomSheet(
       context: context,
       builder: (context) => CartBottomSheet(),
     );

@@ -56,12 +56,8 @@ class CategoriesBottomSheet extends StatelessWidget {
   }
 }
 
-Future<dynamic> showCategoriesBottomSheet(BuildContext context) {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    useRootNavigator: true,
-    backgroundColor: Colors.transparent,
-    context: context,
-    builder: (context) => CategoriesBottomSheet(),
-  );
-}
+Future<dynamic> showCategoriesBottomSheet(BuildContext context) =>
+    showBaseDraggableBottomSheet(
+      context: context,
+      builder: (context) => CategoriesBottomSheet(),
+    );

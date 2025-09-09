@@ -60,3 +60,14 @@ class _BaseDraggableScrollableSheetState
     );
   }
 }
+
+Future<T?> showBaseDraggableBottomSheet<T>({
+  required BuildContext context,
+  required WidgetBuilder builder,
+}) => showModalBottomSheet(
+  isScrollControlled: true,
+  useRootNavigator: true,
+  backgroundColor: Colors.transparent,
+  context: context,
+  builder: builder,
+);
