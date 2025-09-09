@@ -37,6 +37,7 @@ class OrderCreatedDialog extends StatelessWidget {
                       onTap: () {
                         context.pop();
                       },
+                      color: theme.colorScheme.onSurface,
                       child: Expanded(
                         child: Center(
                           child: Text(
