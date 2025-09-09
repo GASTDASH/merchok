@@ -59,7 +59,7 @@ class ExportScreen extends StatelessWidget {
                       child: ExportCard(
                         onTap: () {},
                         text: S.of(context).paymentMethods,
-                        icon: IconNames.paymentMethod,
+                        icon: IconNames.money,
                       ),
                     ),
                     Expanded(

@@ -20,6 +20,7 @@ abstract class IconNames {
   static const info = 'assets/icons/Info.svg';
   static const language = 'assets/icons/Language.svg';
   static const like = 'assets/icons/Like.svg';
+  static const money = 'assets/icons/Money.svg';
   static const moon = 'assets/icons/Moon.svg';
   static const payment = 'assets/icons/Payment.svg';
   static const paymentMethod = 'assets/icons/Payment1.svg';
