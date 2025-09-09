@@ -453,6 +453,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Filter`
+  String get filter {
+    return Intl.message('Filter', name: 'filter', desc: '', args: []);
+  }
+
+  /// `Order amount`
+  String get orderAmount {
+    return Intl.message(
+      'Order amount',
+      name: 'orderAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order creation period`
+  String get orderCreationPeriod {
+    return Intl.message(
+      'Order creation period',
+      name: 'orderCreationPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a period`
+  String get selectPeriod {
+    return Intl.message(
+      'Select a period',
+      name: 'selectPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message('Apply', name: 'apply', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

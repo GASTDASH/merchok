@@ -52,5 +52,10 @@
   "information": "Information",
   "additionalInformation": "Additional information",
   "enterTitle": "Enter the title",
-  "enterInformation": "Enter the information"
+  "enterInformation": "Enter the information",
+  "filter": "Filter",
+  "orderAmount": "Order amount",
+  "orderCreationPeriod": "Order creation period",
+  "selectPeriod": "Select a period",
+  "apply": "Apply"
 }

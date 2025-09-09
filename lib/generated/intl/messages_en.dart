@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
+    "apply": MessageLookupByLibrary.simpleMessage("Apply"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Export data to transfer to another device",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
+    "filter": MessageLookupByLibrary.simpleMessage("Filter"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
@@ -74,6 +76,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "orderAmount": MessageLookupByLibrary.simpleMessage("Order amount"),
+    "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(
+      "Order creation period",
+    ),
     "orderHistory": MessageLookupByLibrary.simpleMessage("Order history"),
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Order successfully created!",
@@ -91,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "selectPeriod": MessageLookupByLibrary.simpleMessage("Select a period"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Change app theme",

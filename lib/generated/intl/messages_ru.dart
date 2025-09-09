@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
+    "apply": MessageLookupByLibrary.simpleMessage("Применить"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
@@ -55,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Экспортировать данные для переноса на другое устройство",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
+    "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
@@ -76,6 +78,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "orderAmount": MessageLookupByLibrary.simpleMessage("Сумма заказа"),
+    "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(
+      "Период создания заказа",
+    ),
     "orderHistory": MessageLookupByLibrary.simpleMessage("История заказов"),
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Заказ успешно создан!",
@@ -93,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
+    "selectPeriod": MessageLookupByLibrary.simpleMessage("Выбрать период"),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение темы приложения",

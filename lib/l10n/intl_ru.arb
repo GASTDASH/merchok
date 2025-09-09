@@ -52,5 +52,10 @@
   "information": "Информация",
   "additionalInformation": "Доп. информация",
   "enterTitle": "Введите название",
-  "enterInformation": "Введите информацию"
+  "enterInformation": "Введите информацию",
+  "filter": "Фильтр",
+  "orderAmount": "Сумма заказа",
+  "orderCreationPeriod": "Период создания заказа",
+  "selectPeriod": "Выбрать период",
+  "apply": "Применить"
 }
