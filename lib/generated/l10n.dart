@@ -413,6 +413,46 @@ class S {
   String get back {
     return Intl.message('Back', name: 'back', desc: '', args: []);
   }
+
+  /// `Title`
+  String get title {
+    return Intl.message('Title', name: 'title', desc: '', args: []);
+  }
+
+  /// `Information`
+  String get information {
+    return Intl.message('Information', name: 'information', desc: '', args: []);
+  }
+
+  /// `Additional information`
+  String get additionalInformation {
+    return Intl.message(
+      'Additional information',
+      name: 'additionalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the title`
+  String get enterTitle {
+    return Intl.message(
+      'Enter the title',
+      name: 'enterTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the information`
+  String get enterInformation {
+    return Intl.message(
+      'Enter the information',
+      name: 'enterInformation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

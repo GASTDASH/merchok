@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Информация о приложении",
     ),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
+    "additionalInformation": MessageLookupByLibrary.simpleMessage(
+      "Доп. информация",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
@@ -43,7 +46,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
+    "enterInformation": MessageLookupByLibrary.simpleMessage(
+      "Введите информацию",
+    ),
     "enterName": MessageLookupByLibrary.simpleMessage("Введите имя"),
+    "enterTitle": MessageLookupByLibrary.simpleMessage("Введите название"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Экспортировать данные для переноса на другое устройство",
     ),
@@ -58,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "История фестивалей",
     ),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
+    "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение региональных настроек",
@@ -89,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение темы приложения",
     ),
+    "title": MessageLookupByLibrary.simpleMessage("Название"),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),

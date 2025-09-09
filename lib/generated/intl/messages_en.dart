@@ -25,6 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "aboutDescription": MessageLookupByLibrary.simpleMessage("App information"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "additionalInformation": MessageLookupByLibrary.simpleMessage(
+      "Additional information",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
@@ -41,7 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "enterInformation": MessageLookupByLibrary.simpleMessage(
+      "Enter the information",
+    ),
     "enterName": MessageLookupByLibrary.simpleMessage("Enter name"),
+    "enterTitle": MessageLookupByLibrary.simpleMessage("Enter the title"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Export data to transfer to another device",
     ),
@@ -56,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "History of festivals",
     ),
     "import": MessageLookupByLibrary.simpleMessage("Import"),
+    "information": MessageLookupByLibrary.simpleMessage("Information"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Change regional settings",
@@ -87,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Change app theme",
     ),
+    "title": MessageLookupByLibrary.simpleMessage("Title"),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),

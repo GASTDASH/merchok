@@ -47,5 +47,10 @@
   "paymentMethod": "Способ оплаты",
   "orderSuccessfullyCreated": "Заказ успешно создан!",
   "goToOrders": "Перейти к заказам",
-  "back": "Назад"
+  "back": "Назад",
+  "title": "Название",
+  "information": "Информация",
+  "additionalInformation": "Доп. информация",
+  "enterTitle": "Введите название",
+  "enterInformation": "Введите информацию"
 }
