@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
-import 'package:merchok/theme/theme.dart';
 
 class StatCard extends StatelessWidget {
   const StatCard({
@@ -17,6 +16,8 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BaseContainer(
       onTap: onTap,
       height: 400,
