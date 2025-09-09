@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:merchok/features/language/presentation/cubit/language_cubit.dart';
+import 'package:get_it/get_it.dart';
+import 'package:merchok/features/language/language.dart';
+import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:merchok/routing/router.dart';
 import 'package:merchok/theme/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+
+  final settingsRepository = SettingsRepositoryImpl(prefs: prefs);
+  GetIt.I.registerSingleton<SettingsRepository>(settingsRepository);
+
   runApp(const MainApp());
 }
 
@@ -22,7 +32,10 @@ class MainApp extends StatelessWidget {
           create: (context) => LanguageCubit(initialLanguageCode: 'en'),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit(themeStyle: ThemeStyle.light),
+          create: (context) => ThemeCubit(
+            initialThemeStyle: ThemeStyle.light,
+            settingsRepository: GetIt.I<SettingsRepository>(),
+          ),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
