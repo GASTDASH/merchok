@@ -39,7 +39,7 @@ class BaseButton extends StatelessWidget {
         color: _outlined ? Colors.transparent : null,
         borderRadius: borderRadius,
         child: InkWell(
-          splashColor: Colors.white.withValues(alpha: 0.3),
+          splashColor: _outlined ? null : Colors.white.withValues(alpha: 0.3),
           onTap: onTap,
           borderRadius: borderRadius,
           child: Ink(
