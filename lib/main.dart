@@ -29,7 +29,8 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LanguageCubit(initialLanguageCode: 'en'),
+          create: (context) =>
+              LanguageCubit(settingsRepository: GetIt.I<SettingsRepository>()),
         ),
         BlocProvider(
           create: (context) => ThemeCubit(
@@ -41,14 +42,16 @@ class MainApp extends StatelessWidget {
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
         selector: (state) => state.themeStyle,
         builder: (context, themeStyle) {
-          return BlocSelector<LanguageCubit, LanguageState, String>(
+          return BlocSelector<LanguageCubit, LanguageState, String?>(
             selector: (state) => state.languageCode,
             builder: (context, languageCode) {
               return MaterialApp.router(
                 title: 'MerchOK',
                 routerConfig: router,
                 theme: themes[themeStyle],
-                locale: Locale.fromSubtags(languageCode: languageCode),
+                locale: languageCode != null
+                    ? Locale.fromSubtags(languageCode: languageCode)
+                    : null,
                 localizationsDelegates: [
                   S.delegate,
                   GlobalMaterialLocalizations.delegate,

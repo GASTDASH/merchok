@@ -1,6 +1,11 @@
 import 'package:merchok/theme/theme.dart';
 
 abstract interface class SettingsRepository {
-  ThemeStyle get getCurrentThemeStyle;
+  // Theme
+  ThemeStyle get currentThemeStyle;
   Future<void> setThemeStyle(ThemeStyle themeStyle);
+
+  // Language
+  String? get currentLanguageCode;
+  Future<void> setLanguageCode(String? languageCode);
 }

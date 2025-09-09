@@ -22,5 +22,5 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   void _getSavedThemeStyle() =>
-      emit(ThemeState(_settingsRepository.getCurrentThemeStyle));
+      emit(ThemeState(_settingsRepository.currentThemeStyle));
 }
