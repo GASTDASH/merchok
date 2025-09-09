@@ -24,6 +24,7 @@ class AddButton extends StatelessWidget {
         options: RoundedRectDottedBorderOptions(
           radius: Radius.circular(16),
           dashPattern: [4, 4],
+          color: theme.colorScheme.onSurface,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
