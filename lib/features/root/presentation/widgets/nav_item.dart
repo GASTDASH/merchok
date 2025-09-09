@@ -17,7 +17,7 @@ class NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GestureDetector(
+    return InkResponse(
       onTap: onTap,
       child: TweenAnimationBuilder<Color?>(
         duration: const Duration(milliseconds: 200),
