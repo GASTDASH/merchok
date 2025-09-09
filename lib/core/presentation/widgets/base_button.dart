@@ -9,7 +9,17 @@ class BaseButton extends StatelessWidget {
     this.onTap,
     this.color,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
-  });
+  }) : _outlined = false;
+
+  const BaseButton.outlined({
+    super.key,
+    required this.child,
+    this.constraints = const BoxConstraints(),
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    this.onTap,
+    this.color,
+    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+  }) : _outlined = true;
 
   final Widget child;
   final BoxConstraints constraints;
@@ -17,6 +27,7 @@ class BaseButton extends StatelessWidget {
   final VoidCallback? onTap;
   final Color? color;
   final BorderRadius borderRadius;
+  final bool _outlined;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +36,7 @@ class BaseButton extends StatelessWidget {
     return ConstrainedBox(
       constraints: constraints,
       child: Material(
+        color: _outlined ? Colors.transparent : null,
         borderRadius: borderRadius,
         child: InkWell(
           splashColor: Colors.white.withValues(alpha: 0.3),
@@ -32,8 +44,13 @@ class BaseButton extends StatelessWidget {
           borderRadius: borderRadius,
           child: Ink(
             decoration: BoxDecoration(
-              color: color ?? theme.primaryColor,
+              color: _outlined
+                  ? Colors.transparent
+                  : color ?? theme.primaryColor,
               borderRadius: borderRadius,
+              border: _outlined
+                  ? Border.all(color: color ?? theme.primaryColor)
+                  : null,
             ),
             child: Padding(
               padding: padding,
@@ -44,7 +61,9 @@ class BaseButton extends StatelessWidget {
                     DefaultTextStyle(
                       style:
                           theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white,
+                            color: _outlined
+                                ? theme.colorScheme.onSurface
+                                : Colors.white,
                             fontWeight: FontWeight.w500,
                           ) ??
                           TextStyle(),
