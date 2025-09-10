@@ -159,11 +159,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              S.of(context).noMerch,
-                              style: theme.textTheme.headlineMedium,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 32),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                S.of(context).noMerch,
+                                style: theme.textTheme.headlineMedium,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
