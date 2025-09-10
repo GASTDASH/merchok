@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/category/categories.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<MerchBloc>().add(MerchLoad());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,36 +96,105 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverList.builder(
-              itemCount: 1,
-              itemBuilder: (context, index) => MerchCard(count: 0),
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 20,
-                runSpacing: 20,
-                children: [
-                  AddButton(text: S.of(context).add, icon: IconNames.add),
-                  AddButton(
-                    onTap: () {
-                      showImportBottomSheet(context);
-                    },
-                    text: S.of(context).import,
-                    icon: IconNames.import,
+          BlocBuilder<MerchBloc, MerchState>(
+            builder: (context, state) {
+              if (state is MerchLoading) {
+                return SliverFillRemaining(
+                  child: SpinKitSpinningLines(
+                    color: theme.colorScheme.onSurface,
                   ),
-                ],
-              ),
-            ),
+                );
+              } else if (state is MerchLoaded) {
+                if (state.merchList.isNotEmpty) {
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    sliver: SliverMainAxisGroup(
+                      slivers: [
+                        SliverList.builder(
+                          itemCount: state.merchList.length,
+                          itemBuilder: (context, index) => MerchCard(
+                            merch: state.merchList[index],
+                            count: 0,
+                          ),
+                        ),
+                        SliverPadding(
+                          padding: const EdgeInsets.only(top: 12, bottom: 128),
+                          sliver: SliverToBoxAdapter(
+                            child: addButtons(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'У вас пока нет мерча',
+                              style: theme.textTheme.headlineMedium,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        addButtons(context),
+                        SizedBox(height: 128),
+                      ],
+                    ),
+                  );
+                }
+              } else if (state is MerchError) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(
+                      'Что-то пошло не так',
+                      style: theme.textTheme.headlineMedium,
+                    ),
+                  ),
+                );
+              } else if (state is MerchInitial) {
+                return SliverFillRemaining();
+              } else {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(
+                      'Unexpected state',
+                      style: theme.textTheme.headlineMedium,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
+    );
+  }
+
+  Widget addButtons(BuildContext context) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 20,
+      runSpacing: 20,
+      children: [
+        AddButton(
+          onTap: () {
+            context.read<MerchBloc>().add(MerchAdd());
+          },
+          text: S.of(context).add,
+          icon: IconNames.add,
+        ),
+        AddButton(
+          onTap: () {
+            showImportBottomSheet(context);
+          },
+          text: S.of(context).import,
+          icon: IconNames.import,
+        ),
+      ],
     );
   }
 

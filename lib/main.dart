@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/features/language/language.dart';
+import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -17,6 +18,9 @@ Future<void> main() async {
 
   final settingsRepository = SettingsRepositoryImpl(prefs: prefs);
   GetIt.I.registerSingleton<SettingsRepository>(settingsRepository);
+
+  final merchRepository = MerchRepositoryImpl();
+  GetIt.I.registerSingleton<MerchRepository>(merchRepository);
 
   runApp(const MainApp());
 }
@@ -37,6 +41,10 @@ class MainApp extends StatelessWidget {
             initialThemeStyle: ThemeStyle.light,
             settingsRepository: GetIt.I<SettingsRepository>(),
           ),
+        ),
+        BlocProvider(
+          create: (context) =>
+              MerchBloc(merchRepository: GetIt.I<MerchRepository>()),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(

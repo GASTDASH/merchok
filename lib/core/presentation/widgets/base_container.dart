@@ -10,6 +10,7 @@ class BaseContainer extends StatelessWidget {
     this.padding,
     this.elevation = 12,
     this.onTap,
+    this.onLongPress,
   });
 
   final Widget? child;
@@ -19,6 +20,7 @@ class BaseContainer extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double elevation;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class BaseContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         child: InkWell(
           onTap: onTap,
+          onLongPress: onLongPress,
           borderRadius: BorderRadius.circular(24),
           child: Ink(
             height: height,

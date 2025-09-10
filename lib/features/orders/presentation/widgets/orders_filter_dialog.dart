@@ -25,6 +25,8 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
     super.initState();
 
     amountRange = RangeValues(0, maxAmount / 2);
+    startController.text = amountRange.start.truncate().toString();
+    endController.text = amountRange.end.truncate().toString();
   }
 
   @override
@@ -59,8 +61,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MinMaxTextField(
-                  controller: startController
-                    ..text = amountRange.start.truncate().toString(),
+                  controller: startController,
                   onChanged: (value) {
                     double? newStart = double.tryParse(value);
                     if (newStart == null || newStart >= amountRange.end) {
@@ -73,8 +74,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                 ),
                 Text('₽', style: theme.textTheme.titleLarge),
                 MinMaxTextField(
-                  controller: endController
-                    ..text = amountRange.end.truncate().toString(),
+                  controller: endController,
                   onChanged: (value) {
                     double? newEnd = double.tryParse(value);
                     if (newEnd == null || newEnd <= amountRange.start) {

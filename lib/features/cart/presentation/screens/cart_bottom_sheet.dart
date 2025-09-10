@@ -126,8 +126,11 @@ class CartBottomSheet extends StatelessWidget {
                       SliverToBoxAdapter(child: SizedBox(height: 24)),
                       SliverList.builder(
                         itemCount: 3,
-                        itemBuilder: (context, index) =>
-                            MerchCard(showDelete: true),
+                        itemBuilder: (context, index) => MerchCard(
+                          merch: Merch(id: '0', name: 'Test cart', price: 300),
+                          count: 2,
+                          editable: false,
+                        ),
                       ),
                     ],
                   ),
