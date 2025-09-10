@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/settings/settings.dart';
@@ -21,6 +22,9 @@ Future<void> main() async {
 
   final merchRepository = MerchRepositoryImpl();
   GetIt.I.registerSingleton<MerchRepository>(merchRepository);
+
+  final cartRepository = CartRepositoryImpl();
+  GetIt.I.registerSingleton<CartRepository>(cartRepository);
 
   runApp(const MainApp());
 }
@@ -45,6 +49,10 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               MerchBloc(merchRepository: GetIt.I<MerchRepository>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CartBloc(cartRepository: GetIt.I.call<CartRepository>()),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(

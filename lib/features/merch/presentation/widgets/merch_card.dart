@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/categories.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -12,33 +12,23 @@ class MerchCard extends StatelessWidget {
     super.key,
     required this.merch,
     this.count = 0,
-    this.showDelete = false,
     this.editable = true,
+    this.onLongPress,
+    this.onTapDelete,
   });
 
   final Merch merch;
   final int count;
-  final bool showDelete;
   final bool editable;
+  final VoidCallback? onLongPress;
+  final VoidCallback? onTapDelete;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return BaseContainer(
-      onLongPress: () {
-        showDialog(
-          context: context,
-          builder: (context) => DeleteDialog(
-            message: 'Вы хотите удалить этот мерч?',
-            onYes: () {
-              context.pop();
-              context.read<MerchBloc>().add(MerchDelete(merchId: merch.id));
-            },
-            onNo: () => context.pop(),
-          ),
-        );
-      },
+      onLongPress: onLongPress,
       margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
       child: Column(
@@ -77,9 +67,9 @@ class MerchCard extends StatelessWidget {
                   ],
                 ),
               ),
-              showDelete
+              onTapDelete != null
                   ? GestureDetector(
-                      onTap: () {},
+                      onTap: onTapDelete,
                       child: SvgPicture.asset(
                         IconNames.delete,
                         colorFilter: ColorFilter.mode(
@@ -195,7 +185,9 @@ class MerchCard extends StatelessWidget {
               ),
               count == 0
                   ? BaseButton(
-                      onTap: () {},
+                      onTap: () => context.read<CartBloc>().add(
+                        CartAdd(merchId: merch.id),
+                      ),
                       padding: EdgeInsets.all(12),
                       child: SvgPicture.asset(IconNames.shoppingCart),
                     )
@@ -204,7 +196,9 @@ class MerchCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         BaseButton(
-                          onTap: () {},
+                          onTap: () => context.read<CartBloc>().add(
+                            CartMinus(merchId: merch.id),
+                          ),
                           constraints: BoxConstraints(
                             minWidth: 48,
                             minHeight: 48,
@@ -213,9 +207,18 @@ class MerchCard extends StatelessWidget {
                           color: theme.disabledColor,
                           child: SvgPicture.asset(IconNames.remove),
                         ),
-                        Text('$count', style: theme.textTheme.headlineSmall),
+                        ConstrainedBox(
+                          constraints: BoxConstraints(minWidth: 50),
+                          child: Text(
+                            '$count',
+                            style: theme.textTheme.headlineSmall,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                         BaseButton(
-                          onTap: () {},
+                          onTap: () => context.read<CartBloc>().add(
+                            CartPlus(merchId: merch.id),
+                          ),
                           constraints: BoxConstraints(
                             minWidth: 48,
                             minHeight: 48,
@@ -271,59 +274,4 @@ class MerchCard extends StatelessWidget {
       previousPurchasePrice: merch.purchasePrice,
     ),
   );
-}
-
-class DeleteDialog extends StatelessWidget {
-  const DeleteDialog({
-    super.key,
-    required this.message,
-    required this.onYes,
-    required this.onNo,
-  });
-
-  final String message;
-  final VoidCallback onYes;
-  final VoidCallback onNo;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Dialog(
-      child: Padding(
-        padding: EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 16,
-          children: [
-            Center(
-              child: Text(
-                message,
-                style: theme.textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 48,
-              child: Row(
-                spacing: 12,
-                children: [
-                  Expanded(
-                    child: BaseButton(onTap: onYes, child: Text('Да')),
-                  ),
-                  Expanded(
-                    child: BaseButton.outlined(
-                      onTap: onNo,
-                      color: theme.colorScheme.onSurface,
-                      child: Text('Нет'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

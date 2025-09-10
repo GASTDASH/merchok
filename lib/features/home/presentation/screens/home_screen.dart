@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/categories.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
@@ -98,6 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(child: SizedBox(height: 12)),
           BlocBuilder<MerchBloc, MerchState>(
             builder: (context, state) {
+              final cartState = context.watch<CartBloc>().state;
+
               if (state is MerchLoading) {
                 return SliverFillRemaining(
                   child: SpinKitSpinningLines(
@@ -110,12 +114,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverMainAxisGroup(
                       slivers: [
-                        SliverList.builder(
-                          itemCount: state.merchList.length,
-                          itemBuilder: (context, index) => MerchCard(
-                            merch: state.merchList[index],
-                            count: 0,
-                          ),
+                        Builder(
+                          builder: (context) {
+                            Map<String, int> cartItemQuantities = {};
+
+                            return SliverList.builder(
+                              itemCount: state.merchList.length,
+                              itemBuilder: (context, index) {
+                                final merchId = state.merchList[index].id;
+                                if (cartState is CartLoaded &&
+                                    cartState.cartItems.isNotEmpty) {
+                                  cartItemQuantities = Map.fromEntries(
+                                    cartState.cartItems.map(
+                                      (cartItem) => MapEntry(
+                                        cartItem.merchId,
+                                        cartItem.quantity,
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                return MerchCard(
+                                  onLongPress: () =>
+                                      showDeleteMerchDialog(context, merchId),
+                                  merch: state.merchList[index],
+                                  count: cartItemQuantities[merchId] ?? 0,
+                                );
+                              },
+                            );
+                          },
                         ),
                         SliverPadding(
                           padding: const EdgeInsets.only(top: 12, bottom: 128),
@@ -176,6 +203,20 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Future<dynamic> showDeleteMerchDialog(BuildContext context, String merchId) {
+    return showDialog(
+      context: context,
+      builder: (context) => DeleteDialog(
+        message: 'Вы хотите удалить этот мерч?',
+        onYes: () {
+          context.pop();
+          context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
+        },
+        onNo: () => context.pop(),
       ),
     );
   }
