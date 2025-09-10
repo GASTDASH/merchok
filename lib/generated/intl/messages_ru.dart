@@ -45,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Тёмная"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
+    "deleteThisMerch": MessageLookupByLibrary.simpleMessage(
+      "Удалить этот мерч?",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "enterInformation": MessageLookupByLibrary.simpleMessage(

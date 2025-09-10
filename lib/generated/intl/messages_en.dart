@@ -43,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
+    "deleteThisMerch": MessageLookupByLibrary.simpleMessage(
+      "Delete this merch?",
+    ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "enterInformation": MessageLookupByLibrary.simpleMessage(

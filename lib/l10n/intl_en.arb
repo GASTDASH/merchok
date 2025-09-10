@@ -64,5 +64,6 @@
   "noMerch": "You don't have any merch yet",
   "somethingWentWrong": "Something went wrong",
   "unexpectedState": "Unexpected state",
-  "merchListNotLoaded": "Merch list not loaded"
+  "merchListNotLoaded": "Merch list not loaded",
+  "deleteThisMerch": "Delete this merch?"
 }

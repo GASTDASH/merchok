@@ -64,5 +64,6 @@
   "noMerch": "У вас пока нет мерча",
   "somethingWentWrong": "Что-то пошло не так",
   "unexpectedState": "Неожиданное состояние",
-  "merchListNotLoaded": "Список мерча не загружен"
+  "merchListNotLoaded": "Список мерча не загружен",
+  "deleteThisMerch": "Удалить этот мерч?"
 }

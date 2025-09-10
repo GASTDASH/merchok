@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return showDialog(
       context: context,
       builder: (context) => DeleteDialog(
-        message: 'Вы хотите удалить этот мерч?',
+        message: S.of(context).deleteThisMerch,
         onYes: () {
           context.pop();
           context.read<MerchBloc>().add(MerchDelete(merchId: merchId));

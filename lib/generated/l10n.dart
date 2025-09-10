@@ -548,6 +548,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete this merch?`
+  String get deleteThisMerch {
+    return Intl.message(
+      'Delete this merch?',
+      name: 'deleteThisMerch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
