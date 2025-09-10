@@ -132,15 +132,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Center(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
                             child: Text(
                               'У вас пока нет мерча',
                               style: theme.textTheme.headlineMedium,
                             ),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        addButtons(context),
+                        SizedBox(height: 24),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: addButtons(context),
+                          ),
+                        ),
                         SizedBox(height: 128),
                       ],
                     ),
