@@ -7,7 +7,7 @@ class MerchRepositoryImpl implements MerchRepository {
   Future<List<Merch>> getMerches() async => merchList.values.toList();
 
   @override
-  Future<void> saveMerch(Merch merch) async =>
+  Future<void> editMerch(Merch merch) async =>
       merchList.addAll({merch.id: merch});
 
   @override

@@ -24,7 +24,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     on<MerchAdd>((event, emit) async {
       try {
         emit(MerchLoading(message: 'Создание нового мерча'));
-        await _merchRepository.saveMerch(
+        await _merchRepository.editMerch(
           Merch(id: Uuid().v4(), name: 'Без названия', price: 0),
         );
         add(MerchLoad());
@@ -35,7 +35,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     on<MerchEdit>((event, emit) async {
       try {
         emit(MerchLoading(message: 'Изменение информации о мерче'));
-        await _merchRepository.saveMerch(event.merch);
+        await _merchRepository.editMerch(event.merch);
         add(MerchLoad());
       } catch (e) {
         emit(MerchError(error: e));
