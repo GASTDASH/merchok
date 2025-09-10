@@ -15,10 +15,16 @@ final class MerchEdit extends MerchEvent {
   const MerchEdit({required this.merch});
 
   final Merch merch;
+
+  @override
+  List<Object> get props => super.props..addAll([merch]);
 }
 
 final class MerchDelete extends MerchEvent {
   const MerchDelete({required this.merchId});
 
   final String merchId;
+
+  @override
+  List<Object> get props => super.props..addAll([merchId]);
 }
