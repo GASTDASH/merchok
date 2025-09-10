@@ -138,7 +138,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                             if (merchState is! MerchLoaded) {
                               return SliverFillRemaining(
                                 child: Center(
-                                  child: Text('Список мерча не загружен'),
+                                  child: Text(S.of(context).merchListNotLoaded),
                                 ),
                               );
                             }
@@ -184,7 +184,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 return SliverFillRemaining(
                   child: Center(
                     child: Text(
-                      'Что-то пошло не так',
+                      S.of(context).somethingWentWrong,
                       style: theme.textTheme.headlineMedium,
                     ),
                   ),
@@ -193,7 +193,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 return SliverFillRemaining();
               } else {
                 return SliverFillRemaining(
-                  child: Center(child: Text('Unexpected state')),
+                  child: Center(child: Text(S.of(context).unexpectedState)),
                 );
               }
             },

@@ -58,5 +58,11 @@
   "orderCreationPeriod": "Период создания заказа",
   "selectPeriod": "Выбрать период",
   "apply": "Применить",
-  "icon": "Иконка"
+  "icon": "Иконка",
+  "yes": "Да",
+  "no": "Нет",
+  "noMerch": "У вас пока нет мерча",
+  "somethingWentWrong": "Что-то пошло не так",
+  "unexpectedState": "Неожиданное состояние",
+  "merchListNotLoaded": "Список мерча не загружен"
 }

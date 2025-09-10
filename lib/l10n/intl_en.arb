@@ -58,5 +58,11 @@
   "orderCreationPeriod": "Order creation period",
   "selectPeriod": "Select a period",
   "apply": "Apply",
-  "icon": "Icon"
+  "icon": "Icon",
+  "yes": "Yes",
+  "no": "No",
+  "noMerch": "You don't have any merch yet",
+  "somethingWentWrong": "Something went wrong",
+  "unexpectedState": "Unexpected state",
+  "merchListNotLoaded": "Merch list not loaded"
 }

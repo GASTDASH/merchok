@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class DeleteDialog extends StatelessWidget {
   const DeleteDialog({
@@ -37,13 +38,16 @@ class DeleteDialog extends StatelessWidget {
                 spacing: 12,
                 children: [
                   Expanded(
-                    child: BaseButton(onTap: onYes, child: Text('Да')),
+                    child: BaseButton(
+                      onTap: onYes,
+                      child: Text(S.of(context).yes),
+                    ),
                   ),
                   Expanded(
                     child: BaseButton.outlined(
                       onTap: onNo,
                       color: theme.colorScheme.onSurface,
-                      child: Text('Нет'),
+                      child: Text(S.of(context).no),
                     ),
                   ),
                 ],

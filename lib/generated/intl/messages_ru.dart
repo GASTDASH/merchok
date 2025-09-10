@@ -76,6 +76,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "light": MessageLookupByLibrary.simpleMessage("Светлая"),
     "merch": MessageLookupByLibrary.simpleMessage("Мерч"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
+    "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Список мерча не загружен",
+    ),
+    "no": MessageLookupByLibrary.simpleMessage("Нет"),
+    "noMerch": MessageLookupByLibrary.simpleMessage("У вас пока нет мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
@@ -101,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Выбрать период"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Что-то пошло не так",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение темы приложения",
@@ -108,9 +116,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Название"),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
+    "unexpectedState": MessageLookupByLibrary.simpleMessage(
+      "Неожиданное состояние",
+    ),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",
     ),
+    "yes": MessageLookupByLibrary.simpleMessage("Да"),
   };
 }

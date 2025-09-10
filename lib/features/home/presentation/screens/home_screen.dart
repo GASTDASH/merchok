@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              'У вас пока нет мерча',
+                              S.of(context).noMerch,
                               style: theme.textTheme.headlineMedium,
                             ),
                           ),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return SliverFillRemaining(
                   child: Center(
                     child: Text(
-                      'Что-то пошло не так',
+                      S.of(context).somethingWentWrong,
                       style: theme.textTheme.headlineMedium,
                     ),
                   ),
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return SliverFillRemaining(
                   child: Center(
                     child: Text(
-                      'Unexpected state',
+                      S.of(context).unexpectedState,
                       style: theme.textTheme.headlineMedium,
                     ),
                   ),

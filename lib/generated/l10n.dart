@@ -498,6 +498,56 @@ class S {
   String get icon {
     return Intl.message('Icon', name: 'icon', desc: '', args: []);
   }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message('Yes', name: 'yes', desc: '', args: []);
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message('No', name: 'no', desc: '', args: []);
+  }
+
+  /// `You don't have any merch yet`
+  String get noMerch {
+    return Intl.message(
+      'You don\'t have any merch yet',
+      name: 'noMerch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unexpected state`
+  String get unexpectedState {
+    return Intl.message(
+      'Unexpected state',
+      name: 'unexpectedState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Merch list not loaded`
+  String get merchListNotLoaded {
+    return Intl.message(
+      'Merch list not loaded',
+      name: 'merchListNotLoaded',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

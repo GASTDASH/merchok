@@ -74,6 +74,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "merch": MessageLookupByLibrary.simpleMessage("Merch"),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
+    "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Merch list not loaded",
+    ),
+    "no": MessageLookupByLibrary.simpleMessage("No"),
+    "noMerch": MessageLookupByLibrary.simpleMessage(
+      "You don\'t have any merch yet",
+    ),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
@@ -99,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Select a period"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Change app theme",
@@ -106,9 +116,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
+    "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",
     ),
+    "yes": MessageLookupByLibrary.simpleMessage("Yes"),
   };
 }
