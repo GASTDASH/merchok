@@ -66,7 +66,7 @@ class _EditDialogState extends State<EditDialog> {
   }
 }
 
-Future<String> showEditDialog({
+Future<String?> showEditDialog({
   required BuildContext context,
   required String previous,
   required String hintText,

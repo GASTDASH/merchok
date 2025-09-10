@@ -236,11 +236,12 @@ class MerchCard extends StatelessWidget {
   Future<void> editName(BuildContext context) async {
     final bloc = context.read<MerchBloc>();
 
-    String newName = await showEditDialog(
+    String? newName = await showEditDialog(
       context: context,
       previous: merch.name,
       hintText: S.of(context).enterName,
     );
+    if (newName == null) return;
     if (newName == '') newName = 'Без названия';
 
     bloc.add(MerchEdit(merch: merch.copyWith(name: newName)));
@@ -249,6 +250,7 @@ class MerchCard extends StatelessWidget {
   Future<void> editPrices(BuildContext context) async {
     final bloc = context.read<MerchBloc>();
     final newValues = await showChangePriceBottomSheet(context);
+    if (newValues == null) return;
 
     final double newPrice = newValues['price']!;
     final double? newPurchasePrice = newValues['purchasePrice'];
@@ -260,7 +262,7 @@ class MerchCard extends StatelessWidget {
     );
   }
 
-  Future<Map<String, double?>> showChangePriceBottomSheet(
+  Future<Map<String, double?>?> showChangePriceBottomSheet(
     BuildContext context,
   ) async => await showModalBottomSheet(
     useRootNavigator: true,
