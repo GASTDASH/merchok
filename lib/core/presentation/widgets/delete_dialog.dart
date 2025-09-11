@@ -59,3 +59,14 @@ class DeleteDialog extends StatelessWidget {
     );
   }
 }
+
+Future<dynamic> showDeleteDialog({
+  required BuildContext context,
+  required String message,
+  required VoidCallback onYes,
+  required VoidCallback onNo,
+}) async => await showDialog(
+  context: context,
+  builder: (context) =>
+      DeleteDialog(message: message, onYes: onYes, onNo: onNo),
+);

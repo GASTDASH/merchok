@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/settings/settings.dart';
@@ -25,6 +26,9 @@ Future<void> main() async {
 
   final cartRepository = CartRepositoryImpl();
   GetIt.I.registerSingleton<CartRepository>(cartRepository);
+
+  final festivalRepository = FestivalRepositoryImpl();
+  GetIt.I.registerSingleton<FestivalRepository>(festivalRepository);
 
   runApp(const MainApp());
 }
@@ -53,6 +57,10 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               CartBloc(cartRepository: GetIt.I.call<CartRepository>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              FestivalBloc(festivalRepository: GetIt.I<FestivalRepository>()),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(

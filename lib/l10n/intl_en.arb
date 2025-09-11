@@ -14,7 +14,7 @@
   "notAvailableYet": "(not available yet)",
   "recommended": "(recommended)",
   "festivals": "Festivals",
-  "creationDate": "Creation Date: dd.mm.yyyy",
+  "eventDate": "Event Date",
   "emptyCart": "Cart is empty",
   "total": "Total:",
   "checkout": "Checkout",

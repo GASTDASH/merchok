@@ -159,14 +159,9 @@ class S {
     return Intl.message('Festivals', name: 'festivals', desc: '', args: []);
   }
 
-  /// `Creation Date: dd.mm.yyyy`
-  String get creationDate {
-    return Intl.message(
-      'Creation Date: dd.mm.yyyy',
-      name: 'creationDate',
-      desc: '',
-      args: [],
-    );
+  /// `Event Date`
+  String get eventDate {
+    return Intl.message('Event Date', name: 'eventDate', desc: '', args: []);
   }
 
   /// `Cart is empty`

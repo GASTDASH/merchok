@@ -212,19 +212,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<dynamic> showDeleteMerchDialog(BuildContext context, String merchId) {
-    return showDialog(
-      context: context,
-      builder: (context) => DeleteDialog(
-        message: S.of(context).deleteThisMerch,
-        onYes: () {
-          context.pop();
-          context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
-        },
-        onNo: () => context.pop(),
-      ),
-    );
-  }
+  Future<dynamic> showDeleteMerchDialog(
+    BuildContext context,
+    String merchId,
+  ) async => await showDeleteDialog(
+    context: context,
+    message: S.of(context).deleteThisMerch,
+    onYes: () {
+      context.pop();
+      context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
+    },
+    onNo: () => context.pop(),
+  );
 
   Widget addButtons(BuildContext context) {
     return Wrap(

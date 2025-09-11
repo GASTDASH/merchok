@@ -35,9 +35,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
-    "creationDate": MessageLookupByLibrary.simpleMessage(
-      "Creation Date: dd.mm.yyyy",
-    ),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Customer preferences",
     ),
@@ -53,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enterName": MessageLookupByLibrary.simpleMessage("Enter name"),
     "enterTitle": MessageLookupByLibrary.simpleMessage("Enter the title"),
+    "eventDate": MessageLookupByLibrary.simpleMessage("Event Date"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Export data to transfer to another device",
     ),

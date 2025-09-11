@@ -37,9 +37,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
-    "creationDate": MessageLookupByLibrary.simpleMessage(
-      "Дата создания: дд.мм.гггг",
-    ),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Предпочтения покупателей",
     ),
@@ -55,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enterName": MessageLookupByLibrary.simpleMessage("Введите имя"),
     "enterTitle": MessageLookupByLibrary.simpleMessage("Введите название"),
+    "eventDate": MessageLookupByLibrary.simpleMessage("Дата проведения"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Экспортировать данные для переноса на другое устройство",
     ),

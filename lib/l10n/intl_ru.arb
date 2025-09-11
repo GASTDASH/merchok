@@ -14,7 +14,7 @@
   "notAvailableYet": "(пока недоступно)",
   "recommended": "(рекомендуется)",
   "festivals": "Фестивали",
-  "creationDate": "Дата создания: дд.мм.гггг",
+  "eventDate": "Дата проведения",
   "emptyCart": "Корзина пуста",
   "total": "Итого:",
   "checkout": "Оформить",
