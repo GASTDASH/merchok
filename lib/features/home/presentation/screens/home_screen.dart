@@ -114,31 +114,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverMainAxisGroup(
                       slivers: [
-                        Builder(
-                          builder: (context) {
-                            Map<String, int> cartItemQuantities = {};
-
+                        BlocSelector<CartBloc, CartState, Map<String, int>>(
+                          selector: (state) {
+                            if (cartState is CartLoaded &&
+                                cartState.cartItems.isNotEmpty) {
+                              return Map.fromEntries(
+                                cartState.cartItems.map(
+                                  (cartItem) => MapEntry(
+                                    cartItem.merchId,
+                                    cartItem.quantity,
+                                  ),
+                                ),
+                              );
+                            }
+                            return {};
+                          },
+                          builder: (context, cartItemQuantities) {
                             return SliverList.builder(
                               itemCount: state.merchList.length,
                               itemBuilder: (context, index) {
-                                final merchId = state.merchList[index].id;
-                                if (cartState is CartLoaded &&
-                                    cartState.cartItems.isNotEmpty) {
-                                  cartItemQuantities = Map.fromEntries(
-                                    cartState.cartItems.map(
-                                      (cartItem) => MapEntry(
-                                        cartItem.merchId,
-                                        cartItem.quantity,
-                                      ),
-                                    ),
-                                  );
-                                }
+                                final merch = state.merchList[index];
 
                                 return MerchCard(
                                   onLongPress: () =>
-                                      showDeleteMerchDialog(context, merchId),
-                                  merch: state.merchList[index],
-                                  count: cartItemQuantities[merchId] ?? 0,
+                                      showDeleteMerchDialog(context, merch.id),
+                                  merch: merch,
+                                  count: cartItemQuantities[merch.id] ?? 0,
                                 );
                               },
                             );
