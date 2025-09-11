@@ -71,19 +71,19 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
               children: [
                 changePriceButton(
                   onTap: () {},
-                  text: '-100',
+                  text: S.of(context).minus100,
                   color: HSLColor.fromColor(
                     theme.primaryColor,
                   ).withLightness(0.42).toColor(),
                 ),
                 changePriceButton(
                   onTap: () {},
-                  text: '-50',
+                  text: S.of(context).minus50,
                   color: theme.primaryColorDark,
                 ),
                 changePriceButton(
                   onTap: () {},
-                  text: '-10',
+                  text: S.of(context).minus10,
                   color: theme.primaryColor,
                 ),
                 SizedBox(
@@ -98,22 +98,22 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                     ),
                     validator: (value) => double.tryParse(value!) != null
                         ? null
-                        : 'Введите правильное число',
+                        : S.of(context).enterCorrectNumber,
                   ),
                 ),
                 changePriceButton(
                   onTap: () {},
-                  text: '+10',
+                  text: S.of(context).plus10,
                   color: theme.primaryColor,
                 ),
                 changePriceButton(
                   onTap: () {},
-                  text: '+50',
+                  text: S.of(context).plus50,
                   color: theme.primaryColorDark,
                 ),
                 changePriceButton(
                   onTap: () {},
-                  text: '+100',
+                  text: S.of(context).plus100,
                   color: HSLColor.fromColor(
                     theme.primaryColor,
                   ).withLightness(0.42).toColor(),
@@ -139,7 +139,7 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                     validator: (value) =>
                         (value == '' || double.tryParse(value!) != null)
                         ? null
-                        : 'Введите правильное число',
+                        : S.of(context).enterCorrectNumber,
                   ),
                 ),
               ],

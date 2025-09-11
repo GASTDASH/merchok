@@ -76,7 +76,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32),
                         child: Text(
-                          'У вас пока нет фестивалей',
+                          S.of(context).noFestivals,
                           style: theme.textTheme.headlineMedium,
                           textAlign: TextAlign.center,
                         ),

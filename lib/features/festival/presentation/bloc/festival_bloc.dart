@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/features/festival/festival.dart';
+import 'package:merchok/generated/l10n.dart';
 import 'package:uuid/uuid.dart';
 
 part 'festival_event.dart';
@@ -14,7 +15,7 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
       super(FestivalInitial()) {
     on<FestivalLoad>((event, emit) async {
       try {
-        emit(FestivalLoading(message: 'Загрузка списка фестивалей'));
+        emit(FestivalLoading(message: S.current.festivalLoading));
         final festivalList = await _festivalRepository.getFestivals();
         emit(FestivalLoaded(festivalList: festivalList));
       } catch (e) {
@@ -23,7 +24,7 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
     });
     on<FestivalAdd>((event, emit) async {
       try {
-        emit(FestivalLoading(message: 'Создание фестиваля'));
+        emit(FestivalLoading(message: S.current.festivalCreating));
         await _festivalRepository.editFestival(
           Festival(
             id: Uuid().v4(),
@@ -39,7 +40,7 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
     });
     on<FestivalEdit>((event, emit) async {
       try {
-        emit(FestivalLoading(message: 'Изменение информации о фестивале'));
+        emit(FestivalLoading(message: S.current.festivalChangeInfo));
         await _festivalRepository.editFestival(event.festival);
         add(FestivalLoad());
       } catch (e) {
@@ -48,7 +49,7 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
     });
     on<FestivalDelete>((event, emit) async {
       try {
-        emit(FestivalLoading(message: 'Удаление фестиваля'));
+        emit(FestivalLoading(message: S.current.festivalDeleting));
         await _festivalRepository.deleteFestival(event.festivalId);
         add(FestivalLoad());
       } catch (e) {

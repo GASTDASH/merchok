@@ -109,7 +109,7 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
                     widget.previousFestival.copyWith(
                       name: nameController.text.isNotEmpty
                           ? nameController.text
-                          : 'Без названия',
+                          : S.of(context).untitled,
                       startDate: startDate,
                       endDate: endDate,
                     ),

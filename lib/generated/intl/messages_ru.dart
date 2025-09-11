@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Информация о приложении",
     ),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
+    "addingToCart": MessageLookupByLibrary.simpleMessage(
+      "Добавление в корзину",
+    ),
     "additionalInformation": MessageLookupByLibrary.simpleMessage(
       "Доп. информация",
     ),
@@ -35,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("Применить"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
+    "cartLoading": MessageLookupByLibrary.simpleMessage("Загрузка корзины"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
@@ -47,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
+    "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
+      "Введите правильное число",
+    ),
     "enterInformation": MessageLookupByLibrary.simpleMessage(
       "Введите информацию",
     ),
@@ -55,6 +62,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventDate": MessageLookupByLibrary.simpleMessage("Дата проведения"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Экспортировать данные для переноса на другое устройство",
+    ),
+    "festivalChangeInfo": MessageLookupByLibrary.simpleMessage(
+      "Изменение информации о фестивале",
+    ),
+    "festivalCreating": MessageLookupByLibrary.simpleMessage(
+      "Создание фестиваля",
+    ),
+    "festivalDeleting": MessageLookupByLibrary.simpleMessage(
+      "Удаление фестиваля",
+    ),
+    "festivalLoading": MessageLookupByLibrary.simpleMessage(
+      "Загрузка списка фестивалей",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
@@ -76,11 +95,27 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "light": MessageLookupByLibrary.simpleMessage("Светлая"),
     "merch": MessageLookupByLibrary.simpleMessage("Мерч"),
+    "merchChangeInfo": MessageLookupByLibrary.simpleMessage(
+      "Изменение информации о мерче",
+    ),
+    "merchCreating": MessageLookupByLibrary.simpleMessage(
+      "Создание нового мерча",
+    ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
+    "merchDeleting": MessageLookupByLibrary.simpleMessage("Удаление мерча"),
     "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Список мерча не загружен",
     ),
+    "merchLoading": MessageLookupByLibrary.simpleMessage(
+      "Получение списка мерчей",
+    ),
+    "minus10": MessageLookupByLibrary.simpleMessage("-10"),
+    "minus100": MessageLookupByLibrary.simpleMessage("-100"),
+    "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "no": MessageLookupByLibrary.simpleMessage("Нет"),
+    "noFestivals": MessageLookupByLibrary.simpleMessage(
+      "У вас пока нет фестивалей",
+    ),
     "noMerch": MessageLookupByLibrary.simpleMessage("У вас пока нет мерча"),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
@@ -98,6 +133,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Настроить способы оплаты для ваших покупателей",
     ),
+    "plus10": MessageLookupByLibrary.simpleMessage("+10"),
+    "plus100": MessageLookupByLibrary.simpleMessage("+100"),
+    "plus50": MessageLookupByLibrary.simpleMessage("+50"),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Популярный мерч"),
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
     "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
@@ -120,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedState": MessageLookupByLibrary.simpleMessage(
       "Неожиданное состояние",
     ),
+    "untitled": MessageLookupByLibrary.simpleMessage("Без названия"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",

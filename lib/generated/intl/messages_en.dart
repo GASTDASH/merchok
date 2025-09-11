@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "aboutDescription": MessageLookupByLibrary.simpleMessage("App information"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addingToCart": MessageLookupByLibrary.simpleMessage("Adding to cart"),
     "additionalInformation": MessageLookupByLibrary.simpleMessage(
       "Additional information",
     ),
@@ -33,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("Apply"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "cartLoading": MessageLookupByLibrary.simpleMessage("Loading the cart"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
@@ -45,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
+      "Enter a correct number",
+    ),
     "enterInformation": MessageLookupByLibrary.simpleMessage(
       "Enter the information",
     ),
@@ -53,6 +58,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventDate": MessageLookupByLibrary.simpleMessage("Event Date"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Export data to transfer to another device",
+    ),
+    "festivalChangeInfo": MessageLookupByLibrary.simpleMessage(
+      "Changing festival information",
+    ),
+    "festivalCreating": MessageLookupByLibrary.simpleMessage(
+      "Creating a festival",
+    ),
+    "festivalDeleting": MessageLookupByLibrary.simpleMessage(
+      "Deleting a festival",
+    ),
+    "festivalLoading": MessageLookupByLibrary.simpleMessage(
+      "Loading the festival list",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
@@ -74,11 +91,27 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "merch": MessageLookupByLibrary.simpleMessage("Merch"),
+    "merchChangeInfo": MessageLookupByLibrary.simpleMessage(
+      "Changing merch information",
+    ),
+    "merchCreating": MessageLookupByLibrary.simpleMessage(
+      "Creating a new merch",
+    ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
+    "merchDeleting": MessageLookupByLibrary.simpleMessage("Deleting a merch"),
     "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Merch list not loaded",
     ),
+    "merchLoading": MessageLookupByLibrary.simpleMessage(
+      "Loading the merch list",
+    ),
+    "minus10": MessageLookupByLibrary.simpleMessage("-10"),
+    "minus100": MessageLookupByLibrary.simpleMessage("-100"),
+    "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
+    "noFestivals": MessageLookupByLibrary.simpleMessage(
+      "You don\'t have any festivals yet",
+    ),
     "noMerch": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any merch yet",
     ),
@@ -98,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Set up payment methods for your customers",
     ),
+    "plus10": MessageLookupByLibrary.simpleMessage("+10"),
+    "plus100": MessageLookupByLibrary.simpleMessage("+100"),
+    "plus50": MessageLookupByLibrary.simpleMessage("+50"),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Popular merch"),
     "price": MessageLookupByLibrary.simpleMessage("Price"),
     "profit": MessageLookupByLibrary.simpleMessage("Profit"),
@@ -118,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
+    "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",

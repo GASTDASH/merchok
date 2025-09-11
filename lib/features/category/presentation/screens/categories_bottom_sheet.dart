@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
@@ -42,7 +44,7 @@ class CategoriesBottomSheet extends StatelessWidget {
                 children: List.generate(
                   20,
                   (index) => CategoryChip(
-                    text: 'text${index * index * index * index}',
+                    text: '${pow(index, index)}',
                     selected: false,
                     onSelected: (value) {},
                   ),

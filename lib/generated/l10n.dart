@@ -514,6 +514,16 @@ class S {
     );
   }
 
+  /// `You don't have any festivals yet`
+  String get noFestivals {
+    return Intl.message(
+      'You don\'t have any festivals yet',
+      name: 'noFestivals',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Something went wrong`
   String get somethingWentWrong {
     return Intl.message(
@@ -552,6 +562,151 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Enter a correct number`
+  String get enterCorrectNumber {
+    return Intl.message(
+      'Enter a correct number',
+      name: 'enterCorrectNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Untitled`
+  String get untitled {
+    return Intl.message('Untitled', name: 'untitled', desc: '', args: []);
+  }
+
+  /// `Loading the cart`
+  String get cartLoading {
+    return Intl.message(
+      'Loading the cart',
+      name: 'cartLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adding to cart`
+  String get addingToCart {
+    return Intl.message(
+      'Adding to cart',
+      name: 'addingToCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading the festival list`
+  String get festivalLoading {
+    return Intl.message(
+      'Loading the festival list',
+      name: 'festivalLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creating a festival`
+  String get festivalCreating {
+    return Intl.message(
+      'Creating a festival',
+      name: 'festivalCreating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Changing festival information`
+  String get festivalChangeInfo {
+    return Intl.message(
+      'Changing festival information',
+      name: 'festivalChangeInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting a festival`
+  String get festivalDeleting {
+    return Intl.message(
+      'Deleting a festival',
+      name: 'festivalDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading the merch list`
+  String get merchLoading {
+    return Intl.message(
+      'Loading the merch list',
+      name: 'merchLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creating a new merch`
+  String get merchCreating {
+    return Intl.message(
+      'Creating a new merch',
+      name: 'merchCreating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Changing merch information`
+  String get merchChangeInfo {
+    return Intl.message(
+      'Changing merch information',
+      name: 'merchChangeInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting a merch`
+  String get merchDeleting {
+    return Intl.message(
+      'Deleting a merch',
+      name: 'merchDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `-100`
+  String get minus100 {
+    return Intl.message('-100', name: 'minus100', desc: '', args: []);
+  }
+
+  /// `-50`
+  String get minus50 {
+    return Intl.message('-50', name: 'minus50', desc: '', args: []);
+  }
+
+  /// `-10`
+  String get minus10 {
+    return Intl.message('-10', name: 'minus10', desc: '', args: []);
+  }
+
+  /// `+10`
+  String get plus10 {
+    return Intl.message('+10', name: 'plus10', desc: '', args: []);
+  }
+
+  /// `+50`
+  String get plus50 {
+    return Intl.message('+50', name: 'plus50', desc: '', args: []);
+  }
+
+  /// `+100`
+  String get plus100 {
+    return Intl.message('+100', name: 'plus100', desc: '', args: []);
   }
 }
 

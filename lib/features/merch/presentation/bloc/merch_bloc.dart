@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/generated/l10n.dart';
 import 'package:uuid/uuid.dart';
 
 part 'merch_event.dart';
@@ -14,7 +15,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
       super(MerchInitial()) {
     on<MerchLoad>((event, emit) async {
       try {
-        emit(MerchLoading(message: 'Получение списка мерчей'));
+        emit(MerchLoading(message: S.current.merchLoading));
         final List<Merch> merchList = await _merchRepository.getMerches();
         emit(MerchLoaded(merchList: merchList));
       } catch (e) {
@@ -23,7 +24,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     });
     on<MerchAdd>((event, emit) async {
       try {
-        emit(MerchLoading(message: 'Создание нового мерча'));
+        emit(MerchLoading(message: S.current.merchCreating));
         await _merchRepository.editMerch(
           Merch(id: Uuid().v4(), name: 'Без названия', price: 0),
         );
@@ -34,7 +35,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     });
     on<MerchEdit>((event, emit) async {
       try {
-        emit(MerchLoading(message: 'Изменение информации о мерче'));
+        emit(MerchLoading(message: S.current.merchChangeInfo));
         await _merchRepository.editMerch(event.merch);
         add(MerchLoad());
       } catch (e) {
@@ -43,7 +44,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     });
     on<MerchDelete>((event, emit) async {
       try {
-        emit(MerchLoading(message: 'Удаление мерча'));
+        emit(MerchLoading(message: S.current.merchDeleting));
         await _merchRepository.deleteMerch(event.merchId);
         add(MerchLoad());
       } catch (e) {

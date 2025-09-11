@@ -11,9 +11,14 @@ class AddDialog extends StatefulWidget {
 }
 
 class _AddDialogState extends State<AddDialog> {
-  final TextEditingController controller = TextEditingController(
-    text: 'Без названия',
-  );
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller.text = S.of(context).untitled;
+  }
 
   @override
   Widget build(BuildContext context) {
