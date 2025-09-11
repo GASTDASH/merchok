@@ -21,6 +21,7 @@ class _RootScreenState extends State<RootScreen> {
     final index = widget.navigationShell.currentIndex;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: FestivalAppBar(),
       body: widget.navigationShell,
       floatingActionButton: SizedBox(
