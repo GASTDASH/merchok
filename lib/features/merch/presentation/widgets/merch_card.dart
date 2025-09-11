@@ -183,51 +183,67 @@ class MerchCard extends StatelessWidget {
                     ),
                 ],
               ),
-              count == 0
-                  ? BaseButton(
-                      onTap: () => context.read<CartBloc>().add(
-                        CartAdd(merchId: merch.id),
+              AnimatedSwitcher(
+                duration: Durations.short3,
+                layoutBuilder: (currentChild, previousChildren) => Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    if (currentChild != null) currentChild,
+                    ...previousChildren,
+                  ],
+                ),
+                child: count == 0
+                    ? BaseButton(
+                        key: ValueKey('cart'),
+                        onTap: () => context.read<CartBloc>().add(
+                          CartAdd(merchId: merch.id),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        child: SvgPicture.asset(IconNames.shoppingCart),
+                      )
+                    : Row(
+                        key: ValueKey('plus_minus'),
+                        spacing: 8,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BaseButton(
+                            onTap: () => context.read<CartBloc>().add(
+                              CartMinus(merchId: merch.id),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 48,
+                              minHeight: 48,
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                            color: theme.disabledColor,
+                            child: SvgPicture.asset(IconNames.remove),
+                          ),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(minWidth: 50),
+                            child: AnimatedSwitcher(
+                              duration: Durations.short3,
+                              child: Text(
+                                key: ValueKey(count),
+                                '$count',
+                                style: theme.textTheme.headlineSmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          BaseButton(
+                            onTap: () => context.read<CartBloc>().add(
+                              CartPlus(merchId: merch.id),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 48,
+                              minHeight: 48,
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                            child: SvgPicture.asset(IconNames.add),
+                          ),
+                        ],
                       ),
-                      padding: EdgeInsets.all(12),
-                      child: SvgPicture.asset(IconNames.shoppingCart),
-                    )
-                  : Row(
-                      spacing: 8,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        BaseButton(
-                          onTap: () => context.read<CartBloc>().add(
-                            CartMinus(merchId: merch.id),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 48,
-                            minHeight: 48,
-                          ),
-                          borderRadius: BorderRadius.circular(100),
-                          color: theme.disabledColor,
-                          child: SvgPicture.asset(IconNames.remove),
-                        ),
-                        ConstrainedBox(
-                          constraints: BoxConstraints(minWidth: 50),
-                          child: Text(
-                            '$count',
-                            style: theme.textTheme.headlineSmall,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        BaseButton(
-                          onTap: () => context.read<CartBloc>().add(
-                            CartPlus(merchId: merch.id),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 48,
-                            minHeight: 48,
-                          ),
-                          borderRadius: BorderRadius.circular(100),
-                          child: SvgPicture.asset(IconNames.add),
-                        ),
-                      ],
-                    ),
+              ),
             ],
           ),
         ],
