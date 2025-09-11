@@ -90,9 +90,17 @@ class _FestivalScreenState extends State<FestivalScreen> {
               } else if (state is FestivalError) {
                 return SliverFillRemaining(
                   child: Center(
-                    child: Text(
-                      S.of(context).somethingWentWrong,
-                      style: theme.textTheme.headlineMedium,
+                    child: Column(
+                      spacing: 8,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.warning_amber, size: 64),
+                        Text(
+                          S.of(context).somethingWentWrong,
+                          style: theme.textTheme.headlineMedium,
+                        ),
+                        Text(state.error.toString()),
+                      ],
                     ),
                   ),
                 );

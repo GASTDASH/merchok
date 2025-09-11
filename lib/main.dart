@@ -59,8 +59,10 @@ class MainApp extends StatelessWidget {
               CartBloc(cartRepository: GetIt.I.call<CartRepository>()),
         ),
         BlocProvider(
-          create: (context) =>
-              FestivalBloc(festivalRepository: GetIt.I<FestivalRepository>()),
+          create: (context) => FestivalBloc(
+            festivalRepository: GetIt.I<FestivalRepository>(),
+            settingsRepository: GetIt.I<SettingsRepository>(),
+          ),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(

@@ -12,6 +12,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   //
   static const _themeStyleKey = 'themeStyle';
   static const _defaultThemeStyle = ThemeStyle.light;
+  static const _selectedFestivalIdKey = 'selected_festival_id';
 
   @override
   ThemeStyle get currentThemeStyle {
@@ -41,4 +42,23 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await prefs.remove(_languageCodeKey);
     }
   }
+
+  //
+  // Festival
+  //
+  @override
+  String? get selectedFestivalId => prefs.getString(_selectedFestivalIdKey);
+
+  @override
+  Future<void> setSelectedFestivalId(String? selectedFestivalId) async {
+    if (selectedFestivalId != null) {
+      await prefs.setString(_selectedFestivalIdKey, selectedFestivalId);
+    } else {
+      await prefs.remove(_selectedFestivalIdKey);
+    }
+  }
+
+  @override
+  Future<void> clearSelectedFestivalId() async =>
+      await prefs.remove(_selectedFestivalIdKey);
 }

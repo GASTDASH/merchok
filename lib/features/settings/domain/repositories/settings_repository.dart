@@ -8,4 +8,9 @@ abstract interface class SettingsRepository {
   // Language
   String? get currentLanguageCode;
   Future<void> setLanguageCode(String? languageCode);
+
+  // Festival
+  String? get selectedFestivalId;
+  Future<void> setSelectedFestivalId(String? selectedFestivalId);
+  Future<void> clearSelectedFestivalId();
 }
