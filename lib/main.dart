@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/merch/merch.dart';
@@ -59,7 +60,11 @@ class MainApp extends StatelessWidget {
               CartBloc(cartRepository: GetIt.I.call<CartRepository>()),
         ),
         BlocProvider(
-          create: (context) => FestivalBloc(
+          create: (context) =>
+              FestivalBloc(festivalRepository: GetIt.I<FestivalRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => CurrentFestivalCubit(
             festivalRepository: GetIt.I<FestivalRepository>(),
             settingsRepository: GetIt.I<SettingsRepository>(),
           ),

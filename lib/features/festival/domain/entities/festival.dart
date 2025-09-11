@@ -1,4 +1,6 @@
-class Festival {
+import 'package:equatable/equatable.dart';
+
+class Festival extends Equatable {
   const Festival({
     required this.id,
     required this.name,
@@ -22,4 +24,7 @@ class Festival {
     startDate: startDate ?? this.startDate,
     endDate: endDate ?? this.endDate,
   );
+
+  @override
+  List<Object?> get props => [id, name, startDate, endDate];
 }

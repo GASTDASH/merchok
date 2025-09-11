@@ -10,14 +10,12 @@ sealed class FestivalState extends Equatable {
 final class FestivalInitial extends FestivalState {}
 
 final class FestivalLoaded extends FestivalState {
-  const FestivalLoaded({required this.festivalList, this.selectedFestival});
+  const FestivalLoaded({required this.festivalList});
 
   final List<Festival> festivalList;
-  final Festival? selectedFestival;
 
   @override
-  List<Object?> get props =>
-      super.props..addAll([festivalList, selectedFestival]);
+  List<Object?> get props => super.props..addAll([festivalList]);
 }
 
 final class FestivalLoading extends FestivalState {

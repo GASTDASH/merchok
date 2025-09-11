@@ -1,9 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -46,7 +48,9 @@ class _FestivalScreenState extends State<FestivalScreen> {
               ),
             ],
           ),
-          BlocBuilder<FestivalBloc, FestivalState>(
+          BlocConsumer<FestivalBloc, FestivalState>(
+            listener: (context, state) async =>
+                await handleFestivalStateChanged(context, state),
             builder: (context, state) {
               if (state is FestivalLoading) {
                 return SliverFillRemaining(
@@ -61,14 +65,14 @@ class _FestivalScreenState extends State<FestivalScreen> {
                     separatorBuilder: (context, index) =>
                         Divider(indent: 32, endIndent: 32, height: 0),
                     itemBuilder: (context, index) {
+                      final cubit = context.watch<CurrentFestivalCubit>();
                       final festival = state.festivalList[index];
+
                       return FestivalListTile(
                         festival: festival,
-                        onTap: () => context.read<FestivalBloc>().add(
-                          FestivalSelect(festival: festival),
-                        ),
+                        onTap: () => cubit.selectFestival(festival),
                         onLongPress: () => deleteFestival(context, festival.id),
-                        selected: state.selectedFestival?.id == festival.id,
+                        selected: cubit.state?.id == festival.id,
                       );
                     },
                   );
@@ -121,6 +125,35 @@ class _FestivalScreenState extends State<FestivalScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> handleFestivalStateChanged(
+    BuildContext context,
+    FestivalState state,
+  ) async {
+    if (state is FestivalLoaded) {
+      final currentFestivalCubit = context.read<CurrentFestivalCubit>();
+      final selectedFestival = currentFestivalCubit.state;
+
+      // Если никакой фестиваль не выбран
+      if (selectedFestival == null) return;
+
+      // Проверяем, существует ли текущий фестиваль
+      final festival = state.festivalList.firstWhereOrNull(
+        (f) => f.id == selectedFestival.id,
+      );
+
+      // Если фестиваля нет в списке
+      if (festival == null) {
+        // Фестиваль был удален
+        await currentFestivalCubit.handleFestivalDeleted(selectedFestival.id);
+      }
+      // Если найденный фестиваль отличается
+      else if (festival != selectedFestival) {
+        // Фестиваль был обновлен
+        currentFestivalCubit.handleFestivalUpdated(festival);
+      }
+    }
   }
 
   Future<void> deleteFestival(BuildContext context, String festivalId) async {

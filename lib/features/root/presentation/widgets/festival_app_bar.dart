@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -31,6 +32,8 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: BlocBuilder<FestivalBloc, FestivalState>(
                 builder: (context, state) {
+                  final cubit = context.read<CurrentFestivalCubit>();
+
                   if (state is FestivalLoading) {
                     return Row(
                       spacing: 12,
@@ -49,9 +52,12 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ],
                     );
                   } else if (state is FestivalLoaded &&
-                      state.selectedFestival != null) {
+                      state.festivalList.isNotEmpty &&
+                      cubit.state != null) {
                     return Text(
-                      state.selectedFestival!.name,
+                      state.festivalList
+                          .firstWhere((f) => f.id == cubit.state!.id)
+                          .name,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
