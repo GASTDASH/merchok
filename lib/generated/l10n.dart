@@ -723,6 +723,16 @@ class S {
   String get loading {
     return Intl.message('Loading', name: 'loading', desc: '', args: []);
   }
+
+  /// `Selecting a festival`
+  String get festivalSelecting {
+    return Intl.message(
+      'Selecting a festival',
+      name: 'festivalSelecting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

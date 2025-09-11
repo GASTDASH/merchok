@@ -86,5 +86,6 @@
   "plus50": "+50",
   "plus100": "+100",
   "festivalNotSelected": "Фестиваль не выбран",
-  "loading": "Загрузка"
+  "loading": "Загрузка",
+  "festivalSelecting": "Выбор фестиваля"
 }

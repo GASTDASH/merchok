@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "festivalNotSelected": MessageLookupByLibrary.simpleMessage(
       "Фестиваль не выбран",
     ),
+    "festivalSelecting": MessageLookupByLibrary.simpleMessage(
+      "Выбор фестиваля",
+    ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),

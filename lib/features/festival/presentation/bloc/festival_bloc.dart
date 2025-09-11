@@ -112,7 +112,7 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
     });
     on<FestivalSelect>((event, emit) async {
       try {
-        emit(FestivalLoading(message: 'Выбор фестиваля'));
+        emit(FestivalLoading(message: S.current.festivalSelecting));
         await _festivalRepository.saveSelectedFestival(event.festival);
         final festivalList = await _festivalRepository.getFestivals();
         emit(
@@ -121,7 +121,9 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
             selectedFestival: event.festival,
           ),
         );
-      } catch (e) {}
+      } catch (e) {
+        emit(FestivalError(error: e));
+      }
     });
   }
 }
