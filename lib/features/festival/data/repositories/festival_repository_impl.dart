@@ -13,4 +13,9 @@ class FestivalRepositoryImpl implements FestivalRepository {
   @override
   Future<void> deleteFestival(String festivalId) async =>
       festivalList.remove(festivalId);
+
+  @override
+  Future<void> saveSelectedFestival(Festival festival) async {
+    // TODO: Сохранить в Shared Preferences
+  }
 }

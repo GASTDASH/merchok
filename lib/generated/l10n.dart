@@ -708,6 +708,21 @@ class S {
   String get plus100 {
     return Intl.message('+100', name: 'plus100', desc: '', args: []);
   }
+
+  /// `The festival is not selected`
+  String get festivalNotSelected {
+    return Intl.message(
+      'The festival is not selected',
+      name: 'festivalNotSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message('Loading', name: 'loading', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

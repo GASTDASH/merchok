@@ -17,7 +17,7 @@ class _AddDialogState extends State<AddDialog> {
   void initState() {
     super.initState();
 
-    controller.text = S.of(context).untitled;
+    controller.text = S.current.untitled;
   }
 
   @override

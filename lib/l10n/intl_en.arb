@@ -84,5 +84,7 @@
   "minus10": "-10",
   "plus10": "+10",
   "plus50": "+50",
-  "plus100": "+100"
+  "plus100": "+100",
+  "festivalNotSelected": "The festival is not selected",
+  "loading": "Loading"
 }

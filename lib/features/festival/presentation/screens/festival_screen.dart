@@ -64,8 +64,11 @@ class _FestivalScreenState extends State<FestivalScreen> {
                       final festival = state.festivalList[index];
                       return FestivalListTile(
                         festival: festival,
-                        onTap: () {},
+                        onTap: () => context.read<FestivalBloc>().add(
+                          FestivalSelect(festival: festival),
+                        ),
                         onLongPress: () => deleteFestival(context, festival.id),
+                        selected: state.selectedFestival?.id == festival.id,
                       );
                     },
                   );

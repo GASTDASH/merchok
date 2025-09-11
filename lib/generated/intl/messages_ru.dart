@@ -75,6 +75,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "festivalLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка списка фестивалей",
     ),
+    "festivalNotSelected": MessageLookupByLibrary.simpleMessage(
+      "Фестиваль не выбран",
+    ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
@@ -94,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Изменение региональных настроек",
     ),
     "light": MessageLookupByLibrary.simpleMessage("Светлая"),
+    "loading": MessageLookupByLibrary.simpleMessage("Загрузка"),
     "merch": MessageLookupByLibrary.simpleMessage("Мерч"),
     "merchChangeInfo": MessageLookupByLibrary.simpleMessage(
       "Изменение информации о мерче",

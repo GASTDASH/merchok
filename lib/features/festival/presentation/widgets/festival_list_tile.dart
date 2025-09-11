@@ -11,11 +11,13 @@ class FestivalListTile extends StatelessWidget {
     required this.festival,
     this.onTap,
     this.onLongPress,
+    this.selected = false,
   });
 
   final Festival festival;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,16 @@ class FestivalListTile extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      trailing: selected
+          ? Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.greenAccent),
+              ),
+              child: Icon(Icons.done, color: Colors.greenAccent),
+            )
+          : null,
       title: Row(
         spacing: 8,
         mainAxisSize: MainAxisSize.min,
@@ -50,10 +62,7 @@ class FestivalListTile extends StatelessWidget {
       ),
       subtitle: Text(
         '${S.of(context).eventDate}: ${festival.startDate.toCompactString()} - ${festival.endDate.toCompactString()}',
-        style: theme.textTheme.bodyLarge?.copyWith(
-          fontWeight: FontWeight.w300,
-          color: theme.hintColor,
-        ),
+        style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor),
       ),
     );
   }
