@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/settings/settings.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class CurrentFestivalCubit extends Cubit<Festival?> {
   CurrentFestivalCubit({
@@ -37,8 +39,8 @@ class CurrentFestivalCubit extends Cubit<Festival?> {
       } else {
         emit(savedSelectedFestival);
       }
-    } catch (e) {
-      // TODO: Обработка ошибки
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
     }
   }
 
