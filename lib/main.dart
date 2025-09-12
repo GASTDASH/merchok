@@ -13,9 +13,14 @@ import 'package:merchok/generated/l10n.dart';
 import 'package:merchok/routing/router.dart';
 import 'package:merchok/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final talker = TalkerFlutter.init();
+  GetIt.I.registerSingleton<Talker>(talker);
+  GetIt.I<Talker>().debug('Talker started...');
 
   final prefs = await SharedPreferences.getInstance();
 
