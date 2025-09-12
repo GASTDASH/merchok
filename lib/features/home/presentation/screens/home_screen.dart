@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -103,11 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               final cartState = context.watch<CartBloc>().state;
 
               if (state is MerchLoading) {
-                return SliverFillRemaining(
-                  child: SpinKitSpinningLines(
-                    color: theme.colorScheme.onSurface,
-                  ),
-                );
+                return LoadingBanner(message: state.message);
               } else if (state is MerchLoaded) {
                 if (state.merchList.isNotEmpty) {
                   return SliverPadding(
@@ -185,26 +180,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               } else if (state is MerchError) {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Text(
-                      S.of(context).somethingWentWrong,
-                      style: theme.textTheme.headlineMedium,
-                    ),
-                  ),
-                );
+                return ErrorBanner(message: state.error.toString());
               } else if (state is MerchInitial) {
                 return SliverFillRemaining();
-              } else {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Text(
-                      S.of(context).unexpectedState,
-                      style: theme.textTheme.headlineMedium,
-                    ),
-                  ),
-                );
               }
+              return UnexpectedStateBanner();
             },
           ),
         ],

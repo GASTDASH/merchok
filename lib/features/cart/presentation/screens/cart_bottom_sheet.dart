@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
@@ -35,11 +34,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               if (state is CartLoading) {
-                return SliverFillRemaining(
-                  child: SpinKitSpinningLines(
-                    color: theme.colorScheme.onSurface,
-                  ),
-                );
+                return LoadingBanner(message: state.message);
               } else if (state is CartLoaded) {
                 if (state.cartItems.isNotEmpty) {
                   return SliverPadding(
@@ -136,10 +131,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                           builder: (context) {
                             final merchState = context.read<MerchBloc>().state;
                             if (merchState is! MerchLoaded) {
-                              return SliverFillRemaining(
-                                child: Center(
-                                  child: Text(S.of(context).merchListNotLoaded),
-                                ),
+                              return InfoBanner(
+                                text: S.of(context).merchListNotLoaded,
                               );
                             }
 
@@ -164,38 +157,17 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     ),
                   );
                 } else {
-                  return SliverFillRemaining(
-                    child: Center(
-                      child: Column(
-                        spacing: 32,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            S.of(context).emptyCart,
-                            style: theme.textTheme.headlineLarge,
-                          ),
-                          SvgPicture.asset(IconNames.cart, height: 64),
-                        ],
-                      ),
-                    ),
+                  return InfoBanner.icon(
+                    text: S.of(context).emptyCart,
+                    icon: IconNames.cart,
                   );
                 }
               } else if (state is CartError) {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Text(
-                      S.of(context).somethingWentWrong,
-                      style: theme.textTheme.headlineMedium,
-                    ),
-                  ),
-                );
+                return ErrorBanner(message: state.error.toString());
               } else if (state is CartInitial) {
                 return SliverFillRemaining();
-              } else {
-                return SliverFillRemaining(
-                  child: Center(child: Text(S.of(context).unexpectedState)),
-                );
               }
+              return UnexpectedStateBanner();
             },
           ),
         ],

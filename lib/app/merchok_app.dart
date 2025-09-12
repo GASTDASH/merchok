@@ -7,6 +7,7 @@ import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -46,6 +47,11 @@ class MerchokApp extends StatelessWidget {
           create: (context) => CurrentFestivalCubit(
             festivalRepository: GetIt.I<FestivalRepository>(),
             settingsRepository: GetIt.I<SettingsRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => PaymentMethodBloc(
+            paymentMethodRepository: GetIt.I<PaymentMethodRepository>(),
           ),
         ),
       ],

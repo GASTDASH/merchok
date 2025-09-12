@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
@@ -53,11 +52,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
                 await handleFestivalStateChanged(context, state),
             builder: (context, state) {
               if (state is FestivalLoading) {
-                return SliverFillRemaining(
-                  child: SpinKitSpinningLines(
-                    color: theme.colorScheme.onSurface,
-                  ),
-                );
+                return LoadingBanner(message: state.message);
               } else if (state is FestivalLoaded) {
                 if (state.festivalList.isNotEmpty) {
                   return SliverList.separated(
@@ -77,49 +72,14 @@ class _FestivalScreenState extends State<FestivalScreen> {
                     },
                   );
                 } else {
-                  return SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        child: Text(
-                          S.of(context).noFestivals,
-                          style: theme.textTheme.headlineMedium,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  );
+                  return InfoBanner(text: S.of(context).noFestivals);
                 }
               } else if (state is FestivalError) {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Column(
-                      spacing: 8,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.warning_amber, size: 64),
-                        Text(
-                          S.of(context).somethingWentWrong,
-                          style: theme.textTheme.headlineMedium,
-                        ),
-                        Text(state.error.toString()),
-                      ],
-                    ),
-                  ),
-                );
+                return ErrorBanner(message: state.error.toString());
               } else if (state is FestivalInitial) {
                 return SliverFillRemaining();
-              } else {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Text(
-                      S.of(context).unexpectedState,
-                      style: theme.textTheme.headlineMedium,
-                    ),
-                  ),
-                );
               }
+              return UnexpectedStateBanner();
             },
           ),
         ],

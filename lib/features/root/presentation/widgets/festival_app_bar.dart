@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
@@ -45,10 +44,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SpinKitSpinningLines(
-                          color: theme.colorScheme.onSurface,
-                          size: 32,
-                        ),
+                        LoadingIndicator(size: 32),
                       ],
                     );
                   } else if (state is FestivalLoaded &&
