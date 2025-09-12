@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
-class Merch {
+import 'package:equatable/equatable.dart';
+
+class Merch extends Equatable {
   const Merch({
     required this.id,
     required this.name,
@@ -36,4 +38,15 @@ class Merch {
     image: image ?? this.image,
     categoryId: categoryId ?? this.categoryId,
   );
+
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    price,
+    purchasePrice,
+    image,
+    categoryId,
+  ];
 }
