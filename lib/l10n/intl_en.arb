@@ -89,9 +89,10 @@
   "loading": "Loading",
   "festivalSelecting": "Selecting a festival",
   "addYourFirstPaymentMethod": "Add your first payment method",
-  "deleteThisPaymentMethod": "Удалить этот способ оплаты?",
-  "paymentMethodLoading": "Загрузка способов оплаты",
-  "paymentMethodCreating": "Создание способа оплаты",
-  "paymentMethodChanging": "Изменение способа оплаты",
-  "paymentMethodDeleting": "Удаление способа оплаты"
+  "deleteThisPaymentMethod": "Delete this payment method?",
+  "paymentMethodLoading": "Loading the payment method list",
+  "paymentMethodCreating": "Creating a payment method",
+  "paymentMethodChanging": "Changing payment method information",
+  "paymentMethodDeleting": "Deleting a payment method",
+  "deleteThisFestival": "Delete this festival?"
 }

@@ -252,6 +252,7 @@ class MerchCard extends StatelessWidget {
   }
 
   Future<void> editName(BuildContext context) async {
+    final defaultName = S.of(context).untitled;
     final bloc = context.read<MerchBloc>();
 
     String? newName = await showEditDialog(
@@ -260,7 +261,7 @@ class MerchCard extends StatelessWidget {
       hintText: S.of(context).enterName,
     );
     if (newName == null) return;
-    if (newName == '') newName = 'Без названия';
+    if (newName == '') newName = defaultName;
 
     bloc.add(MerchEdit(merch: merch.copyWith(name: newName)));
   }

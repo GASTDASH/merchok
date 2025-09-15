@@ -119,7 +119,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
   Future<void> deleteFestival(BuildContext context, String festivalId) async {
     return await showDeleteDialog(
       context: context,
-      message: 'Удалить этот фестиваль?',
+      message: S.of(context).deleteThisFestival,
       onYes: () {
         context.pop();
         context.read<FestivalBloc>().add(
@@ -133,11 +133,12 @@ class _FestivalScreenState extends State<FestivalScreen> {
   }
 
   Future<void> addFestival(BuildContext context) async {
+    final defaultName = S.of(context).untitled;
     final bloc = context.read<FestivalBloc>();
 
     String? festivalName = await showAddDialog(context);
     if (festivalName == null) return;
-    if (festivalName.isEmpty) festivalName = 'Без названия';
+    if (festivalName.isEmpty) festivalName = defaultName;
 
     bloc.add(FestivalAdd(festivalName: festivalName));
   }

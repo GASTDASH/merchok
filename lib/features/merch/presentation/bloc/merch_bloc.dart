@@ -26,7 +26,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
       try {
         emit(MerchLoading(message: S.current.merchCreating));
         await _merchRepository.editMerch(
-          Merch(id: Uuid().v4(), name: 'Без названия', price: 0),
+          Merch(id: Uuid().v4(), name: S.current.untitled, price: 0),
         );
         add(MerchLoad());
       } catch (e) {

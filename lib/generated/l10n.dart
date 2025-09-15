@@ -744,51 +744,61 @@ class S {
     );
   }
 
-  /// `Удалить этот способ оплаты?`
+  /// `Delete this payment method?`
   String get deleteThisPaymentMethod {
     return Intl.message(
-      'Удалить этот способ оплаты?',
+      'Delete this payment method?',
       name: 'deleteThisPaymentMethod',
       desc: '',
       args: [],
     );
   }
 
-  /// `Загрузка способов оплаты`
+  /// `Loading the payment method list`
   String get paymentMethodLoading {
     return Intl.message(
-      'Загрузка способов оплаты',
+      'Loading the payment method list',
       name: 'paymentMethodLoading',
       desc: '',
       args: [],
     );
   }
 
-  /// `Создание способа оплаты`
+  /// `Creating a payment method`
   String get paymentMethodCreating {
     return Intl.message(
-      'Создание способа оплаты',
+      'Creating a payment method',
       name: 'paymentMethodCreating',
       desc: '',
       args: [],
     );
   }
 
-  /// `Изменение способа оплаты`
+  /// `Changing payment method information`
   String get paymentMethodChanging {
     return Intl.message(
-      'Изменение способа оплаты',
+      'Changing payment method information',
       name: 'paymentMethodChanging',
       desc: '',
       args: [],
     );
   }
 
-  /// `Удаление способа оплаты`
+  /// `Deleting a payment method`
   String get paymentMethodDeleting {
     return Intl.message(
-      'Удаление способа оплаты',
+      'Deleting a payment method',
       name: 'paymentMethodDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete this festival?`
+  String get deleteThisFestival {
+    return Intl.message(
+      'Delete this festival?',
+      name: 'deleteThisFestival',
       desc: '',
       args: [],
     );

@@ -68,6 +68,7 @@ class FestivalListTile extends StatelessWidget {
   }
 
   Future<void> editFestivalName(BuildContext context) async {
+    final defaultName = S.of(context).untitled;
     final bloc = context.read<FestivalBloc>();
 
     Festival? newFestival = await showDialog(
@@ -75,8 +76,8 @@ class FestivalListTile extends StatelessWidget {
       builder: (context) => EditFestivalDialog(previousFestival: festival),
     );
     if (newFestival == null) return;
-    if (newFestival.name == '') {
-      newFestival = festival.copyWith(name: 'Без названия');
+    if (newFestival.name.isEmpty) {
+      newFestival = festival.copyWith(name: defaultName);
     }
 
     bloc.add(FestivalEdit(festival: newFestival));

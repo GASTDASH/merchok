@@ -45,11 +45,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
+    "deleteThisFestival": MessageLookupByLibrary.simpleMessage(
+      "Delete this festival?",
+    ),
     "deleteThisMerch": MessageLookupByLibrary.simpleMessage(
       "Delete this merch?",
     ),
     "deleteThisPaymentMethod": MessageLookupByLibrary.simpleMessage(
-      "Удалить этот способ оплаты?",
+      "Delete this payment method?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
@@ -141,16 +144,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
-      "Изменение способа оплаты",
+      "Changing payment method information",
     ),
     "paymentMethodCreating": MessageLookupByLibrary.simpleMessage(
-      "Создание способа оплаты",
+      "Creating a payment method",
     ),
     "paymentMethodDeleting": MessageLookupByLibrary.simpleMessage(
-      "Удаление способа оплаты",
+      "Deleting a payment method",
     ),
     "paymentMethodLoading": MessageLookupByLibrary.simpleMessage(
-      "Загрузка способов оплаты",
+      "Loading the payment method list",
     ),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment methods"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(

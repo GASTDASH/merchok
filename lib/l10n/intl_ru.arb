@@ -93,5 +93,6 @@
   "paymentMethodLoading": "Загрузка способов оплаты",
   "paymentMethodCreating": "Создание способа оплаты",
   "paymentMethodChanging": "Изменение способа оплаты",
-  "paymentMethodDeleting": "Удаление способа оплаты"
+  "paymentMethodDeleting": "Удаление способа оплаты",
+  "deleteThisFestival": "Удалить этот фестиваль?"
 }
