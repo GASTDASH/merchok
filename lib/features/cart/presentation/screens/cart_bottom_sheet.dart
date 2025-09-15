@@ -51,9 +51,24 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                '1800 ₽',
-                                style: theme.textTheme.headlineLarge,
+                              Builder(
+                                builder: (context) {
+                                  final merchState = context
+                                      .read<MerchBloc>()
+                                      .state;
+                                  if (merchState is MerchLoaded) {
+                                    final sum = sumCartItems(
+                                      state.cartItems,
+                                      merchState.merchList,
+                                    );
+                                    return Text(
+                                      '${sum.truncateIfInt()} ₽',
+                                      style: theme.textTheme.headlineLarge,
+                                    );
+                                  } else {
+                                    return Text(S.of(context).merchIsNotLoaded);
+                                  }
+                                },
                               ),
                             ],
                           ),
@@ -140,14 +155,17 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                               itemCount: state.cartItems.length,
                               itemBuilder: (context, index) {
                                 final cartItem = state.cartItems[index];
+                                final merch = merchState.merchList.firstWhere(
+                                  (merch) => merch.id == cartItem.merchId,
+                                );
 
                                 return MerchCard(
-                                  merch: merchState.merchList.firstWhere(
-                                    (merch) => merch.id == cartItem.merchId,
-                                  ),
+                                  merch: merch,
                                   count: cartItem.quantity,
                                   editable: false,
-                                  onTapDelete: () {},
+                                  onTapDelete: () => context
+                                      .read<CartBloc>()
+                                      .add(CartDelete(merchId: merch.id)),
                                 );
                               },
                             );
@@ -173,5 +191,12 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
         ],
       ),
     );
+  }
+
+  double sumCartItems(List<CartItem> cartItems, List<Merch> merchList) {
+    return cartItems.fold<double>(0, (sum, cartItem) {
+      final merch = merchList.firstWhere((m) => m.id == cartItem.merchId);
+      return sum + merch.price * cartItem.quantity;
+    });
   }
 }

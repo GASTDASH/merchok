@@ -94,5 +94,6 @@
   "paymentMethodCreating": "Создание способа оплаты",
   "paymentMethodChanging": "Изменение способа оплаты",
   "paymentMethodDeleting": "Удаление способа оплаты",
-  "deleteThisFestival": "Удалить этот фестиваль?"
+  "deleteThisFestival": "Удалить этот фестиваль?",
+  "merchIsNotLoaded": "Мерч не загружен"
 }

@@ -19,3 +19,7 @@ extension DateTimeExtension on DateTime {
   String toCompactString() =>
       toIso8601String().split('T')[0].split('-').reversed.join('.');
 }
+
+extension DoubleExtension on double {
+  String truncateIfInt() => this % 1 == 0 ? "${truncate()}" : "$this";
+}

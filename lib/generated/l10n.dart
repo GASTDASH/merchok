@@ -803,6 +803,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Мерч не загружен`
+  String get merchIsNotLoaded {
+    return Intl.message(
+      'Мерч не загружен',
+      name: 'merchIsNotLoaded',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

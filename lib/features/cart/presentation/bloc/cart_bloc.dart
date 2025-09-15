@@ -46,5 +46,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartError(error: e));
       }
     });
+    on<CartDelete>((event, emit) async {
+      try {
+        await _cartRepository.deleteCartItem(event.merchId);
+        add(CartLoad());
+      } catch (e) {
+        emit(CartError(error: e));
+      }
+    });
   }
 }

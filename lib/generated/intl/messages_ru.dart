@@ -119,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Удаление мерча"),
+    "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Мерч не загружен",
+    ),
     "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Список мерча не загружен",
     ),
