@@ -166,7 +166,7 @@ class MerchCard extends StatelessWidget {
                 spacing: 8,
                 children: [
                   Text(
-                    '${merch.price.truncate()} ₽',
+                    '${merch.price.truncateIfInt()} ₽',
                     style: theme.textTheme.headlineSmall,
                   ),
                   if (editable)

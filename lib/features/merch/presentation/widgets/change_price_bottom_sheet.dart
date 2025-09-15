@@ -26,9 +26,9 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
   void initState() {
     super.initState();
 
-    priceController.text = widget.previousPrice.truncate().toString();
+    priceController.text = widget.previousPrice.truncateIfInt();
     purchasePriceController.text =
-        (widget.previousPurchasePrice?.truncate() ?? '').toString();
+        (widget.previousPurchasePrice?.truncateIfInt() ?? '');
   }
 
   @override
@@ -70,19 +70,19 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(-100),
                   text: S.of(context).minus100,
                   color: HSLColor.fromColor(
                     theme.primaryColor,
                   ).withLightness(0.42).toColor(),
                 ),
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(-50),
                   text: S.of(context).minus50,
                   color: theme.primaryColorDark,
                 ),
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(-10),
                   text: S.of(context).minus10,
                   color: theme.primaryColor,
                 ),
@@ -102,17 +102,17 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                   ),
                 ),
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(10),
                   text: S.of(context).plus10,
                   color: theme.primaryColor,
                 ),
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(50),
                   text: S.of(context).plus50,
                   color: theme.primaryColorDark,
                 ),
                 changePriceButton(
-                  onTap: () {},
+                  onTap: () => changePrice(100),
                   text: S.of(context).plus100,
                   color: HSLColor.fromColor(
                     theme.primaryColor,
@@ -149,6 +149,12 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
         ),
       ),
     );
+  }
+
+  void changePrice(double diff) {
+    final price = double.tryParse(priceController.text);
+    if (price == null) return;
+    setState(() => priceController.text = (price + diff).truncateIfInt());
   }
 
   BaseButton changePriceButton({
