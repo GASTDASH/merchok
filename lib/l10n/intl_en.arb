@@ -95,5 +95,9 @@
   "paymentMethodChanging": "Changing payment method information",
   "paymentMethodDeleting": "Deleting a payment method",
   "deleteThisFestival": "Delete this festival?",
-  "merchIsNotLoaded": "Мерч не загружен"
+  "merchIsNotLoaded": "The merch list is not loaded",
+  "selectPaymentMethod": "Select a payment method",
+  "noPaymentMethods": "You don't have any payment methods yet",
+  "errorLoadingPaymentMethods": "Error loading payment methods",
+  "paymentMethodsNotLoaded": "Payment methods are not loaded"
 }

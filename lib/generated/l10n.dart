@@ -804,11 +804,51 @@ class S {
     );
   }
 
-  /// `Мерч не загружен`
+  /// `The merch list is not loaded`
   String get merchIsNotLoaded {
     return Intl.message(
-      'Мерч не загружен',
+      'The merch list is not loaded',
       name: 'merchIsNotLoaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a payment method`
+  String get selectPaymentMethod {
+    return Intl.message(
+      'Select a payment method',
+      name: 'selectPaymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any payment methods yet`
+  String get noPaymentMethods {
+    return Intl.message(
+      'You don\'t have any payment methods yet',
+      name: 'noPaymentMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error loading payment methods`
+  String get errorLoadingPaymentMethods {
+    return Intl.message(
+      'Error loading payment methods',
+      name: 'errorLoadingPaymentMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment methods are not loaded`
+  String get paymentMethodsNotLoaded {
+    return Intl.message(
+      'Payment methods are not loaded',
+      name: 'paymentMethodsNotLoaded',
       desc: '',
       args: [],
     );

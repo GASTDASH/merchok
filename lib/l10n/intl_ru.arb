@@ -95,5 +95,9 @@
   "paymentMethodChanging": "Изменение способа оплаты",
   "paymentMethodDeleting": "Удаление способа оплаты",
   "deleteThisFestival": "Удалить этот фестиваль?",
-  "merchIsNotLoaded": "Мерч не загружен"
+  "merchIsNotLoaded": "Мерч не загружен",
+  "selectPaymentMethod": "Выберите способ оплаты",
+  "noPaymentMethods": "У вас пока нет способов оплаты",
+  "errorLoadingPaymentMethods": "Ошибка загрузки способов оплаты",
+  "paymentMethodsNotLoaded": "Способы оплаты не загружены"
 }

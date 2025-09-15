@@ -68,6 +68,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enterName": MessageLookupByLibrary.simpleMessage("Введите имя"),
     "enterTitle": MessageLookupByLibrary.simpleMessage("Введите название"),
+    "errorLoadingPaymentMethods": MessageLookupByLibrary.simpleMessage(
+      "Ошибка загрузки способов оплаты",
+    ),
     "eventDate": MessageLookupByLibrary.simpleMessage("Дата проведения"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Экспортировать данные для переноса на другое устройство",
@@ -136,6 +139,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "У вас пока нет фестивалей",
     ),
     "noMerch": MessageLookupByLibrary.simpleMessage("У вас пока нет мерча"),
+    "noPaymentMethods": MessageLookupByLibrary.simpleMessage(
+      "У вас пока нет способов оплаты",
+    ),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
@@ -164,6 +170,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Настроить способы оплаты для ваших покупателей",
     ),
+    "paymentMethodsNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Способы оплаты не загружены",
+    ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
@@ -175,6 +184,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
+    "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Выберите способ оплаты",
+    ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Выбрать период"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",

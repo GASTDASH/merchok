@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class PaymentMethodDropdownMenu extends StatelessWidget {
   const PaymentMethodDropdownMenu({
@@ -32,7 +33,7 @@ class PaymentMethodDropdownMenu extends StatelessWidget {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      hintText: 'Выберите способ оплаты',
+      hintText: S.of(context).selectPaymentMethod,
       onSelected: onSelected,
       dropdownMenuEntries: List.generate(paymentMethodList.length, (i) {
         final paymentMethod = paymentMethodList[i];

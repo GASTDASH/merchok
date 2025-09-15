@@ -64,6 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enterName": MessageLookupByLibrary.simpleMessage("Enter name"),
     "enterTitle": MessageLookupByLibrary.simpleMessage("Enter the title"),
+    "errorLoadingPaymentMethods": MessageLookupByLibrary.simpleMessage(
+      "Error loading payment methods",
+    ),
     "eventDate": MessageLookupByLibrary.simpleMessage("Event Date"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Export data to transfer to another device",
@@ -116,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Deleting a merch"),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
-      "Мерч не загружен",
+      "The merch list is not loaded",
     ),
     "merchListNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Merch list not loaded",
@@ -133,6 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noMerch": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any merch yet",
+    ),
+    "noPaymentMethods": MessageLookupByLibrary.simpleMessage(
+      "You don\'t have any payment methods yet",
     ),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
@@ -162,6 +168,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Set up payment methods for your customers",
     ),
+    "paymentMethodsNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Payment methods are not loaded",
+    ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
@@ -173,6 +182,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Select a payment method",
+    ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Select a period"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",

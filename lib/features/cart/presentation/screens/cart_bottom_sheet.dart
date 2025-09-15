@@ -214,11 +214,11 @@ class _PaymentMethodSection extends StatelessWidget {
                                 .selectPaymentMethod(paymentMethod),
                           );
                         }
-                        return Text('У вас пока нет способов оплаты');
+                        return Text(S.of(context).noPaymentMethods);
                       } else if (state is PaymentMethodError) {
-                        return Text('Ошибка загрузки способов оплаты');
+                        return Text(S.of(context).errorLoadingPaymentMethods);
                       }
-                      return Text('Способы оплаты не загружены');
+                      return Text(S.of(context).paymentMethodsNotLoaded);
                     },
                   ),
                 ),
