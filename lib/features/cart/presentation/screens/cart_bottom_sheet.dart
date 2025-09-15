@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/current_payment_method/current_payment_method.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
