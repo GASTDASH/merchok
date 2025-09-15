@@ -733,6 +733,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Add your first payment method`
+  String get addYourFirstPaymentMethod {
+    return Intl.message(
+      'Add your first payment method',
+      name: 'addYourFirstPaymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Удалить этот способ оплаты?`
+  String get deleteThisPaymentMethod {
+    return Intl.message(
+      'Удалить этот способ оплаты?',
+      name: 'deleteThisPaymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Загрузка способов оплаты`
+  String get paymentMethodLoading {
+    return Intl.message(
+      'Загрузка способов оплаты',
+      name: 'paymentMethodLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Создание способа оплаты`
+  String get paymentMethodCreating {
+    return Intl.message(
+      'Создание способа оплаты',
+      name: 'paymentMethodCreating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изменение способа оплаты`
+  String get paymentMethodChanging {
+    return Intl.message(
+      'Изменение способа оплаты',
+      name: 'paymentMethodChanging',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Удаление способа оплаты`
+  String get paymentMethodDeleting {
+    return Intl.message(
+      'Удаление способа оплаты',
+      name: 'paymentMethodDeleting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

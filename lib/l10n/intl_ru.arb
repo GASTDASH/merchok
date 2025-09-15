@@ -87,5 +87,11 @@
   "plus100": "+100",
   "festivalNotSelected": "Фестиваль не выбран",
   "loading": "Загрузка",
-  "festivalSelecting": "Выбор фестиваля"
+  "festivalSelecting": "Выбор фестиваля",
+  "addYourFirstPaymentMethod": "Добавьте свой первый способ оплаты",
+  "deleteThisPaymentMethod": "Удалить этот способ оплаты?",
+  "paymentMethodLoading": "Загрузка способов оплаты",
+  "paymentMethodCreating": "Создание способа оплаты",
+  "paymentMethodChanging": "Изменение способа оплаты",
+  "paymentMethodDeleting": "Удаление способа оплаты"
 }

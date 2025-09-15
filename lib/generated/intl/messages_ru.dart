@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Информация о приложении",
     ),
     "add": MessageLookupByLibrary.simpleMessage("Добавить"),
+    "addYourFirstPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Добавьте свой первый способ оплаты",
+    ),
     "addingToCart": MessageLookupByLibrary.simpleMessage(
       "Добавление в корзину",
     ),
@@ -48,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
     "deleteThisMerch": MessageLookupByLibrary.simpleMessage(
       "Удалить этот мерч?",
+    ),
+    "deleteThisPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Удалить этот способ оплаты?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
@@ -136,6 +142,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Заказ успешно создан!",
     ),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Способ оплаты"),
+    "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
+      "Изменение способа оплаты",
+    ),
+    "paymentMethodCreating": MessageLookupByLibrary.simpleMessage(
+      "Создание способа оплаты",
+    ),
+    "paymentMethodDeleting": MessageLookupByLibrary.simpleMessage(
+      "Удаление способа оплаты",
+    ),
+    "paymentMethodLoading": MessageLookupByLibrary.simpleMessage(
+      "Загрузка способов оплаты",
+    ),
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Способы оплаты"),
     "paymentMethodsDescription": MessageLookupByLibrary.simpleMessage(
       "Настроить способы оплаты для ваших покупателей",
