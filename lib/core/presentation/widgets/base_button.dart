@@ -46,6 +46,8 @@ class BaseButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: _outlined
                   ? Colors.transparent
+                  : onTap == null
+                  ? theme.disabledColor
                   : color ?? theme.primaryColor,
               borderRadius: borderRadius,
               border: _outlined

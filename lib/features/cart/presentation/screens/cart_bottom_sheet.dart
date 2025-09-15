@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class CartBottomSheet extends StatefulWidget {
@@ -26,169 +26,190 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BaseDraggableScrollableSheet(
-      padding: EdgeInsets.zero,
-      builder: (context, scrollController) => CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              if (state is CartLoading) {
-                return LoadingBanner(message: state.message);
-              } else if (state is CartLoaded) {
-                if (state.cartItems.isNotEmpty) {
-                  return SliverPadding(
-                    padding: const EdgeInsets.all(24),
-                    sliver: SliverMainAxisGroup(
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S.of(context).total,
-                                style: theme.textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => CurrentPaymentMethodCubit(),
+      child: BaseDraggableScrollableSheet(
+        padding: EdgeInsets.zero,
+        builder: (context, scrollController) => CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                if (state is CartLoading) {
+                  return LoadingBanner(message: state.message);
+                } else if (state is CartLoaded) {
+                  if (state.cartItems.isNotEmpty) {
+                    return SliverPadding(
+                      padding: const EdgeInsets.all(24),
+                      sliver: SliverMainAxisGroup(
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).total,
+                                  style: theme.textTheme.headlineSmall
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              Builder(
-                                builder: (context) {
-                                  final merchState = context
-                                      .read<MerchBloc>()
-                                      .state;
-                                  if (merchState is MerchLoaded) {
-                                    final sum = sumCartItems(
-                                      state.cartItems,
-                                      merchState.merchList,
-                                    );
-                                    return Text(
-                                      '${sum.truncateIfInt()} ₽',
-                                      style: theme.textTheme.headlineLarge,
-                                    );
-                                  } else {
-                                    return Text(S.of(context).merchIsNotLoaded);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        SliverToBoxAdapter(child: SizedBox(height: 12)),
-                        SliverToBoxAdapter(
-                          child: Text(
-                            '${S.of(context).paymentMethod}:',
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                        ),
-                        SliverToBoxAdapter(child: SizedBox(height: 8)),
-                        SliverToBoxAdapter(
-                          child: DropdownMenu(
-                            width: double.infinity,
-                            leadingIcon: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: SvgPicture.asset(
-                                IconNames.sberbank,
-                                height: 32,
-                              ),
-                            ),
-                            inputDecorationTheme: InputDecorationTheme(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            onSelected: (value) {},
-                            initialSelection: 'paymentMethodN',
-                            dropdownMenuEntries: [
-                              DropdownMenuEntry(
-                                leadingIcon: SvgPicture.asset(
-                                  IconNames.money,
-                                  height: 32,
+                                Builder(
+                                  builder: (context) {
+                                    final merchState = context
+                                        .read<MerchBloc>()
+                                        .state;
+                                    if (merchState is MerchLoaded) {
+                                      final sum = sumCartItems(
+                                        state.cartItems,
+                                        merchState.merchList,
+                                      );
+                                      return Text(
+                                        '${sum.truncateIfInt()} ₽',
+                                        style: theme.textTheme.headlineLarge,
+                                      );
+                                    } else {
+                                      return Text(
+                                        S.of(context).merchIsNotLoaded,
+                                      );
+                                    }
+                                  },
                                 ),
-                                value: 'paymentMethodN',
-                                label: 'Наличка',
-                              ),
-                              ...List.generate(
-                                5,
-                                (index) => DropdownMenuEntry(
-                                  leadingIcon: SvgPicture.asset(
-                                    IconNames.sberbank,
-                                    height: 32,
+                              ],
+                            ),
+                          ),
+                          SliverToBoxAdapter(child: SizedBox(height: 12)),
+                          SliverToBoxAdapter(
+                            child: Text(
+                              '${S.of(context).paymentMethod}:',
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                          SliverToBoxAdapter(child: SizedBox(height: 8)),
+                          BlocBuilder<
+                            CurrentPaymentMethodCubit,
+                            PaymentMethod?
+                          >(
+                            builder: (context, selectedPaymentMethod) {
+                              return SliverMainAxisGroup(
+                                slivers: [
+                                  SliverToBoxAdapter(
+                                    child:
+                                        BlocBuilder<
+                                          PaymentMethodBloc,
+                                          PaymentMethodState
+                                        >(
+                                          builder: (context, state) {
+                                            if (state is PaymentMethodLoaded) {
+                                              if (state
+                                                  .paymentMethodList
+                                                  .isNotEmpty) {
+                                                return PaymentMethodDropdownMenu(
+                                                  paymentMethodList:
+                                                      state.paymentMethodList,
+                                                  selectedPaymentMethod:
+                                                      selectedPaymentMethod,
+                                                  onSelected: (paymentMethod) =>
+                                                      context
+                                                          .read<
+                                                            CurrentPaymentMethodCubit
+                                                          >()
+                                                          .selectPaymentMethod(
+                                                            paymentMethod,
+                                                          ),
+                                                );
+                                              }
+                                              return Text(
+                                                'У вас пока нет способов оплаты',
+                                              );
+                                            }
+                                            return Text(
+                                              'Способы оплаты не загружены',
+                                            );
+                                          },
+                                        ),
                                   ),
-                                  value: 'paymentMethod${++index}',
-                                  label: 'Способ оплаты $index',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SliverToBoxAdapter(child: SizedBox(height: 24)),
-                        SliverToBoxAdapter(
-                          child: BaseButton(
-                            onTap: () {
-                              context.pop();
-                              showDialog(
-                                context: context,
-                                builder: (context) => OrderCreatedDialog(),
+                                  SliverToBoxAdapter(
+                                    child: SizedBox(height: 24),
+                                  ),
+                                  SliverToBoxAdapter(
+                                    child: BaseButton(
+                                      onTap: selectedPaymentMethod != null
+                                          ? () {
+                                              context.pop();
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    OrderCreatedDialog(),
+                                              );
+                                            }
+                                          : null,
+                                      padding: EdgeInsetsGeometry.all(12),
+                                      child: Text(
+                                        S.of(context).checkout,
+                                        style: theme.textTheme.titleLarge
+                                            ?.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
-                            padding: EdgeInsetsGeometry.all(12),
-                            child: Text(
-                              S.of(context).checkout,
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
                           ),
-                        ),
-                        SliverToBoxAdapter(child: SizedBox(height: 24)),
-                        Builder(
-                          builder: (context) {
-                            final merchState = context.read<MerchBloc>().state;
-                            if (merchState is! MerchLoaded) {
-                              return InfoBanner(
-                                text: S.of(context).merchListNotLoaded,
+                          SliverToBoxAdapter(child: SizedBox(height: 24)),
+                          Builder(
+                            builder: (context) {
+                              final merchState = context
+                                  .read<MerchBloc>()
+                                  .state;
+                              if (merchState is! MerchLoaded) {
+                                return InfoBanner(
+                                  text: S.of(context).merchListNotLoaded,
+                                );
+                              }
+
+                              return SliverList.builder(
+                                itemCount: state.cartItems.length,
+                                itemBuilder: (context, index) {
+                                  final cartItem = state.cartItems[index];
+                                  final merch = merchState.merchList.firstWhere(
+                                    (merch) => merch.id == cartItem.merchId,
+                                  );
+
+                                  return MerchCard(
+                                    merch: merch,
+                                    count: cartItem.quantity,
+                                    editable: false,
+                                    onTapDelete: () {
+                                      context.read<CartBloc>().add(
+                                        CartDelete(merchId: merch.id),
+                                      );
+                                    },
+                                  );
+                                },
                               );
-                            }
-
-                            return SliverList.builder(
-                              itemCount: state.cartItems.length,
-                              itemBuilder: (context, index) {
-                                final cartItem = state.cartItems[index];
-                                final merch = merchState.merchList.firstWhere(
-                                  (merch) => merch.id == cartItem.merchId,
-                                );
-
-                                return MerchCard(
-                                  merch: merch,
-                                  count: cartItem.quantity,
-                                  editable: false,
-                                  onTapDelete: () => context
-                                      .read<CartBloc>()
-                                      .add(CartDelete(merchId: merch.id)),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return InfoBanner.icon(
-                    text: S.of(context).emptyCart,
-                    icon: IconNames.cart,
-                  );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return InfoBanner.icon(
+                      text: S.of(context).emptyCart,
+                      icon: IconNames.cart,
+                    );
+                  }
+                } else if (state is CartError) {
+                  return ErrorBanner(message: state.error.toString());
+                } else if (state is CartInitial) {
+                  return SliverFillRemaining();
                 }
-              } else if (state is CartError) {
-                return ErrorBanner(message: state.error.toString());
-              } else if (state is CartInitial) {
-                return SliverFillRemaining();
-              }
-              return UnexpectedStateBanner();
-            },
-          ),
-        ],
+                return UnexpectedStateBanner();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
