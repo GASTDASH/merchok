@@ -194,6 +194,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
+    "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Временно недоступно",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение темы приложения",

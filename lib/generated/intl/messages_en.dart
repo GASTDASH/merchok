@@ -192,6 +192,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
+    "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Temporary unavailable",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
       "Change app theme",

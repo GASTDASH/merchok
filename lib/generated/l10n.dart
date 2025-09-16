@@ -863,6 +863,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Temporary unavailable`
+  String get temporaryUnavailable {
+    return Intl.message(
+      'Temporary unavailable',
+      name: 'temporaryUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

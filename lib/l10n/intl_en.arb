@@ -100,5 +100,6 @@
   "noPaymentMethods": "You don't have any payment methods yet",
   "errorLoadingPaymentMethods": "Error loading payment methods",
   "paymentMethodsNotLoaded": "Payment methods are not loaded",
-  "noMatchingMerch": "No matching merch was found"
+  "noMatchingMerch": "No matching merch was found",
+  "temporaryUnavailable": "Temporary unavailable"
 }

@@ -100,5 +100,6 @@
   "noPaymentMethods": "У вас пока нет способов оплаты",
   "errorLoadingPaymentMethods": "Ошибка загрузки способов оплаты",
   "paymentMethodsNotLoaded": "Способы оплаты не загружены",
-  "noMatchingMerch": "Не найдено подходящего мерча"
+  "noMatchingMerch": "Не найдено подходящего мерча",
+  "temporaryUnavailable": "Временно недоступно"
 }

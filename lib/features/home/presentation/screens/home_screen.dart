@@ -27,8 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -45,63 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverPadding(
             padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 0,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  CategoryChip(
-                    text: 'asdf',
-                    selected: true,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: '123124124',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: '43434349',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: '3434',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: '34343434',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: '123123123',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  CategoryChip(
-                    text: 'asdf',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                  BaseButton(
-                    onTap: () {
-                      showCategoriesBottomSheet(context);
-                    },
-                    constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
-                    child: Text(
-                      S.of(context).all,
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 12)),
           BlocBuilder<MerchBloc, MerchState>(
@@ -160,9 +102,38 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _NoMerchBanner extends StatelessWidget {
-  const _NoMerchBanner();
+class _CategoriesWrap extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 10,
+      runSpacing: 0,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        CategoryChip(
+          text: S.of(context).temporaryUnavailable,
+          selected: true,
+          onSelected: (value) {},
+        ),
+        BaseButton(
+          onTap: () {
+            showCategoriesBottomSheet(context);
+          },
+          constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
+          child: Text(
+            S.of(context).all,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
+class _NoMerchBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
