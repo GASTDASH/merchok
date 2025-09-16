@@ -34,4 +34,7 @@ class CartRepositoryImpl implements CartRepository {
   @override
   Future<void> deleteCartItem(String cartItemId) async =>
       cartItems.remove(cartItemId);
+
+  @override
+  Future<void> clearCartItems() async => cartItems.clear();
 }

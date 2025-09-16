@@ -5,6 +5,7 @@ import 'package:merchok/app/app.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,9 @@ Future<void> _registerRepositories() async {
 
   final paymentMethodRepository = PaymentMethodRepositoryImpl();
   GetIt.I.registerSingleton<PaymentMethodRepository>(paymentMethodRepository);
+
+  final orderRepository = OrderRepositoryImpl();
+  GetIt.I.registerSingleton<OrderRepository>(orderRepository);
 }
 
 void _talkerInit() {

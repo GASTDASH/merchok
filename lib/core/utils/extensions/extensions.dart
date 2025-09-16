@@ -18,6 +18,8 @@ extension DateTimeExtension on DateTime {
 
   String toCompactString() =>
       toIso8601String().split('T')[0].split('-').reversed.join('.');
+
+  String toTime() => '$hour:${(minute < 10) ? '0$minute' : '$minute'}';
 }
 
 extension DoubleExtension on double {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class ReceiptWidget extends StatelessWidget {
-  const ReceiptWidget({super.key});
+  const ReceiptWidget({super.key, required this.order});
+
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,10 @@ class ReceiptWidget extends StatelessWidget {
                 style: theme.textTheme.titleLarge,
                 children: [
                   TextSpan(
-                    text: '02.09 ',
+                    text: order.createdAt.toCompactString(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  TextSpan(text: '21:54'),
+                  TextSpan(text: ' ${order.createdAt.toTime()}'),
                 ],
               ),
             ),
@@ -48,57 +51,40 @@ class ReceiptWidget extends StatelessWidget {
             2: IntrinsicColumnWidth(),
           },
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: [
-            TableRow(
+          children: List.generate(order.orderItems.length, (i) {
+            final orderItem = order.orderItems[i];
+            return TableRow(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Text('1', style: theme.textTheme.titleLarge),
+                  child: Text(
+                    '${orderItem.quantity}',
+                    style: theme.textTheme.titleLarge,
+                  ),
                 ),
                 Text(
-                  S.of(context).merchDefaultName,
+                  orderItem.merch.name,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
-                  '100 ₽',
+                  orderItem.merch.price.truncateIfInt(),
                   textAlign: TextAlign.right,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
-            ),
-            TableRow(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Text('4', style: theme.textTheme.titleLarge),
-                ),
-                Text(
-                  S.of(context).merchDefaultName,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Text(
-                  '50 ₽',
-                  textAlign: TextAlign.right,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ],
+            );
+          }),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(S.of(context).total, style: theme.textTheme.titleLarge),
             Text(
-              '300 ₽',
+              '${order.totalAmount.truncateIfInt()} ₽',
               textAlign: TextAlign.right,
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w800,

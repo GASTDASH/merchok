@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/current_payment_method/current_payment_method.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -28,30 +30,58 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CurrentPaymentMethodCubit(),
-      child: BaseDraggableScrollableSheet(
-        padding: EdgeInsets.zero,
-        builder: (context, scrollController) => CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            BlocBuilder<CartBloc, CartState>(
-              builder: (context, state) {
-                if (state is CartLoading) {
-                  return LoadingBanner(message: state.message);
-                } else if (state is CartLoaded) {
-                  if (state.cartItems.isNotEmpty) {
-                    return _CartContent(cartItems: state.cartItems);
-                  } else {
-                    return _EmptyCart();
+      child: BlocListener<OrderBloc, OrderState>(
+        listener: (context, state) {
+          if (state is OrderLoading) {
+            showLoadingDialog(context: context, message: state.message);
+          }
+        },
+        listenWhen: (previous, current) {
+          if (previous is OrderLoading) {
+            context.pop(); // Close 'Loading Dialog'
+            if (current is OrderLoaded) {
+              context.read<CartBloc>().add(CartClear());
+              context.pop(); // Close 'Cart Bottom Sheet'
+              showDialog(
+                context: context,
+                builder: (context) => OrderCreatedDialog(),
+              );
+            } else if (current is OrderError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  content: Text(current.error.toString()),
+                ),
+              );
+            }
+          }
+          return true;
+        },
+        child: BaseDraggableScrollableSheet(
+          padding: EdgeInsets.zero,
+          builder: (context, scrollController) => CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoading) {
+                    return LoadingBanner(message: state.message);
+                  } else if (state is CartLoaded) {
+                    if (state.cartItems.isNotEmpty) {
+                      return _CartContent(cartItems: state.cartItems);
+                    } else {
+                      return _EmptyCart();
+                    }
+                  } else if (state is CartError) {
+                    return ErrorBanner(message: state.error.toString());
+                  } else if (state is CartInitial) {
+                    return SliverFillRemaining();
                   }
-                } else if (state is CartError) {
-                  return ErrorBanner(message: state.error.toString());
-                } else if (state is CartInitial) {
-                  return SliverFillRemaining();
-                }
-                return UnexpectedStateBanner();
-              },
-            ),
-          ],
+                  return UnexpectedStateBanner();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -245,24 +275,53 @@ class _CheckoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseButton(
-      onTap: enabled
-          ? () {
-              context.pop();
-              showDialog(
-                context: context,
-                builder: (context) => OrderCreatedDialog(),
-              );
-            }
-          : null,
-      padding: EdgeInsetsGeometry.all(12),
-      child: Text(
-        S.of(context).checkout,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+    return Builder(
+      builder: (context) {
+        final cartState = context.watch<CartBloc>().state;
+        final currentFestival = context.watch<CurrentFestivalCubit>().state;
+        final merchState = context.watch<MerchBloc>().state;
+        final currentPaymentMethod = context
+            .watch<CurrentPaymentMethodCubit>()
+            .state;
+
+        return Column(
+          spacing: 8,
+          children: [
+            BaseButton(
+              onTap:
+                  enabled &&
+                      cartState is CartLoaded &&
+                      currentFestival != null &&
+                      merchState is MerchLoaded &&
+                      currentPaymentMethod != null
+                  ? () {
+                      context.read<OrderBloc>().add(
+                        OrderAdd(
+                          cartItems: cartState.cartItems,
+                          festival: currentFestival,
+                          paymentMethod: currentPaymentMethod,
+                          merchList: merchState.merchList,
+                        ),
+                      );
+                    }
+                  : null,
+              padding: EdgeInsetsGeometry.all(12),
+              child: Text(
+                S.of(context).checkout,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            if (currentFestival == null)
+              Text(
+                'Фестиваль не выбран',
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+          ],
+        );
+      },
     );
   }
 }

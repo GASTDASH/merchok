@@ -49,3 +49,5 @@ final class CartDelete extends CartEvent {
   @override
   List<Object> get props => super.props..addAll([merchId]);
 }
+
+final class CartClear extends CartEvent {}

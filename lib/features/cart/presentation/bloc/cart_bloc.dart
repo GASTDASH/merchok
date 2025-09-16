@@ -54,5 +54,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartError(error: e));
       }
     });
+    on<CartClear>((event, emit) async {
+      try {
+        await _cartRepository.clearCartItems();
+        add(CartLoad());
+      } catch (e) {
+        emit(CartError(error: e));
+      }
+    });
   }
 }

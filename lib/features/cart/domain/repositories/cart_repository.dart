@@ -6,4 +6,5 @@ abstract interface class CartRepository {
   Future<void> plusCartItem(String merchId);
   Future<void> minusCartItem(String merchId);
   Future<void> deleteCartItem(String cartItemId);
+  Future<void> clearCartItems();
 }
