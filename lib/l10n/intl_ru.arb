@@ -99,5 +99,6 @@
   "selectPaymentMethod": "Выберите способ оплаты",
   "noPaymentMethods": "У вас пока нет способов оплаты",
   "errorLoadingPaymentMethods": "Ошибка загрузки способов оплаты",
-  "paymentMethodsNotLoaded": "Способы оплаты не загружены"
+  "paymentMethodsNotLoaded": "Способы оплаты не загружены",
+  "noMatchingMerch": "Не найдено подходящего мерча"
 }

@@ -99,5 +99,6 @@
   "selectPaymentMethod": "Select a payment method",
   "noPaymentMethods": "You don't have any payment methods yet",
   "errorLoadingPaymentMethods": "Error loading payment methods",
-  "paymentMethodsNotLoaded": "Payment methods are not loaded"
+  "paymentMethodsNotLoaded": "Payment methods are not loaded",
+  "noMatchingMerch": "No matching merch was found"
 }

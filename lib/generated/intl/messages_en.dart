@@ -134,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any festivals yet",
     ),
+    "noMatchingMerch": MessageLookupByLibrary.simpleMessage(
+      "No matching merch was found",
+    ),
     "noMerch": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any merch yet",
     ),

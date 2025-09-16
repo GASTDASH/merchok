@@ -853,6 +853,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No matching merch was found`
+  String get noMatchingMerch {
+    return Intl.message(
+      'No matching merch was found',
+      name: 'noMatchingMerch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

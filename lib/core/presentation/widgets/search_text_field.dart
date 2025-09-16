@@ -4,9 +4,10 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key, this.controller});
+  const SearchTextField({super.key, this.controller, this.onChanged});
 
   final TextEditingController? controller;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class SearchTextField extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              onChanged: onChanged,
               controller: controller,
               decoration: InputDecoration(
                 border: InputBorder.none,

@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(child: SearchTextField()),
+            sliver: SliverToBoxAdapter(
+              child: SearchTextField(
+                controller: searchController,
+                onChanged: (_) => setState(() {}),
+              ),
+            ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverPadding(
@@ -105,79 +112,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 return LoadingBanner(message: state.message);
               } else if (state is MerchLoaded) {
                 if (state.merchList.isNotEmpty) {
+                  final filteredMerchList = searchController.text.isNotEmpty
+                      ? state.merchList
+                            .where(
+                              (merch) =>
+                                  merch.name.contains(searchController.text),
+                            )
+                            .toList()
+                      : state.merchList;
+
+                  if (filteredMerchList.isEmpty) {
+                    return InfoBanner(text: S.of(context).noMatchingMerch);
+                  }
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverMainAxisGroup(
                       slivers: [
-                        BlocSelector<CartBloc, CartState, Map<String, int>>(
-                          selector: (state) {
+                        _MerchList(
+                          merchList: filteredMerchList,
+                          cartItems: [
                             if (cartState is CartLoaded &&
-                                cartState.cartItems.isNotEmpty) {
-                              return Map.fromEntries(
-                                cartState.cartItems.map(
-                                  (cartItem) => MapEntry(
-                                    cartItem.merchId,
-                                    cartItem.quantity,
-                                  ),
-                                ),
-                              );
-                            }
-                            return {};
-                          },
-                          builder: (context, cartItemQuantities) {
-                            return SliverList.builder(
-                              itemCount: state.merchList.length,
-                              itemBuilder: (context, index) {
-                                final merch = state.merchList[index];
-
-                                return MerchCard(
-                                  onLongPress: () =>
-                                      showDeleteMerchDialog(context, merch.id),
-                                  merch: merch,
-                                  count: cartItemQuantities[merch.id] ?? 0,
-                                );
-                              },
-                            );
-                          },
+                                cartState.cartItems.isNotEmpty)
+                              ...cartState.cartItems,
+                          ],
                         ),
                         SliverPadding(
                           padding: const EdgeInsets.only(top: 12, bottom: 128),
-                          sliver: SliverToBoxAdapter(
-                            child: addButtons(context),
-                          ),
+                          sliver: SliverToBoxAdapter(child: _AddButtons()),
                         ),
                       ],
                     ),
                   );
                 } else {
-                  return SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                S.of(context).noMerch,
-                                style: theme.textTheme.headlineMedium,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: addButtons(context),
-                          ),
-                        ),
-                        SizedBox(height: 128),
-                      ],
-                    ),
-                  );
+                  return _NoMerchBanner();
                 }
               } else if (state is MerchError) {
                 return ErrorBanner(message: state.error.toString());
@@ -191,21 +158,44 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
 
-  Future<dynamic> showDeleteMerchDialog(
-    BuildContext context,
-    String merchId,
-  ) async => await showDeleteDialog(
-    context: context,
-    message: S.of(context).deleteThisMerch,
-    onYes: () {
-      context.pop();
-      context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
-    },
-    onNo: () => context.pop(),
-  );
+class _NoMerchBanner extends StatelessWidget {
+  const _NoMerchBanner();
 
-  Widget addButtons(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+      hasScrollBody: false,
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  S.of(context).noMerch,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 24),
+          Expanded(
+            child: Align(alignment: Alignment.topCenter, child: _AddButtons()),
+          ),
+          SizedBox(height: 128),
+        ],
+      ),
+    );
+  }
+}
+
+class _AddButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 20,
@@ -236,4 +226,49 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context) => ImportBottomSheet(),
     );
   }
+}
+
+class _MerchList extends StatelessWidget {
+  const _MerchList({required this.merchList, required this.cartItems});
+
+  final List<Merch> merchList;
+  final List<CartItem> cartItems;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<CartBloc, CartState, Map<String, int>>(
+      selector: (state) => Map.fromEntries(
+        cartItems.map(
+          (cartItem) => MapEntry(cartItem.merchId, cartItem.quantity),
+        ),
+      ),
+      builder: (context, cartItemQuantities) {
+        return SliverList.builder(
+          itemCount: merchList.length,
+          itemBuilder: (context, index) {
+            final merch = merchList[index];
+
+            return MerchCard(
+              onLongPress: () => showDeleteMerchDialog(context, merch.id),
+              merch: merch,
+              count: cartItemQuantities[merch.id] ?? 0,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<dynamic> showDeleteMerchDialog(
+    BuildContext context,
+    String merchId,
+  ) async => await showDeleteDialog(
+    context: context,
+    message: S.of(context).deleteThisMerch,
+    onYes: () {
+      context.pop();
+      context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
+    },
+    onNo: () => context.pop(),
+  );
 }

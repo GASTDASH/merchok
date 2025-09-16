@@ -138,6 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет фестивалей",
     ),
+    "noMatchingMerch": MessageLookupByLibrary.simpleMessage(
+      "Не найдено подходящего мерча",
+    ),
     "noMerch": MessageLookupByLibrary.simpleMessage("У вас пока нет мерча"),
     "noPaymentMethods": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет способов оплаты",
