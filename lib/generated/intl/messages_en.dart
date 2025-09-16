@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPaymentMethods": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any payment methods yet",
     ),
+    "noReceipts": MessageLookupByLibrary.simpleMessage(
+      "You don\'t have any saved receipts",
+    ),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
@@ -182,6 +185,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "profit": MessageLookupByLibrary.simpleMessage("Profit"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Receipt from "),
+    "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
+    "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),

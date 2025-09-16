@@ -316,7 +316,7 @@ class _CheckoutButton extends StatelessWidget {
             ),
             if (currentFestival == null)
               Text(
-                'Фестиваль не выбран',
+                S.of(context).festivalNotSelected,
                 style: TextStyle(color: Theme.of(context).colorScheme.error),
               ),
           ],

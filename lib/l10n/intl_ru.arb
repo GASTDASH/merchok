@@ -101,5 +101,8 @@
   "errorLoadingPaymentMethods": "Ошибка загрузки способов оплаты",
   "paymentMethodsNotLoaded": "Способы оплаты не загружены",
   "noMatchingMerch": "Не найдено подходящего мерча",
-  "temporaryUnavailable": "Временно недоступно"
+  "temporaryUnavailable": "Временно недоступно",
+  "noReceipts": "У вас нет сохранённых чеков",
+  "receiptsLoading": "Загрузка чеков",
+  "receiptSaving": "Сохранение чека"
 }

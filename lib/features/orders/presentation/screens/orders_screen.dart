@@ -75,7 +75,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               ReceiptWidget(order: state.orderList[index]),
                         );
                       } else {
-                        return InfoBanner(text: 'У вас нет сохранённых чеков');
+                        return InfoBanner(text: S.of(context).noReceipts);
                       }
                     } else if (state is OrderError) {
                       return ErrorBanner(message: state.error.toString());

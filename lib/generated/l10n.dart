@@ -873,6 +873,36 @@ class S {
       args: [],
     );
   }
+
+  /// `You don't have any saved receipts`
+  String get noReceipts {
+    return Intl.message(
+      'You don\'t have any saved receipts',
+      name: 'noReceipts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading receipts`
+  String get receiptsLoading {
+    return Intl.message(
+      'Loading receipts',
+      name: 'receiptsLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saving the receipt`
+  String get receiptSaving {
+    return Intl.message(
+      'Saving the receipt',
+      name: 'receiptSaving',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

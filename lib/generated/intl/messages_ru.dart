@@ -145,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPaymentMethods": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет способов оплаты",
     ),
+    "noReceipts": MessageLookupByLibrary.simpleMessage(
+      "У вас нет сохранённых чеков",
+    ),
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
@@ -184,6 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Чек от "),
+    "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
+    "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),

@@ -5,6 +5,7 @@ import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
+import 'package:merchok/generated/l10n.dart';
 import 'package:uuid/uuid.dart';
 
 part 'order_event.dart';
@@ -18,7 +19,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       super(OrderInitial()) {
     on<OrderLoad>((event, emit) async {
       try {
-        emit(OrderLoading(message: 'Загрузка чеков'));
+        emit(OrderLoading(message: S.current.receiptsLoading));
         final orderList = await _orderRepository.getOrders();
         emit(OrderLoaded(orderList: orderList));
       } catch (e) {
@@ -27,7 +28,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     });
     on<OrderAdd>((event, emit) async {
       try {
-        emit(OrderLoading(message: 'Сохранение чека'));
+        emit(OrderLoading(message: S.current.receiptSaving));
         await _orderRepository.addOrder(
           Order(
             id: Uuid().v4(),

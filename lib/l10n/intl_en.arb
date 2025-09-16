@@ -101,5 +101,8 @@
   "errorLoadingPaymentMethods": "Error loading payment methods",
   "paymentMethodsNotLoaded": "Payment methods are not loaded",
   "noMatchingMerch": "No matching merch was found",
-  "temporaryUnavailable": "Temporary unavailable"
+  "temporaryUnavailable": "Temporary unavailable",
+  "noReceipts": "You don't have any saved receipts",
+  "receiptsLoading": "Loading receipts",
+  "receiptSaving": "Saving the receipt"
 }
