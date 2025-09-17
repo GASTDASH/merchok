@@ -938,6 +938,16 @@ class S {
       args: [],
     );
   }
+
+  /// `The order list is not loaded`
+  String get ordersIsNotLoaded {
+    return Intl.message(
+      'The order list is not loaded',
+      name: 'ordersIsNotLoaded',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

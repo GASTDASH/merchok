@@ -163,6 +163,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Заказ успешно создан!",
     ),
+    "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Заказы не загружены",
+    ),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Способ оплаты"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
       "Изменение способа оплаты",

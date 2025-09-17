@@ -161,6 +161,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Order successfully created!",
     ),
+    "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "The order list is not loaded",
+    ),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
       "Changing payment method information",

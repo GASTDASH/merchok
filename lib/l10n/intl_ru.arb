@@ -108,5 +108,6 @@
   "unableToDeleteMerch": "Невозможно удалить мерч, так как он находится в корзине",
   "noMatchingOrders": "Не найдено подходящих заказов",
   "sorting": "Сортировка",
-  "clearFilter": "Очистить фильтр"
+  "clearFilter": "Очистить фильтр",
+  "ordersIsNotLoaded": "Заказы не загружены"
 }

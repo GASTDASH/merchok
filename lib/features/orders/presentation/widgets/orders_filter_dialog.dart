@@ -5,16 +5,20 @@ import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class OrdersFilterDialog extends StatefulWidget {
-  const OrdersFilterDialog({super.key, this.previousFilter});
+  const OrdersFilterDialog({
+    super.key,
+    this.previousFilter,
+    required this.maxAmount,
+  });
 
   final OrderFilter? previousFilter;
+  final double maxAmount;
 
   @override
   State<OrdersFilterDialog> createState() => _OrdersFilterDialogState();
 }
 
 class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
-  final double maxAmount = 20000;
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
 
@@ -25,7 +29,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
   void initState() {
     super.initState();
 
-    amountRange = RangeValues(0, maxAmount / 2);
+    amountRange = RangeValues(0, widget.maxAmount);
     startController.text = amountRange.start.truncate().toString();
     endController.text = amountRange.end.truncate().toString();
 
@@ -66,7 +70,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                   value.end.truncateToDouble(),
                 ),
               ),
-              max: maxAmount,
+              max: widget.maxAmount,
               min: 0,
             ),
             Row(
@@ -94,7 +98,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                     if (newEnd == null || newEnd <= amountRange.start) {
                       return;
                     }
-                    if (newEnd > maxAmount) newEnd = maxAmount;
+                    if (newEnd > widget.maxAmount) newEnd = widget.maxAmount;
                     amountRange = RangeValues(amountRange.start, newEnd);
                     setState(() {});
                   },

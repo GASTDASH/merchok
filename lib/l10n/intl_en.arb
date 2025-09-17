@@ -108,5 +108,6 @@
   "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart",
   "noMatchingOrders": "No matching orders was found",
   "sorting": "Sorting",
-  "clearFilter": "Clear filter"
+  "clearFilter": "Clear filter",
+  "ordersIsNotLoaded": "The order list is not loaded"
 }

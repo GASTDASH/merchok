@@ -7,6 +7,9 @@ class OrderFilter extends Equatable {
   final RangeValues? rangeValues;
   final DateTimeRange? dateTimeRange;
 
+  bool get isEmpty => rangeValues == null && dateTimeRange == null;
+  bool get isNotEmpty => !isEmpty;
+
   @override
   List<Object?> get props => [rangeValues, dateTimeRange];
 }
