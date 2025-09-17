@@ -16,31 +16,49 @@ class ReceiptWidget extends StatelessWidget {
     return Column(
       spacing: 12,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          spacing: 4,
           children: [
-            RichText(
-              text: TextSpan(
-                text: S.of(context).receiptFrom,
-                style: theme.textTheme.titleLarge,
-                children: [
-                  TextSpan(
-                    text: order.createdAt.toCompactString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: S.of(context).receiptFrom,
+                    style: theme.textTheme.titleLarge,
+                    children: [
+                      TextSpan(
+                        text: order.createdAt.toCompactString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(text: ' ${order.createdAt.toTime()}'),
+                    ],
                   ),
-                  TextSpan(text: ' ${order.createdAt.toTime()}'),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: SvgPicture.asset(
-                IconNames.delete,
-                colorFilter: ColorFilter.mode(
-                  theme.colorScheme.onSurface,
-                  BlendMode.srcIn,
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {},
+                  child: SvgPicture.asset(
+                    IconNames.delete,
+                    colorFilter: ColorFilter.mode(
+                      theme.colorScheme.onSurface,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              spacing: 8,
+              children: [
+                SvgPicture.asset(
+                  IconNames.calendar,
+                  colorFilter: ColorFilter.mode(
+                    theme.colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                Text(order.festival.name),
+              ],
             ),
           ],
         ),
