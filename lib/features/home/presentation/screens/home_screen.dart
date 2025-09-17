@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -257,14 +256,7 @@ class _MerchList extends StatelessWidget {
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(
-                IconNames.delete,
-                colorFilter: ColorFilter.mode(
-                  theme.colorScheme.onSurface,
-                  BlendMode.srcIn,
-                ),
-                height: 32,
-              ),
+              BaseSvgIcon(context, IconNames.delete, height: 32),
               Text(
                 S.of(context).unableToDeleteMerch,
                 style: theme.textTheme.titleMedium,

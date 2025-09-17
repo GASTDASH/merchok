@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -49,14 +48,7 @@ class FestivalListTile extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async => await editFestivalName(context),
-            child: SvgPicture.asset(
-              IconNames.edit,
-              colorFilter: ColorFilter.mode(
-                theme.colorScheme.onSurface,
-                BlendMode.srcIn,
-              ),
-              height: 16,
-            ),
+            child: BaseSvgIcon(context, IconNames.edit, height: 16),
           ),
         ],
       ),

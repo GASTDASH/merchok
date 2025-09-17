@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
@@ -71,13 +70,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 context.push('/festival');
               },
-              icon: SvgPicture.asset(
-                IconNames.calendar,
-                colorFilter: ColorFilter.mode(
-                  theme.colorScheme.onSurface,
-                  BlendMode.srcIn,
-                ),
-              ),
+              icon: BaseSvgIcon(context, IconNames.calendar),
             ),
           ],
         ),

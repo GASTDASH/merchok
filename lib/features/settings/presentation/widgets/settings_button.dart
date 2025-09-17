@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 
 class SettingsButton extends StatelessWidget {
@@ -42,14 +41,7 @@ class SettingsButton extends StatelessWidget {
                     children: [
                       Text(title, style: theme.textTheme.headlineSmall),
                       if (icon != null)
-                        SvgPicture.asset(
-                          icon!,
-                          width: iconSize,
-                          colorFilter: ColorFilter.mode(
-                            theme.colorScheme.onSurface,
-                            BlendMode.srcIn,
-                          ),
-                        ),
+                        BaseSvgIcon(context, icon!, width: iconSize),
                     ],
                   ),
                   Text(
@@ -61,13 +53,7 @@ class SettingsButton extends StatelessWidget {
                 ],
               ),
             ),
-            SvgPicture.asset(
-              IconNames.right,
-              colorFilter: ColorFilter.mode(
-                theme.colorScheme.onSurface,
-                BlendMode.srcIn,
-              ),
-            ),
+            BaseSvgIcon(context, IconNames.right),
           ],
         ),
       ),

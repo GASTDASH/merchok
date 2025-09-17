@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
@@ -25,8 +24,6 @@ class _FestivalScreenState extends State<FestivalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -36,14 +33,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
               IconButton(
                 tooltip: S.of(context).add,
                 onPressed: () async => await addFestival(context),
-                icon: SvgPicture.asset(
-                  IconNames.add,
-                  colorFilter: ColorFilter.mode(
-                    theme.colorScheme.onSurface,
-                    BlendMode.srcIn,
-                  ),
-                  height: 32,
-                ),
+                icon: BaseSvgIcon(context, IconNames.add, height: 32),
               ),
             ],
           ),

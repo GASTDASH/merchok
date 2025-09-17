@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/festival/festival.dart';
@@ -77,13 +76,7 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
                     },
                   ),
                 ),
-                SvgPicture.asset(
-                  IconNames.right,
-                  colorFilter: ColorFilter.mode(
-                    theme.colorScheme.onSurface,
-                    BlendMode.srcIn,
-                  ),
-                ),
+                BaseSvgIcon(context, IconNames.right),
                 Expanded(
                   child: dateButton(
                     context: context,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -34,10 +33,7 @@ class SearchTextField extends StatelessWidget {
               ),
             ),
           ),
-          SvgPicture.asset(
-            IconNames.search,
-            colorFilter: ColorFilter.mode(theme.hintColor, BlendMode.srcIn),
-          ),
+          BaseSvgIcon(context, IconNames.search),
         ],
       ),
     );

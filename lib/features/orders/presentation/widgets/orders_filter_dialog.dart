@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
@@ -136,14 +135,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                     dateRange!.start.toCompactString(),
                     style: theme.textTheme.bodyLarge,
                   ),
-                  SvgPicture.asset(
-                    IconNames.right,
-                    colorFilter: ColorFilter.mode(
-                      theme.colorScheme.onSurface,
-                      BlendMode.srcIn,
-                    ),
-                    height: 16,
-                  ),
+                  BaseSvgIcon(context, IconNames.right, height: 16),
                   Text(
                     dateRange!.end.toCompactString(),
                     style: theme.textTheme.bodyLarge,

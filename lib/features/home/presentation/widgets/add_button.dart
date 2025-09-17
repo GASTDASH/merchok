@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:merchok/core/core.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({
@@ -31,16 +31,7 @@ class AddButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             spacing: 10,
-            children: [
-              Text(text),
-              SvgPicture.asset(
-                icon,
-                colorFilter: ColorFilter.mode(
-                  theme.colorScheme.onSurface,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ],
+            children: [Text(text), BaseSvgIcon(context, icon)],
           ),
         ),
       ),

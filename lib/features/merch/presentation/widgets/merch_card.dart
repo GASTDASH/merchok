@@ -55,14 +55,7 @@ class MerchCard extends StatelessWidget {
                     if (editable)
                       GestureDetector(
                         onTap: () async => await editName(context),
-                        child: SvgPicture.asset(
-                          IconNames.edit,
-                          height: 16,
-                          colorFilter: ColorFilter.mode(
-                            theme.colorScheme.onSurface,
-                            BlendMode.srcIn,
-                          ),
-                        ),
+                        child: BaseSvgIcon(context, IconNames.edit, height: 16),
                       ),
                   ],
                 ),
@@ -70,23 +63,11 @@ class MerchCard extends StatelessWidget {
               onTapDelete != null
                   ? GestureDetector(
                       onTap: onTapDelete,
-                      child: SvgPicture.asset(
-                        IconNames.delete,
-                        colorFilter: ColorFilter.mode(
-                          theme.colorScheme.onSurface,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                      child: BaseSvgIcon(context, IconNames.delete),
                     )
                   : GestureDetector(
                       onTap: () => showCategoriesBottomSheet(context),
-                      child: SvgPicture.asset(
-                        IconNames.tag,
-                        colorFilter: ColorFilter.mode(
-                          theme.colorScheme.onSurface,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                      child: BaseSvgIcon(context, IconNames.tag),
                     ),
             ],
           ),
@@ -172,14 +153,7 @@ class MerchCard extends StatelessWidget {
                   if (editable)
                     GestureDetector(
                       onTap: () async => await editPrices(context),
-                      child: SvgPicture.asset(
-                        IconNames.edit,
-                        height: 16,
-                        colorFilter: ColorFilter.mode(
-                          theme.colorScheme.onSurface,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                      child: BaseSvgIcon(context, IconNames.edit, height: 16),
                     ),
                 ],
               ),

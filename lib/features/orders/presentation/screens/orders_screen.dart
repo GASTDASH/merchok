@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -60,13 +59,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(S.of(context).filter),
-                            SvgPicture.asset(
-                              IconNames.filter,
-                              colorFilter: ColorFilter.mode(
-                                theme.colorScheme.onSurface,
-                                BlendMode.srcIn,
-                              ),
-                            ),
+                            BaseSvgIcon(context, IconNames.filter),
                           ],
                         ),
                       ),
@@ -82,22 +75,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(S.of(context).sorting),
-                                SvgPicture.asset(
+                                BaseSvgIcon(
+                                  context,
                                   orderSortingProvider.orderSorting.sortBy.icon,
-                                  colorFilter: ColorFilter.mode(
-                                    theme.colorScheme.onSurface,
-                                    BlendMode.srcIn,
-                                  ),
                                 ),
-                                SvgPicture.asset(
+                                BaseSvgIcon(
+                                  context,
                                   orderSortingProvider
                                       .orderSorting
                                       .sortOrder
                                       .icon,
-                                  colorFilter: ColorFilter.mode(
-                                    theme.colorScheme.onSurface,
-                                    BlendMode.srcIn,
-                                  ),
                                 ),
                               ],
                             ),

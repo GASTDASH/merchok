@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -37,26 +36,14 @@ class ReceiptWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {},
-                  child: SvgPicture.asset(
-                    IconNames.delete,
-                    colorFilter: ColorFilter.mode(
-                      theme.colorScheme.onSurface,
-                      BlendMode.srcIn,
-                    ),
-                  ),
+                  child: BaseSvgIcon(context, IconNames.delete),
                 ),
               ],
             ),
             Row(
               spacing: 8,
               children: [
-                SvgPicture.asset(
-                  IconNames.calendar,
-                  colorFilter: ColorFilter.mode(
-                    theme.colorScheme.onSurface,
-                    BlendMode.srcIn,
-                  ),
-                ),
+                BaseSvgIcon(context, IconNames.calendar),
                 Text(order.festival.name),
               ],
             ),
