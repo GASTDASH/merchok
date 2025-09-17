@@ -43,14 +43,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             createdAt: DateTime.now(),
             festival: event.festival,
             paymentMethod: event.paymentMethod,
-            totalAmount: event.cartItems.fold<double>(
-              0,
-              (sum, cartItem) =>
-                  sum +
-                  event.merchList
-                      .firstWhere((m) => m.id == cartItem.merchId)
-                      .price,
-            ),
+            totalAmount: event.cartItems.fold<double>(0, (sum, cartItem) {
+              final merch = event.merchList.firstWhere(
+                (m) => m.id == cartItem.merchId,
+              );
+              return sum + merch.price * cartItem.quantity;
+            }),
           ),
         );
         add(OrderLoad());
