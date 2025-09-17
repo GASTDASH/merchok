@@ -207,6 +207,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
+    "unableToDeleteMerch": MessageLookupByLibrary.simpleMessage(
+      "Unable to delete a merch, because it\'s in the cart",
+    ),
     "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
     "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),

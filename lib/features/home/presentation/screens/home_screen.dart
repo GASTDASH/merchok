@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -220,7 +221,9 @@ class _MerchList extends StatelessWidget {
             final merch = merchList[index];
 
             return MerchCard(
-              onLongPress: () => showDeleteMerchDialog(context, merch.id),
+              onLongPress: cartItemQuantities[merch.id] == null
+                  ? () => showDeleteMerchDialog(context, merch.id)
+                  : () => showUnableToDeleteMerchDialog(context),
               merch: merch,
               count: cartItemQuantities[merch.id] ?? 0,
             );
@@ -242,4 +245,35 @@ class _MerchList extends StatelessWidget {
     },
     onNo: () => context.pop(),
   );
+
+  Future<dynamic> showUnableToDeleteMerchDialog(BuildContext context) async {
+    final theme = Theme.of(context);
+    return await showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                IconNames.delete,
+                colorFilter: ColorFilter.mode(
+                  theme.colorScheme.onSurface,
+                  BlendMode.srcIn,
+                ),
+                height: 32,
+              ),
+              Text(
+                S.of(context).unableToDeleteMerch,
+                style: theme.textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

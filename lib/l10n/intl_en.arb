@@ -104,5 +104,6 @@
   "temporaryUnavailable": "Temporary unavailable",
   "noReceipts": "You don't have any saved receipts",
   "receiptsLoading": "Loading receipts",
-  "receiptSaving": "Saving the receipt"
+  "receiptSaving": "Saving the receipt",
+  "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart"
 }

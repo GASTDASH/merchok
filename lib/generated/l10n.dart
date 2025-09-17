@@ -903,6 +903,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Unable to delete a merch, because it's in the cart`
+  String get unableToDeleteMerch {
+    return Intl.message(
+      'Unable to delete a merch, because it\'s in the cart',
+      name: 'unableToDeleteMerch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

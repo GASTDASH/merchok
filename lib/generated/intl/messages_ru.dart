@@ -209,6 +209,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Название"),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
+    "unableToDeleteMerch": MessageLookupByLibrary.simpleMessage(
+      "Невозможно удалить мерч, так как он находится в корзине",
+    ),
     "unexpectedState": MessageLookupByLibrary.simpleMessage(
       "Неожиданное состояние",
     ),

@@ -104,5 +104,6 @@
   "temporaryUnavailable": "Временно недоступно",
   "noReceipts": "У вас нет сохранённых чеков",
   "receiptsLoading": "Загрузка чеков",
-  "receiptSaving": "Сохранение чека"
+  "receiptSaving": "Сохранение чека",
+  "unableToDeleteMerch": "Невозможно удалить мерч, так как он находится в корзине"
 }
