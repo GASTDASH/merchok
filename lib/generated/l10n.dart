@@ -928,6 +928,16 @@ class S {
   String get sorting {
     return Intl.message('Sorting', name: 'sorting', desc: '', args: []);
   }
+
+  /// `Clear filter`
+  String get clearFilter {
+    return Intl.message(
+      'Clear filter',
+      name: 'clearFilter',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

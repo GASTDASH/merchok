@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cartLoading": MessageLookupByLibrary.simpleMessage("Загрузка корзины"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
+    "clearFilter": MessageLookupByLibrary.simpleMessage("Очистить фильтр"),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Предпочтения покупателей",
     ),

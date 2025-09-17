@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cartLoading": MessageLookupByLibrary.simpleMessage("Loading the cart"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+    "clearFilter": MessageLookupByLibrary.simpleMessage("Clear filter"),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Customer preferences",
     ),

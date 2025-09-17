@@ -45,6 +45,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             currentFilter,
                           );
                           if (filter == null) return;
+                          if (filter.rangeValues == null &&
+                              filter.dateTimeRange == null) {
+                            return setState(() => currentFilter = null);
+                          }
                           setState(() => currentFilter = filter);
                         },
                         color: theme.colorScheme.onSurface,

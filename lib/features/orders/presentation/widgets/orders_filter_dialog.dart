@@ -165,6 +165,15 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                 child: Text(S.of(context).apply),
               ),
             ),
+            SizedBox(height: 16),
+            SizedBox(
+              height: 48,
+              child: BaseButton.outlined(
+                onTap: () => context.pop(OrderFilter()),
+                color: theme.colorScheme.onSurface,
+                child: Text(S.of(context).clearFilter),
+              ),
+            ),
           ],
         ),
       ),
