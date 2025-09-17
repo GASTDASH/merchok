@@ -923,6 +923,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Sorting`
+  String get sorting {
+    return Intl.message('Sorting', name: 'sorting', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

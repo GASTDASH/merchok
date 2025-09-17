@@ -14,6 +14,7 @@ class OrdersScreen extends StatefulWidget {
 
 class _OrdersScreenState extends State<OrdersScreen> {
   OrderFilter? currentFilter;
+  final orderSortingProvider = OrderSortingProvider();
 
   @override
   void initState() {
@@ -65,30 +66,39 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           ],
                         ),
                       ),
-                      BaseButton.outlined(
-                        onTap: () {},
-                        color: theme.colorScheme.onSurface,
-                        child: Row(
-                          spacing: 8,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text('Сортировка'),
-                            SvgPicture.asset(
-                              IconNames.clock,
-                              colorFilter: ColorFilter.mode(
-                                theme.colorScheme.onSurface,
-                                BlendMode.srcIn,
-                              ),
+                      ListenableBuilder(
+                        listenable: orderSortingProvider,
+                        builder: (context, _) {
+                          return BaseButton.outlined(
+                            onTap: () =>
+                                orderSortingProvider.changeOrderSorting(),
+                            color: theme.colorScheme.onSurface,
+                            child: Row(
+                              spacing: 8,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(S.of(context).sorting),
+                                SvgPicture.asset(
+                                  orderSortingProvider.orderSorting.sortBy.icon,
+                                  colorFilter: ColorFilter.mode(
+                                    theme.colorScheme.onSurface,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                SvgPicture.asset(
+                                  orderSortingProvider
+                                      .orderSorting
+                                      .sortOrder
+                                      .icon,
+                                  colorFilter: ColorFilter.mode(
+                                    theme.colorScheme.onSurface,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ],
                             ),
-                            SvgPicture.asset(
-                              IconNames.sortAsc,
-                              colorFilter: ColorFilter.mode(
-                                theme.colorScheme.onSurface,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),

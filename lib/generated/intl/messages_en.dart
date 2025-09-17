@@ -200,6 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
+    "sorting": MessageLookupByLibrary.simpleMessage("Sorting"),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Temporary unavailable",
     ),

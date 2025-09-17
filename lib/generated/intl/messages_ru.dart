@@ -202,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
+    "sorting": MessageLookupByLibrary.simpleMessage("Сортировка"),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Временно недоступно",
     ),

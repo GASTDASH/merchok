@@ -106,5 +106,6 @@
   "receiptsLoading": "Loading receipts",
   "receiptSaving": "Saving the receipt",
   "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart",
-  "noMatchingOrders": "No matching orders was found"
+  "noMatchingOrders": "No matching orders was found",
+  "sorting": "Sorting"
 }

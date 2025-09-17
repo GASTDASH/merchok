@@ -106,5 +106,6 @@
   "receiptsLoading": "Загрузка чеков",
   "receiptSaving": "Сохранение чека",
   "unableToDeleteMerch": "Невозможно удалить мерч, так как он находится в корзине",
-  "noMatchingOrders": "Не найдено подходящих заказов"
+  "noMatchingOrders": "Не найдено подходящих заказов",
+  "sorting": "Сортировка"
 }
