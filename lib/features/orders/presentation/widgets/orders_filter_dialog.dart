@@ -6,7 +6,9 @@ import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class OrdersFilterDialog extends StatefulWidget {
-  const OrdersFilterDialog({super.key});
+  const OrdersFilterDialog({super.key, this.previousFilter});
+
+  final OrderFilter? previousFilter;
 
   @override
   State<OrdersFilterDialog> createState() => _OrdersFilterDialogState();
@@ -27,6 +29,17 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
     amountRange = RangeValues(0, maxAmount / 2);
     startController.text = amountRange.start.truncate().toString();
     endController.text = amountRange.end.truncate().toString();
+
+    final previousFilter = widget.previousFilter;
+    if (previousFilter != null) {
+      final rangeValues = previousFilter.rangeValues;
+      if (rangeValues != null) {
+        amountRange = RangeValues(rangeValues.start, rangeValues.end);
+      }
+
+      final dateTimeRange = previousFilter.dateTimeRange;
+      if (dateTimeRange != null) dateRange = dateTimeRange;
+    }
   }
 
   @override
@@ -60,8 +73,9 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MinMaxTextField(
-                  controller: startController,
+                _MinMaxTextField(
+                  controller: startController
+                    ..text = amountRange.start.truncateIfInt(),
                   onChanged: (value) {
                     double? newStart = double.tryParse(value);
                     if (newStart == null || newStart >= amountRange.end) {
@@ -73,8 +87,9 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                   },
                 ),
                 Text('₽', style: theme.textTheme.titleLarge),
-                MinMaxTextField(
-                  controller: endController,
+                _MinMaxTextField(
+                  controller: endController
+                    ..text = amountRange.end.truncateIfInt(),
                   onChanged: (value) {
                     double? newEnd = double.tryParse(value);
                     if (newEnd == null || newEnd <= amountRange.start) {
@@ -141,9 +156,12 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
             SizedBox(
               height: 48,
               child: BaseButton(
-                onTap: () {
-                  context.pop();
-                },
+                onTap: () => context.pop(
+                  OrderFilter(
+                    rangeValues: amountRange,
+                    dateTimeRange: dateRange,
+                  ),
+                ),
                 child: Text(S.of(context).apply),
               ),
             ),
@@ -160,6 +178,27 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
       context: context,
       firstDate: DateTime(2024),
       lastDate: DateTime.now(),
+    );
+  }
+}
+
+class _MinMaxTextField extends StatelessWidget {
+  const _MinMaxTextField({this.controller, this.onChanged});
+
+  final TextEditingController? controller;
+  final ValueChanged<String>? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
     );
   }
 }

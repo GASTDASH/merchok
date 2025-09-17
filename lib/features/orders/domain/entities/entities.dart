@@ -3,4 +3,5 @@
 
 
 export 'order.dart';
+export 'order_filter.dart';
 export 'order_item.dart';

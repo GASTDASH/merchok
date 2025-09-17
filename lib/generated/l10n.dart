@@ -854,10 +854,10 @@ class S {
     );
   }
 
-  /// `No matching merch was found`
+  /// `No matching merches was found`
   String get noMatchingMerch {
     return Intl.message(
-      'No matching merch was found',
+      'No matching merches was found',
       name: 'noMatchingMerch',
       desc: '',
       args: [],
@@ -909,6 +909,16 @@ class S {
     return Intl.message(
       'Unable to delete a merch, because it\'s in the cart',
       name: 'unableToDeleteMerch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No matching orders was found`
+  String get noMatchingOrders {
+    return Intl.message(
+      'No matching orders was found',
+      name: 'noMatchingOrders',
       desc: '',
       args: [],
     );

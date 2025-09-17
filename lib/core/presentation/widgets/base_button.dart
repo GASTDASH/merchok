@@ -9,7 +9,8 @@ class BaseButton extends StatelessWidget {
     this.onTap,
     this.color,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
-  }) : _outlined = false;
+  }) : _outlined = false,
+       backgroundColor = null;
 
   const BaseButton.outlined({
     super.key,
@@ -18,6 +19,7 @@ class BaseButton extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     this.onTap,
     this.color,
+    this.backgroundColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
   }) : _outlined = true;
 
@@ -28,6 +30,7 @@ class BaseButton extends StatelessWidget {
   final Color? color;
   final BorderRadius borderRadius;
   final bool _outlined;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class BaseButton extends StatelessWidget {
           child: Ink(
             decoration: BoxDecoration(
               color: _outlined
-                  ? Colors.transparent
+                  ? backgroundColor ?? Colors.transparent
                   : onTap == null
                   ? theme.disabledColor
                   : color ?? theme.primaryColor,

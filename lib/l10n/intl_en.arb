@@ -100,10 +100,11 @@
   "noPaymentMethods": "You don't have any payment methods yet",
   "errorLoadingPaymentMethods": "Error loading payment methods",
   "paymentMethodsNotLoaded": "Payment methods are not loaded",
-  "noMatchingMerch": "No matching merch was found",
+  "noMatchingMerch": "No matching merches was found",
   "temporaryUnavailable": "Temporary unavailable",
   "noReceipts": "You don't have any saved receipts",
   "receiptsLoading": "Loading receipts",
   "receiptSaving": "Saving the receipt",
-  "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart"
+  "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart",
+  "noMatchingOrders": "No matching orders was found"
 }

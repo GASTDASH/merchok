@@ -13,6 +13,8 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  OrderFilter? currentFilter;
+
   @override
   void initState() {
     super.initState();
@@ -33,15 +35,21 @@ class _OrdersScreenState extends State<OrdersScreen> {
               slivers: [
                 SliverToBoxAdapter(
                   child: Row(
+                    spacing: 12,
                     children: [
                       BaseButton.outlined(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => OrdersFilterDialog(),
+                        onTap: () async {
+                          final filter = await showOrdersFilterDialog(
+                            context,
+                            currentFilter,
                           );
+                          if (filter == null) return;
+                          setState(() => currentFilter = filter);
                         },
                         color: theme.colorScheme.onSurface,
+                        backgroundColor: currentFilter != null
+                            ? theme.hintColor.withAlpha(32)
+                            : null,
                         child: Row(
                           spacing: 8,
                           mainAxisSize: MainAxisSize.min,
@@ -49,6 +57,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             Text(S.of(context).filter),
                             SvgPicture.asset(
                               IconNames.filter,
+                              colorFilter: ColorFilter.mode(
+                                theme.colorScheme.onSurface,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      BaseButton.outlined(
+                        onTap: () {},
+                        color: theme.colorScheme.onSurface,
+                        child: Row(
+                          spacing: 8,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Сортировка'),
+                            SvgPicture.asset(
+                              IconNames.clock,
+                              colorFilter: ColorFilter.mode(
+                                theme.colorScheme.onSurface,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                            SvgPicture.asset(
+                              IconNames.sortAsc,
                               colorFilter: ColorFilter.mode(
                                 theme.colorScheme.onSurface,
                                 BlendMode.srcIn,
@@ -67,12 +100,23 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       return LoadingBanner(message: state.message);
                     } else if (state is OrderLoaded) {
                       if (state.orderList.isNotEmpty) {
+                        List<Order> filteredOrderList = filterOrderList(
+                          state.orderList,
+                        );
+
+                        if (filteredOrderList.isEmpty &&
+                            currentFilter != null) {
+                          return InfoBanner(
+                            text: S.of(context).noMatchingOrders,
+                          );
+                        }
+
                         return SliverList.separated(
-                          itemCount: state.orderList.length,
+                          itemCount: filteredOrderList.length,
                           separatorBuilder: (context, index) =>
                               Divider(indent: 32, endIndent: 32, height: 48),
                           itemBuilder: (context, index) =>
-                              ReceiptWidget(order: state.orderList[index]),
+                              ReceiptWidget(order: filteredOrderList[index]),
                         );
                       } else {
                         return InfoBanner(text: S.of(context).noReceipts);
@@ -92,4 +136,40 @@ class _OrdersScreenState extends State<OrdersScreen> {
       ),
     );
   }
+
+  List<Order> filterOrderList(List<Order> orderList) {
+    List<Order> filteredOrderList = orderList;
+
+    if (currentFilter != null) {
+      if (currentFilter!.rangeValues != null) {
+        filteredOrderList = filteredOrderList
+            .where(
+              (order) =>
+                  order.totalAmount >= currentFilter!.rangeValues!.start &&
+                  order.totalAmount <= currentFilter!.rangeValues!.end,
+            )
+            .toList();
+      }
+      if (currentFilter!.dateTimeRange != null) {
+        filteredOrderList = filteredOrderList.where((order) {
+          final createdAt = order.createdAt;
+          final start = currentFilter!.dateTimeRange!.start;
+          final end = currentFilter!.dateTimeRange!.end.add(Duration(days: 1));
+
+          return createdAt.isAfter(start) && order.createdAt.isBefore(end) ||
+              order.createdAt.isAtSameMomentAs(start) ||
+              order.createdAt.isAtSameMomentAs(end);
+        }).toList();
+      }
+    }
+    return filteredOrderList;
+  }
+
+  Future<OrderFilter?> showOrdersFilterDialog(
+    BuildContext context, [
+    OrderFilter? previousFilter,
+  ]) async => await showDialog(
+    context: context,
+    builder: (context) => OrdersFilterDialog(previousFilter: previousFilter),
+  );
 }
