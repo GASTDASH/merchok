@@ -3,10 +3,10 @@ import 'package:merchok/features/orders/orders.dart';
 
 class OrderSortingProvider extends ChangeNotifier {
   static const List<OrderSorting> _orderSortingList = [
-    OrderSorting(sortBy: OrderSortBy.createdAt, sortOrder: SortOrder.desc),
     OrderSorting(sortBy: OrderSortBy.createdAt, sortOrder: SortOrder.asc),
-    OrderSorting(sortBy: OrderSortBy.totalAmount, sortOrder: SortOrder.desc),
+    OrderSorting(sortBy: OrderSortBy.createdAt, sortOrder: SortOrder.desc),
     OrderSorting(sortBy: OrderSortBy.totalAmount, sortOrder: SortOrder.asc),
+    OrderSorting(sortBy: OrderSortBy.totalAmount, sortOrder: SortOrder.desc),
   ];
 
   int _index = 0;
