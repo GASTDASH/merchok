@@ -1043,6 +1043,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete this category?`
+  String get deleteThisCategory {
+    return Intl.message(
+      'Delete this category?',
+      name: 'deleteThisCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to delete a category that is being used`
+  String get unableToDeleteCategory {
+    return Intl.message(
+      'Unable to delete a category that is being used',
+      name: 'unableToDeleteCategory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

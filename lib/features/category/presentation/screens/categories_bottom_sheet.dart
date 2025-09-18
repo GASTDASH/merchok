@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/category/category.dart';
+import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class CategoriesBottomSheet extends StatefulWidget {
@@ -72,39 +73,24 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                               return context.pop(Category.empty());
                             },
                             onLongPress: () async {
-                              // if (!category.hasMerch) {
-                              await showDeleteCategoryDialog(
-                                context,
-                                category.id,
-                              );
-                              // } else {
-                              //   showDialog(
-                              //     context: context,
-                              //     builder: (context) => Dialog(
-                              //       child: Padding(
-                              //         padding: const EdgeInsets.all(32),
-                              //         child: Column(
-                              //           spacing: 8,
-                              //           mainAxisSize: MainAxisSize.min,
-                              //           children: [
-                              //             BaseSvgIcon(
-                              //               context,
-                              //               IconNames.delete,
-                              //               height: 32,
-                              //             ),
-                              //             Text(
-                              //               'Невозможно удалить используемую категорию',
-                              //               style: Theme.of(
-                              //                 context,
-                              //               ).textTheme.titleMedium,
-                              //               textAlign: TextAlign.center,
-                              //             ),
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   );
-                              // }
+                              final merchState = context
+                                  .read<MerchBloc>()
+                                  .state;
+                              if (merchState is! MerchLoaded) return;
+                              final hasMerch = merchState.merchList
+                                  .where(
+                                    (merch) => merch.categoryId == category.id,
+                                  )
+                                  .isNotEmpty;
+
+                              if (!hasMerch) {
+                                await showDeleteCategoryDialog(
+                                  context,
+                                  category.id,
+                                );
+                              } else {
+                                await showUnableToDeleteDialog(context);
+                              }
                             },
                           );
                         }),
@@ -126,6 +112,29 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     );
   }
 
+  Future<dynamic> showUnableToDeleteDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseSvgIcon(context, IconNames.delete, height: 32),
+              Text(
+                S.of(context).unableToDeleteCategory,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<void> showAddCategoryDialog(BuildContext context) async {
     final bloc = context.read<CategoryBloc>();
     final s = S.of(context);
@@ -143,7 +152,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
   ) async {
     return await showDeleteDialog(
       context: context,
-      message: 'Удалить эту категорию?',
+      message: S.of(context).deleteThisCategory,
       onYes: () {
         context.pop();
         context.read<CategoryBloc>().add(

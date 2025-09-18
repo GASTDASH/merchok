@@ -51,22 +51,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BlocBuilder<MerchBloc, MerchState>(
               builder: (context, state) {
-                final cartState = context.watch<CartBloc>().state;
-
                 if (state is MerchLoading) {
                   return LoadingBanner(message: state.message);
                 } else if (state is MerchLoaded) {
                   if (state.merchList.isNotEmpty) {
-                    final filteredMerchList = searchController.text.isNotEmpty
-                        ? state.merchList
-                              .where(
-                                (merch) =>
-                                    merch.name.contains(searchController.text),
-                              )
-                              .toList()
-                        : state.merchList;
+                    final cartState = context.watch<CartBloc>().state;
+                    final selectedCategory = context
+                        .watch<CurrentCategoryCubit>()
+                        .state;
+                    List<Merch> merchList = state.merchList;
 
-                    if (filteredMerchList.isEmpty) {
+                    // Если поле поиска не пустое
+                    if (searchController.text.isNotEmpty) {
+                      merchList = filterBySearch(merchList);
+                    }
+
+                    // Если выбрана категория
+                    if (selectedCategory != null) {
+                      merchList = filterByCategory(merchList, selectedCategory);
+                    }
+
+                    // Если пустой список при какой-то фильтрации
+                    if (merchList.isEmpty &&
+                        (searchController.text.isNotEmpty ||
+                            selectedCategory != null)) {
                       return InfoBanner(text: S.of(context).noMatchingMerch);
                     }
                     return SliverPadding(
@@ -74,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       sliver: SliverMainAxisGroup(
                         slivers: [
                           _MerchList(
-                            merchList: filteredMerchList,
+                            merchList: merchList,
                             cartItems: [
                               if (cartState is CartLoaded &&
                                   cartState.cartItems.isNotEmpty)
@@ -107,6 +115,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  List<Merch> filterByCategory(
+    List<Merch> merchList,
+    Category selectedCategory,
+  ) {
+    merchList = merchList
+        .where((merch) => merch.categoryId == selectedCategory.id)
+        .toList();
+    return merchList;
+  }
+
+  List<Merch> filterBySearch(List<Merch> filteredMerchList) {
+    filteredMerchList = filteredMerchList
+        .where((merch) => merch.name.contains(searchController.text))
+        .toList();
+    return filteredMerchList;
+  }
 }
 
 class _CategoriesWrap extends StatelessWidget {
@@ -133,7 +158,9 @@ class _CategoriesWrap extends StatelessWidget {
                   runSpacing: 0,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    ...List.generate(state.categoryList.length, (i) {
+                    ...List.generate(state.categoryList.length.clamp(0, 10), (
+                      i,
+                    ) {
                       final category = state.categoryList[i];
                       final cubit = context.watch<CurrentCategoryCubit>();
 
@@ -154,6 +181,7 @@ class _CategoriesWrap extends StatelessWidget {
                           cubit.state,
                         );
                         if (category == null) return;
+                        if (category.isEmpty) return cubit.clearCategory();
                         cubit.selectCategory(category);
                       },
                       constraints: BoxConstraints(minWidth: 72, maxWidth: 72),

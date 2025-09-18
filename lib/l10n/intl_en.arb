@@ -119,5 +119,7 @@
   "categoryCreating": "Creating a category",
   "categoryDeleting": "Deleting a category",
   "noCategories": "You don't have any categories yet",
-  "loadingError": "Loading error"
+  "loadingError": "Loading error",
+  "deleteThisCategory": "Delete this category?",
+  "unableToDeleteCategory": "Unable to delete a category that is being used"
 }

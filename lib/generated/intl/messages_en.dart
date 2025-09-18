@@ -58,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
+    "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
+      "Delete this category?",
+    ),
     "deleteThisFestival": MessageLookupByLibrary.simpleMessage(
       "Delete this festival?",
     ),
@@ -239,6 +242,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
+    "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
+      "Unable to delete a category that is being used",
+    ),
     "unableToDeleteMerch": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a merch, because it\'s in the cart",
     ),

@@ -62,6 +62,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Тёмная"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
+    "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
+      "Удалить эту категорию?",
+    ),
     "deleteThisFestival": MessageLookupByLibrary.simpleMessage(
       "Удалить этот фестиваль?",
     ),
@@ -241,6 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "title": MessageLookupByLibrary.simpleMessage("Название"),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
+    "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
+      "Невозможно удалить используемую категорию",
+    ),
     "unableToDeleteMerch": MessageLookupByLibrary.simpleMessage(
       "Невозможно удалить мерч, так как он находится в корзине",
     ),

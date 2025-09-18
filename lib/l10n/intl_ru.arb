@@ -119,5 +119,7 @@
   "categoryCreating": "Создание категории",
   "categoryDeleting": "Удаление категории",
   "noCategories": "У вас пока нет категорий",
-  "loadingError": "Ошибка загрузки"
+  "loadingError": "Ошибка загрузки",
+  "deleteThisCategory": "Удалить эту категорию?",
+  "unableToDeleteCategory": "Невозможно удалить используемую категорию"
 }
