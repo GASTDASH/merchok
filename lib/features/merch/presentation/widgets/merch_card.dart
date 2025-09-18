@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/category.dart';
@@ -78,7 +82,13 @@ class MerchCard extends StatelessWidget {
           Row(
             spacing: 24,
             children: [
-              _ImageBox(editable: editable),
+              _ImageBox(
+                editable: editable,
+                image: merch.image,
+                onImagePicked: (image) => context.read<MerchBloc>().add(
+                  MerchEdit(merch: merch.copyWith(image: image)),
+                ),
+              ),
               Expanded(
                 child: Container(
                   height: 100,
@@ -255,9 +265,15 @@ class MerchCard extends StatelessWidget {
 }
 
 class _ImageBox extends StatelessWidget {
-  const _ImageBox({required this.editable});
+  const _ImageBox({
+    required this.editable,
+    this.image,
+    required this.onImagePicked,
+  });
 
   final bool editable;
+  final Uint8List? image;
+  final void Function(Uint8List image) onImagePicked;
 
   @override
   Widget build(BuildContext context) {
@@ -274,6 +290,12 @@ class _ImageBox extends StatelessWidget {
               color: theme.disabledColor,
               borderRadius: BorderRadius.circular(16),
             ),
+            child: image != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.memory(image!, fit: BoxFit.cover),
+                  )
+                : null,
           ),
           if (editable)
             Align(
@@ -281,7 +303,13 @@ class _ImageBox extends StatelessWidget {
               child: Material(
                 borderRadius: BorderRadius.circular(24),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    final pickedImage = await ImagePicker().pickImage(
+                      source: ImageSource.gallery,
+                    );
+                    if (pickedImage == null) return;
+                    onImagePicked(await File(pickedImage.path).readAsBytes());
+                  },
                   borderRadius: BorderRadius.circular(24),
                   splashColor: Colors.white.withValues(alpha: 0.3),
                   child: Ink(
