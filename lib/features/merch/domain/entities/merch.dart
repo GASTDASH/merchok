@@ -39,6 +39,16 @@ class Merch extends Equatable {
     categoryId: categoryId ?? this.categoryId,
   );
 
+  Merch clearCategoryId() => Merch(
+    id: id,
+    name: name,
+    description: description,
+    price: price,
+    purchasePrice: purchasePrice,
+    image: image,
+    categoryId: null,
+  );
+
   @override
   List<Object?> get props => [
     id,

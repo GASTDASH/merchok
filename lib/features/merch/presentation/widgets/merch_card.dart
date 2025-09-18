@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,54 +67,18 @@ class MerchCard extends StatelessWidget {
                       child: BaseSvgIcon(context, IconNames.delete),
                     )
                   : GestureDetector(
-                      onTap: () => showCategoriesBottomSheet(context),
-                      child: BaseSvgIcon(context, IconNames.tag),
+                      onTap: () async => await changeCategory(context),
+                      child: Badge(
+                        isLabelVisible: merch.categoryId != null,
+                        child: BaseSvgIcon(context, IconNames.tag),
+                      ),
                     ),
             ],
           ),
           Row(
             spacing: 24,
             children: [
-              SizedBox(
-                height: 105,
-                width: 105,
-                child: Stack(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 5, top: 5),
-                      decoration: BoxDecoration(
-                        color: theme.disabledColor,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    if (editable)
-                      Align(
-                        alignment: AlignmentGeometry.topRight,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(24),
-                          child: InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(24),
-                            splashColor: Colors.white.withValues(alpha: 0.3),
-                            child: Ink(
-                              height: 24,
-                              width: 24,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                color: theme.primaryColor,
-                                border: Border.all(color: Colors.white),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4),
-                                child: SvgPicture.asset(IconNames.edit),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
+              _ImageBox(editable: editable),
               Expanded(
                 child: Container(
                   height: 100,
@@ -255,6 +220,28 @@ class MerchCard extends StatelessWidget {
     );
   }
 
+  Future<void> changeCategory(BuildContext context) async {
+    final merchBloc = context.read<MerchBloc>();
+    final categoryState = context.read<CategoryBloc>().state;
+    if (merch.categoryId != null && categoryState is! CategoryLoaded) {
+      return;
+    }
+    categoryState as CategoryLoaded;
+
+    final category = await showCategoriesBottomSheet(
+      context,
+      categoryState.categoryList.firstWhereOrNull(
+        (c) => c.id == merch.categoryId,
+      ),
+    );
+    if (category == null) return;
+    if (category.isEmpty) {
+      merchBloc.add(MerchEdit(merch: merch.clearCategoryId()));
+    } else {
+      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: category.id)));
+    }
+  }
+
   Future<Map<String, double?>?> showChangePriceBottomSheet(
     BuildContext context,
   ) async => await showModalBottomSheet(
@@ -265,4 +252,56 @@ class MerchCard extends StatelessWidget {
       previousPurchasePrice: merch.purchasePrice,
     ),
   );
+}
+
+class _ImageBox extends StatelessWidget {
+  const _ImageBox({required this.editable});
+
+  final bool editable;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return SizedBox(
+      height: 105,
+      width: 105,
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 5, top: 5),
+            decoration: BoxDecoration(
+              color: theme.disabledColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          if (editable)
+            Align(
+              alignment: AlignmentGeometry.topRight,
+              child: Material(
+                borderRadius: BorderRadius.circular(24),
+                child: InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(24),
+                  splashColor: Colors.white.withValues(alpha: 0.3),
+                  child: Ink(
+                    height: 24,
+                    width: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: theme.primaryColor,
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: SvgPicture.asset(IconNames.edit),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 }

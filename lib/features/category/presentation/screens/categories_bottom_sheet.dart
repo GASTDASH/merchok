@@ -7,7 +7,9 @@ import 'package:merchok/features/category/category.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class CategoriesBottomSheet extends StatefulWidget {
-  const CategoriesBottomSheet({super.key});
+  const CategoriesBottomSheet({super.key, this.selectedCategory});
+
+  final Category? selectedCategory;
 
   @override
   State<CategoriesBottomSheet> createState() => _CategoriesBottomSheetState();
@@ -64,8 +66,11 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                           final category = state.categoryList[index];
                           return CategoryChip(
                             category: category,
-                            selected: false,
-                            onSelected: (value) => context.pop(category),
+                            selected: category == widget.selectedCategory,
+                            onSelected: (unselected) {
+                              if (unselected) return context.pop(category);
+                              return context.pop(Category.empty());
+                            },
                             onLongPress: () async {
                               // if (!category.hasMerch) {
                               await showDeleteCategoryDialog(
@@ -150,8 +155,11 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
   }
 }
 
-Future<Category?> showCategoriesBottomSheet(BuildContext context) =>
-    showBaseDraggableBottomSheet(
-      context: context,
-      builder: (context) => CategoriesBottomSheet(),
-    );
+Future<Category?> showCategoriesBottomSheet(
+  BuildContext context, [
+  Category? selectedCategory,
+]) => showBaseDraggableBottomSheet(
+  context: context,
+  builder: (context) =>
+      CategoriesBottomSheet(selectedCategory: selectedCategory),
+);

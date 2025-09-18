@@ -151,6 +151,7 @@ class _CategoriesWrap extends StatelessWidget {
                         final cubit = context.read<CurrentCategoryCubit>();
                         final category = await showCategoriesBottomSheet(
                           context,
+                          cubit.state,
                         );
                         if (category == null) return;
                         cubit.selectCategory(category);
