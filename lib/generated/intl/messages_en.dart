@@ -56,6 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Delete this payment method?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
+    "donate": MessageLookupByLibrary.simpleMessage("Donate"),
+    "donateDescription": MessageLookupByLibrary.simpleMessage(
+      "Send tips for project growth",
+    ),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Enter a correct number",

@@ -109,5 +109,7 @@
   "noMatchingOrders": "No matching orders was found",
   "sorting": "Sorting",
   "clearFilter": "Clear filter",
-  "ordersIsNotLoaded": "The order list is not loaded"
+  "ordersIsNotLoaded": "The order list is not loaded",
+  "donate": "Donate",
+  "donateDescription": "Send tips for project growth"
 }

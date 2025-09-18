@@ -51,6 +51,12 @@ class SettingsScreen extends StatelessWidget {
                   icon: IconNames.payment,
                 ),
                 SettingsButton(
+                  onTap: () => showDonateDialog(context),
+                  title: S.of(context).donate,
+                  subtitle: S.of(context).donateDescription,
+                  icon: IconNames.gift,
+                ),
+                SettingsButton(
                   onTap: () {},
                   title: S.of(context).about,
                   subtitle: S.of(context).aboutDescription,
@@ -61,6 +67,13 @@ class SettingsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> showDonateDialog(BuildContext context) async {
+    return await showAdaptiveDialog(
+      context: context,
+      builder: (context) => DonateDialog(),
     );
   }
 }

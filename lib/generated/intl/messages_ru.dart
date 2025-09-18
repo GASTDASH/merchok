@@ -60,6 +60,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Удалить этот способ оплаты?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
+    "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
+    "donateDescription": MessageLookupByLibrary.simpleMessage(
+      "Отправить чаевые на развитие проекта",
+    ),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Введите правильное число",
