@@ -993,6 +993,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Loading the category list`
+  String get categoryLoading {
+    return Intl.message(
+      'Loading the category list',
+      name: 'categoryLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creating a category`
+  String get categoryCreating {
+    return Intl.message(
+      'Creating a category',
+      name: 'categoryCreating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting a category`
+  String get categoryDeleting {
+    return Intl.message(
+      'Deleting a category',
+      name: 'categoryDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any categories yet`
+  String get noCategories {
+    return Intl.message(
+      'You don\'t have any categories yet',
+      name: 'noCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading error`
+  String get loadingError {
+    return Intl.message(
+      'Loading error',
+      name: 'loadingError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

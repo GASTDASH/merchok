@@ -43,6 +43,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Загрузка корзины"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
+    "categoryCreating": MessageLookupByLibrary.simpleMessage(
+      "Создание категории",
+    ),
+    "categoryDeleting": MessageLookupByLibrary.simpleMessage(
+      "Удаление категории",
+    ),
+    "categoryLoading": MessageLookupByLibrary.simpleMessage(
+      "Загрузка категорий",
+    ),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Очистить фильтр"),
     "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
@@ -124,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "light": MessageLookupByLibrary.simpleMessage("Светлая"),
     "loading": MessageLookupByLibrary.simpleMessage("Загрузка"),
+    "loadingError": MessageLookupByLibrary.simpleMessage("Ошибка загрузки"),
     "merch": MessageLookupByLibrary.simpleMessage("Мерч"),
     "merchChangeInfo": MessageLookupByLibrary.simpleMessage(
       "Изменение информации о мерче",
@@ -146,6 +156,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "no": MessageLookupByLibrary.simpleMessage("Нет"),
+    "noCategories": MessageLookupByLibrary.simpleMessage(
+      "У вас пока нет категорий",
+    ),
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет фестивалей",
     ),

@@ -114,5 +114,10 @@
   "donateDescription": "Отправить чаевые на развитие проекта",
   "couldntOpenPage": "Не удалось открыть страницу",
   "openingPage": "Открытие страницы",
-  "goToTheDonatePage": "Перейти на страницу оплаты чаевых?"
+  "goToTheDonatePage": "Перейти на страницу оплаты чаевых?",
+  "categoryLoading": "Загрузка категорий",
+  "categoryCreating": "Создание категории",
+  "categoryDeleting": "Удаление категории",
+  "noCategories": "У вас пока нет категорий",
+  "loadingError": "Ошибка загрузки"
 }

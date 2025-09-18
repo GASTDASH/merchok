@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
-import 'package:merchok/features/category/categories.dart';
+import 'package:merchok/features/category/category.dart';
+import 'package:merchok/features/current_category/current_category.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -22,81 +23,87 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
+    context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(
-              child: SearchTextField(
-                controller: searchController,
-                onChanged: (_) => setState(() {}),
+    return BlocProvider(
+      create: (context) => CurrentCategoryCubit(),
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              sliver: SliverToBoxAdapter(
+                child: SearchTextField(
+                  controller: searchController,
+                  onChanged: (_) => setState(() {}),
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverPadding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 12)),
-          BlocBuilder<MerchBloc, MerchState>(
-            builder: (context, state) {
-              final cartState = context.watch<CartBloc>().state;
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverPadding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
+              sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
+            ),
+            BlocBuilder<MerchBloc, MerchState>(
+              builder: (context, state) {
+                final cartState = context.watch<CartBloc>().state;
 
-              if (state is MerchLoading) {
-                return LoadingBanner(message: state.message);
-              } else if (state is MerchLoaded) {
-                if (state.merchList.isNotEmpty) {
-                  final filteredMerchList = searchController.text.isNotEmpty
-                      ? state.merchList
-                            .where(
-                              (merch) =>
-                                  merch.name.contains(searchController.text),
-                            )
-                            .toList()
-                      : state.merchList;
+                if (state is MerchLoading) {
+                  return LoadingBanner(message: state.message);
+                } else if (state is MerchLoaded) {
+                  if (state.merchList.isNotEmpty) {
+                    final filteredMerchList = searchController.text.isNotEmpty
+                        ? state.merchList
+                              .where(
+                                (merch) =>
+                                    merch.name.contains(searchController.text),
+                              )
+                              .toList()
+                        : state.merchList;
 
-                  if (filteredMerchList.isEmpty) {
-                    return InfoBanner(text: S.of(context).noMatchingMerch);
+                    if (filteredMerchList.isEmpty) {
+                      return InfoBanner(text: S.of(context).noMatchingMerch);
+                    }
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      sliver: SliverMainAxisGroup(
+                        slivers: [
+                          _MerchList(
+                            merchList: filteredMerchList,
+                            cartItems: [
+                              if (cartState is CartLoaded &&
+                                  cartState.cartItems.isNotEmpty)
+                                ...cartState.cartItems,
+                            ],
+                          ),
+                          SliverPadding(
+                            padding: const EdgeInsets.only(
+                              top: 12,
+                              bottom: 128,
+                            ),
+                            sliver: SliverToBoxAdapter(child: _AddButtons()),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return _NoMerchBanner();
                   }
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    sliver: SliverMainAxisGroup(
-                      slivers: [
-                        _MerchList(
-                          merchList: filteredMerchList,
-                          cartItems: [
-                            if (cartState is CartLoaded &&
-                                cartState.cartItems.isNotEmpty)
-                              ...cartState.cartItems,
-                          ],
-                        ),
-                        SliverPadding(
-                          padding: const EdgeInsets.only(top: 12, bottom: 128),
-                          sliver: SliverToBoxAdapter(child: _AddButtons()),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return _NoMerchBanner();
+                } else if (state is MerchError) {
+                  return ErrorBanner(message: state.error.toString());
+                } else if (state is MerchInitial) {
+                  return SliverFillRemaining();
                 }
-              } else if (state is MerchError) {
-                return ErrorBanner(message: state.error.toString());
-              } else if (state is MerchInitial) {
-                return SliverFillRemaining();
-              }
-              return UnexpectedStateBanner();
-            },
-          ),
-        ],
+                return UnexpectedStateBanner();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -105,30 +112,78 @@ class _HomeScreenState extends State<HomeScreen> {
 class _CategoriesWrap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 0,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        CategoryChip(
-          text: S.of(context).temporaryUnavailable,
-          selected: true,
-          onSelected: (value) {},
-        ),
-        BaseButton(
-          onTap: () {
-            showCategoriesBottomSheet(context);
-          },
-          constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
-          child: Text(
-            S.of(context).all,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
+    return BlocBuilder<CategoryBloc, CategoryState>(
+      builder: (context, state) {
+        if (state is CategoryLoading) {
+          return Row(
+            spacing: 8,
+            children: [
+              if (state.message != null) Text(state.message!),
+              LoadingIndicator(),
+            ],
+          );
+        } else if (state is CategoryLoaded) {
+          if (state.categoryList.isNotEmpty) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    ...List.generate(state.categoryList.length, (i) {
+                      final category = state.categoryList[i];
+                      final cubit = context.watch<CurrentCategoryCubit>();
+
+                      return CategoryChip(
+                        category: category,
+                        selected: category == cubit.state,
+                        onSelected: (unselected) {
+                          if (unselected) return cubit.selectCategory(category);
+                          return cubit.clearCategory();
+                        },
+                      );
+                    }),
+                    BaseButton(
+                      onTap: () async {
+                        final cubit = context.read<CurrentCategoryCubit>();
+                        final category = await showCategoriesBottomSheet(
+                          context,
+                        );
+                        if (category == null) return;
+                        cubit.selectCategory(category);
+                      },
+                      constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
+                      child: Text(
+                        S.of(context).all,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+              ],
+            );
+          }
+          return SizedBox.shrink();
+        } else if (state is CategoryError) {
+          return Row(
+            spacing: 8,
+            children: [
+              Text(S.of(context).loadingError),
+              Icon(Icons.warning_outlined),
+            ],
+          );
+        } else if (state is CategoryInitial) {
+          return SizedBox.shrink();
+        }
+        return SizedBox.shrink();
+      },
     );
   }
 }

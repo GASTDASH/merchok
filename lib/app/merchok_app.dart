@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/language/language.dart';
@@ -58,6 +59,10 @@ class MerchokApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               OrderBloc(orderRepository: GetIt.I<OrderRepository>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CategoryBloc(categoryRepository: GetIt.I<CategoryRepository>()),
         ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(

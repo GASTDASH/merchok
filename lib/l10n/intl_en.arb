@@ -114,5 +114,10 @@
   "donateDescription": "Send tips for project growth",
   "couldntOpenPage": "Couldn't open the page",
   "openingPage": "Opening a page",
-  "goToTheDonatePage": "Go to the tip payment page?"
+  "goToTheDonatePage": "Go to the tip payment page?",
+  "categoryLoading": "Loading the category list",
+  "categoryCreating": "Creating a category",
+  "categoryDeleting": "Deleting a category",
+  "noCategories": "You don't have any categories yet",
+  "loadingError": "Loading error"
 }

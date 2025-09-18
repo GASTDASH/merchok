@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/app/app.dart';
 import 'package:merchok/features/cart/cart.dart';
+import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
@@ -41,6 +42,9 @@ Future<void> _registerRepositories() async {
 
   final orderRepository = OrderRepositoryImpl();
   GetIt.I.registerSingleton<OrderRepository>(orderRepository);
+
+  final categoryRepository = CategoryRepositoryImpl();
+  GetIt.I.registerSingleton<CategoryRepository>(categoryRepository);
 }
 
 void _talkerInit() {

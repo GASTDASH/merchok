@@ -39,6 +39,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Loading the cart"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
+    "categoryCreating": MessageLookupByLibrary.simpleMessage(
+      "Creating a category",
+    ),
+    "categoryDeleting": MessageLookupByLibrary.simpleMessage(
+      "Deleting a category",
+    ),
+    "categoryLoading": MessageLookupByLibrary.simpleMessage(
+      "Loading the category list",
+    ),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Clear filter"),
     "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
@@ -120,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading"),
+    "loadingError": MessageLookupByLibrary.simpleMessage("Loading error"),
     "merch": MessageLookupByLibrary.simpleMessage("Merch"),
     "merchChangeInfo": MessageLookupByLibrary.simpleMessage(
       "Changing merch information",
@@ -142,6 +152,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
+    "noCategories": MessageLookupByLibrary.simpleMessage(
+      "You don\'t have any categories yet",
+    ),
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any festivals yet",
     ),

@@ -1,12 +1,25 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
-import 'package:merchok/features/category/categories.dart';
+import 'package:merchok/features/category/category.dart';
+import 'package:merchok/generated/l10n.dart';
 
-class CategoriesBottomSheet extends StatelessWidget {
+class CategoriesBottomSheet extends StatefulWidget {
   const CategoriesBottomSheet({super.key});
+
+  @override
+  State<CategoriesBottomSheet> createState() => _CategoriesBottomSheetState();
+}
+
+class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CategoryBloc>().add(CategoryLoad());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +39,7 @@ class CategoriesBottomSheet extends StatelessWidget {
                     height: 48,
                     width: 48,
                     child: BaseButton(
-                      onTap: () {
-                        showAddDialog(context);
-                      },
+                      onTap: () async => await showAddCategoryDialog(context),
                       child: SvgPicture.asset(IconNames.add),
                     ),
                   ),
@@ -36,29 +47,110 @@ class CategoriesBottomSheet extends StatelessWidget {
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            sliver: SliverToBoxAdapter(
-              child: Wrap(
-                spacing: 10,
-                children: List.generate(
-                  20,
-                  (index) => CategoryChip(
-                    text: '${pow(index, index)}',
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                ),
-              ),
-            ),
+          BlocBuilder<CategoryBloc, CategoryState>(
+            builder: (context, state) {
+              if (state is CategoryLoading) {
+                return LoadingBanner(message: state.message);
+              } else if (state is CategoryLoaded) {
+                if (state.categoryList.isNotEmpty) {
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    sliver: SliverToBoxAdapter(
+                      child: Wrap(
+                        spacing: 10,
+                        children: List.generate(state.categoryList.length, (
+                          index,
+                        ) {
+                          final category = state.categoryList[index];
+                          return CategoryChip(
+                            category: category,
+                            selected: false,
+                            onSelected: (value) => context.pop(category),
+                            onLongPress: () async {
+                              // if (!category.hasMerch) {
+                              await showDeleteCategoryDialog(
+                                context,
+                                category.id,
+                              );
+                              // } else {
+                              //   showDialog(
+                              //     context: context,
+                              //     builder: (context) => Dialog(
+                              //       child: Padding(
+                              //         padding: const EdgeInsets.all(32),
+                              //         child: Column(
+                              //           spacing: 8,
+                              //           mainAxisSize: MainAxisSize.min,
+                              //           children: [
+                              //             BaseSvgIcon(
+                              //               context,
+                              //               IconNames.delete,
+                              //               height: 32,
+                              //             ),
+                              //             Text(
+                              //               'Невозможно удалить используемую категорию',
+                              //               style: Theme.of(
+                              //                 context,
+                              //               ).textTheme.titleMedium,
+                              //               textAlign: TextAlign.center,
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   );
+                              // }
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                  );
+                }
+                return InfoBanner(text: S.of(context).noCategories);
+              } else if (state is CategoryError) {
+                return ErrorBanner(message: state.error.toString());
+              } else if (state is CategoryInitial) {
+                return SliverFillRemaining();
+              }
+              return UnexpectedStateBanner();
+            },
           ),
         ],
       ),
     );
   }
+
+  Future<void> showAddCategoryDialog(BuildContext context) async {
+    final bloc = context.read<CategoryBloc>();
+    final s = S.of(context);
+
+    String? name = await showAddDialog(context);
+    if (name == null) return;
+    if (name.isEmpty) name = s.untitled;
+
+    bloc.add(CategoryAdd(name: name));
+  }
+
+  Future<void> showDeleteCategoryDialog(
+    BuildContext context,
+    String categoryId,
+  ) async {
+    return await showDeleteDialog(
+      context: context,
+      message: 'Удалить эту категорию?',
+      onYes: () {
+        context.pop();
+        context.read<CategoryBloc>().add(
+          CategoryDelete(categoryId: categoryId),
+        );
+      },
+      onNo: () => context.pop(),
+    );
+  }
 }
 
-Future<dynamic> showCategoriesBottomSheet(BuildContext context) =>
+Future<Category?> showCategoriesBottomSheet(BuildContext context) =>
     showBaseDraggableBottomSheet(
       context: context,
       builder: (context) => CategoriesBottomSheet(),
