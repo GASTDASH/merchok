@@ -224,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
+    "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
@@ -259,5 +260,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Откуда будем импортировать?",
     ),
     "yes": MessageLookupByLibrary.simpleMessage("Да"),
+    "zeroRubles": MessageLookupByLibrary.simpleMessage("0 ₽"),
   };
 }

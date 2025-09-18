@@ -121,5 +121,7 @@
   "noCategories": "You don't have any categories yet",
   "loadingError": "Loading error",
   "deleteThisCategory": "Delete this category?",
-  "unableToDeleteCategory": "Unable to delete a category that is being used"
+  "unableToDeleteCategory": "Unable to delete a category that is being used",
+  "zeroRubles": "0 ₽",
+  "ruble": "₽"
 }

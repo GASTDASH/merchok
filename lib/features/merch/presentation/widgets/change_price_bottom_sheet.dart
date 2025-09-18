@@ -93,7 +93,7 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineSmall,
                     decoration: InputDecoration(
-                      hintText: '0 ₽',
+                      hintText: S.of(context).zeroRubles,
                       hintStyle: TextStyle(color: theme.disabledColor),
                     ),
                     validator: (value) => double.tryParse(value!) != null
@@ -133,7 +133,7 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineSmall,
                     decoration: InputDecoration(
-                      hintText: '0 ₽',
+                      hintText: S.of(context).zeroRubles,
                       hintStyle: TextStyle(color: theme.disabledColor),
                     ),
                     validator: (value) =>

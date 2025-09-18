@@ -222,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
+    "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
@@ -255,5 +256,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Where to import from?",
     ),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+    "zeroRubles": MessageLookupByLibrary.simpleMessage("0 ₽"),
   };
 }

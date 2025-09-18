@@ -121,5 +121,7 @@
   "noCategories": "У вас пока нет категорий",
   "loadingError": "Ошибка загрузки",
   "deleteThisCategory": "Удалить эту категорию?",
-  "unableToDeleteCategory": "Невозможно удалить используемую категорию"
+  "unableToDeleteCategory": "Невозможно удалить используемую категорию",
+  "zeroRubles": "0 ₽",
+  "ruble": "₽"
 }

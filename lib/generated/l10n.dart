@@ -1063,6 +1063,16 @@ class S {
       args: [],
     );
   }
+
+  /// `0 ₽`
+  String get zeroRubles {
+    return Intl.message('0 ₽', name: 'zeroRubles', desc: '', args: []);
+  }
+
+  /// `₽`
+  String get ruble {
+    return Intl.message('₽', name: 'ruble', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

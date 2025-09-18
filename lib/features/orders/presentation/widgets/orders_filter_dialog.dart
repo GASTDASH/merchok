@@ -89,7 +89,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                     setState(() {});
                   },
                 ),
-                Text('₽', style: theme.textTheme.titleLarge),
+                Text(S.of(context).ruble, style: theme.textTheme.titleLarge),
                 _MinMaxTextField(
                   controller: endController
                     ..text = amountRange.end.truncateIfInt(),
