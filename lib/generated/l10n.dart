@@ -963,6 +963,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Couldn't open the page`
+  String get couldntOpenPage {
+    return Intl.message(
+      'Couldn\'t open the page',
+      name: 'couldntOpenPage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opening a page`
+  String get openingPage {
+    return Intl.message(
+      'Opening a page',
+      name: 'openingPage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to the tip payment page?`
+  String get goToTheDonatePage {
+    return Intl.message(
+      'Go to the tip payment page?',
+      name: 'goToTheDonatePage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

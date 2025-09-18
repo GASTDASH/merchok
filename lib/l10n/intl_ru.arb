@@ -111,5 +111,8 @@
   "clearFilter": "Очистить фильтр",
   "ordersIsNotLoaded": "Заказы не загружены",
   "donate": "Пожертвование",
-  "donateDescription": "Отправить чаевые на развитие проекта"
+  "donateDescription": "Отправить чаевые на развитие проекта",
+  "couldntOpenPage": "Не удалось открыть страницу",
+  "openingPage": "Открытие страницы",
+  "goToTheDonatePage": "Перейти на страницу оплаты чаевых?"
 }

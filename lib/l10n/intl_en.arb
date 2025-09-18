@@ -111,5 +111,8 @@
   "clearFilter": "Clear filter",
   "ordersIsNotLoaded": "The order list is not loaded",
   "donate": "Donate",
-  "donateDescription": "Send tips for project growth"
+  "donateDescription": "Send tips for project growth",
+  "couldntOpenPage": "Couldn't open the page",
+  "openingPage": "Opening a page",
+  "goToTheDonatePage": "Go to the tip payment page?"
 }

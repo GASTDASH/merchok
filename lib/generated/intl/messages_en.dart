@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Clear filter"),
+    "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t open the page",
+    ),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Customer preferences",
     ),
@@ -102,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "General sales statistics",
     ),
     "goToOrders": MessageLookupByLibrary.simpleMessage("Go to Orders"),
+    "goToTheDonatePage": MessageLookupByLibrary.simpleMessage(
+      "Go to the tip payment page?",
+    ),
     "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
       "History of festivals",
     ),
@@ -157,6 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "openingPage": MessageLookupByLibrary.simpleMessage("Opening a page"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Order amount"),
     "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(
       "Order creation period",

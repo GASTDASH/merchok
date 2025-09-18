@@ -19,7 +19,7 @@ class DonateDialog extends StatelessWidget {
           spacing: 16,
           children: [
             Text(
-              'Перейти на страницу оплаты чаевых?',
+              S.of(context).goToTheDonatePage,
               style: theme.textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
@@ -33,6 +33,7 @@ class DonateDialog extends StatelessWidget {
                       onTap: () async {
                         final goRouter = GoRouter.of(context);
                         final scaffoldMessenger = ScaffoldMessenger.of(context);
+                        final s = S.of(context);
 
                         final uri = Uri.parse(
                           'https://pay.cloudtips.ru/p/705ff26b',
@@ -41,7 +42,7 @@ class DonateDialog extends StatelessWidget {
                         goRouter.pop(); // Close Donate Dialog
                         showLoadingDialog(
                           context: context,
-                          message: 'Открытие страницы',
+                          message: s.openingPage,
                         );
 
                         final opened = await launchUrl(uri);
@@ -53,7 +54,7 @@ class DonateDialog extends StatelessWidget {
                           scaffoldMessenger.showSnackBar(
                             SnackBar(
                               backgroundColor: theme.colorScheme.error,
-                              content: Text('Не удалось открыть страницу'),
+                              content: Text(s.couldntOpenPage),
                             ),
                           );
                         }

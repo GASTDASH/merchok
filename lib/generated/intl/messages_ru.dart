@@ -45,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Очистить фильтр"),
+    "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
+      "Не удалось открыть страницу",
+    ),
     "customerPreferences": MessageLookupByLibrary.simpleMessage(
       "Предпочтения покупателей",
     ),
@@ -106,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Общая статистика продаж",
     ),
     "goToOrders": MessageLookupByLibrary.simpleMessage("Перейти к заказам"),
+    "goToTheDonatePage": MessageLookupByLibrary.simpleMessage(
+      "Перейти на страницу оплаты чаевых?",
+    ),
     "historyOfFestivals": MessageLookupByLibrary.simpleMessage(
       "История фестивалей",
     ),
@@ -159,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "openingPage": MessageLookupByLibrary.simpleMessage("Открытие страницы"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Сумма заказа"),
     "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(
       "Период создания заказа",
