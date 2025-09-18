@@ -1,7 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+part 'merch.g.dart';
+
+@HiveType(typeId: 0)
 class Merch extends Equatable {
   const Merch({
     required this.id,
@@ -13,12 +17,25 @@ class Merch extends Equatable {
     this.categoryId,
   });
 
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final String? description;
+
+  @HiveField(3)
   final double price;
+
+  @HiveField(4)
   final double? purchasePrice;
+
+  @HiveField(5)
   final Uint8List? image;
+
+  @HiveField(6)
   final String? categoryId;
 
   Merch copyWith({

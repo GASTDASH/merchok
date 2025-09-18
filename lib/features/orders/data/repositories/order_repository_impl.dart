@@ -1,17 +1,19 @@
+import 'package:hive/hive.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
 
 class OrderRepositoryImpl implements OrderRepository {
-  final Map<String, Order> orders = {};
+  final Box<Order> orderBox = Hive.box(HiveBoxesNames.orders);
 
   @override
-  Future<List<Order>> getOrders() async => orders.values.toList();
+  Future<List<Order>> getOrders() async => orderBox.values.toList();
 
   @override
   Future<void> addOrder(Order order) async {
-    await Future.delayed(Duration(seconds: 2));
-    orders.addAll({order.id: order});
+    await orderBox.put(order.id, order);
   }
 
   @override
-  Future<void> deleteOrder(String orderId) async => orders.remove(orderId);
+  Future<void> deleteOrder(String orderId) async =>
+      await orderBox.delete(orderId);
 }

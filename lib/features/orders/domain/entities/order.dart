@@ -1,9 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 
+part 'order.g.dart';
+
+@HiveType(typeId: 3)
 class Order extends Equatable {
   const Order({
     required this.id,
@@ -14,11 +18,22 @@ class Order extends Equatable {
     required this.totalAmount,
   });
 
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final List<OrderItem> orderItems;
+
+  @HiveField(2)
   final DateTime createdAt;
+
+  @HiveField(3)
   final Festival festival;
+
+  @HiveField(4)
   final PaymentMethod paymentMethod;
+
+  @HiveField(5)
   final double totalAmount;
 
   Order copyWith({

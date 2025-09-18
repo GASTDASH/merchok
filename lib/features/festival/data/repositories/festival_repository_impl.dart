@@ -1,16 +1,18 @@
+import 'package:hive/hive.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/festival/festival.dart';
 
 class FestivalRepositoryImpl implements FestivalRepository {
-  final Map<String, Festival> festivalList = {};
+  final Box<Festival> festivalBox = Hive.box(HiveBoxesNames.festivals);
 
   @override
-  Future<List<Festival>> getFestivals() async => festivalList.values.toList();
+  Future<List<Festival>> getFestivals() async => festivalBox.values.toList();
 
   @override
   Future<void> editFestival(Festival festival) async =>
-      festivalList.addAll({festival.id: festival});
+      await festivalBox.put(festival.id, festival);
 
   @override
   Future<void> deleteFestival(String festivalId) async =>
-      festivalList.remove(festivalId);
+      await festivalBox.delete(festivalId);
 }

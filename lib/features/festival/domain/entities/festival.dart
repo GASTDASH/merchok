@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+part 'festival.g.dart';
+
+@HiveType(typeId: 1)
 class Festival extends Equatable {
   const Festival({
     required this.id,
@@ -8,9 +12,16 @@ class Festival extends Equatable {
     required this.endDate,
   });
 
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final DateTime startDate;
+
+  @HiveField(3)
   final DateTime endDate;
 
   Festival copyWith({

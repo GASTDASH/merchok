@@ -1,17 +1,21 @@
+import 'package:hive/hive.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 
 class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
-  final Map<String, PaymentMethod> paymentMethodList = {};
+  final Box<PaymentMethod> paymentMethodBox = Hive.box(
+    HiveBoxesNames.paymentMethods,
+  );
 
   @override
   Future<List<PaymentMethod>> getPaymentMethods() async =>
-      paymentMethodList.values.toList();
+      paymentMethodBox.values.toList();
 
   @override
   Future<void> editPaymentMethod(PaymentMethod paymentMethod) async =>
-      paymentMethodList.addAll({paymentMethod.id: paymentMethod});
+      await paymentMethodBox.put(paymentMethod.id, paymentMethod);
 
   @override
   Future<void> deletePaymentMethod(String paymentMethodId) async =>
-      paymentMethodList.remove(paymentMethodId);
+      await paymentMethodBox.delete(paymentMethodId);
 }
