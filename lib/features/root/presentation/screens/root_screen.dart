@@ -36,41 +36,7 @@ class _RootScreenState extends State<RootScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        height: 70,
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: theme.hintColor, width: 2)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              NavItem(
-                onTap: () => context.go('/home'),
-                icon: IconNames.house,
-                selected: index == 0,
-              ),
-              NavItem(
-                onTap: () => context.go('/orders'),
-                icon: IconNames.archive,
-                selected: index == 1,
-              ),
-              SizedBox(width: 32),
-              NavItem(
-                onTap: () => context.go('/stat'),
-                icon: IconNames.chartBar,
-                selected: index == 2,
-              ),
-              NavItem(
-                onTap: () => context.go('/settings'),
-                icon: IconNames.settings,
-                selected: index == 3,
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavBar(index: index),
     );
   }
 
