@@ -256,10 +256,15 @@ class MerchCard extends StatelessWidget {
     BuildContext context,
   ) async => await showModalBottomSheet(
     useRootNavigator: true,
+    isScrollControlled: true,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     context: context,
-    builder: (context) => ChangePriceBottomSheet(
-      previousPrice: merch.price,
-      previousPurchasePrice: merch.purchasePrice,
+    builder: (context) => Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: ChangePriceBottomSheet(
+        previousPrice: merch.price,
+        previousPurchasePrice: merch.purchasePrice,
+      ),
     ),
   );
 }

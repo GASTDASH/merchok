@@ -40,7 +40,7 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
       child: Form(
         key: formKey,
