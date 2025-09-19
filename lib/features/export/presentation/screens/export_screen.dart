@@ -15,8 +15,23 @@ import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class ExportScreen extends StatelessWidget {
+class ExportScreen extends StatefulWidget {
   const ExportScreen({super.key});
+
+  @override
+  State<ExportScreen> createState() => _ExportScreenState();
+}
+
+class _ExportScreenState extends State<ExportScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<MerchBloc>().add(MerchLoad());
+    context.read<OrderBloc>().add(OrderLoad());
+    context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
+    context.read<FestivalBloc>().add(FestivalLoad());
+  }
 
   @override
   Widget build(BuildContext context) {
