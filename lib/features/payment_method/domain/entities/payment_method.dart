@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
@@ -49,4 +51,31 @@ class PaymentMethod extends Equatable {
       iconPath: iconPath ?? this.iconPath,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'information': information,
+      'description': description,
+      'iconPath': iconPath,
+    };
+  }
+
+  factory PaymentMethod.fromMap(Map<String, dynamic> map) {
+    return PaymentMethod(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      information: map['information'] as String,
+      description: map['description'] != null
+          ? map['description'] as String
+          : null,
+      iconPath: map['iconPath'] != null ? map['iconPath'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory PaymentMethod.fromJson(String source) =>
+      PaymentMethod.fromMap(json.decode(source) as Map<String, dynamic>);
 }

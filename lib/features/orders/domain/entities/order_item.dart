@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -28,4 +30,20 @@ class OrderItem extends Equatable {
 
   @override
   List<Object?> get props => [merch, quantity];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'merch': merch.toMap(), 'quantity': quantity};
+  }
+
+  factory OrderItem.fromMap(Map<String, dynamic> map) {
+    return OrderItem(
+      merch: Merch.fromMap(map['merch'] as Map<String, dynamic>),
+      quantity: map['quantity'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory OrderItem.fromJson(String source) =>
+      OrderItem.fromMap(json.decode(source) as Map<String, dynamic>);
 }

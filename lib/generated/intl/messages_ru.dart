@@ -114,6 +114,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Выбор фестиваля",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Фестивали"),
+    "filePath": MessageLookupByLibrary.simpleMessage("Путь к файлу:"),
+    "fileSuccessfullySaved": MessageLookupByLibrary.simpleMessage(
+      "Файл успешно сохранён",
+    ),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
@@ -181,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "openingPage": MessageLookupByLibrary.simpleMessage("Открытие страницы"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Сумма заказа"),
     "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(

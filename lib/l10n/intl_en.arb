@@ -123,5 +123,8 @@
   "deleteThisCategory": "Delete this category?",
   "unableToDeleteCategory": "Unable to delete a category that is being used",
   "zeroRubles": "0 ₽",
-  "ruble": "₽"
+  "ruble": "₽",
+  "fileSuccessfullySaved": "The file was saved successfully",
+  "filePath": "File path:",
+  "ok": "OK"
 }

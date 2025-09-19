@@ -110,6 +110,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Selecting a festival",
     ),
     "festivals": MessageLookupByLibrary.simpleMessage("Festivals"),
+    "filePath": MessageLookupByLibrary.simpleMessage("File path:"),
+    "fileSuccessfullySaved": MessageLookupByLibrary.simpleMessage(
+      "The file was saved successfully",
+    ),
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
@@ -179,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "openingPage": MessageLookupByLibrary.simpleMessage("Opening a page"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Order amount"),
     "orderCreationPeriod": MessageLookupByLibrary.simpleMessage(

@@ -1073,6 +1073,26 @@ class S {
   String get ruble {
     return Intl.message('₽', name: 'ruble', desc: '', args: []);
   }
+
+  /// `The file was saved successfully`
+  String get fileSuccessfullySaved {
+    return Intl.message(
+      'The file was saved successfully',
+      name: 'fileSuccessfullySaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File path:`
+  String get filePath {
+    return Intl.message('File path:', name: 'filePath', desc: '', args: []);
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message('OK', name: 'ok', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

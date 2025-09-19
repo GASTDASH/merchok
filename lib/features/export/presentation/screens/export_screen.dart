@@ -1,6 +1,17 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
+
+import 'package:csv/csv.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/export/export.dart';
+import 'package:merchok/features/festival/festival.dart';
+import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class ExportScreen extends StatelessWidget {
@@ -23,30 +34,64 @@ class ExportScreen extends StatelessWidget {
                   style: theme.textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 24),
-                ExportCard(
-                  onTap: () {},
-                  text: S.of(context).allAtOnce,
-                  icon: IconNames.puzzle,
-                ),
+                // SizedBox(height: 24),
+                // ExportCard(
+                //   onTap: () {},
+                //   text: S.of(context).allAtOnce,
+                //   icon: IconNames.puzzle,
+                // ),
                 SizedBox(height: 12),
                 Row(
                   spacing: 10,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: ExportCard(
-                        onTap: () {},
-                        text: S.of(context).merch,
-                        icon: IconNames.cart,
-                      ),
+                    BlocBuilder<MerchBloc, MerchState>(
+                      builder: (context, state) {
+                        if (state is MerchLoading) {
+                          // TODO: Shimmer
+                          return Expanded(child: SizedBox());
+                        }
+                        return Expanded(
+                          child: ExportCard(
+                            onTap: state is MerchLoaded
+                                ? () async {
+                                    final path = await _exportMerch(
+                                      state.merchList,
+                                    );
+                                    if (path == null) return;
+                                    if (!context.mounted) return;
+                                    _showSuccessfullySavedDialog(context, path);
+                                  }
+                                : null,
+                            text: S.of(context).merch,
+                            icon: IconNames.cart,
+                          ),
+                        );
+                      },
                     ),
-                    Expanded(
-                      child: ExportCard(
-                        onTap: () {},
-                        text: S.of(context).orderHistory,
-                        icon: IconNames.history,
-                      ),
+                    BlocBuilder<OrderBloc, OrderState>(
+                      builder: (context, state) {
+                        if (state is OrderLoading) {
+                          // TODO: Shimmer
+                          return Expanded(child: SizedBox());
+                        }
+                        return Expanded(
+                          child: ExportCard(
+                            onTap: state is OrderLoaded
+                                ? () async {
+                                    final path = await _exportOrders(
+                                      state.orderList,
+                                    );
+                                    if (path == null) return;
+                                    if (!context.mounted) return;
+                                    _showSuccessfullySavedDialog(context, path);
+                                  }
+                                : null,
+                            text: S.of(context).orderHistory,
+                            icon: IconNames.history,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -55,19 +100,52 @@ class ExportScreen extends StatelessWidget {
                   spacing: 10,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: ExportCard(
-                        onTap: () {},
-                        text: S.of(context).paymentMethods,
-                        icon: IconNames.money,
-                      ),
+                    BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+                      builder: (context, state) {
+                        if (state is PaymentMethodLoading) {
+                          // TODO: Shimmer
+                          return Expanded(child: SizedBox());
+                        }
+                        return Expanded(
+                          child: ExportCard(
+                            onTap: state is PaymentMethodLoaded
+                                ? () async {
+                                    final path = await _exportPaymentMethods(
+                                      state.paymentMethodList,
+                                    );
+                                    if (path == null) return;
+                                    if (!context.mounted) return;
+                                    _showSuccessfullySavedDialog(context, path);
+                                  }
+                                : null,
+                            text: S.of(context).paymentMethods,
+                            icon: IconNames.money,
+                          ),
+                        );
+                      },
                     ),
-                    Expanded(
-                      child: ExportCard(
-                        onTap: () {},
-                        text: S.of(context).festivals,
-                        icon: IconNames.event,
-                      ),
+                    BlocBuilder<FestivalBloc, FestivalState>(
+                      builder: (context, state) {
+                        if (state is FestivalLoading) {
+                          // TODO: Shimmer
+                        }
+                        return Expanded(
+                          child: ExportCard(
+                            onTap: state is FestivalLoaded
+                                ? () async {
+                                    final path = await _exportFestivals(
+                                      state.festivalList,
+                                    );
+                                    if (path == null) return;
+                                    if (!context.mounted) return;
+                                    _showSuccessfullySavedDialog(context, path);
+                                  }
+                                : null,
+                            text: S.of(context).festivals,
+                            icon: IconNames.event,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -78,4 +156,122 @@ class ExportScreen extends StatelessWidget {
       ),
     );
   }
+
+  Export _exportMerch(List<Merch> merchList) async {
+    List<List<dynamic>> table = [
+      [
+        'id',
+        'name',
+        'description',
+        'price',
+        'purchasePrice',
+        'image',
+        'categoryId',
+      ],
+      ...merchList.map(
+        (merch) => [
+          merch.id,
+          merch.name,
+          merch.description,
+          merch.price.toString(),
+          merch.purchasePrice.toString(),
+          merch.image,
+          merch.categoryId,
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'merch');
+  }
+
+  Export _exportOrders(List<Order> orderList) async {
+    List<List<dynamic>> table = [
+      [
+        'id',
+        'orderItems',
+        'createdAt',
+        'festival',
+        'paymentMethod',
+        'totalAmount',
+      ],
+      ...orderList.map(
+        (order) => [
+          order.id,
+          jsonEncode(
+            order.orderItems.map((orderItem) => orderItem.toJson()).toList(),
+          ),
+          order.createdAt.millisecondsSinceEpoch,
+          order.festival.toJson(),
+          order.paymentMethod.toJson(),
+          order.totalAmount.toString(),
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'orders');
+  }
+
+  Export _exportPaymentMethods(List<PaymentMethod> paymentMethodList) async {
+    List<List<dynamic>> table = [
+      ['id', 'name', 'information', 'description', 'iconPath'],
+      ...paymentMethodList.map(
+        (paymentMethod) => [
+          paymentMethod.id,
+          paymentMethod.name,
+          paymentMethod.information,
+          paymentMethod.description,
+          paymentMethod.iconPath,
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'payment-methods');
+  }
+
+  Export _exportFestivals(List<Festival> festivalList) async {
+    List<List<dynamic>> table = [
+      ['id', 'name', 'startDate', 'endDate'],
+      ...festivalList.map(
+        (festival) => [
+          festival.id,
+          festival.name,
+          festival.startDate.millisecondsSinceEpoch,
+          festival.endDate.millisecondsSinceEpoch,
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'payment-methods');
+  }
+
+  Export _export({
+    required List<List<dynamic>> table,
+    required String name,
+  }) async {
+    for (var row in table) {
+      log(row.toString());
+    }
+
+    final csv = const ListToCsvConverter().convert(table);
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    return await FileSaver.instance.saveAs(
+      name: '$name-export-$timestamp',
+      bytes: Uint8List.fromList(csv.codeUnits),
+      fileExtension: 'csv',
+      mimeType: MimeType.csv,
+    );
+  }
+
+  Future<void> _showSuccessfullySavedDialog(
+    BuildContext context,
+    String path,
+  ) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => SuccessfullySavedDialog(path: path),
+    );
+  }
 }
+
+typedef Export = Future<String?>;
