@@ -13,6 +13,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ExportScreen extends StatelessWidget {
   const ExportScreen({super.key});
@@ -47,48 +48,54 @@ class ExportScreen extends StatelessWidget {
                   children: [
                     BlocBuilder<MerchBloc, MerchState>(
                       builder: (context, state) {
-                        if (state is MerchLoading) {
-                          // TODO: Shimmer
-                          return Expanded(child: SizedBox());
-                        }
                         return Expanded(
-                          child: ExportCard(
-                            onTap: state is MerchLoaded
-                                ? () async {
-                                    final path = await _exportMerch(
-                                      state.merchList,
-                                    );
-                                    if (path == null) return;
-                                    if (!context.mounted) return;
-                                    _showSuccessfullySavedDialog(context, path);
-                                  }
-                                : null,
-                            text: S.of(context).merch,
-                            icon: IconNames.cart,
+                          child: Skeletonizer(
+                            enabled: state is! MerchLoaded,
+                            ignoreContainers: true,
+                            child: ExportCard(
+                              onTap: state is MerchLoaded
+                                  ? () async {
+                                      final path = await _exportMerch(
+                                        state.merchList,
+                                      );
+                                      if (path == null) return;
+                                      if (!context.mounted) return;
+                                      _showSuccessfullySavedDialog(
+                                        context,
+                                        path,
+                                      );
+                                    }
+                                  : null,
+                              text: S.of(context).merch,
+                              icon: IconNames.cart,
+                            ),
                           ),
                         );
                       },
                     ),
                     BlocBuilder<OrderBloc, OrderState>(
                       builder: (context, state) {
-                        if (state is OrderLoading) {
-                          // TODO: Shimmer
-                          return Expanded(child: SizedBox());
-                        }
                         return Expanded(
-                          child: ExportCard(
-                            onTap: state is OrderLoaded
-                                ? () async {
-                                    final path = await _exportOrders(
-                                      state.orderList,
-                                    );
-                                    if (path == null) return;
-                                    if (!context.mounted) return;
-                                    _showSuccessfullySavedDialog(context, path);
-                                  }
-                                : null,
-                            text: S.of(context).orderHistory,
-                            icon: IconNames.history,
+                          child: Skeletonizer(
+                            enabled: state is! OrderLoaded,
+                            ignoreContainers: true,
+                            child: ExportCard(
+                              onTap: state is OrderLoaded
+                                  ? () async {
+                                      final path = await _exportOrders(
+                                        state.orderList,
+                                      );
+                                      if (path == null) return;
+                                      if (!context.mounted) return;
+                                      _showSuccessfullySavedDialog(
+                                        context,
+                                        path,
+                                      );
+                                    }
+                                  : null,
+                              text: S.of(context).orderHistory,
+                              icon: IconNames.history,
+                            ),
                           ),
                         );
                       },
@@ -102,47 +109,54 @@ class ExportScreen extends StatelessWidget {
                   children: [
                     BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
                       builder: (context, state) {
-                        if (state is PaymentMethodLoading) {
-                          // TODO: Shimmer
-                          return Expanded(child: SizedBox());
-                        }
                         return Expanded(
-                          child: ExportCard(
-                            onTap: state is PaymentMethodLoaded
-                                ? () async {
-                                    final path = await _exportPaymentMethods(
-                                      state.paymentMethodList,
-                                    );
-                                    if (path == null) return;
-                                    if (!context.mounted) return;
-                                    _showSuccessfullySavedDialog(context, path);
-                                  }
-                                : null,
-                            text: S.of(context).paymentMethods,
-                            icon: IconNames.money,
+                          child: Skeletonizer(
+                            enabled: state is! PaymentMethodLoaded,
+                            ignoreContainers: true,
+                            child: ExportCard(
+                              onTap: state is PaymentMethodLoaded
+                                  ? () async {
+                                      final path = await _exportPaymentMethods(
+                                        state.paymentMethodList,
+                                      );
+                                      if (path == null) return;
+                                      if (!context.mounted) return;
+                                      _showSuccessfullySavedDialog(
+                                        context,
+                                        path,
+                                      );
+                                    }
+                                  : null,
+                              text: S.of(context).paymentMethods,
+                              icon: IconNames.money,
+                            ),
                           ),
                         );
                       },
                     ),
                     BlocBuilder<FestivalBloc, FestivalState>(
                       builder: (context, state) {
-                        if (state is FestivalLoading) {
-                          // TODO: Shimmer
-                        }
                         return Expanded(
-                          child: ExportCard(
-                            onTap: state is FestivalLoaded
-                                ? () async {
-                                    final path = await _exportFestivals(
-                                      state.festivalList,
-                                    );
-                                    if (path == null) return;
-                                    if (!context.mounted) return;
-                                    _showSuccessfullySavedDialog(context, path);
-                                  }
-                                : null,
-                            text: S.of(context).festivals,
-                            icon: IconNames.event,
+                          child: Skeletonizer(
+                            enabled: state is! FestivalLoaded,
+                            ignoreContainers: true,
+                            child: ExportCard(
+                              onTap: state is FestivalLoaded
+                                  ? () async {
+                                      final path = await _exportFestivals(
+                                        state.festivalList,
+                                      );
+                                      if (path == null) return;
+                                      if (!context.mounted) return;
+                                      _showSuccessfullySavedDialog(
+                                        context,
+                                        path,
+                                      );
+                                    }
+                                  : null,
+                              text: S.of(context).festivals,
+                              icon: IconNames.event,
+                            ),
                           ),
                         );
                       },
