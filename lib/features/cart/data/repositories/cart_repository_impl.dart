@@ -4,14 +4,14 @@ class CartRepositoryImpl implements CartRepository {
   final Map<String, CartItem> cartItems = {};
 
   @override
-  Future<List<CartItem>> getCartItems() async => cartItems.values.toList();
+  List<CartItem> getCartItems() => cartItems.values.toList();
 
   @override
-  Future<void> addCartItem(String merchId) async =>
+  void addCartItem(String merchId) =>
       cartItems.addAll({merchId: CartItem(merchId: merchId, quantity: 1)});
 
   @override
-  Future<void> plusCartItem(String merchId) async {
+  void plusCartItem(String merchId) {
     final cartItem = cartItems[merchId]!;
     cartItems.addAll({
       merchId: cartItem.copyWith(quantity: cartItem.quantity + 1),
@@ -19,9 +19,9 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> minusCartItem(String merchId) async {
-    final cartItem = cartItems[merchId]!;
-    if (cartItem.quantity == 0) return;
+  void minusCartItem(String merchId) {
+    final cartItem = cartItems[merchId];
+    if (cartItem == null) return;
     if (cartItem.quantity == 1) {
       cartItems.remove(merchId);
       return;
@@ -32,9 +32,8 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> deleteCartItem(String cartItemId) async =>
-      cartItems.remove(cartItemId);
+  void deleteCartItem(String cartItemId) => cartItems.remove(cartItemId);
 
   @override
-  Future<void> clearCartItems() async => cartItems.clear();
+  void clearCartItems() => cartItems.clear();
 }

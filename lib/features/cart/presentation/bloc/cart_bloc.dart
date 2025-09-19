@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/features/cart/cart.dart';
-import 'package:merchok/generated/l10n.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -12,51 +11,51 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc({required CartRepository cartRepository})
     : _cartRepository = cartRepository,
       super(CartInitial()) {
-    on<CartLoad>((event, emit) async {
+    on<CartLoad>((event, emit) {
       try {
-        emit(CartLoading(message: S.current.cartLoading));
-        final cartItems = await _cartRepository.getCartItems();
+        // emit(CartLoading(message: S.current.cartLoading));
+        final cartItems = _cartRepository.getCartItems();
         emit(CartLoaded(cartItems: cartItems));
       } catch (e) {
         emit(CartError(error: e));
       }
     });
-    on<CartAdd>((event, emit) async {
+    on<CartAdd>((event, emit) {
       try {
-        emit(CartLoading(message: S.current.addingToCart));
-        await _cartRepository.addCartItem(event.merchId);
+        // emit(CartLoading(message: S.current.addingToCart));
+        _cartRepository.addCartItem(event.merchId);
         add(CartLoad());
       } catch (e) {
         emit(CartError(error: e));
       }
     });
-    on<CartPlus>((event, emit) async {
+    on<CartPlus>((event, emit) {
       try {
-        await _cartRepository.plusCartItem(event.merchId);
+        _cartRepository.plusCartItem(event.merchId);
         add(CartLoad());
       } catch (e) {
         emit(CartError(error: e));
       }
     });
-    on<CartMinus>((event, emit) async {
+    on<CartMinus>((event, emit) {
       try {
-        await _cartRepository.minusCartItem(event.merchId);
+        _cartRepository.minusCartItem(event.merchId);
         add(CartLoad());
       } catch (e) {
         emit(CartError(error: e));
       }
     });
-    on<CartDelete>((event, emit) async {
+    on<CartDelete>((event, emit) {
       try {
-        await _cartRepository.deleteCartItem(event.merchId);
+        _cartRepository.deleteCartItem(event.merchId);
         add(CartLoad());
       } catch (e) {
         emit(CartError(error: e));
       }
     });
-    on<CartClear>((event, emit) async {
+    on<CartClear>((event, emit) {
       try {
-        await _cartRepository.clearCartItems();
+        _cartRepository.clearCartItems();
         add(CartLoad());
       } catch (e) {
         emit(CartError(error: e));
