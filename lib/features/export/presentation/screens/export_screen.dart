@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:csv/csv.dart';
 import 'package:file_saver/file_saver.dart';
@@ -201,11 +200,11 @@ class _ExportScreenState extends State<ExportScreen> {
         (merch) => [
           merch.id,
           merch.name,
-          merch.description,
+          merch.description ?? '',
           merch.price.toString(),
           merch.purchasePrice.toString(),
           merch.image,
-          merch.categoryId,
+          merch.categoryId ?? '',
         ],
       ),
     ];
@@ -282,11 +281,12 @@ class _ExportScreenState extends State<ExportScreen> {
     }
 
     final csv = const ListToCsvConverter().convert(table);
+    final bytes = utf8.encode(csv);
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
     return await FileSaver.instance.saveAs(
       name: '$name-export-$timestamp',
-      bytes: Uint8List.fromList(csv.codeUnits),
+      bytes: bytes,
       fileExtension: 'csv',
       mimeType: MimeType.csv,
     );

@@ -28,3 +28,12 @@ final class MerchDelete extends MerchEvent {
   @override
   List<Object> get props => super.props..addAll([merchId]);
 }
+
+final class MerchImport extends MerchEvent {
+  const MerchImport({required this.merchList});
+
+  final List<Merch> merchList;
+
+  @override
+  List<Object> get props => super.props..addAll([merchList]);
+}
