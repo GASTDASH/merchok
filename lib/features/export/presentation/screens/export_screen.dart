@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:csv/csv.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
@@ -13,6 +13,7 @@ import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class ExportScreen extends StatefulWidget {
   const ExportScreen({super.key});
@@ -276,13 +277,16 @@ class _ExportScreenState extends State<ExportScreen> {
     required List<List<dynamic>> table,
     required String name,
   }) async {
-    for (var row in table) {
-      log(row.toString());
-    }
-
     final csv = const ListToCsvConverter().convert(table);
     final bytes = utf8.encode(csv);
     final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    final sb = StringBuffer();
+    for (var row in table)
+      sb.write('${row.toString().clampStringLength(500)}\n');
+    GetIt.I<Talker>().debug(
+      'Экспортирование файла "$name-export-$timestamp" со строками:\n${sb.toString()}',
+    );
 
     return await FileSaver.instance.saveAs(
       name: '$name-export-$timestamp',

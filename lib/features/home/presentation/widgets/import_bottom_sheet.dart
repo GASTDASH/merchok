@@ -114,9 +114,9 @@ class ImportBottomSheet extends StatelessWidget {
 
             return Merch(
               id: row[0],
-              name: row[1],
+              name: row[1].toString(),
               description: row[2] != '' ? row[2] : null,
-              price: row[3],
+              price: double.parse(row[3]),
               purchasePrice: double.tryParse(row[4]),
               image: image != null
                   ? Uint8List.fromList(image.cast<int>())
@@ -157,8 +157,8 @@ class ImportBottomSheet extends StatelessWidget {
           ...table.skip(1).map((row) {
             return PaymentMethod(
               id: row[0],
-              name: row[1],
-              information: row[2],
+              name: row[1].toString(),
+              information: row[2].toString(),
               description: row[3] != '' ? row[3] : null,
               iconPath: row[4] != '' ? row[4] : null,
             );
@@ -177,7 +177,7 @@ class ImportBottomSheet extends StatelessWidget {
           ...table.skip(1).map((row) {
             return Festival(
               id: row[0],
-              name: row[1],
+              name: row[1].toString(),
               startDate: DateTime.fromMillisecondsSinceEpoch(row[2]),
               endDate: DateTime.fromMillisecondsSinceEpoch(row[3]),
             );

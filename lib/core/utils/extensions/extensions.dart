@@ -25,3 +25,13 @@ extension DateTimeExtension on DateTime {
 extension DoubleExtension on double {
   String truncateIfInt() => this % 1 == 0 ? "${truncate()}" : "$this";
 }
+
+extension StringExtension on String {
+  String clampStringLength(int maxLength) {
+    if (length <= maxLength) {
+      return this;
+    } else {
+      return substring(0, maxLength);
+    }
+  }
+}

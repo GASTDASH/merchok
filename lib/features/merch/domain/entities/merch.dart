@@ -102,7 +102,9 @@ class Merch extends Equatable {
       purchasePrice: map['purchasePrice'] != null
           ? map['purchasePrice'] as double
           : null,
-      image: map['image'] != null ? map['image'] as Uint8List : null,
+      image: map['image'] != null
+          ? Uint8List.fromList((map['image'] as List).cast<int>())
+          : null,
       categoryId: map['categoryId'] != null
           ? map['categoryId'] as String
           : null,
