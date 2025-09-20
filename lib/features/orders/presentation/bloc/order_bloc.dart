@@ -56,5 +56,25 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderError(error: e));
       }
     });
+    on<OrderDelete>((event, emit) async {
+      try {
+        emit(OrderLoading(message: S.current.receiptDeleting));
+        await _orderRepository.deleteOrder(event.orderId);
+        add(OrderLoad());
+      } catch (e) {
+        emit(OrderError(error: e));
+      }
+    });
+    on<OrderImport>((event, emit) async {
+      try {
+        emit(OrderLoading(message: S.current.receiptImporting));
+        for (var order in event.orderList) {
+          await _orderRepository.addOrder(order);
+        }
+        add(OrderLoad());
+      } catch (e) {
+        emit(OrderError(error: e));
+      }
+    });
   }
 }

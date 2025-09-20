@@ -9,7 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -60,51 +63,7 @@ class ImportBottomSheet extends StatelessWidget {
                 Expanded(
                   child: BaseContainer(
                     onTap: () async {
-                      final bloc = context.read<MerchBloc>();
-
-                      final result = await FilePicker.platform.pickFiles();
-                      if (result == null) return;
-                      if (result.files.first.path == null) return;
-
-                      final file = File(result.files.first.path!);
-
-                      final table = CsvToListConverter().convert(
-                        await file.readAsString(),
-                      );
-
-                      if (table.first[0] != 'id' ||
-                          table.first[1] != 'name' ||
-                          table.first[2] != 'description' ||
-                          table.first[3] != 'price' ||
-                          table.first[4] != 'purchasePrice' ||
-                          table.first[5] != 'image' ||
-                          table.first[6] != 'categoryId') {
-                        return;
-                      }
-
-                      final List<Merch> merchList = [
-                        ...table.skip(1).map((row) {
-                          final List? image = jsonDecode(row[5].toString());
-
-                          return Merch(
-                            id: row[0],
-                            name: row[1],
-                            description: row[2] != '' ? row[2] : null,
-                            price: row[3],
-                            purchasePrice: double.tryParse(row[4]),
-                            image: image != null
-                                ? Uint8List.fromList(image.cast<int>())
-                                : null,
-                            categoryId: row[6] != '' ? row[6] : null,
-                          );
-                        }),
-                      ];
-
-                      for (var merch in merchList) {
-                        GetIt.I<Talker>().debug(merch);
-                      }
-
-                      bloc.add(MerchImport(merchList: merchList));
+                      await _import(context);
 
                       if (context.mounted) context.pop();
                     },
@@ -130,5 +89,69 @@ class ImportBottomSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _import(BuildContext context) async {
+    final merchBloc = context.read<MerchBloc>();
+    final orderBloc = context.read<OrderBloc>();
+    final paymentMethodBloc = context.read<PaymentMethodBloc>();
+    final festivalBloc = context.read<FestivalBloc>();
+
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+    if (result.files.first.path == null) return;
+
+    final file = File(result.files.first.path!);
+    final fileName = file.path.split('/').last.split('-').first;
+
+    final table = CsvToListConverter().convert(await file.readAsString());
+
+    switch (fileName) {
+      case 'merch':
+        final List<Merch> merchList = [
+          ...table.skip(1).map((row) {
+            final List? image = jsonDecode(row[5].toString());
+
+            return Merch(
+              id: row[0],
+              name: row[1],
+              description: row[2] != '' ? row[2] : null,
+              price: row[3],
+              purchasePrice: double.tryParse(row[4]),
+              image: image != null
+                  ? Uint8List.fromList(image.cast<int>())
+                  : null,
+              categoryId: row[6] != '' ? row[6] : null,
+            );
+          }),
+        ];
+
+        GetIt.I<Talker>().debug(
+          'Импортирование мерча: \n${merchList.join('\n')}', // translate-me-ignore
+        );
+        merchBloc.add(MerchImport(merchList: merchList));
+        break;
+      case 'orders':
+        final List<Order> orderList = [
+          ...table.skip(1).map((row) {
+            return Order(
+              id: row[0],
+              orderItems: [
+                for (var json in jsonDecode(row[1])) OrderItem.fromJson(json),
+              ],
+              createdAt: DateTime.fromMillisecondsSinceEpoch(row[2]),
+              festival: Festival.fromJson(row[3]),
+              paymentMethod: PaymentMethod.fromJson(row[4]),
+              totalAmount: row[5],
+            );
+          }),
+        ];
+
+        GetIt.I<Talker>().debug(
+          'Импортирование чеков: \n${orderList.join('\n')}', // translate-me-ignore
+        );
+        orderBloc.add(OrderImport(orderList: orderList));
+        break;
+    }
   }
 }

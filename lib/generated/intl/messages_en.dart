@@ -226,7 +226,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("Price"),
     "profit": MessageLookupByLibrary.simpleMessage("Profit"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
+    "receiptDeleting": MessageLookupByLibrary.simpleMessage(
+      "Deleting the receipt",
+    ),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Receipt from "),
+    "receiptImporting": MessageLookupByLibrary.simpleMessage(
+      "Importing the receipt list",
+    ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),

@@ -904,6 +904,16 @@ class S {
     );
   }
 
+  /// `Deleting the receipt`
+  String get receiptDeleting {
+    return Intl.message(
+      'Deleting the receipt',
+      name: 'receiptDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unable to delete a merch, because it's in the cart`
   String get unableToDeleteMerch {
     return Intl.message(
@@ -1099,6 +1109,16 @@ class S {
     return Intl.message(
       'Importing the merch list',
       name: 'merchImporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing the receipt list`
+  String get receiptImporting {
+    return Intl.message(
+      'Importing the receipt list',
+      name: 'receiptImporting',
       desc: '',
       args: [],
     );

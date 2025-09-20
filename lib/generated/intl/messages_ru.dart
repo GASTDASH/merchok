@@ -228,7 +228,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
     "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
+    "receiptDeleting": MessageLookupByLibrary.simpleMessage("Удаление чека"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Чек от "),
+    "receiptImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование чеков",
+    ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),

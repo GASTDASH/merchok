@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class ReceiptWidget extends StatelessWidget {
   const ReceiptWidget({super.key, required this.order});
@@ -35,7 +36,9 @@ class ReceiptWidget extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => context.read<OrderBloc>().add(
+                    OrderDelete(orderId: order.id),
+                  ),
                   child: BaseSvgIcon(context, IconNames.delete),
                 ),
               ],

@@ -35,3 +35,12 @@ final class OrderDelete extends OrderEvent {
   @override
   List<Object> get props => super.props..addAll([orderId]);
 }
+
+final class OrderImport extends OrderEvent {
+  const OrderImport({required this.orderList});
+
+  final List<Order> orderList;
+
+  @override
+  List<Object> get props => super.props..addAll([orderList]);
+}
