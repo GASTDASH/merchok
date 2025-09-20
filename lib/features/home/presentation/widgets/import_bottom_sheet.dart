@@ -116,8 +116,8 @@ class ImportBottomSheet extends StatelessWidget {
               id: row[0],
               name: row[1].toString(),
               description: row[2] != '' ? row[2] : null,
-              price: double.parse(row[3]),
-              purchasePrice: double.tryParse(row[4]),
+              price: double.parse(row[3].toString()),
+              purchasePrice: double.tryParse(row[4].toString()),
               image: image != null
                   ? Uint8List.fromList(image.cast<int>())
                   : null,
