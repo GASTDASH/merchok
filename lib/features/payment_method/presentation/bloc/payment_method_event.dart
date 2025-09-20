@@ -35,3 +35,12 @@ final class PaymentMethodDelete extends PaymentMethodEvent {
   @override
   List<Object> get props => super.props..addAll([paymentMethodId]);
 }
+
+final class PaymentMethodImport extends PaymentMethodEvent {
+  const PaymentMethodImport({required this.paymentMethodList});
+
+  final List<PaymentMethod> paymentMethodList;
+
+  @override
+  List<Object> get props => super.props..addAll([paymentMethodList]);
+}

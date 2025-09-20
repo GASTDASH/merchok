@@ -1123,6 +1123,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Importing the payment method list`
+  String get paymentMethodImporting {
+    return Intl.message(
+      'Importing the payment method list',
+      name: 'paymentMethodImporting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

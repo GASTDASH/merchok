@@ -211,6 +211,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodDeleting": MessageLookupByLibrary.simpleMessage(
       "Удаление способа оплаты",
     ),
+    "paymentMethodImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование способов оплаты",
+    ),
     "paymentMethodLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка способов оплаты",
     ),

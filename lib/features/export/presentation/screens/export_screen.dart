@@ -247,8 +247,8 @@ class _ExportScreenState extends State<ExportScreen> {
           paymentMethod.id,
           paymentMethod.name,
           paymentMethod.information,
-          paymentMethod.description,
-          paymentMethod.iconPath,
+          paymentMethod.description ?? '',
+          paymentMethod.iconPath ?? '',
         ],
       ),
     ];

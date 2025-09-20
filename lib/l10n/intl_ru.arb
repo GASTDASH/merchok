@@ -129,5 +129,6 @@
   "filePath": "Путь к файлу:",
   "ok": "OK",
   "merchImporting": "Импортирование списка мерча",
-  "receiptImporting": "Импортирование чеков"
+  "receiptImporting": "Импортирование чеков",
+  "paymentMethodImporting": "Импортирование способов оплаты"
 }

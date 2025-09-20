@@ -152,6 +152,26 @@ class ImportBottomSheet extends StatelessWidget {
         );
         orderBloc.add(OrderImport(orderList: orderList));
         break;
+      case 'payment':
+        final List<PaymentMethod> paymentMethodList = [
+          ...table.skip(1).map((row) {
+            return PaymentMethod(
+              id: row[0],
+              name: row[1],
+              information: row[2],
+              description: row[3] != '' ? row[3] : null,
+              iconPath: row[4] != '' ? row[4] : null,
+            );
+          }),
+        ];
+
+        GetIt.I<Talker>().debug(
+          'Импортирование способов оплаты: \n${paymentMethodList.join('\n')}', // translate-me-ignore
+        );
+        paymentMethodBloc.add(
+          PaymentMethodImport(paymentMethodList: paymentMethodList),
+        );
+        break;
     }
   }
 }
