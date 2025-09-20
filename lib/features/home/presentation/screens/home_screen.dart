@@ -239,7 +239,13 @@ class _NoMerchBanner extends StatelessWidget {
           ),
           SizedBox(height: 24),
           Expanded(
-            child: Align(alignment: Alignment.topCenter, child: _AddButtons()),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: _AddButtons(),
+              ),
+            ),
           ),
           SizedBox(height: 128),
         ],
