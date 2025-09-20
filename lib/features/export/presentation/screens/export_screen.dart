@@ -269,7 +269,7 @@ class _ExportScreenState extends State<ExportScreen> {
       ),
     ];
 
-    return await _export(table: table, name: 'payment-methods');
+    return await _export(table: table, name: 'festivals');
   }
 
   Export _export({

@@ -104,6 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "festivalDeleting": MessageLookupByLibrary.simpleMessage(
       "Удаление фестиваля",
     ),
+    "festivalImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование фестивалей",
+    ),
     "festivalLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка списка фестивалей",
     ),

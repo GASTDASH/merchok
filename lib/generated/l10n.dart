@@ -1133,6 +1133,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Importing the festival list`
+  String get festivalImporting {
+    return Intl.message(
+      'Importing the festival list',
+      name: 'festivalImporting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

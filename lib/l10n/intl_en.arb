@@ -130,5 +130,6 @@
   "ok": "OK",
   "merchImporting": "Importing the merch list",
   "receiptImporting": "Importing the receipt list",
-  "paymentMethodImporting": "Importing the payment method list"
+  "paymentMethodImporting": "Importing the payment method list",
+  "festivalImporting": "Importing the festival list"
 }

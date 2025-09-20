@@ -130,5 +130,6 @@
   "ok": "OK",
   "merchImporting": "Импортирование списка мерча",
   "receiptImporting": "Импортирование чеков",
-  "paymentMethodImporting": "Импортирование способов оплаты"
+  "paymentMethodImporting": "Импортирование способов оплаты",
+  "festivalImporting": "Импортирование фестивалей"
 }

@@ -172,6 +172,23 @@ class ImportBottomSheet extends StatelessWidget {
           PaymentMethodImport(paymentMethodList: paymentMethodList),
         );
         break;
+      case 'festivals':
+        final List<Festival> festivalList = [
+          ...table.skip(1).map((row) {
+            return Festival(
+              id: row[0],
+              name: row[1],
+              startDate: DateTime.fromMillisecondsSinceEpoch(row[2]),
+              endDate: DateTime.fromMillisecondsSinceEpoch(row[3]),
+            );
+          }),
+        ];
+
+        GetIt.I<Talker>().debug(
+          'Импортирование фестивалей: \n${festivalList.join('\n')}', // translate-me-ignore
+        );
+        festivalBloc.add(FestivalImport(festivalList: festivalList));
+        break;
     }
   }
 }

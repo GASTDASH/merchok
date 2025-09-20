@@ -55,6 +55,17 @@ class FestivalBloc extends Bloc<FestivalEvent, FestivalState> {
         emit(FestivalError(error: e));
       }
     });
+    on<FestivalImport>((event, emit) async {
+      try {
+        emit(FestivalLoading(message: S.current.festivalImporting));
+        for (var festival in event.festivalList) {
+          await _festivalRepository.editFestival(festival);
+        }
+        add(FestivalLoad());
+      } catch (e) {
+        emit(FestivalError(error: e));
+      }
+    });
   }
 
   /// Получение списка фестивалей и вызов состояния [FestivalLoaded]
