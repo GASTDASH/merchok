@@ -126,5 +126,6 @@
   "ruble": "₽",
   "fileSuccessfullySaved": "The file was saved successfully",
   "filePath": "File path:",
-  "ok": "OK"
+  "ok": "OK",
+  "merchImporting": "Importing the merch list"
 }

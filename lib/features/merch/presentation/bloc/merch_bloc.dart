@@ -53,7 +53,7 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
     });
     on<MerchImport>((event, emit) async {
       try {
-        emit(MerchLoading(message: 'Импортирование списка мерча'));
+        emit(MerchLoading(message: S.current.merchImporting));
         for (var merch in event.merchList) {
           await _merchRepository.editMerch(merch);
         }

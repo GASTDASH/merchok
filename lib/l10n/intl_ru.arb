@@ -126,5 +126,6 @@
   "ruble": "₽",
   "fileSuccessfullySaved": "Файл успешно сохранён",
   "filePath": "Путь к файлу:",
-  "ok": "OK"
+  "ok": "OK",
+  "merchImporting": "Импортирование списка мерча"
 }

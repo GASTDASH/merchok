@@ -1093,6 +1093,16 @@ class S {
   String get ok {
     return Intl.message('OK', name: 'ok', desc: '', args: []);
   }
+
+  /// `Importing the merch list`
+  String get merchImporting {
+    return Intl.message(
+      'Importing the merch list',
+      name: 'merchImporting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
