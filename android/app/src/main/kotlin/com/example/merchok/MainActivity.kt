@@ -1,4 +1,4 @@
-package com.example.merchok
+package com.gastdash.merchok
 
 import io.flutter.embedding.android.FlutterActivity
 
