@@ -15,6 +15,13 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  Future<dynamic> showCartBottomSheet(BuildContext context) {
+    return showBaseDraggableBottomSheet(
+      context: context,
+      builder: (context) => CartBottomSheet(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -37,13 +44,6 @@ class _RootScreenState extends State<RootScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavBar(index: index),
-    );
-  }
-
-  Future<dynamic> showCartBottomSheet(BuildContext context) {
-    return showBaseDraggableBottomSheet(
-      context: context,
-      builder: (context) => CartBottomSheet(),
     );
   }
 }

@@ -18,23 +18,33 @@ class Order extends Equatable {
     required this.totalAmount,
   });
 
-  @HiveField(0)
-  final String id;
-
-  @HiveField(1)
-  final List<OrderItem> orderItems;
-
   @HiveField(2)
   final DateTime createdAt;
 
   @HiveField(3)
   final Festival festival;
 
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final List<OrderItem> orderItems;
+
   @HiveField(4)
   final PaymentMethod paymentMethod;
 
   @HiveField(5)
   final double totalAmount;
+
+  @override
+  List<Object?> get props => [
+    id,
+    orderItems,
+    createdAt,
+    festival,
+    paymentMethod,
+    totalAmount,
+  ];
 
   Order copyWith({
     String? id,
@@ -53,14 +63,4 @@ class Order extends Equatable {
       totalAmount: totalAmount ?? this.totalAmount,
     );
   }
-
-  @override
-  List<Object?> get props => [
-    id,
-    orderItems,
-    createdAt,
-    festival,
-    paymentMethod,
-    totalAmount,
-  ];
 }

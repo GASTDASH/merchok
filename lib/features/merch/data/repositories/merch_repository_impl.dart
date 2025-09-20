@@ -6,13 +6,13 @@ class MerchRepositoryImpl implements MerchRepository {
   final Box<Merch> merchBox = Hive.box(HiveBoxesNames.merches);
 
   @override
-  Future<List<Merch>> getMerches() async => merchBox.values.toList();
+  Future<void> deleteMerch(String merchId) async =>
+      await merchBox.delete(merchId);
 
   @override
   Future<void> editMerch(Merch merch) async =>
       await merchBox.put(merch.id, merch);
 
   @override
-  Future<void> deleteMerch(String merchId) async =>
-      await merchBox.delete(merchId);
+  Future<List<Merch>> getMerches() async => merchBox.values.toList();
 }

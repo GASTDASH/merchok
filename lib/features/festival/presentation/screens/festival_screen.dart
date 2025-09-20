@@ -22,61 +22,6 @@ class _FestivalScreenState extends State<FestivalScreen> {
     context.read<FestivalBloc>().add(FestivalLoad());
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          BaseSliverAppBar(
-            title: S.of(context).festivals,
-            actions: [
-              IconButton(
-                tooltip: S.of(context).add,
-                onPressed: () async => await addFestival(context),
-                icon: BaseSvgIcon(context, IconNames.add, height: 32),
-              ),
-            ],
-          ),
-          BlocConsumer<FestivalBloc, FestivalState>(
-            listener: (context, state) async =>
-                await handleFestivalStateChanged(context, state),
-            builder: (context, state) {
-              if (state is FestivalLoading) {
-                return LoadingBanner(message: state.message);
-              } else if (state is FestivalLoaded) {
-                if (state.festivalList.isNotEmpty) {
-                  return SliverList.separated(
-                    itemCount: state.festivalList.length,
-                    separatorBuilder: (context, index) =>
-                        Divider(indent: 32, endIndent: 32, height: 0),
-                    itemBuilder: (context, index) {
-                      final cubit = context.watch<CurrentFestivalCubit>();
-                      final festival = state.festivalList[index];
-
-                      return FestivalListTile(
-                        festival: festival,
-                        onTap: () => cubit.selectFestival(festival),
-                        onLongPress: () => deleteFestival(context, festival.id),
-                        selected: cubit.state?.id == festival.id,
-                      );
-                    },
-                  );
-                } else {
-                  return InfoBanner(text: S.of(context).noFestivals);
-                }
-              } else if (state is FestivalError) {
-                return ErrorBanner(message: state.error.toString());
-              } else if (state is FestivalInitial) {
-                return SliverFillRemaining();
-              }
-              return UnexpectedStateBanner();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   Future<void> handleFestivalStateChanged(
     BuildContext context,
     FestivalState state,
@@ -131,5 +76,60 @@ class _FestivalScreenState extends State<FestivalScreen> {
     if (festivalName.isEmpty) festivalName = defaultName;
 
     bloc.add(FestivalAdd(festivalName: festivalName));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          BaseSliverAppBar(
+            title: S.of(context).festivals,
+            actions: [
+              IconButton(
+                tooltip: S.of(context).add,
+                onPressed: () async => await addFestival(context),
+                icon: BaseSvgIcon(context, IconNames.add, height: 32),
+              ),
+            ],
+          ),
+          BlocConsumer<FestivalBloc, FestivalState>(
+            listener: (context, state) async =>
+                await handleFestivalStateChanged(context, state),
+            builder: (context, state) {
+              if (state is FestivalLoading) {
+                return LoadingBanner(message: state.message);
+              } else if (state is FestivalLoaded) {
+                if (state.festivalList.isNotEmpty) {
+                  return SliverList.separated(
+                    itemCount: state.festivalList.length,
+                    separatorBuilder: (context, index) =>
+                        Divider(indent: 32, endIndent: 32, height: 0),
+                    itemBuilder: (context, index) {
+                      final cubit = context.watch<CurrentFestivalCubit>();
+                      final festival = state.festivalList[index];
+
+                      return FestivalListTile(
+                        festival: festival,
+                        onTap: () => cubit.selectFestival(festival),
+                        onLongPress: () => deleteFestival(context, festival.id),
+                        selected: cubit.state?.id == festival.id,
+                      );
+                    },
+                  );
+                } else {
+                  return InfoBanner(text: S.of(context).noFestivals);
+                }
+              } else if (state is FestivalError) {
+                return ErrorBanner(message: state.error.toString());
+              } else if (state is FestivalInitial) {
+                return SliverFillRemaining();
+              }
+              return UnexpectedStateBanner();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

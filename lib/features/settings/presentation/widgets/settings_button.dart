@@ -11,11 +11,11 @@ class SettingsButton extends StatelessWidget {
     this.onTap,
   });
 
-  final String title;
-  final String subtitle;
   final String? icon;
   final double? iconSize;
   final VoidCallback? onTap;
+  final String subtitle;
+  final String title;
 
   @override
   Widget build(BuildContext context) {

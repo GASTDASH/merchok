@@ -31,6 +31,26 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
         (widget.previousPurchasePrice?.truncateIfInt() ?? '');
   }
 
+  void changePrice(double diff) {
+    final price = double.tryParse(priceController.text);
+    if (price == null) return;
+    setState(() => priceController.text = (price + diff).truncateIfInt());
+  }
+
+  BaseButton changePriceButton({
+    required String text,
+    VoidCallback? onTap,
+    required Color color,
+  }) {
+    return BaseButton(
+      onTap: onTap,
+      constraints: BoxConstraints(minWidth: 38),
+      padding: EdgeInsetsGeometry.all(4),
+      color: color,
+      child: Text(text),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -148,26 +168,6 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
           ],
         ),
       ),
-    );
-  }
-
-  void changePrice(double diff) {
-    final price = double.tryParse(priceController.text);
-    if (price == null) return;
-    setState(() => priceController.text = (price + diff).truncateIfInt());
-  }
-
-  BaseButton changePriceButton({
-    required String text,
-    VoidCallback? onTap,
-    required Color color,
-  }) {
-    return BaseButton(
-      onTap: onTap,
-      constraints: BoxConstraints(minWidth: 38),
-      padding: EdgeInsetsGeometry.all(4),
-      color: color,
-      child: Text(text),
     );
   }
 }

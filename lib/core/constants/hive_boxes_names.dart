@@ -1,6 +1,6 @@
 abstract class HiveBoxesNames {
-  static const merches = 'merches';
   static const festivals = 'festivals';
-  static const paymentMethods = 'paymentMethods';
+  static const merches = 'merches';
   static const orders = 'orders';
+  static const paymentMethods = 'paymentMethods';
 }

@@ -6,9 +6,6 @@ class OrderRepositoryImpl implements OrderRepository {
   final Box<Order> orderBox = Hive.box(HiveBoxesNames.orders);
 
   @override
-  Future<List<Order>> getOrders() async => orderBox.values.toList();
-
-  @override
   Future<void> addOrder(Order order) async {
     await orderBox.put(order.id, order);
   }
@@ -16,4 +13,7 @@ class OrderRepositoryImpl implements OrderRepository {
   @override
   Future<void> deleteOrder(String orderId) async =>
       await orderBox.delete(orderId);
+
+  @override
+  Future<List<Order>> getOrders() async => orderBox.values.toList();
 }

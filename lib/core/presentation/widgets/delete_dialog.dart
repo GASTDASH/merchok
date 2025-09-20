@@ -11,8 +11,8 @@ class DeleteDialog extends StatelessWidget {
   });
 
   final String message;
-  final VoidCallback onYes;
   final VoidCallback onNo;
+  final VoidCallback onYes;
 
   @override
   Widget build(BuildContext context) {

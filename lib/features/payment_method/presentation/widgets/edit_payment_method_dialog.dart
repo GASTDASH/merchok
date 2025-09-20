@@ -17,10 +17,10 @@ class EditPaymentMethodDialog extends StatefulWidget {
 }
 
 class _EditPaymentMethodDialogState extends State<EditPaymentMethodDialog> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController informationController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController informationController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   String? selectedIcon;
 
   @override

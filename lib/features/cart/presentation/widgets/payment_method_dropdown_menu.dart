@@ -11,9 +11,9 @@ class PaymentMethodDropdownMenu extends StatelessWidget {
     required this.onSelected,
   });
 
+  final void Function(PaymentMethod? paymentMethod) onSelected;
   final List<PaymentMethod> paymentMethodList;
   final PaymentMethod? selectedPaymentMethod;
-  final void Function(PaymentMethod? paymentMethod) onSelected;
 
   @override
   Widget build(BuildContext context) {

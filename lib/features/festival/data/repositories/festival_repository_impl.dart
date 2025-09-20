@@ -6,13 +6,13 @@ class FestivalRepositoryImpl implements FestivalRepository {
   final Box<Festival> festivalBox = Hive.box(HiveBoxesNames.festivals);
 
   @override
-  Future<List<Festival>> getFestivals() async => festivalBox.values.toList();
+  Future<void> deleteFestival(String festivalId) async =>
+      await festivalBox.delete(festivalId);
 
   @override
   Future<void> editFestival(Festival festival) async =>
       await festivalBox.put(festival.id, festival);
 
   @override
-  Future<void> deleteFestival(String festivalId) async =>
-      await festivalBox.delete(festivalId);
+  Future<List<Festival>> getFestivals() async => festivalBox.values.toList();
 }

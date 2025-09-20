@@ -4,19 +4,17 @@ class CartRepositoryImpl implements CartRepository {
   final Map<String, CartItem> cartItems = {};
 
   @override
-  List<CartItem> getCartItems() => cartItems.values.toList();
-
-  @override
   void addCartItem(String merchId) =>
       cartItems.addAll({merchId: CartItem(merchId: merchId, quantity: 1)});
 
   @override
-  void plusCartItem(String merchId) {
-    final cartItem = cartItems[merchId]!;
-    cartItems.addAll({
-      merchId: cartItem.copyWith(quantity: cartItem.quantity + 1),
-    });
-  }
+  void clearCartItems() => cartItems.clear();
+
+  @override
+  void deleteCartItem(String cartItemId) => cartItems.remove(cartItemId);
+
+  @override
+  List<CartItem> getCartItems() => cartItems.values.toList();
 
   @override
   void minusCartItem(String merchId) {
@@ -32,8 +30,10 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  void deleteCartItem(String cartItemId) => cartItems.remove(cartItemId);
-
-  @override
-  void clearCartItems() => cartItems.clear();
+  void plusCartItem(String merchId) {
+    final cartItem = cartItems[merchId]!;
+    cartItems.addAll({
+      merchId: cartItem.copyWith(quantity: cartItem.quantity + 1),
+    });
+  }
 }

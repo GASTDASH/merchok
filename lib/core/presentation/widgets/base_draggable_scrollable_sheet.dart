@@ -12,8 +12,8 @@ class BaseDraggableScrollableSheet extends StatefulWidget {
 
   final ScrollableWidgetBuilder builder;
   final double initialChildSize;
-  final double minChildSize;
   final double maxChildSize;
+  final double minChildSize;
   final EdgeInsetsGeometry padding;
 
   @override

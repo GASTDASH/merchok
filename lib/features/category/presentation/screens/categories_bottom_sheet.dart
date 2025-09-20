@@ -24,6 +24,57 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     context.read<CategoryBloc>().add(CategoryLoad());
   }
 
+  Future<void> showUnableToDeleteDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseSvgIcon(context, IconNames.delete, height: 32),
+              Text(
+                S.of(context).unableToDeleteCategory,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> showAddCategoryDialog(BuildContext context) async {
+    final bloc = context.read<CategoryBloc>();
+    final s = S.of(context);
+
+    String? name = await showAddDialog(context);
+    if (name == null) return;
+    if (name.isEmpty) name = s.untitled;
+
+    bloc.add(CategoryAdd(name: name));
+  }
+
+  Future<void> showDeleteCategoryDialog(
+    BuildContext context,
+    String categoryId,
+  ) async {
+    return await showDeleteDialog(
+      context: context,
+      message: S.of(context).deleteThisCategory,
+      onYes: () {
+        context.pop();
+        context.read<CategoryBloc>().add(
+          CategoryDelete(categoryId: categoryId),
+        );
+      },
+      onNo: () => context.pop(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseDraggableScrollableSheet(
@@ -109,57 +160,6 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
           ),
         ],
       ),
-    );
-  }
-
-  Future<dynamic> showUnableToDeleteDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseSvgIcon(context, IconNames.delete, height: 32),
-              Text(
-                S.of(context).unableToDeleteCategory,
-                style: Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> showAddCategoryDialog(BuildContext context) async {
-    final bloc = context.read<CategoryBloc>();
-    final s = S.of(context);
-
-    String? name = await showAddDialog(context);
-    if (name == null) return;
-    if (name.isEmpty) name = s.untitled;
-
-    bloc.add(CategoryAdd(name: name));
-  }
-
-  Future<void> showDeleteCategoryDialog(
-    BuildContext context,
-    String categoryId,
-  ) async {
-    return await showDeleteDialog(
-      context: context,
-      message: S.of(context).deleteThisCategory,
-      onYes: () {
-        context.pop();
-        context.read<CategoryBloc>().add(
-          CategoryDelete(categoryId: categoryId),
-        );
-      },
-      onNo: () => context.pop(),
     );
   }
 }

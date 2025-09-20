@@ -9,9 +9,9 @@ class NavItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final bool selected;
   final String icon;
   final VoidCallback onTap;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {

@@ -22,6 +22,69 @@ class _OrdersScreenState extends State<OrdersScreen> {
     context.read<OrderBloc>().add(OrderLoad());
   }
 
+  void sortOrderList(List<Order> orderList) {
+    switch (orderSortingProvider.orderSorting.sortBy) {
+      case OrderSortBy.createdAt:
+        orderList.sort(
+          (a, b) => sortOrdering(a.createdAt.compareTo(b.createdAt)),
+        );
+        break;
+      case OrderSortBy.totalAmount:
+        orderList.sort(
+          (a, b) => sortOrdering(a.totalAmount.compareTo(b.totalAmount)),
+        );
+        break;
+    }
+  }
+
+  int sortOrdering(int comparison) {
+    return orderSortingProvider.orderSorting.sortOrder == SortOrder.desc
+        ? comparison
+        : -comparison;
+  }
+
+  List<Order> filterOrderList(List<Order> orderList) {
+    List<Order> filteredOrderList = orderList;
+
+    if (currentFilter != null) {
+      if (currentFilter!.rangeValues != null) {
+        filteredOrderList = filteredOrderList
+            .where(
+              (order) =>
+                  order.totalAmount >= currentFilter!.rangeValues!.start &&
+                  order.totalAmount <= currentFilter!.rangeValues!.end,
+            )
+            .toList();
+      }
+      if (currentFilter!.dateTimeRange != null) {
+        final start = currentFilter!.dateTimeRange!.start;
+        final end = currentFilter!.dateTimeRange!.end.add(Duration(days: 1));
+
+        filteredOrderList = filteredOrderList.where((order) {
+          final createdAt = order.createdAt;
+          return createdAt.isAfter(start) && order.createdAt.isBefore(end) ||
+              order.createdAt.isAtSameMomentAs(start) ||
+              order.createdAt.isAtSameMomentAs(end);
+        }).toList();
+      }
+    }
+    return filteredOrderList;
+  }
+
+  Future<OrderFilter?> showOrdersFilterDialog(
+    BuildContext context,
+    double maxAmount, [
+    OrderFilter? previousFilter,
+  ]) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => OrdersFilterDialog(
+        previousFilter: previousFilter,
+        maxAmount: maxAmount,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -150,69 +213,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void sortOrderList(List<Order> orderList) {
-    switch (orderSortingProvider.orderSorting.sortBy) {
-      case OrderSortBy.createdAt:
-        orderList.sort(
-          (a, b) => sortOrdering(a.createdAt.compareTo(b.createdAt)),
-        );
-        break;
-      case OrderSortBy.totalAmount:
-        orderList.sort(
-          (a, b) => sortOrdering(a.totalAmount.compareTo(b.totalAmount)),
-        );
-        break;
-    }
-  }
-
-  int sortOrdering(int comparison) {
-    return orderSortingProvider.orderSorting.sortOrder == SortOrder.desc
-        ? comparison
-        : -comparison;
-  }
-
-  List<Order> filterOrderList(List<Order> orderList) {
-    List<Order> filteredOrderList = orderList;
-
-    if (currentFilter != null) {
-      if (currentFilter!.rangeValues != null) {
-        filteredOrderList = filteredOrderList
-            .where(
-              (order) =>
-                  order.totalAmount >= currentFilter!.rangeValues!.start &&
-                  order.totalAmount <= currentFilter!.rangeValues!.end,
-            )
-            .toList();
-      }
-      if (currentFilter!.dateTimeRange != null) {
-        final start = currentFilter!.dateTimeRange!.start;
-        final end = currentFilter!.dateTimeRange!.end.add(Duration(days: 1));
-
-        filteredOrderList = filteredOrderList.where((order) {
-          final createdAt = order.createdAt;
-          return createdAt.isAfter(start) && order.createdAt.isBefore(end) ||
-              order.createdAt.isAtSameMomentAs(start) ||
-              order.createdAt.isAtSameMomentAs(end);
-        }).toList();
-      }
-    }
-    return filteredOrderList;
-  }
-
-  Future<OrderFilter?> showOrdersFilterDialog(
-    BuildContext context,
-    double maxAmount, [
-    OrderFilter? previousFilter,
-  ]) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => OrdersFilterDialog(
-        previousFilter: previousFilter,
-        maxAmount: maxAmount,
       ),
     );
   }

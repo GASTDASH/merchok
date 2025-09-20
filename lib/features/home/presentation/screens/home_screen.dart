@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController searchController = TextEditingController();
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -26,6 +26,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
     context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
+  }
+
+  void sortMerchList(List<Merch> merchList) {
+    switch (merchSortingProvider.merchSorting.sortBy) {
+      case MerchSortBy.alphabet:
+        merchList.sort((a, b) => sortOrdering(a.name.compareTo(b.name)));
+        break;
+      // case MerchSortBy.createdAt:
+      //   merchList.sort((a, b) => sortOrdering(a.compareTo(b.name)));
+      //   break;
+      default:
+        break;
+    }
+  }
+
+  int sortOrdering(int comparison) {
+    return merchSortingProvider.merchSorting.sortOrder == SortOrder.asc
+        ? comparison
+        : -comparison;
+  }
+
+  List<Merch> filterMerchList(
+    List<Merch> merchList,
+    Category? selectedCategory,
+  ) {
+    {
+      // Если поле поиска не пустое
+      if (searchController.text.isNotEmpty) {
+        merchList = filterBySearch(merchList);
+      }
+
+      // Если выбрана категория
+      if (selectedCategory != null) {
+        merchList = filterByCategory(merchList, selectedCategory);
+      }
+    }
+    return merchList;
+  }
+
+  List<Merch> filterByCategory(
+    List<Merch> merchList,
+    Category selectedCategory,
+  ) {
+    merchList = merchList
+        .where((merch) => merch.categoryId == selectedCategory.id)
+        .toList();
+    return merchList;
+  }
+
+  List<Merch> filterBySearch(List<Merch> filteredMerchList) {
+    filteredMerchList = filteredMerchList
+        .where((merch) => merch.name.contains(searchController.text))
+        .toList();
+    return filteredMerchList;
   }
 
   @override
@@ -148,60 +202,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  void sortMerchList(List<Merch> merchList) {
-    switch (merchSortingProvider.merchSorting.sortBy) {
-      case MerchSortBy.alphabet:
-        merchList.sort((a, b) => sortOrdering(a.name.compareTo(b.name)));
-        break;
-      // case MerchSortBy.createdAt:
-      //   merchList.sort((a, b) => sortOrdering(a.compareTo(b.name)));
-      //   break;
-      default:
-        break;
-    }
-  }
-
-  int sortOrdering(int comparison) {
-    return merchSortingProvider.merchSorting.sortOrder == SortOrder.asc
-        ? comparison
-        : -comparison;
-  }
-
-  List<Merch> filterMerchList(
-    List<Merch> merchList,
-    Category? selectedCategory,
-  ) {
-    {
-      // Если поле поиска не пустое
-      if (searchController.text.isNotEmpty) {
-        merchList = filterBySearch(merchList);
-      }
-
-      // Если выбрана категория
-      if (selectedCategory != null) {
-        merchList = filterByCategory(merchList, selectedCategory);
-      }
-    }
-    return merchList;
-  }
-
-  List<Merch> filterByCategory(
-    List<Merch> merchList,
-    Category selectedCategory,
-  ) {
-    merchList = merchList
-        .where((merch) => merch.categoryId == selectedCategory.id)
-        .toList();
-    return merchList;
-  }
-
-  List<Merch> filterBySearch(List<Merch> filteredMerchList) {
-    filteredMerchList = filteredMerchList
-        .where((merch) => merch.name.contains(searchController.text))
-        .toList();
-    return filteredMerchList;
   }
 }
 
@@ -326,6 +326,14 @@ class _NoMerchBanner extends StatelessWidget {
 }
 
 class _AddButtons extends StatelessWidget {
+  Future<void> showImportBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      useRootNavigator: true,
+      context: context,
+      builder: (context) => ImportBottomSheet(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -350,21 +358,50 @@ class _AddButtons extends StatelessWidget {
       ],
     );
   }
-
-  Future<dynamic> showImportBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      useRootNavigator: true,
-      context: context,
-      builder: (context) => ImportBottomSheet(),
-    );
-  }
 }
 
 class _MerchList extends StatelessWidget {
   const _MerchList({required this.merchList, required this.cartItems});
 
-  final List<Merch> merchList;
   final List<CartItem> cartItems;
+  final List<Merch> merchList;
+
+  Future<void> showDeleteMerchDialog(
+    BuildContext context,
+    String merchId,
+  ) async => await showDeleteDialog(
+    context: context,
+    message: S.of(context).deleteThisMerch,
+    onYes: () {
+      context.pop();
+      context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
+    },
+    onNo: () => context.pop(),
+  );
+
+  Future<void> showUnableToDeleteMerchDialog(BuildContext context) async {
+    final theme = Theme.of(context);
+    return await showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseSvgIcon(context, IconNames.delete, height: 32),
+              Text(
+                S.of(context).unableToDeleteMerch,
+                style: theme.textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -390,43 +427,6 @@ class _MerchList extends StatelessWidget {
           },
         );
       },
-    );
-  }
-
-  Future<dynamic> showDeleteMerchDialog(
-    BuildContext context,
-    String merchId,
-  ) async => await showDeleteDialog(
-    context: context,
-    message: S.of(context).deleteThisMerch,
-    onYes: () {
-      context.pop();
-      context.read<MerchBloc>().add(MerchDelete(merchId: merchId));
-    },
-    onNo: () => context.pop(),
-  );
-
-  Future<dynamic> showUnableToDeleteMerchDialog(BuildContext context) async {
-    final theme = Theme.of(context);
-    return await showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseSvgIcon(context, IconNames.delete, height: 32),
-              Text(
-                S.of(context).unableToDeleteMerch,
-                style: theme.textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

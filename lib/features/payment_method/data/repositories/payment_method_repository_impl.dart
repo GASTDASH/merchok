@@ -8,14 +8,14 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
   );
 
   @override
-  Future<List<PaymentMethod>> getPaymentMethods() async =>
-      paymentMethodBox.values.toList();
+  Future<void> deletePaymentMethod(String paymentMethodId) async =>
+      await paymentMethodBox.delete(paymentMethodId);
 
   @override
   Future<void> editPaymentMethod(PaymentMethod paymentMethod) async =>
       await paymentMethodBox.put(paymentMethod.id, paymentMethod);
 
   @override
-  Future<void> deletePaymentMethod(String paymentMethodId) async =>
-      await paymentMethodBox.delete(paymentMethodId);
+  Future<List<PaymentMethod>> getPaymentMethods() async =>
+      paymentMethodBox.values.toList();
 }

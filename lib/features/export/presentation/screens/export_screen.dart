@@ -33,6 +33,126 @@ class _ExportScreenState extends State<ExportScreen> {
     context.read<FestivalBloc>().add(FestivalLoad());
   }
 
+  Export _exportMerch(List<Merch> merchList) async {
+    List<List<dynamic>> table = [
+      [
+        'id',
+        'name',
+        'description',
+        'price',
+        'purchasePrice',
+        'image',
+        'categoryId',
+      ],
+      ...merchList.map(
+        (merch) => [
+          merch.id,
+          merch.name,
+          merch.description ?? '',
+          merch.price.toString(),
+          merch.purchasePrice.toString(),
+          merch.image,
+          merch.categoryId ?? '',
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'merch');
+  }
+
+  Export _exportOrders(List<Order> orderList) async {
+    List<List<dynamic>> table = [
+      [
+        'id',
+        'orderItems',
+        'createdAt',
+        'festival',
+        'paymentMethod',
+        'totalAmount',
+      ],
+      ...orderList.map(
+        (order) => [
+          order.id,
+          jsonEncode(
+            order.orderItems.map((orderItem) => orderItem.toJson()).toList(),
+          ),
+          order.createdAt.millisecondsSinceEpoch,
+          order.festival.toJson(),
+          order.paymentMethod.toJson(),
+          order.totalAmount.toString(),
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'orders');
+  }
+
+  Export _exportPaymentMethods(List<PaymentMethod> paymentMethodList) async {
+    List<List<dynamic>> table = [
+      ['id', 'name', 'information', 'description', 'iconPath'],
+      ...paymentMethodList.map(
+        (paymentMethod) => [
+          paymentMethod.id,
+          paymentMethod.name,
+          paymentMethod.information,
+          paymentMethod.description ?? '',
+          paymentMethod.iconPath ?? '',
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'payment-methods');
+  }
+
+  Export _exportFestivals(List<Festival> festivalList) async {
+    List<List<dynamic>> table = [
+      ['id', 'name', 'startDate', 'endDate'],
+      ...festivalList.map(
+        (festival) => [
+          festival.id,
+          festival.name,
+          festival.startDate.millisecondsSinceEpoch,
+          festival.endDate.millisecondsSinceEpoch,
+        ],
+      ),
+    ];
+
+    return await _export(table: table, name: 'festivals');
+  }
+
+  Export _export({
+    required List<List<dynamic>> table,
+    required String name,
+  }) async {
+    final csv = const ListToCsvConverter().convert(table);
+    final bytes = utf8.encode(csv);
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    final sb = StringBuffer();
+    for (var row in table)
+      sb.write('${row.toString().clampStringLength(500)}\n');
+    GetIt.I<Talker>().debug(
+      'Экспортирование файла "$name-export-$timestamp" со строками:\n${sb.toString()}',
+    );
+
+    return await FileSaver.instance.saveAs(
+      name: '$name-export-$timestamp',
+      bytes: bytes,
+      fileExtension: 'csv',
+      mimeType: MimeType.csv,
+    );
+  }
+
+  Future<void> _showSuccessfullySavedDialog(
+    BuildContext context,
+    String path,
+  ) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => SuccessfullySavedDialog(path: path),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -183,126 +303,6 @@ class _ExportScreenState extends State<ExportScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Export _exportMerch(List<Merch> merchList) async {
-    List<List<dynamic>> table = [
-      [
-        'id',
-        'name',
-        'description',
-        'price',
-        'purchasePrice',
-        'image',
-        'categoryId',
-      ],
-      ...merchList.map(
-        (merch) => [
-          merch.id,
-          merch.name,
-          merch.description ?? '',
-          merch.price.toString(),
-          merch.purchasePrice.toString(),
-          merch.image,
-          merch.categoryId ?? '',
-        ],
-      ),
-    ];
-
-    return await _export(table: table, name: 'merch');
-  }
-
-  Export _exportOrders(List<Order> orderList) async {
-    List<List<dynamic>> table = [
-      [
-        'id',
-        'orderItems',
-        'createdAt',
-        'festival',
-        'paymentMethod',
-        'totalAmount',
-      ],
-      ...orderList.map(
-        (order) => [
-          order.id,
-          jsonEncode(
-            order.orderItems.map((orderItem) => orderItem.toJson()).toList(),
-          ),
-          order.createdAt.millisecondsSinceEpoch,
-          order.festival.toJson(),
-          order.paymentMethod.toJson(),
-          order.totalAmount.toString(),
-        ],
-      ),
-    ];
-
-    return await _export(table: table, name: 'orders');
-  }
-
-  Export _exportPaymentMethods(List<PaymentMethod> paymentMethodList) async {
-    List<List<dynamic>> table = [
-      ['id', 'name', 'information', 'description', 'iconPath'],
-      ...paymentMethodList.map(
-        (paymentMethod) => [
-          paymentMethod.id,
-          paymentMethod.name,
-          paymentMethod.information,
-          paymentMethod.description ?? '',
-          paymentMethod.iconPath ?? '',
-        ],
-      ),
-    ];
-
-    return await _export(table: table, name: 'payment-methods');
-  }
-
-  Export _exportFestivals(List<Festival> festivalList) async {
-    List<List<dynamic>> table = [
-      ['id', 'name', 'startDate', 'endDate'],
-      ...festivalList.map(
-        (festival) => [
-          festival.id,
-          festival.name,
-          festival.startDate.millisecondsSinceEpoch,
-          festival.endDate.millisecondsSinceEpoch,
-        ],
-      ),
-    ];
-
-    return await _export(table: table, name: 'festivals');
-  }
-
-  Export _export({
-    required List<List<dynamic>> table,
-    required String name,
-  }) async {
-    final csv = const ListToCsvConverter().convert(table);
-    final bytes = utf8.encode(csv);
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-
-    final sb = StringBuffer();
-    for (var row in table)
-      sb.write('${row.toString().clampStringLength(500)}\n');
-    GetIt.I<Talker>().debug(
-      'Экспортирование файла "$name-export-$timestamp" со строками:\n${sb.toString()}',
-    );
-
-    return await FileSaver.instance.saveAs(
-      name: '$name-export-$timestamp',
-      bytes: bytes,
-      fileExtension: 'csv',
-      mimeType: MimeType.csv,
-    );
-  }
-
-  Future<void> _showSuccessfullySavedDialog(
-    BuildContext context,
-    String path,
-  ) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => SuccessfullySavedDialog(path: path),
     );
   }
 }

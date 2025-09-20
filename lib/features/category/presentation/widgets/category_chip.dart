@@ -11,9 +11,9 @@ class CategoryChip extends StatelessWidget {
   });
 
   final Category category;
-  final bool selected;
-  final ValueChanged<bool>? onSelected;
   final GestureLongPressCallback? onLongPress;
+  final ValueChanged<bool>? onSelected;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {

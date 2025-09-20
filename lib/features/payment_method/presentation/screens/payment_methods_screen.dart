@@ -20,6 +20,49 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
     context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
   }
 
+  Future<void> deletePaymentMethod(
+    BuildContext context,
+    String paymentMethodId,
+  ) async => await showDeleteDialog(
+    context: context,
+    message: S.of(context).deleteThisPaymentMethod,
+    onNo: () => context.pop(),
+    onYes: () {
+      context.pop();
+      context.read<PaymentMethodBloc>().add(
+        PaymentMethodDelete(paymentMethodId: paymentMethodId),
+      );
+    },
+  );
+
+  Future<void> addPaymentMethod(BuildContext context) async {
+    final bloc = context.read<PaymentMethodBloc>();
+
+    final paymentMethod = await showDialog(
+      context: context,
+      builder: (context) => EditPaymentMethodDialog(),
+    );
+    if (paymentMethod == null) return;
+
+    bloc.add(PaymentMethodAdd(paymentMethod: paymentMethod));
+  }
+
+  Future<void> editPaymentMethod(
+    BuildContext context, [
+    PaymentMethod? previousPaymentMethod,
+  ]) async {
+    final bloc = context.read<PaymentMethodBloc>();
+
+    final paymentMethod = await await showDialog(
+      context: context,
+      builder: (context) =>
+          EditPaymentMethodDialog(previousPaymentMethod: previousPaymentMethod),
+    );
+    if (paymentMethod == null) return;
+
+    bloc.add(PaymentMethodEdit(paymentMethod: paymentMethod));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,48 +117,5 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> deletePaymentMethod(
-    BuildContext context,
-    String paymentMethodId,
-  ) async => await showDeleteDialog(
-    context: context,
-    message: S.of(context).deleteThisPaymentMethod,
-    onNo: () => context.pop(),
-    onYes: () {
-      context.pop();
-      context.read<PaymentMethodBloc>().add(
-        PaymentMethodDelete(paymentMethodId: paymentMethodId),
-      );
-    },
-  );
-
-  Future<void> addPaymentMethod(BuildContext context) async {
-    final bloc = context.read<PaymentMethodBloc>();
-
-    final paymentMethod = await showDialog(
-      context: context,
-      builder: (context) => EditPaymentMethodDialog(),
-    );
-    if (paymentMethod == null) return;
-
-    bloc.add(PaymentMethodAdd(paymentMethod: paymentMethod));
-  }
-
-  Future<void> editPaymentMethod(
-    BuildContext context, [
-    PaymentMethod? previousPaymentMethod,
-  ]) async {
-    final bloc = context.read<PaymentMethodBloc>();
-
-    final paymentMethod = await await showDialog(
-      context: context,
-      builder: (context) =>
-          EditPaymentMethodDialog(previousPaymentMethod: previousPaymentMethod),
-    );
-    if (paymentMethod == null) return;
-
-    bloc.add(PaymentMethodEdit(paymentMethod: paymentMethod));
   }
 }

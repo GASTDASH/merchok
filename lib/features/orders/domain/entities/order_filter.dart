@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 class OrderFilter extends Equatable {
   const OrderFilter({this.rangeValues, this.dateTimeRange});
 
-  final RangeValues? rangeValues;
   final DateTimeRange? dateTimeRange;
-
-  bool get isEmpty => rangeValues == null && dateTimeRange == null;
-  bool get isNotEmpty => !isEmpty;
+  final RangeValues? rangeValues;
 
   @override
   List<Object?> get props => [rangeValues, dateTimeRange];
+
+  bool get isEmpty => rangeValues == null && dateTimeRange == null;
+
+  bool get isNotEmpty => !isEmpty;
 }

@@ -16,20 +16,35 @@ class PaymentMethod extends Equatable {
     this.iconPath,
   });
 
-  @HiveField(0)
-  final String id;
+  factory PaymentMethod.fromJson(String source) =>
+      PaymentMethod.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @HiveField(1)
-  final String name;
-
-  @HiveField(2)
-  final String information;
+  factory PaymentMethod.fromMap(Map<String, dynamic> map) {
+    return PaymentMethod(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      information: map['information'] as String,
+      description: map['description'] != null
+          ? map['description'] as String
+          : null,
+      iconPath: map['iconPath'] != null ? map['iconPath'] as String : null,
+    );
+  }
 
   @HiveField(3)
   final String? description;
 
   @HiveField(4)
   final String? iconPath;
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(2)
+  final String information;
+
+  @HiveField(1)
+  final String name;
 
   @override
   List<Object?> get props {
@@ -62,20 +77,5 @@ class PaymentMethod extends Equatable {
     };
   }
 
-  factory PaymentMethod.fromMap(Map<String, dynamic> map) {
-    return PaymentMethod(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      information: map['information'] as String,
-      description: map['description'] != null
-          ? map['description'] as String
-          : null,
-      iconPath: map['iconPath'] != null ? map['iconPath'] as String : null,
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory PaymentMethod.fromJson(String source) =>
-      PaymentMethod.fromMap(json.decode(source) as Map<String, dynamic>);
 }

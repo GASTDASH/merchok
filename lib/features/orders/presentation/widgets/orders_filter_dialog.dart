@@ -11,19 +11,18 @@ class OrdersFilterDialog extends StatefulWidget {
     required this.maxAmount,
   });
 
-  final OrderFilter? previousFilter;
   final double maxAmount;
+  final OrderFilter? previousFilter;
 
   @override
   State<OrdersFilterDialog> createState() => _OrdersFilterDialogState();
 }
 
 class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
-  final TextEditingController startController = TextEditingController();
-  final TextEditingController endController = TextEditingController();
-
   late RangeValues amountRange;
   DateTimeRange? dateRange;
+  final TextEditingController endController = TextEditingController();
+  final TextEditingController startController = TextEditingController();
 
   @override
   void initState() {
@@ -43,6 +42,16 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
       final dateTimeRange = previousFilter.dateTimeRange;
       if (dateTimeRange != null) dateRange = dateTimeRange;
     }
+  }
+
+  Future<DateTimeRange<DateTime>?> showCreationDateRangePicker(
+    BuildContext context,
+  ) {
+    return showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2024),
+      lastDate: DateTime.now(),
+    );
   }
 
   @override
@@ -173,16 +182,6 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
           ],
         ),
       ),
-    );
-  }
-
-  Future<DateTimeRange<DateTime>?> showCreationDateRangePicker(
-    BuildContext context,
-  ) {
-    return showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2024),
-      lastDate: DateTime.now(),
     );
   }
 }

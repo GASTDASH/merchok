@@ -6,8 +6,8 @@ import 'package:merchok/generated/l10n.dart';
 class EditDialog extends StatefulWidget {
   const EditDialog({super.key, required this.previous, required this.hintText});
 
-  final String previous;
   final String hintText;
+  final String previous;
 
   @override
   State<EditDialog> createState() => _EditDialogState();

@@ -15,6 +15,21 @@ class Festival extends Equatable {
     required this.endDate,
   });
 
+  factory Festival.fromJson(String source) =>
+      Festival.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  factory Festival.fromMap(Map<String, dynamic> map) {
+    return Festival(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] as int),
+      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate'] as int),
+    );
+  }
+
+  @HiveField(3)
+  final DateTime endDate;
+
   @HiveField(0)
   final String id;
 
@@ -24,8 +39,8 @@ class Festival extends Equatable {
   @HiveField(2)
   final DateTime startDate;
 
-  @HiveField(3)
-  final DateTime endDate;
+  @override
+  List<Object?> get props => [id, name, startDate, endDate];
 
   Festival copyWith({
     String? id,
@@ -39,9 +54,6 @@ class Festival extends Equatable {
     endDate: endDate ?? this.endDate,
   );
 
-  @override
-  List<Object?> get props => [id, name, startDate, endDate];
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -51,17 +63,5 @@ class Festival extends Equatable {
     };
   }
 
-  factory Festival.fromMap(Map<String, dynamic> map) {
-    return Festival(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate'] as int),
-      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate'] as int),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Festival.fromJson(String source) =>
-      Festival.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -28,14 +28,14 @@ class _BaseBanner extends StatelessWidget {
 class InfoBanner extends StatelessWidget {
   const InfoBanner({super.key, required this.text}) : icon = null;
 
-  const InfoBanner.icon({super.key, required this.text, required this.icon});
-
   const InfoBanner.error({super.key, required String message})
     : icon = null,
       text = message;
 
-  final String text;
+  const InfoBanner.icon({super.key, required this.text, required this.icon});
+
   final String? icon;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

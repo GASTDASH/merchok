@@ -19,14 +19,43 @@ class Merch extends Equatable {
     this.categoryId,
   });
 
-  @HiveField(0)
-  final String id;
+  factory Merch.fromJson(String source) =>
+      Merch.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @HiveField(1)
-  final String name;
+  factory Merch.fromMap(Map<String, dynamic> map) {
+    return Merch(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      description: map['description'] != null
+          ? map['description'] as String
+          : null,
+      price: map['price'] as double,
+      purchasePrice: map['purchasePrice'] != null
+          ? map['purchasePrice'] as double
+          : null,
+      image: map['image'] != null
+          ? Uint8List.fromList((map['image'] as List).cast<int>())
+          : null,
+      categoryId: map['categoryId'] != null
+          ? map['categoryId'] as String
+          : null,
+    );
+  }
+
+  @HiveField(6)
+  final String? categoryId;
 
   @HiveField(2)
   final String? description;
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(5)
+  final Uint8List? image;
+
+  @HiveField(1)
+  final String name;
 
   @HiveField(3)
   final double price;
@@ -34,11 +63,16 @@ class Merch extends Equatable {
   @HiveField(4)
   final double? purchasePrice;
 
-  @HiveField(5)
-  final Uint8List? image;
-
-  @HiveField(6)
-  final String? categoryId;
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    price,
+    purchasePrice,
+    image,
+    categoryId,
+  ];
 
   Merch copyWith({
     String? id,
@@ -68,17 +102,6 @@ class Merch extends Equatable {
     categoryId: null,
   );
 
-  @override
-  List<Object?> get props => [
-    id,
-    name,
-    description,
-    price,
-    purchasePrice,
-    image,
-    categoryId,
-  ];
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -91,28 +114,5 @@ class Merch extends Equatable {
     };
   }
 
-  factory Merch.fromMap(Map<String, dynamic> map) {
-    return Merch(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      description: map['description'] != null
-          ? map['description'] as String
-          : null,
-      price: map['price'] as double,
-      purchasePrice: map['purchasePrice'] != null
-          ? map['purchasePrice'] as double
-          : null,
-      image: map['image'] != null
-          ? Uint8List.fromList((map['image'] as List).cast<int>())
-          : null,
-      categoryId: map['categoryId'] != null
-          ? map['categoryId'] as String
-          : null,
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Merch.fromJson(String source) =>
-      Merch.fromMap(json.decode(source) as Map<String, dynamic>);
 }

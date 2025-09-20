@@ -14,13 +14,13 @@ class BaseContainer extends StatelessWidget {
   });
 
   final Widget? child;
-  final double? height;
-  final double? width;
-  final EdgeInsetsGeometry? margin;
-  final EdgeInsetsGeometry? padding;
   final double elevation;
-  final VoidCallback? onTap;
+  final double? height;
+  final EdgeInsetsGeometry? margin;
   final VoidCallback? onLongPress;
+  final VoidCallback? onTap;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {

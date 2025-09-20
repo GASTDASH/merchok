@@ -1,9 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class Category extends Equatable {
-  static const String _emptyId = '';
-  static const String _emptyName = '';
-
   const Category({required this.id, required this.name});
 
   const Category.empty() : id = '', name = '';
@@ -11,9 +8,13 @@ class Category extends Equatable {
   final String id;
   final String name;
 
-  bool get isEmpty => id == _emptyId && name == _emptyName;
-  bool get isNotEmpty => !isEmpty;
+  static const String _emptyId = '';
+  static const String _emptyName = '';
 
   @override
   List<Object?> get props => [id, name];
+
+  bool get isEmpty => id == _emptyId && name == _emptyName;
+
+  bool get isNotEmpty => !isEmpty;
 }

@@ -7,6 +7,13 @@ import 'package:merchok/generated/l10n.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
+  Future<void> showDonateDialog(BuildContext context) async {
+    return await showAdaptiveDialog(
+      context: context,
+      builder: (context) => DonateDialog(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,13 +74,6 @@ class SettingsScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> showDonateDialog(BuildContext context) async {
-    return await showAdaptiveDialog(
-      context: context,
-      builder: (context) => DonateDialog(),
     );
   }
 }

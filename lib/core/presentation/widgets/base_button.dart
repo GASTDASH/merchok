@@ -23,14 +23,15 @@ class BaseButton extends StatelessWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
   }) : _outlined = true;
 
-  final Widget child;
-  final BoxConstraints constraints;
-  final EdgeInsetsGeometry padding;
-  final VoidCallback? onTap;
-  final Color? color;
-  final BorderRadius borderRadius;
-  final bool _outlined;
   final Color? backgroundColor;
+  final BorderRadius borderRadius;
+  final Widget child;
+  final Color? color;
+  final BoxConstraints constraints;
+  final VoidCallback? onTap;
+  final EdgeInsetsGeometry padding;
+
+  final bool _outlined;
 
   @override
   Widget build(BuildContext context) {

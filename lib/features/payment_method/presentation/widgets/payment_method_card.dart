@@ -11,9 +11,9 @@ class PaymentMethodCard extends StatelessWidget {
     this.onLongPress,
   });
 
-  final PaymentMethod paymentMethod;
-  final VoidCallback? onTapEdit;
   final VoidCallback? onLongPress;
+  final VoidCallback? onTapEdit;
+  final PaymentMethod paymentMethod;
 
   @override
   Widget build(BuildContext context) {

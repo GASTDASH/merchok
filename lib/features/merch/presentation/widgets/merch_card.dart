@@ -22,9 +22,9 @@ class MerchCard extends StatefulWidget {
     this.onTapDelete,
   });
 
-  final Merch merch;
   final int count;
   final bool editable;
+  final Merch merch;
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
 
@@ -42,6 +42,79 @@ class _MerchCardState extends State<MerchCard> {
     if (widget.merch.description != null)
       descriptionController.text = widget.merch.description!;
   }
+
+  Future<void> editName(BuildContext context) async {
+    final defaultName = S.of(context).untitled;
+    final bloc = context.read<MerchBloc>();
+
+    String? newName = await showEditDialog(
+      context: context,
+      previous: widget.merch.name,
+      hintText: S.of(context).enterName,
+    );
+    if (newName == null) return;
+    if (newName == '') newName = defaultName;
+
+    bloc.add(MerchEdit(merch: widget.merch.copyWith(name: newName)));
+  }
+
+  Future<void> editPrices(BuildContext context) async {
+    final bloc = context.read<MerchBloc>();
+    final newValues = await showChangePriceBottomSheet(context);
+    if (newValues == null) return;
+
+    final double newPrice = newValues['price']!;
+    final double? newPurchasePrice = newValues['purchasePrice'];
+
+    bloc.add(
+      MerchEdit(
+        merch: widget.merch.copyWith(
+          price: newPrice,
+          purchasePrice: newPurchasePrice,
+        ),
+      ),
+    );
+  }
+
+  Future<void> changeCategory(BuildContext context) async {
+    final merchBloc = context.read<MerchBloc>();
+    final categoryState = context.read<CategoryBloc>().state;
+    if (widget.merch.categoryId != null && categoryState is! CategoryLoaded) {
+      return;
+    }
+    categoryState as CategoryLoaded;
+
+    final category = await showCategoriesBottomSheet(
+      context,
+      categoryState.categoryList.firstWhereOrNull(
+        (c) => c.id == widget.merch.categoryId,
+      ),
+    );
+    if (category == null) return;
+    if (category.isEmpty) {
+      merchBloc.add(MerchEdit(merch: widget.merch.clearCategoryId()));
+    } else {
+      merchBloc.add(
+        MerchEdit(merch: widget.merch.copyWith(categoryId: category.id)),
+      );
+    }
+  }
+
+  Future<Map<String, double?>?> showChangePriceBottomSheet(
+    BuildContext context,
+  ) async => await showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    context: context,
+    builder: (context) => Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: ChangePriceBottomSheet(
+        previousPrice: widget.merch.price,
+        previousPurchasePrice: widget.merch.purchasePrice,
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -211,79 +284,6 @@ class _MerchCardState extends State<MerchCard> {
       ),
     );
   }
-
-  Future<void> editName(BuildContext context) async {
-    final defaultName = S.of(context).untitled;
-    final bloc = context.read<MerchBloc>();
-
-    String? newName = await showEditDialog(
-      context: context,
-      previous: widget.merch.name,
-      hintText: S.of(context).enterName,
-    );
-    if (newName == null) return;
-    if (newName == '') newName = defaultName;
-
-    bloc.add(MerchEdit(merch: widget.merch.copyWith(name: newName)));
-  }
-
-  Future<void> editPrices(BuildContext context) async {
-    final bloc = context.read<MerchBloc>();
-    final newValues = await showChangePriceBottomSheet(context);
-    if (newValues == null) return;
-
-    final double newPrice = newValues['price']!;
-    final double? newPurchasePrice = newValues['purchasePrice'];
-
-    bloc.add(
-      MerchEdit(
-        merch: widget.merch.copyWith(
-          price: newPrice,
-          purchasePrice: newPurchasePrice,
-        ),
-      ),
-    );
-  }
-
-  Future<void> changeCategory(BuildContext context) async {
-    final merchBloc = context.read<MerchBloc>();
-    final categoryState = context.read<CategoryBloc>().state;
-    if (widget.merch.categoryId != null && categoryState is! CategoryLoaded) {
-      return;
-    }
-    categoryState as CategoryLoaded;
-
-    final category = await showCategoriesBottomSheet(
-      context,
-      categoryState.categoryList.firstWhereOrNull(
-        (c) => c.id == widget.merch.categoryId,
-      ),
-    );
-    if (category == null) return;
-    if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: widget.merch.clearCategoryId()));
-    } else {
-      merchBloc.add(
-        MerchEdit(merch: widget.merch.copyWith(categoryId: category.id)),
-      );
-    }
-  }
-
-  Future<Map<String, double?>?> showChangePriceBottomSheet(
-    BuildContext context,
-  ) async => await showModalBottomSheet(
-    useRootNavigator: true,
-    isScrollControlled: true,
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    context: context,
-    builder: (context) => Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: ChangePriceBottomSheet(
-        previousPrice: widget.merch.price,
-        previousPurchasePrice: widget.merch.purchasePrice,
-      ),
-    ),
-  );
 }
 
 class _ImageBox extends StatelessWidget {

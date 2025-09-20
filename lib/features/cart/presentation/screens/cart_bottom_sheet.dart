@@ -185,6 +185,13 @@ class _TotalPrice extends StatelessWidget {
 
   final List<CartItem> cartItems;
 
+  double sumCartItems(List<CartItem> cartItems, List<Merch> merchList) {
+    return cartItems.fold<double>(0, (sum, cartItem) {
+      final merch = merchList.firstWhere((m) => m.id == cartItem.merchId);
+      return sum + merch.price * cartItem.quantity;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -200,13 +207,6 @@ class _TotalPrice extends StatelessWidget {
     } else {
       return Text(S.of(context).merchIsNotLoaded);
     }
-  }
-
-  double sumCartItems(List<CartItem> cartItems, List<Merch> merchList) {
-    return cartItems.fold<double>(0, (sum, cartItem) {
-      final merch = merchList.firstWhere((m) => m.id == cartItem.merchId);
-      return sum + merch.price * cartItem.quantity;
-    });
   }
 }
 

@@ -12,28 +12,11 @@ part 'order_item.g.dart';
 class OrderItem extends Equatable {
   const OrderItem({required this.merch, required this.quantity});
 
-  @HiveField(0)
-  final Merch merch;
-
-  @HiveField(1)
-  final int quantity;
-
-  OrderItem copyWith({Merch? merch, int? quantity}) {
-    return OrderItem(
-      merch: merch ?? this.merch,
-      quantity: quantity ?? this.quantity,
-    );
-  }
-
   factory OrderItem.fromCartItem(CartItem cartItem, Merch merch) =>
       OrderItem(merch: merch, quantity: cartItem.quantity);
 
-  @override
-  List<Object?> get props => [merch, quantity];
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{'merch': merch.toMap(), 'quantity': quantity};
-  }
+  factory OrderItem.fromJson(String source) =>
+      OrderItem.fromMap(json.decode(source) as Map<String, dynamic>);
 
   factory OrderItem.fromMap(Map<String, dynamic> map) {
     return OrderItem(
@@ -42,8 +25,25 @@ class OrderItem extends Equatable {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  @HiveField(0)
+  final Merch merch;
 
-  factory OrderItem.fromJson(String source) =>
-      OrderItem.fromMap(json.decode(source) as Map<String, dynamic>);
+  @HiveField(1)
+  final int quantity;
+
+  @override
+  List<Object?> get props => [merch, quantity];
+
+  OrderItem copyWith({Merch? merch, int? quantity}) {
+    return OrderItem(
+      merch: merch ?? this.merch,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'merch': merch.toMap(), 'quantity': quantity};
+  }
+
+  String toJson() => json.encode(toMap());
 }

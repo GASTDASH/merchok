@@ -6,11 +6,11 @@ class CartItem extends Equatable {
   final String merchId;
   final int quantity;
 
+  @override
+  List<Object?> get props => [merchId, quantity];
+
   CartItem copyWith({String? merchId, int? quantity}) => CartItem(
     merchId: merchId ?? this.merchId,
     quantity: quantity ?? this.quantity,
   );
-
-  @override
-  List<Object?> get props => [merchId, quantity];
 }

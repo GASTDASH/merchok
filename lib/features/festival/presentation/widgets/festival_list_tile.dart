@@ -14,9 +14,25 @@ class FestivalListTile extends StatelessWidget {
   });
 
   final Festival festival;
-  final VoidCallback? onTap;
   final VoidCallback? onLongPress;
+  final VoidCallback? onTap;
   final bool selected;
+
+  Future<void> editFestivalName(BuildContext context) async {
+    final defaultName = S.of(context).untitled;
+    final bloc = context.read<FestivalBloc>();
+
+    Festival? newFestival = await showDialog(
+      context: context,
+      builder: (context) => EditFestivalDialog(previousFestival: festival),
+    );
+    if (newFestival == null) return;
+    if (newFestival.name.isEmpty) {
+      newFestival = festival.copyWith(name: defaultName);
+    }
+
+    bloc.add(FestivalEdit(festival: newFestival));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,21 +73,5 @@ class FestivalListTile extends StatelessWidget {
         style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor),
       ),
     );
-  }
-
-  Future<void> editFestivalName(BuildContext context) async {
-    final defaultName = S.of(context).untitled;
-    final bloc = context.read<FestivalBloc>();
-
-    Festival? newFestival = await showDialog(
-      context: context,
-      builder: (context) => EditFestivalDialog(previousFestival: festival),
-    );
-    if (newFestival == null) return;
-    if (newFestival.name.isEmpty) {
-      newFestival = festival.copyWith(name: defaultName);
-    }
-
-    bloc.add(FestivalEdit(festival: newFestival));
   }
 }

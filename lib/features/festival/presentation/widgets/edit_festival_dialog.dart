@@ -14,10 +14,9 @@ class EditFestivalDialog extends StatefulWidget {
 }
 
 class _EditFestivalDialogState extends State<EditFestivalDialog> {
-  late DateTime startDate;
   late DateTime endDate;
-
   final TextEditingController nameController = TextEditingController();
+  late DateTime startDate;
 
   @override
   void initState() {
@@ -27,6 +26,18 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
     endDate = widget.previousFestival.endDate;
 
     nameController.text = widget.previousFestival.name;
+  }
+
+  Future<DateTime?> changeDateDialog({
+    required BuildContext context,
+    DateTime? previousDateTime,
+  }) async {
+    return await showDatePicker(
+      context: context,
+      firstDate: DateTime(2024),
+      lastDate: DateTime.now().add(Duration(days: 200)),
+      currentDate: previousDateTime,
+    );
   }
 
   @override
@@ -62,8 +73,7 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
               spacing: 8,
               children: [
                 Expanded(
-                  child: dateButton(
-                    context: context,
+                  child: _DateButton(
                     text: startDate.toCompactString(),
                     onTap: () async {
                       final newDate = await changeDateDialog(
@@ -78,8 +88,7 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
                 ),
                 BaseSvgIcon(context, IconNames.right),
                 Expanded(
-                  child: dateButton(
-                    context: context,
+                  child: _DateButton(
                     text: endDate.toCompactString(),
                     onTap: () async {
                       final newDate = await changeDateDialog(
@@ -116,12 +125,16 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
       ),
     );
   }
+}
 
-  BaseContainer dateButton({
-    required BuildContext context,
-    required String text,
-    required VoidCallback onTap,
-  }) {
+class _DateButton extends StatelessWidget {
+  const _DateButton({required this.text, required this.onTap});
+
+  final VoidCallback onTap;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
     return BaseContainer(
       onTap: onTap,
       padding: EdgeInsets.all(8),
@@ -131,18 +144,6 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
         style: Theme.of(context).textTheme.bodyLarge,
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  Future<DateTime?> changeDateDialog({
-    required BuildContext context,
-    DateTime? previousDateTime,
-  }) async {
-    return await showDatePicker(
-      context: context,
-      firstDate: DateTime(2024),
-      lastDate: DateTime.now().add(Duration(days: 200)),
-      currentDate: previousDateTime,
     );
   }
 }
