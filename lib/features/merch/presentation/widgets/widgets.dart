@@ -3,4 +3,5 @@
 
 
 export 'change_price_bottom_sheet.dart';
+export 'description_text_field.dart';
 export 'merch_card.dart';

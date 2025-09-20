@@ -12,7 +12,7 @@ import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class MerchCard extends StatelessWidget {
+class MerchCard extends StatefulWidget {
   const MerchCard({
     super.key,
     required this.merch,
@@ -29,11 +29,26 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onTapDelete;
 
   @override
+  State<MerchCard> createState() => _MerchCardState();
+}
+
+class _MerchCardState extends State<MerchCard> {
+  final TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.merch.description != null)
+      descriptionController.text = widget.merch.description!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return BaseContainer(
-      onLongPress: onLongPress,
+      onLongPress: widget.onLongPress,
       margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
       child: Column(
@@ -51,13 +66,13 @@ class MerchCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        merch.name,
+                        widget.merch.name,
                         // ?? S.of(context).merchDefaultName,
                         style: theme.textTheme.bodyLarge,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    if (editable)
+                    if (widget.editable)
                       GestureDetector(
                         onTap: () async => await editName(context),
                         child: BaseSvgIcon(context, IconNames.edit, height: 16),
@@ -65,15 +80,15 @@ class MerchCard extends StatelessWidget {
                   ],
                 ),
               ),
-              onTapDelete != null
+              widget.onTapDelete != null
                   ? GestureDetector(
-                      onTap: onTapDelete,
+                      onTap: widget.onTapDelete,
                       child: BaseSvgIcon(context, IconNames.delete),
                     )
                   : GestureDetector(
                       onTap: () async => await changeCategory(context),
                       child: Badge(
-                        isLabelVisible: merch.categoryId != null,
+                        isLabelVisible: widget.merch.categoryId != null,
                         child: BaseSvgIcon(context, IconNames.tag),
                       ),
                     ),
@@ -83,10 +98,10 @@ class MerchCard extends StatelessWidget {
             spacing: 24,
             children: [
               _ImageBox(
-                editable: editable,
-                image: merch.image,
+                editable: widget.editable,
+                image: widget.merch.image,
                 onImagePicked: (image) => context.read<MerchBloc>().add(
-                  MerchEdit(merch: merch.copyWith(image: image)),
+                  MerchEdit(merch: widget.merch.copyWith(image: image)),
                 ),
               ),
               Expanded(
@@ -97,16 +112,13 @@ class MerchCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: theme.disabledColor),
                   ),
-                  child: TextField(
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    style: theme.textTheme.bodySmall,
-                    controller: TextEditingController(text: merch.description),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).description,
-                      hintStyle: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.disabledColor,
+                  child: DescriptionTextField(
+                    controller: descriptionController,
+                    onTapOutside: (_) => context.read<MerchBloc>().add(
+                      MerchEdit(
+                        merch: widget.merch.copyWith(
+                          description: descriptionController.text,
+                        ),
                       ),
                     ),
                   ),
@@ -122,10 +134,10 @@ class MerchCard extends StatelessWidget {
                 spacing: 8,
                 children: [
                   Text(
-                    '${merch.price.truncateIfInt()} ₽',
+                    '${widget.merch.price.truncateIfInt()} ₽',
                     style: theme.textTheme.headlineSmall,
                   ),
-                  if (editable)
+                  if (widget.editable)
                     GestureDetector(
                       onTap: () async => await editPrices(context),
                       child: BaseSvgIcon(context, IconNames.edit, height: 16),
@@ -141,11 +153,11 @@ class MerchCard extends StatelessWidget {
                     ...previousChildren,
                   ],
                 ),
-                child: count == 0
+                child: widget.count == 0
                     ? BaseButton(
                         key: ValueKey('cart'),
                         onTap: () => context.read<CartBloc>().add(
-                          CartAdd(merchId: merch.id),
+                          CartAdd(merchId: widget.merch.id),
                         ),
                         padding: EdgeInsets.all(12),
                         child: SvgPicture.asset(IconNames.shoppingCart),
@@ -157,7 +169,7 @@ class MerchCard extends StatelessWidget {
                         children: [
                           BaseButton(
                             onTap: () => context.read<CartBloc>().add(
-                              CartMinus(merchId: merch.id),
+                              CartMinus(merchId: widget.merch.id),
                             ),
                             constraints: BoxConstraints(
                               minWidth: 48,
@@ -172,8 +184,8 @@ class MerchCard extends StatelessWidget {
                             child: AnimatedSwitcher(
                               duration: Durations.short3,
                               child: Text(
-                                key: ValueKey(count),
-                                '$count',
+                                key: ValueKey(widget.count),
+                                '${widget.count}',
                                 style: theme.textTheme.headlineSmall,
                                 textAlign: TextAlign.center,
                               ),
@@ -181,7 +193,7 @@ class MerchCard extends StatelessWidget {
                           ),
                           BaseButton(
                             onTap: () => context.read<CartBloc>().add(
-                              CartPlus(merchId: merch.id),
+                              CartPlus(merchId: widget.merch.id),
                             ),
                             constraints: BoxConstraints(
                               minWidth: 48,
@@ -206,13 +218,13 @@ class MerchCard extends StatelessWidget {
 
     String? newName = await showEditDialog(
       context: context,
-      previous: merch.name,
+      previous: widget.merch.name,
       hintText: S.of(context).enterName,
     );
     if (newName == null) return;
     if (newName == '') newName = defaultName;
 
-    bloc.add(MerchEdit(merch: merch.copyWith(name: newName)));
+    bloc.add(MerchEdit(merch: widget.merch.copyWith(name: newName)));
   }
 
   Future<void> editPrices(BuildContext context) async {
@@ -225,7 +237,10 @@ class MerchCard extends StatelessWidget {
 
     bloc.add(
       MerchEdit(
-        merch: merch.copyWith(price: newPrice, purchasePrice: newPurchasePrice),
+        merch: widget.merch.copyWith(
+          price: newPrice,
+          purchasePrice: newPurchasePrice,
+        ),
       ),
     );
   }
@@ -233,7 +248,7 @@ class MerchCard extends StatelessWidget {
   Future<void> changeCategory(BuildContext context) async {
     final merchBloc = context.read<MerchBloc>();
     final categoryState = context.read<CategoryBloc>().state;
-    if (merch.categoryId != null && categoryState is! CategoryLoaded) {
+    if (widget.merch.categoryId != null && categoryState is! CategoryLoaded) {
       return;
     }
     categoryState as CategoryLoaded;
@@ -241,14 +256,16 @@ class MerchCard extends StatelessWidget {
     final category = await showCategoriesBottomSheet(
       context,
       categoryState.categoryList.firstWhereOrNull(
-        (c) => c.id == merch.categoryId,
+        (c) => c.id == widget.merch.categoryId,
       ),
     );
     if (category == null) return;
     if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: merch.clearCategoryId()));
+      merchBloc.add(MerchEdit(merch: widget.merch.clearCategoryId()));
     } else {
-      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: category.id)));
+      merchBloc.add(
+        MerchEdit(merch: widget.merch.copyWith(categoryId: category.id)),
+      );
     }
   }
 
@@ -262,8 +279,8 @@ class MerchCard extends StatelessWidget {
     builder: (context) => Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: ChangePriceBottomSheet(
-        previousPrice: merch.price,
-        previousPurchasePrice: merch.purchasePrice,
+        previousPrice: widget.merch.price,
+        previousPurchasePrice: widget.merch.purchasePrice,
       ),
     ),
   );
