@@ -9,15 +9,6 @@ enum OrderSortBy {
   const OrderSortBy({required this.icon});
 }
 
-enum SortOrder {
-  asc(icon: IconNames.sortAsc),
-  desc(icon: IconNames.sortDesc);
-
-  final String icon;
-
-  const SortOrder({required this.icon});
-}
-
 class OrderSorting {
   const OrderSorting({required this.sortBy, required this.sortOrder});
 

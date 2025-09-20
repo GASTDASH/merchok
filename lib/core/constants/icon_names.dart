@@ -17,6 +17,7 @@ abstract class IconNames {
   static const edit = 'assets/icons/Edit_Pencil_01.svg';
   static const import = 'assets/icons/File_Upload.svg';
   static const filter = 'assets/icons/Filter.svg';
+  static const font = 'assets/icons/Font.svg';
   static const gift = 'assets/icons/Gift.svg';
   static const graph = 'assets/icons/Graph.svg';
   static const history = 'assets/icons/History.svg';

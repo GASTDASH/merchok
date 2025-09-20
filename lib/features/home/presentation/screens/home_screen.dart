@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
+  final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
 
   @override
   void initState() {
@@ -49,71 +50,141 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
               sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
             ),
-            BlocBuilder<MerchBloc, MerchState>(
-              builder: (context, state) {
-                if (state is MerchLoading) {
-                  return LoadingBanner(message: state.message);
-                } else if (state is MerchLoaded) {
-                  if (state.merchList.isNotEmpty) {
-                    final cartState = context.watch<CartBloc>().state;
-                    final selectedCategory = context
-                        .watch<CurrentCategoryCubit>()
-                        .state;
-                    List<Merch> merchList = state.merchList;
+            ListenableBuilder(
+              listenable: merchSortingProvider,
+              builder: (context, _) => BlocBuilder<MerchBloc, MerchState>(
+                builder: (context, state) {
+                  if (state is MerchLoading) {
+                    return LoadingBanner(message: state.message);
+                  } else if (state is MerchLoaded) {
+                    if (state.merchList.isNotEmpty) {
+                      final cartState = context.watch<CartBloc>().state;
+                      final selectedCategory = context
+                          .watch<CurrentCategoryCubit>()
+                          .state;
 
-                    // Если поле поиска не пустое
-                    if (searchController.text.isNotEmpty) {
-                      merchList = filterBySearch(merchList);
-                    }
+                      List<Merch> merchList = filterMerchList(
+                        state.merchList,
+                        selectedCategory,
+                      );
 
-                    // Если выбрана категория
-                    if (selectedCategory != null) {
-                      merchList = filterByCategory(merchList, selectedCategory);
-                    }
+                      sortMerchList(merchList);
 
-                    // Если пустой список при какой-то фильтрации
-                    if (merchList.isEmpty &&
-                        (searchController.text.isNotEmpty ||
-                            selectedCategory != null)) {
-                      return InfoBanner(text: S.of(context).noMatchingMerch);
-                    }
-                    return SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      sliver: SliverMainAxisGroup(
-                        slivers: [
-                          _MerchList(
-                            merchList: merchList,
-                            cartItems: [
-                              if (cartState is CartLoaded &&
-                                  cartState.cartItems.isNotEmpty)
-                                ...cartState.cartItems,
-                            ],
-                          ),
-                          SliverPadding(
-                            padding: const EdgeInsets.only(
-                              top: 12,
-                              bottom: 128,
+                      // Если пустой список при какой-то фильтрации
+                      if (merchList.isEmpty &&
+                          (searchController.text.isNotEmpty ||
+                              selectedCategory != null)) {
+                        return InfoBanner(text: S.of(context).noMatchingMerch);
+                      }
+                      return SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        sliver: SliverMainAxisGroup(
+                          slivers: [
+                            SliverToBoxAdapter(
+                              child: Row(
+                                children: [
+                                  BaseButton.outlined(
+                                    onTap: () => merchSortingProvider
+                                        .changeMerchSorting(),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
+                                    child: Row(
+                                      spacing: 8,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(S.of(context).sorting),
+                                        BaseSvgIcon(
+                                          context,
+                                          merchSortingProvider
+                                              .merchSorting
+                                              .sortBy
+                                              .icon,
+                                        ),
+                                        BaseSvgIcon(
+                                          context,
+                                          merchSortingProvider
+                                              .merchSorting
+                                              .sortOrder
+                                              .icon,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            sliver: SliverToBoxAdapter(child: _AddButtons()),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return _NoMerchBanner();
+                            _MerchList(
+                              merchList: merchList,
+                              cartItems: [
+                                if (cartState is CartLoaded &&
+                                    cartState.cartItems.isNotEmpty)
+                                  ...cartState.cartItems,
+                              ],
+                            ),
+                            SliverPadding(
+                              padding: const EdgeInsets.only(
+                                top: 12,
+                                bottom: 128,
+                              ),
+                              sliver: SliverToBoxAdapter(child: _AddButtons()),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return _NoMerchBanner();
+                    }
+                  } else if (state is MerchError) {
+                    return ErrorBanner(message: state.error.toString());
+                  } else if (state is MerchInitial) {
+                    return SliverFillRemaining();
                   }
-                } else if (state is MerchError) {
-                  return ErrorBanner(message: state.error.toString());
-                } else if (state is MerchInitial) {
-                  return SliverFillRemaining();
-                }
-                return UnexpectedStateBanner();
-              },
+                  return UnexpectedStateBanner();
+                },
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void sortMerchList(List<Merch> merchList) {
+    switch (merchSortingProvider.merchSorting.sortBy) {
+      case MerchSortBy.alphabet:
+        merchList.sort((a, b) => sortOrdering(a.name.compareTo(b.name)));
+        break;
+      // case MerchSortBy.createdAt:
+      //   merchList.sort((a, b) => sortOrdering(a.compareTo(b.name)));
+      //   break;
+      default:
+        break;
+    }
+  }
+
+  int sortOrdering(int comparison) {
+    return merchSortingProvider.merchSorting.sortOrder == SortOrder.asc
+        ? comparison
+        : -comparison;
+  }
+
+  List<Merch> filterMerchList(
+    List<Merch> merchList,
+    Category? selectedCategory,
+  ) {
+    {
+      // Если поле поиска не пустое
+      if (searchController.text.isNotEmpty) {
+        merchList = filterBySearch(merchList);
+      }
+
+      // Если выбрана категория
+      if (selectedCategory != null) {
+        merchList = filterByCategory(merchList, selectedCategory);
+      }
+    }
+    return merchList;
   }
 
   List<Merch> filterByCategory(
