@@ -904,6 +904,16 @@ class S {
     );
   }
 
+  /// `Deleting the receipt`
+  String get receiptDeleting {
+    return Intl.message(
+      'Deleting the receipt',
+      name: 'receiptDeleting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unable to delete a merch, because it's in the cart`
   String get unableToDeleteMerch {
     return Intl.message(
@@ -1092,6 +1102,46 @@ class S {
   /// `OK`
   String get ok {
     return Intl.message('OK', name: 'ok', desc: '', args: []);
+  }
+
+  /// `Importing the merch list`
+  String get merchImporting {
+    return Intl.message(
+      'Importing the merch list',
+      name: 'merchImporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing the receipt list`
+  String get receiptImporting {
+    return Intl.message(
+      'Importing the receipt list',
+      name: 'receiptImporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing the payment method list`
+  String get paymentMethodImporting {
+    return Intl.message(
+      'Importing the payment method list',
+      name: 'paymentMethodImporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing the festival list`
+  String get festivalImporting {
+    return Intl.message(
+      'Importing the festival list',
+      name: 'festivalImporting',
+      desc: '',
+      args: [],
+    );
   }
 }
 

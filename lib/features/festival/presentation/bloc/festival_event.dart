@@ -35,3 +35,12 @@ final class FestivalDelete extends FestivalEvent {
   @override
   List<Object> get props => super.props..addAll([festivalId]);
 }
+
+final class FestivalImport extends FestivalEvent {
+  const FestivalImport({required this.festivalList});
+
+  final List<Festival> festivalList;
+
+  @override
+  List<Object> get props => super.props..addAll([festivalList]);
+}

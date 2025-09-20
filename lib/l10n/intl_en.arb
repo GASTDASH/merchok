@@ -105,6 +105,7 @@
   "noReceipts": "You don't have any saved receipts",
   "receiptsLoading": "Loading receipts",
   "receiptSaving": "Saving the receipt",
+  "receiptDeleting": "Deleting the receipt",
   "unableToDeleteMerch": "Unable to delete a merch, because it's in the cart",
   "noMatchingOrders": "No matching orders was found",
   "sorting": "Sorting",
@@ -126,5 +127,9 @@
   "ruble": "₽",
   "fileSuccessfullySaved": "The file was saved successfully",
   "filePath": "File path:",
-  "ok": "OK"
+  "ok": "OK",
+  "merchImporting": "Importing the merch list",
+  "receiptImporting": "Importing the receipt list",
+  "paymentMethodImporting": "Importing the payment method list",
+  "festivalImporting": "Importing the festival list"
 }

@@ -49,9 +49,20 @@ class PaymentMethodBloc extends Bloc<PaymentMethodEvent, PaymentMethodState> {
         emit(PaymentMethodError(error: e));
       }
     });
+    on<PaymentMethodImport>((event, emit) async {
+      try {
+        emit(PaymentMethodLoading(message: S.current.paymentMethodImporting));
+        for (var paymentMethod in event.paymentMethodList) {
+          await _paymentMethodRepository.editPaymentMethod(paymentMethod);
+        }
+        add(PaymentMethodLoad());
+      } catch (e) {
+        emit(PaymentMethodError(error: e));
+      }
+    });
   }
 
-  /// Получение списка фестивалей и вызов состояния [FestivalLoaded]
+  /// Получение списка способов оплаты и вызов состояния [PaymentMethodLoaded]
   Future<void> loadPaymentMethods(Emitter<PaymentMethodState> emit) async {
     final paymentMethodList = await _paymentMethodRepository
         .getPaymentMethods();

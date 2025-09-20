@@ -100,6 +100,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "festivalDeleting": MessageLookupByLibrary.simpleMessage(
       "Deleting a festival",
     ),
+    "festivalImporting": MessageLookupByLibrary.simpleMessage(
+      "Importing the festival list",
+    ),
     "festivalLoading": MessageLookupByLibrary.simpleMessage(
       "Loading the festival list",
     ),
@@ -146,6 +149,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Merch name"),
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Deleting a merch"),
+    "merchImporting": MessageLookupByLibrary.simpleMessage(
+      "Importing the merch list",
+    ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The merch list is not loaded",
     ),
@@ -206,6 +212,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodDeleting": MessageLookupByLibrary.simpleMessage(
       "Deleting a payment method",
     ),
+    "paymentMethodImporting": MessageLookupByLibrary.simpleMessage(
+      "Importing the payment method list",
+    ),
     "paymentMethodLoading": MessageLookupByLibrary.simpleMessage(
       "Loading the payment method list",
     ),
@@ -223,7 +232,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("Price"),
     "profit": MessageLookupByLibrary.simpleMessage("Profit"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
+    "receiptDeleting": MessageLookupByLibrary.simpleMessage(
+      "Deleting the receipt",
+    ),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Receipt from "),
+    "receiptImporting": MessageLookupByLibrary.simpleMessage(
+      "Importing the receipt list",
+    ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),

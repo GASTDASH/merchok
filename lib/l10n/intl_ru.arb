@@ -105,6 +105,7 @@
   "noReceipts": "У вас нет сохранённых чеков",
   "receiptsLoading": "Загрузка чеков",
   "receiptSaving": "Сохранение чека",
+  "receiptDeleting": "Удаление чека",
   "unableToDeleteMerch": "Невозможно удалить мерч, так как он находится в корзине",
   "noMatchingOrders": "Не найдено подходящих заказов",
   "sorting": "Сортировка",
@@ -126,5 +127,9 @@
   "ruble": "₽",
   "fileSuccessfullySaved": "Файл успешно сохранён",
   "filePath": "Путь к файлу:",
-  "ok": "OK"
+  "ok": "OK",
+  "merchImporting": "Импортирование списка мерча",
+  "receiptImporting": "Импортирование чеков",
+  "paymentMethodImporting": "Импортирование способов оплаты",
+  "festivalImporting": "Импортирование фестивалей"
 }

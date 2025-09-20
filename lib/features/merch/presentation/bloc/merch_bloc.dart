@@ -51,5 +51,16 @@ class MerchBloc extends Bloc<MerchEvent, MerchState> {
         emit(MerchError(error: e));
       }
     });
+    on<MerchImport>((event, emit) async {
+      try {
+        emit(MerchLoading(message: S.current.merchImporting));
+        for (var merch in event.merchList) {
+          await _merchRepository.editMerch(merch);
+        }
+        add(MerchLoad());
+      } catch (e) {
+        emit(MerchError(error: e));
+      }
+    });
   }
 }

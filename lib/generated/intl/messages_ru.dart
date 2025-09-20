@@ -104,6 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "festivalDeleting": MessageLookupByLibrary.simpleMessage(
       "Удаление фестиваля",
     ),
+    "festivalImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование фестивалей",
+    ),
     "festivalLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка списка фестивалей",
     ),
@@ -150,6 +153,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "merchDefaultName": MessageLookupByLibrary.simpleMessage("Название мерча"),
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Удаление мерча"),
+    "merchImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование списка мерча",
+    ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Мерч не загружен",
     ),
@@ -208,6 +214,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodDeleting": MessageLookupByLibrary.simpleMessage(
       "Удаление способа оплаты",
     ),
+    "paymentMethodImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование способов оплаты",
+    ),
     "paymentMethodLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка способов оплаты",
     ),
@@ -225,7 +234,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
     "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
+    "receiptDeleting": MessageLookupByLibrary.simpleMessage("Удаление чека"),
     "receiptFrom": MessageLookupByLibrary.simpleMessage("Чек от "),
+    "receiptImporting": MessageLookupByLibrary.simpleMessage(
+      "Импортирование чеков",
+    ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
