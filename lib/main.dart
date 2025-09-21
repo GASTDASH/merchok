@@ -31,11 +31,12 @@ Future<void> main() async {
 Future<void> _initHive() async {
   await Hive.initFlutter();
 
-  Hive.registerAdapter(MerchAdapter());
-  Hive.registerAdapter(FestivalAdapter());
-  Hive.registerAdapter(PaymentMethodAdapter());
-  Hive.registerAdapter(OrderItemAdapter());
-  Hive.registerAdapter(OrderAdapter());
+  Hive
+    ..registerAdapter(MerchAdapter())
+    ..registerAdapter(FestivalAdapter())
+    ..registerAdapter(PaymentMethodAdapter())
+    ..registerAdapter(OrderItemAdapter())
+    ..registerAdapter(OrderAdapter());
 
   await Hive.openBox<Merch>(HiveBoxesNames.merches);
   await Hive.openBox<Festival>(HiveBoxesNames.festivals);
@@ -46,26 +47,16 @@ Future<void> _initHive() async {
 Future<void> _registerRepositories() async {
   final prefs = await SharedPreferences.getInstance();
 
-  final settingsRepository = SettingsRepositoryImpl(prefs: prefs);
-  GetIt.I.registerSingleton<SettingsRepository>(settingsRepository);
-
-  final merchRepository = MerchRepositoryImpl();
-  GetIt.I.registerSingleton<MerchRepository>(merchRepository);
-
-  final cartRepository = CartRepositoryImpl();
-  GetIt.I.registerSingleton<CartRepository>(cartRepository);
-
-  final festivalRepository = FestivalRepositoryImpl();
-  GetIt.I.registerSingleton<FestivalRepository>(festivalRepository);
-
-  final paymentMethodRepository = PaymentMethodRepositoryImpl();
-  GetIt.I.registerSingleton<PaymentMethodRepository>(paymentMethodRepository);
-
-  final orderRepository = OrderRepositoryImpl();
-  GetIt.I.registerSingleton<OrderRepository>(orderRepository);
-
-  final categoryRepository = CategoryRepositoryImpl();
-  GetIt.I.registerSingleton<CategoryRepository>(categoryRepository);
+  GetIt.I
+    ..registerSingleton<SettingsRepository>(
+      SettingsRepositoryImpl(prefs: prefs),
+    )
+    ..registerSingleton<MerchRepository>(MerchRepositoryImpl())
+    ..registerSingleton<CartRepository>(CartRepositoryImpl())
+    ..registerSingleton<FestivalRepository>(FestivalRepositoryImpl())
+    ..registerSingleton<PaymentMethodRepository>(PaymentMethodRepositoryImpl())
+    ..registerSingleton<OrderRepository>(OrderRepositoryImpl())
+    ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl());
 }
 
 Future<void> _initTalker() async {
