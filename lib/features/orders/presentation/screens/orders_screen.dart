@@ -11,7 +11,8 @@ class OrdersScreen extends StatefulWidget {
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _OrdersScreenState extends State<OrdersScreen>
+    with SaveScrollPositionMixin {
   OrderFilter? currentFilter;
   final orderSortingProvider = OrderSortingProvider();
 
@@ -89,13 +90,23 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverPadding(
             padding: const EdgeInsets.all(24).copyWith(top: 16),
             sliver: ListenableBuilder(
               listenable: orderSortingProvider,
               builder: (context, _) {
-                return BlocBuilder<OrderBloc, OrderState>(
+                return BlocConsumer<OrderBloc, OrderState>(
+                  listener: (context, state) {
+                    if (state is OrderLoaded) restoreScrollPosition();
+                  },
+                  listenWhen: (previous, current) {
+                    if (current is OrderLoading && previous is OrderLoaded) {
+                      saveScrollPosition();
+                    }
+                    return true;
+                  },
                   builder: (context, state) {
                     if (state is OrderLoading) {
                       return LoadingBanner(message: state.message);

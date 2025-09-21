@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
   final TextEditingController searchController = TextEditingController();
 
@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) => CurrentCategoryCubit(),
       child: Scaffold(
         body: CustomScrollView(
+          controller: scrollController,
           slivers: [
             SliverToBoxAdapter(child: SizedBox(height: 24)),
             SliverPadding(
@@ -106,7 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListenableBuilder(
               listenable: merchSortingProvider,
-              builder: (context, _) => BlocBuilder<MerchBloc, MerchState>(
+              builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
+                listener: (context, state) {
+                  if (state is MerchLoaded) restoreScrollPosition();
+                },
+                listenWhen: (previous, current) {
+                  if (current is MerchLoading && previous is MerchLoaded) {
+                    saveScrollPosition();
+                  }
+                  return true;
+                },
                 builder: (context, state) {
                   if (state is MerchLoading) {
                     return LoadingBanner(message: state.message);
