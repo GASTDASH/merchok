@@ -21,7 +21,9 @@ Future<void> main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) =>
       CustomErrorWidget(details);
 
-  await Future.wait([_initHive(), _initTalker(), _registerRepositories()]);
+  await _initHive();
+  _initTalker();
+  await _registerRepositories();
 
   runApp(const MerchokApp());
 }
