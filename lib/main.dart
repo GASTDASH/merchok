@@ -29,32 +29,41 @@ Future<void> main() async {
 Future<void> _initHive() async {
   await Hive.initFlutter();
 
-  Hive
-    ..registerAdapter(MerchAdapter())
-    ..registerAdapter(FestivalAdapter())
-    ..registerAdapter(PaymentMethodAdapter())
-    ..registerAdapter(OrderItemAdapter())
-    ..registerAdapter(OrderAdapter());
+  Hive.registerAdapter(MerchAdapter());
+  Hive.registerAdapter(FestivalAdapter());
+  Hive.registerAdapter(PaymentMethodAdapter());
+  Hive.registerAdapter(OrderItemAdapter());
+  Hive.registerAdapter(OrderAdapter());
 
-  await Future.wait([
-    Hive.openBox<Merch>(HiveBoxesNames.merches),
-    Hive.openBox<Festival>(HiveBoxesNames.festivals),
-    Hive.openBox<PaymentMethod>(HiveBoxesNames.paymentMethods),
-    Hive.openBox<Order>(HiveBoxesNames.orders),
-  ]);
+  await Hive.openBox<Merch>(HiveBoxesNames.merches);
+  await Hive.openBox<Festival>(HiveBoxesNames.festivals);
+  await Hive.openBox<PaymentMethod>(HiveBoxesNames.paymentMethods);
+  await Hive.openBox<Order>(HiveBoxesNames.orders);
 }
 
 Future<void> _registerRepositories() async {
-  GetIt.I
-    ..registerSingleton<SettingsRepository>(
-      SettingsRepositoryImpl(prefs: await SharedPreferences.getInstance()),
-    )
-    ..registerSingleton<MerchRepository>(MerchRepositoryImpl())
-    ..registerSingleton<CartRepository>(CartRepositoryImpl())
-    ..registerSingleton<FestivalRepository>(FestivalRepositoryImpl())
-    ..registerSingleton<PaymentMethodRepository>(PaymentMethodRepositoryImpl())
-    ..registerSingleton<OrderRepository>(OrderRepositoryImpl())
-    ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl());
+  final prefs = await SharedPreferences.getInstance();
+
+  final settingsRepository = SettingsRepositoryImpl(prefs: prefs);
+  GetIt.I.registerSingleton<SettingsRepository>(settingsRepository);
+
+  final merchRepository = MerchRepositoryImpl();
+  GetIt.I.registerSingleton<MerchRepository>(merchRepository);
+
+  final cartRepository = CartRepositoryImpl();
+  GetIt.I.registerSingleton<CartRepository>(cartRepository);
+
+  final festivalRepository = FestivalRepositoryImpl();
+  GetIt.I.registerSingleton<FestivalRepository>(festivalRepository);
+
+  final paymentMethodRepository = PaymentMethodRepositoryImpl();
+  GetIt.I.registerSingleton<PaymentMethodRepository>(paymentMethodRepository);
+
+  final orderRepository = OrderRepositoryImpl();
+  GetIt.I.registerSingleton<OrderRepository>(orderRepository);
+
+  final categoryRepository = CategoryRepositoryImpl();
+  GetIt.I.registerSingleton<CategoryRepository>(categoryRepository);
 }
 
 Future<void> _initTalker() async {
