@@ -9,6 +9,7 @@ export 'base_container.dart';
 export 'base_draggable_scrollable_sheet.dart';
 export 'base_sliver_app_bar.dart';
 export 'base_svg_icon.dart';
+export 'custom_error_widget.dart';
 export 'delete_dialog.dart';
 export 'edit_dialog.dart';
 export 'loading_dialog.dart';

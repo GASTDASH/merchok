@@ -18,9 +18,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await _initHive();
-  _initTalker();
-  await _registerRepositories();
+  ErrorWidget.builder = (FlutterErrorDetails details) =>
+      CustomErrorWidget(details);
+
+  await Future.wait([_initHive(), _initTalker(), _registerRepositories()]);
 
   runApp(const MerchokApp());
 }
@@ -56,7 +57,7 @@ Future<void> _registerRepositories() async {
     ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl());
 }
 
-void _initTalker() {
+Future<void> _initTalker() async {
   final talker = TalkerFlutter.init();
   GetIt.I.registerSingleton<Talker>(talker);
 

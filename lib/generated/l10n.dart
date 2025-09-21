@@ -1153,6 +1153,16 @@ class S {
       args: [],
     );
   }
+
+  /// `An unexpected Flutter error has occurred`
+  String get unexpectedFlutterError {
+    return Intl.message(
+      'An unexpected Flutter error has occurred',
+      name: 'unexpectedFlutterError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

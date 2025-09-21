@@ -132,5 +132,6 @@
   "receiptImporting": "Importing the receipt list",
   "paymentMethodImporting": "Importing the payment method list",
   "festivalImporting": "Importing the festival list",
-  "exitTheApp": "Exit the app?"
+  "exitTheApp": "Exit the app?",
+  "unexpectedFlutterError": "An unexpected Flutter error has occurred"
 }

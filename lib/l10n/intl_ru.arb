@@ -132,5 +132,6 @@
   "receiptImporting": "Импортирование чеков",
   "paymentMethodImporting": "Импортирование способов оплаты",
   "festivalImporting": "Импортирование фестивалей",
-  "exitTheApp": "Выйти из приложения?"
+  "exitTheApp": "Выйти из приложения?",
+  "unexpectedFlutterError": "Произошла непредвиденная ошибка Flutter"
 }
