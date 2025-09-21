@@ -91,22 +91,32 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
           controller: scrollController,
           slivers: [
             SliverToBoxAdapter(child: SizedBox(height: 24)),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              sliver: SliverToBoxAdapter(
-                child: SearchTextField(
-                  controller: searchController,
-                  onChanged: (_) => setState(() {}),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(child: SizedBox(height: 24)),
-            SliverPadding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
-              sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
+            BlocSelector<MerchBloc, MerchState, List<Merch>>(
+              selector: (state) {
+                if (state is MerchLoaded) return state.merchList;
+                return [];
+              },
+              builder: (context, merchList) {
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  sliver: SliverToBoxAdapter(
+                    child: SearchTextField<Merch>(
+                      controller: searchController,
+                      displayStringForOption: (Merch option) => option.name,
+                      focusNode: FocusNode(),
+                      options: merchList,
+                      optionsBuilder: (value) =>
+                          merchList.where((m) => m.name.contains(value.text)),
+                    ),
+                  ),
+                );
+              },
             ),
             ListenableBuilder(
-              listenable: merchSortingProvider,
+              listenable: Listenable.merge([
+                merchSortingProvider,
+                searchController,
+              ]),
               builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
                 listener: (context, state) {
                   if (state is MerchLoaded) restoreScrollPosition();
@@ -144,6 +154,15 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         sliver: SliverMainAxisGroup(
                           slivers: [
+                            SliverToBoxAdapter(child: SizedBox(height: 24)),
+                            SliverPadding(
+                              padding: EdgeInsetsGeometry.symmetric(
+                                horizontal: 24,
+                              ),
+                              sliver: SliverToBoxAdapter(
+                                child: _CategoriesWrap(),
+                              ),
+                            ),
                             SliverToBoxAdapter(
                               child: SortButton(
                                 onTap: () =>

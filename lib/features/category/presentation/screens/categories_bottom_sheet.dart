@@ -88,7 +88,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
               child: Row(
                 spacing: 10,
                 children: [
-                  Expanded(child: SearchTextField()),
+                  // TODO: Expanded(child: SearchTextField()),
                   SizedBox(
                     height: 48,
                     width: 48,

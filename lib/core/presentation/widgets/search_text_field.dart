@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key, this.controller, this.onChanged});
+class SearchTextField<T extends Object> extends StatelessWidget {
+  const SearchTextField({
+    super.key,
+    required this.controller,
+    required this.displayStringForOption,
+    this.onChanged,
+    required this.options,
+    required this.optionsBuilder,
+    required this.focusNode,
+  });
 
-  final TextEditingController? controller;
+  final TextEditingController controller;
+  final AutocompleteOptionToString<T> displayStringForOption;
+  final FocusNode focusNode;
   final ValueChanged<String>? onChanged;
+  final Iterable<T> options;
+  final AutocompleteOptionsBuilder<T> optionsBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +36,50 @@ class SearchTextField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: TextField(
-              onChanged: onChanged,
-              controller: controller,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: S.of(context).search,
-              ),
+            child: Autocomplete<T>(
+              textEditingController: controller,
+              onSelected: (option) {
+                controller.text = displayStringForOption(option);
+                focusNode.unfocus();
+              },
+              focusNode: focusNode,
+              optionsBuilder: optionsBuilder,
+              optionsViewBuilder: (context, onSelected, options) =>
+                  ListView.separated(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: options.length,
+                    separatorBuilder: (context, index) => Divider(height: 0),
+                    itemBuilder: (BuildContext context, int index) {
+                      final T option = options.elementAt(index);
+                      return Material(
+                        elevation: 4,
+                        child: InkWell(
+                          onTap: () => onSelected(option),
+                          child: Ink(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(displayStringForOption(option)),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+              fieldViewBuilder:
+                  (
+                    context,
+                    textEditingController,
+                    focusNode,
+                    onFieldSubmitted,
+                  ) => TextField(
+                    onTapOutside: (_) => focusNode.unfocus(),
+                    focusNode: focusNode,
+                    controller: textEditingController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).search,
+                    ),
+                  ),
             ),
           ),
           BaseSvgIcon(context, IconNames.search),
