@@ -1143,6 +1143,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Exit the app?`
+  String get exitTheApp {
+    return Intl.message(
+      'Exit the app?',
+      name: 'exitTheApp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

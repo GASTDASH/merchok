@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Error loading payment methods",
     ),
     "eventDate": MessageLookupByLibrary.simpleMessage("Event Date"),
+    "exitTheApp": MessageLookupByLibrary.simpleMessage("Exit the app?"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Export data to transfer to another device",
     ),

@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ошибка загрузки способов оплаты",
     ),
     "eventDate": MessageLookupByLibrary.simpleMessage("Дата проведения"),
+    "exitTheApp": MessageLookupByLibrary.simpleMessage("Выйти из приложения?"),
     "exportDataDescription": MessageLookupByLibrary.simpleMessage(
       "Экспортировать данные для переноса на другое устройство",
     ),

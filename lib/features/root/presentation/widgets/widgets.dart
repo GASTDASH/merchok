@@ -3,5 +3,6 @@
 
 
 export 'bottom_nav_bar.dart';
+export 'exit_dialog.dart';
 export 'festival_app_bar.dart';
 export 'nav_item.dart';

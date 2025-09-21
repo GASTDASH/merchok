@@ -15,11 +15,15 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  Future<dynamic> showCartBottomSheet(BuildContext context) {
+  Future<void> showCartBottomSheet(BuildContext context) {
     return showBaseDraggableBottomSheet(
       context: context,
       builder: (context) => CartBottomSheet(),
     );
+  }
+
+  Future<void> showExitDialog(BuildContext context) {
+    return showDialog(context: context, builder: (context) => ExitDialog());
   }
 
   @override
@@ -27,27 +31,31 @@ class _RootScreenState extends State<RootScreen> {
     final theme = Theme.of(context);
     final index = widget.navigationShell.currentIndex;
 
-    return Container(
-      color: theme.scaffoldBackgroundColor,
-      child: SafeArea(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: FestivalAppBar(),
-          body: widget.navigationShell,
-          floatingActionButton: SizedBox(
-            height: 64,
-            width: 64,
-            child: FloatingActionButton(
-              onPressed: () {
-                showCartBottomSheet(context);
-              },
-              backgroundColor: theme.primaryColor,
-              child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        await showExitDialog(context);
+      },
+      child: Container(
+        color: theme.scaffoldBackgroundColor,
+        child: SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: FestivalAppBar(),
+            body: widget.navigationShell,
+            floatingActionButton: SizedBox(
+              height: 64,
+              width: 64,
+              child: FloatingActionButton(
+                onPressed: () => showCartBottomSheet(context),
+                backgroundColor: theme.primaryColor,
+                child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
+              ),
             ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: BottomNavBar(index: index),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomNavBar(index: index),
         ),
       ),
     );

@@ -131,5 +131,6 @@
   "merchImporting": "Импортирование списка мерча",
   "receiptImporting": "Импортирование чеков",
   "paymentMethodImporting": "Импортирование способов оплаты",
-  "festivalImporting": "Импортирование фестивалей"
+  "festivalImporting": "Импортирование фестивалей",
+  "exitTheApp": "Выйти из приложения?"
 }

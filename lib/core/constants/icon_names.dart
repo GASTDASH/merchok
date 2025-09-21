@@ -25,6 +25,7 @@ abstract class IconNames {
       info = 'assets/icons/Info.svg',
       language = 'assets/icons/Language.svg',
       like = 'assets/icons/Like.svg',
+      logout = 'assets/icons/Log_Out.svg',
       money = 'assets/icons/Money.svg',
       moon = 'assets/icons/Moon.svg',
       payment = 'assets/icons/Payment.svg',
