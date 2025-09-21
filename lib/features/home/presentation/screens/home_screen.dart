@@ -91,14 +91,22 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
           controller: scrollController,
           slivers: [
             SliverToBoxAdapter(child: SizedBox(height: 24)),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              sliver: SliverToBoxAdapter(
-                child: SearchTextField(
-                  controller: searchController,
-                  onChanged: (_) => setState(() {}),
-                ),
-              ),
+            BlocBuilder<MerchBloc, MerchState>(
+              builder: (context, state) {
+                if (state is MerchLoaded && state.merchList.isNotEmpty) {
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    sliver: SliverToBoxAdapter(
+                      child: SearchTextField(
+                        controller: searchController,
+                        onChanged: (_) => setState(() {}),
+                      ),
+                    ),
+                  );
+                } else {
+                  return SliverToBoxAdapter(child: SizedBox.shrink());
+                }
+              },
             ),
             SliverToBoxAdapter(child: SizedBox(height: 24)),
             SliverPadding(
