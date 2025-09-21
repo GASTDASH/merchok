@@ -10,7 +10,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
   const FestivalAppBar({super.key});
 
   @override
-  Size get preferredSize => Size.fromHeight(70);
+  Size get preferredSize => Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {

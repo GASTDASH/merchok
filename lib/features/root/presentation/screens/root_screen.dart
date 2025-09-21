@@ -27,23 +27,29 @@ class _RootScreenState extends State<RootScreen> {
     final theme = Theme.of(context);
     final index = widget.navigationShell.currentIndex;
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: FestivalAppBar(),
-      body: widget.navigationShell,
-      floatingActionButton: SizedBox(
-        height: 64,
-        width: 64,
-        child: FloatingActionButton(
-          onPressed: () {
-            showCartBottomSheet(context);
-          },
-          backgroundColor: theme.primaryColor,
-          child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
+    return Container(
+      color: theme.scaffoldBackgroundColor,
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: FestivalAppBar(),
+          body: widget.navigationShell,
+          floatingActionButton: SizedBox(
+            height: 64,
+            width: 64,
+            child: FloatingActionButton(
+              onPressed: () {
+                showCartBottomSheet(context);
+              },
+              backgroundColor: theme.primaryColor,
+              child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: BottomNavBar(index: index),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavBar(index: index),
     );
   }
 }
