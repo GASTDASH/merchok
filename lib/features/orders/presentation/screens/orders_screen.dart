@@ -156,31 +156,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                       ],
                                     ),
                                   ),
-                                  BaseButton.outlined(
+                                  SortButton(
                                     onTap: () => orderSortingProvider
                                         .changeOrderSorting(),
-                                    color: theme.colorScheme.onSurface,
-                                    child: Row(
-                                      spacing: 8,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(S.of(context).sorting),
-                                        BaseSvgIcon(
-                                          context,
-                                          orderSortingProvider
-                                              .orderSorting
-                                              .sortBy
-                                              .icon,
-                                        ),
-                                        BaseSvgIcon(
-                                          context,
-                                          orderSortingProvider
-                                              .orderSorting
-                                              .sortOrder
-                                              .icon,
-                                        ),
-                                      ],
-                                    ),
+                                    icons: [
+                                      orderSortingProvider
+                                          .orderSorting
+                                          .sortBy
+                                          .icon,
+                                      orderSortingProvider
+                                          .orderSorting
+                                          .sortOrder
+                                          .icon,
+                                    ],
                                   ),
                                 ],
                               ),

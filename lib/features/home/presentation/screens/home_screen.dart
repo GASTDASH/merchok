@@ -135,36 +135,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         sliver: SliverMainAxisGroup(
                           slivers: [
                             SliverToBoxAdapter(
-                              child: Row(
-                                children: [
-                                  BaseButton.outlined(
-                                    onTap: () => merchSortingProvider
-                                        .changeMerchSorting(),
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                    child: Row(
-                                      spacing: 8,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(S.of(context).sorting),
-                                        BaseSvgIcon(
-                                          context,
-                                          merchSortingProvider
-                                              .merchSorting
-                                              .sortBy
-                                              .icon,
-                                        ),
-                                        BaseSvgIcon(
-                                          context,
-                                          merchSortingProvider
-                                              .merchSorting
-                                              .sortOrder
-                                              .icon,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                              child: SortButton(
+                                onTap: () =>
+                                    merchSortingProvider.changeMerchSorting(),
+                                icons: [
+                                  merchSortingProvider.merchSorting.sortBy.icon,
+                                  merchSortingProvider
+                                      .merchSorting
+                                      .sortOrder
+                                      .icon,
                                 ],
                               ),
                             ),

@@ -15,3 +15,4 @@ export 'loading_dialog.dart';
 export 'loading_indicator.dart';
 export 'search_text_field.dart';
 export 'settings_radio_option.dart';
+export 'sort_button.dart';
