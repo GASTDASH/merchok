@@ -87,8 +87,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -120,7 +118,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               child: Row(
                                 spacing: 12,
                                 children: [
-                                  BaseButton.outlined(
+                                  FilterButton(
                                     onTap: () async {
                                       double maxAmount = 0;
                                       for (Order order in state.orderList) {
@@ -143,18 +141,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                       }
                                       setState(() => currentFilter = filter);
                                     },
-                                    color: theme.colorScheme.onSurface,
-                                    backgroundColor: currentFilter != null
-                                        ? theme.hintColor.withAlpha(32)
-                                        : null,
-                                    child: Row(
-                                      spacing: 8,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(S.of(context).filter),
-                                        BaseSvgIcon(context, IconNames.filter),
-                                      ],
-                                    ),
+                                    active: currentFilter != null,
                                   ),
                                   SortButton(
                                     onTap: () => orderSortingProvider
