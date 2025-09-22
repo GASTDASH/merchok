@@ -8,19 +8,9 @@ class BaseSvgIcon extends SvgPicture {
     super.key,
     super.width,
     super.height,
-    AssetBundle? bundle,
-    String? package,
-    SvgTheme? theme,
-    ColorMapper? colorMapper,
     ColorFilter? colorFilter,
   }) : super(
-         SvgAssetLoader(
-           assetName,
-           packageName: package,
-           assetBundle: bundle,
-           theme: theme,
-           colorMapper: colorMapper,
-         ),
+         SvgAssetLoader(assetName),
          colorFilter:
              colorFilter ??
              ColorFilter.mode(

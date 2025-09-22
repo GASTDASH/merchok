@@ -21,14 +21,14 @@ Future<void> main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) =>
       CustomErrorWidget(details);
 
-  await _initHive();
-  _initTalker();
-  await _registerRepositories();
+  await initHive();
+  initTalker();
+  await registerRepositories();
 
   runApp(const MerchokApp());
 }
 
-Future<void> _initHive() async {
+Future<void> initHive() async {
   await Hive.initFlutter();
 
   Hive
@@ -44,7 +44,7 @@ Future<void> _initHive() async {
   await Hive.openBox<Order>(HiveBoxesNames.orders);
 }
 
-Future<void> _registerRepositories() async {
+Future<void> registerRepositories() async {
   final prefs = await SharedPreferences.getInstance();
 
   GetIt.I
@@ -59,7 +59,7 @@ Future<void> _registerRepositories() async {
     ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl());
 }
 
-Future<void> _initTalker() async {
+Future<void> initTalker() async {
   final talker = TalkerFlutter.init();
   GetIt.I.registerSingleton<Talker>(talker);
 
