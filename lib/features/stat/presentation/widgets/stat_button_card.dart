@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 
-class StatCard extends StatelessWidget {
-  const StatCard({
+class StatButtonCard extends StatelessWidget {
+  const StatButtonCard({
     super.key,
     required this.text,
     required this.icon,
@@ -20,7 +20,6 @@ class StatCard extends StatelessWidget {
 
     return BaseContainer(
       onTap: onTap,
-      height: 400,
       padding: EdgeInsets.all(24),
       elevation: 8,
       child: Column(
@@ -29,7 +28,7 @@ class StatCard extends StatelessWidget {
         children: [
           Text(
             text,
-            style: theme.textTheme.bodyMedium?.copyWith(
+            style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),

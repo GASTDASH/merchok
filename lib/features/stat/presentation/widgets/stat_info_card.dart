@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:merchok/core/core.dart';
+
+class StatInfoCard extends StatelessWidget {
+  const StatInfoCard({super.key, required this.name, required this.value});
+
+  final String name;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return BaseContainer(
+      padding: EdgeInsets.all(24),
+      elevation: 4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 40,
+            child: FittedBox(
+              alignment: AlignmentGeometry.centerLeft,
+              child: Text(
+                value,
+                style: theme.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+          Text(name, style: theme.textTheme.bodyLarge),
+        ],
+      ),
+    );
+  }
+}
