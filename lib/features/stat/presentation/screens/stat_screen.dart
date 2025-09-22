@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/stat/stat.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -19,6 +20,7 @@ class _StatScreenState extends State<StatScreen> {
     super.initState();
 
     context.read<OrderBloc>().add(OrderLoad());
+    context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
   }
 
   @override
