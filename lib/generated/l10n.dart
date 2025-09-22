@@ -1163,6 +1163,21 @@ class S {
       args: [],
     );
   }
+
+  /// `Revenue`
+  String get revenue {
+    return Intl.message('Revenue', name: 'revenue', desc: '', args: []);
+  }
+
+  /// `Sales`
+  String get sales {
+    return Intl.message('Sales', name: 'sales', desc: '', args: []);
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message('Orders', name: 'orders', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

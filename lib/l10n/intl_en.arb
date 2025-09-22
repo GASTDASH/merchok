@@ -133,5 +133,8 @@
   "paymentMethodImporting": "Importing the payment method list",
   "festivalImporting": "Importing the festival list",
   "exitTheApp": "Exit the app?",
-  "unexpectedFlutterError": "An unexpected Flutter error has occurred"
+  "unexpectedFlutterError": "An unexpected Flutter error has occurred",
+  "revenue": "Revenue",
+  "sales": "Sales",
+  "orders": "Orders"
 }

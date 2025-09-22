@@ -200,6 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Order successfully created!",
     ),
+    "orders": MessageLookupByLibrary.simpleMessage("Orders"),
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The order list is not loaded",
     ),
@@ -243,7 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
+    "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
+    "sales": MessageLookupByLibrary.simpleMessage("Sales"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class StatInfoCard extends StatelessWidget {
-  const StatInfoCard({super.key, required this.name, required this.value});
+  const StatInfoCard({super.key, required this.name, this.value});
 
   final String name;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +19,22 @@ class StatInfoCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 40,
-            child: FittedBox(
-              alignment: AlignmentGeometry.centerLeft,
-              child: Text(
-                value,
-                style: theme.textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
+          Skeletonizer(
+            enabled: (value == null),
+            child: SizedBox(
+              height: 40,
+              child: FittedBox(
+                alignment: AlignmentGeometry.centerLeft,
+                child: Text(
+                  value ?? '9999',
+                  style: theme.textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
           ),
-          Text(name, style: theme.textTheme.bodyLarge),
+          FittedBox(child: Text(name, style: theme.textTheme.bodyLarge)),
         ],
       ),
     );

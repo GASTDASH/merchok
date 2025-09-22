@@ -133,5 +133,8 @@
   "paymentMethodImporting": "Импортирование способов оплаты",
   "festivalImporting": "Импортирование фестивалей",
   "exitTheApp": "Выйти из приложения?",
-  "unexpectedFlutterError": "Произошла непредвиденная ошибка Flutter"
+  "unexpectedFlutterError": "Произошла непредвиденная ошибка Flutter",
+  "revenue": "Выручка",
+  "sales": "Продаж",
+  "orders": "Заказов"
 }

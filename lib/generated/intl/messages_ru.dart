@@ -202,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderSuccessfullyCreated": MessageLookupByLibrary.simpleMessage(
       "Заказ успешно создан!",
     ),
+    "orders": MessageLookupByLibrary.simpleMessage("Заказов"),
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Заказы не загружены",
     ),
@@ -243,7 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
+    "revenue": MessageLookupByLibrary.simpleMessage("Выручка"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
+    "sales": MessageLookupByLibrary.simpleMessage("Продаж"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
