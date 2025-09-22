@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/stat/stat.dart';
@@ -35,54 +36,67 @@ class PaymentMethodStat extends StatelessWidget {
                 )
               : null;
 
-          return Column(
-            children: [
-              SizedBox(
-                height: 200,
-                child: Builder(
+          return BaseContainer(
+            elevation: 4,
+            padding: EdgeInsets.all(24),
+            child: Column(
+              spacing: 24,
+              children: [
+                FittedBox(
+                  child: Text(
+                    S.of(context).customerPreferences,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 200,
+                  child: Builder(
+                    builder: (context) {
+                      if (state is PaymentMethodLoading ||
+                          paymentMethodCount != null) {
+                        return Skeletonizer(
+                          enabled:
+                              state is PaymentMethodLoading ||
+                              paymentMethodCount == null,
+                          effect: PulseEffect(),
+                          child: _PaymentMethodPieChart(
+                            paymentMethodCount: paymentMethodCount,
+                          ),
+                        );
+                      } else if (state is PaymentMethodError) {
+                        Text(S.of(context).errorLoadingPaymentMethods);
+                      } else if (state is PaymentMethodInitial) {
+                        return SizedBox.shrink();
+                      }
+                      return SizedBox.shrink();
+                    },
+                  ),
+                ),
+                Builder(
                   builder: (context) {
-                    if (state is PaymentMethodLoading ||
-                        paymentMethodCount != null) {
-                      return Skeletonizer(
-                        enabled:
-                            state is PaymentMethodLoading ||
-                            paymentMethodCount == null,
-                        effect: PulseEffect(),
-                        child: _PaymentMethodPieChart(
-                          paymentMethodCount: paymentMethodCount,
-                        ),
+                    if (paymentMethodCount != null) {
+                      return Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(paymentMethodCount.length, (i) {
+                          final paymentMethod = paymentMethodCount.keys
+                              .toList()[i];
+                          return Indicator(
+                            text: paymentMethod.name,
+                            color: _genColorBy(paymentMethod),
+                          );
+                        }),
                       );
-                    } else if (state is PaymentMethodError) {
-                      Text(S.of(context).errorLoadingPaymentMethods);
-                    } else if (state is PaymentMethodInitial) {
+                    } else {
                       return SizedBox.shrink();
                     }
-                    return SizedBox.shrink();
                   },
                 ),
-              ),
-              const SizedBox(height: 24),
-              Builder(
-                builder: (context) {
-                  if (paymentMethodCount != null) {
-                    return Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: List.generate(paymentMethodCount.length, (i) {
-                        final paymentMethod = paymentMethodCount.keys
-                            .toList()[i];
-                        return Indicator(
-                          text: paymentMethod.name,
-                          color: _genColorBy(paymentMethod),
-                        );
-                      }),
-                    );
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                },
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
