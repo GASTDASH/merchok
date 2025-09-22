@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -98,7 +97,7 @@ class _StatList extends StatelessWidget {
             revenue: revenue,
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          _PaymentMethodStat(),
+          PaymentMethodStat(orderList: orderList),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
           _OtherStatCards(),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
@@ -150,63 +149,6 @@ class _GeneralStat extends StatelessWidget {
           value: NumberFormat.simpleCurrency(decimalDigits: 0).format(revenue),
         ),
       ]),
-    );
-  }
-}
-
-class _PaymentMethodStat extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 200,
-            child: PieChart(
-              PieChartData(
-                sections: [
-                  PieChartSectionData(
-                    value: 43,
-                    title: '43 %',
-                    color: Colors.amber,
-                    radius: 50,
-                    titleStyle: theme.textTheme.titleMedium,
-                  ),
-                  PieChartSectionData(
-                    value: 32,
-                    title: '32 %',
-                    color: Colors.amber,
-                    radius: 50,
-                    titleStyle: theme.textTheme.titleMedium,
-                  ),
-                  PieChartSectionData(
-                    value: 26,
-                    title: '26 %',
-                    color: Colors.amber,
-                    radius: 50,
-                    titleStyle: theme.textTheme.titleMedium,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          const Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              Indicator(text: 'Payment Method 1', color: Colors.amber),
-              SizedBox(height: 4),
-              Indicator(text: 'Payment Method 2', color: Colors.amber),
-              SizedBox(height: 4),
-              Indicator(text: 'Payment Method 3', color: Colors.amber),
-              SizedBox(height: 4),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

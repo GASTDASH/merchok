@@ -3,5 +3,6 @@
 
 
 export 'indicator.dart';
+export 'payment_method_stat.dart';
 export 'stat_button_card.dart';
 export 'stat_info_card.dart';
