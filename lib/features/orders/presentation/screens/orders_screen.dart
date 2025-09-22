@@ -118,11 +118,6 @@ class _OrdersScreenState extends State<OrdersScreen>
 
                         sortOrderList(orderList);
 
-                        if (orderList.isEmpty && currentFilter != null) {
-                          return InfoBanner(
-                            text: S.of(context).noMatchingOrders,
-                          );
-                        }
                         return SliverMainAxisGroup(
                           slivers: [
                             SliverToBoxAdapter(
@@ -172,16 +167,21 @@ class _OrdersScreenState extends State<OrdersScreen>
                               ),
                             ),
                             SliverToBoxAdapter(child: SizedBox(height: 16)),
-                            SliverList.separated(
-                              itemCount: orderList.length,
-                              separatorBuilder: (context, index) => Divider(
-                                indent: 32,
-                                endIndent: 32,
-                                height: 48,
-                              ),
-                              itemBuilder: (context, index) =>
-                                  ReceiptWidget(order: orderList[index]),
-                            ),
+                            orderList.isEmpty && currentFilter != null
+                                ? InfoBanner(
+                                    text: S.of(context).noMatchingOrders,
+                                  )
+                                : SliverList.separated(
+                                    itemCount: orderList.length,
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                          indent: 32,
+                                          endIndent: 32,
+                                          height: 48,
+                                        ),
+                                    itemBuilder: (context, index) =>
+                                        ReceiptWidget(order: orderList[index]),
+                                  ),
                           ],
                         );
                       } else {
