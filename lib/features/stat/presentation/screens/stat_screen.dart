@@ -62,7 +62,8 @@ class _StatList extends StatelessWidget {
 
   int get orders => orderList.length;
 
-  double get averageAmount => _sumOrderAmounts / orders;
+  double get averageAmount =>
+      _sumOrderAmounts / orders.clamp(1, double.infinity);
 
   double get revenue => _sumOrderAmounts - _sumPurchasePrices;
 

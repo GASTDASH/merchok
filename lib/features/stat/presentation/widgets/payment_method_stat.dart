@@ -15,26 +15,28 @@ Color _genColorBy(PaymentMethod paymentMethod) {
 }
 
 class PaymentMethodStat extends StatelessWidget {
-  const PaymentMethodStat({super.key, this.orderList});
+  const PaymentMethodStat({super.key, required this.orderList});
 
-  final List<Order>? orderList;
+  final List<Order> orderList;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
         builder: (context, state) {
-          final Map<PaymentMethod, int>? paymentMethodCount =
-              orderList != null && state is PaymentMethodLoaded
-              ? Map.fromEntries(
-                  state.paymentMethodList.map(
-                    (pm) => MapEntry(
-                      pm,
-                      orderList!.where((o) => o.paymentMethod == pm).length,
-                    ),
-                  ),
-                )
-              : null;
+          late final Map<PaymentMethod, int>? paymentMethodCount;
+          if (state is PaymentMethodLoaded) {
+            paymentMethodCount = Map.fromEntries(
+              state.paymentMethodList.map(
+                (pm) => MapEntry(
+                  pm,
+                  orderList.where((o) => o.paymentMethod == pm).length,
+                ),
+              ),
+            );
+          } else {
+            paymentMethodCount = null;
+          }
 
           return BaseContainer(
             elevation: 4,
@@ -51,29 +53,42 @@ class PaymentMethodStat extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(
-                  height: 200,
-                  child: Builder(
-                    builder: (context) {
-                      if (state is PaymentMethodLoading ||
-                          paymentMethodCount != null) {
-                        return Skeletonizer(
-                          enabled:
-                              state is PaymentMethodLoading ||
-                              paymentMethodCount == null,
+                Builder(
+                  builder: (context) {
+                    if (state is PaymentMethodLoading) {
+                      return SizedBox(
+                        height: 200,
+                        child: Skeletonizer(
+                          enabled: true,
                           effect: PulseEffect(),
                           child: _PaymentMethodPieChart(
                             paymentMethodCount: paymentMethodCount,
                           ),
+                        ),
+                      );
+                    } else if (paymentMethodCount != null) {
+                      if (paymentMethodCount.isNotEmpty) {
+                        return SizedBox(
+                          height: 200,
+                          child: _PaymentMethodPieChart(
+                            paymentMethodCount: paymentMethodCount,
+                          ),
                         );
-                      } else if (state is PaymentMethodError) {
-                        Text(S.of(context).errorLoadingPaymentMethods);
-                      } else if (state is PaymentMethodInitial) {
-                        return SizedBox.shrink();
+                      } else {
+                        return SizedBox(
+                          height: 30,
+                          child: FittedBox(child: Text('Не хватает данных')),
+                        );
                       }
+                    } else if (paymentMethodCount == null) {
+                      return Expanded(child: Container(color: Colors.red));
+                    } else if (state is PaymentMethodError) {
+                      return Text(S.of(context).errorLoadingPaymentMethods);
+                    } else if (state is PaymentMethodInitial) {
                       return SizedBox.shrink();
-                    },
-                  ),
+                    }
+                    return SizedBox.shrink();
+                  },
                 ),
                 Builder(
                   builder: (context) {
@@ -82,7 +97,7 @@ class PaymentMethodStat extends StatelessWidget {
                         spacing: 8,
                         runSpacing: 8,
                         children: List.generate(paymentMethodCount.length, (i) {
-                          final paymentMethod = paymentMethodCount.keys
+                          final paymentMethod = paymentMethodCount!.keys
                               .toList()[i];
                           return Indicator(
                             text: paymentMethod.name,
