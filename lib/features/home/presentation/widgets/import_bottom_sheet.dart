@@ -70,7 +70,6 @@ class ImportBottomSheet extends StatelessWidget {
               createdAt: DateTime.fromMillisecondsSinceEpoch(row[2]),
               festival: Festival.fromJson(row[3]),
               paymentMethod: PaymentMethod.fromJson(row[4]),
-              totalAmount: row[5],
             );
           }),
         ];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/orders/orders.dart';
@@ -53,31 +55,20 @@ class _StatList extends StatelessWidget {
 
   final List<Order> orderList;
 
-  int get sales => orderList
-      .map((order) => order.orderItems)
-      .fold(
-        0,
-        (sum, items) => sum + items.fold(0, (sum, item) => item.quantity),
-      );
+  int get salesCount =>
+      orderList.fold(0, (sum, order) => sum + order.salesCount);
 
-  int get orders => orderList.length;
+  int get ordersCount => orderList.length;
 
   double get averageAmount =>
-      _sumOrderAmounts / orders.clamp(1, double.infinity);
+      _sumTotalEarned / ordersCount.clamp(1, double.infinity);
 
-  double get revenue => _sumOrderAmounts - _sumPurchasePrices;
+  double get revenue => _sumTotalEarned - _sumTotalSpent;
 
-  double get _sumOrderAmounts => orderList.fold(
-    0,
-    (sum, order) =>
-        sum +
-        order.orderItems.fold(
-          0,
-          (sum, item) => sum + (item.merch.price * item.quantity),
-        ),
-  );
+  double get _sumTotalEarned =>
+      orderList.fold(0, (sum, order) => sum + order.totalEarned);
 
-  double get _sumPurchasePrices => orderList.fold(
+  double get _sumTotalSpent => orderList.fold(
     0,
     (sum, order) =>
         sum +
@@ -94,8 +85,8 @@ class _StatList extends StatelessWidget {
       sliver: SliverMainAxisGroup(
         slivers: [
           _GeneralStat(
-            sales: sales,
-            orders: orders,
+            salesCount: salesCount,
+            ordersCount: ordersCount,
             averageAmount: averageAmount,
             revenue: revenue,
           ),
@@ -112,16 +103,16 @@ class _StatList extends StatelessWidget {
 
 class _GeneralStat extends StatelessWidget {
   const _GeneralStat({
-    required this.sales,
-    required this.orders,
+    required this.salesCount,
+    required this.ordersCount,
     required this.averageAmount,
     required this.revenue,
   });
 
   final double averageAmount;
-  final int orders;
+  final int ordersCount;
   final double revenue;
-  final int sales;
+  final int salesCount;
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +126,11 @@ class _GeneralStat extends StatelessWidget {
       delegate: SliverChildListDelegate([
         StatInfoCard(
           name: S.of(context).sales,
-          value: NumberFormat().format(sales),
+          value: NumberFormat().format(salesCount),
         ),
         StatInfoCard(
           name: S.of(context).orders,
-          value: NumberFormat().format(orders),
+          value: NumberFormat().format(ordersCount),
         ),
         StatInfoCard(
           name: S.of(context).averageReceipt,
@@ -167,10 +158,17 @@ class _OtherStatCards extends StatelessWidget {
         childAspectRatio: 0.7,
       ),
       delegate: SliverChildListDelegate([
-        StatButtonCard(
-          onTap: () {},
-          text: S.of(context).historyOfFestivals,
-          icon: IconNames.graph,
+        Builder(
+          builder: (context) {
+            final state = context.watch<OrderBloc>().state;
+            return StatButtonCard(
+              onTap: state is OrderLoaded && state.orderList.isNotEmpty
+                  ? () => context.push('/festivals_history')
+                  : () => Fluttertoast.showToast(msg: S.of(context).noReceipts),
+              text: S.of(context).historyOfFestivals,
+              icon: IconNames.graph,
+            );
+          },
         ),
         StatButtonCard(
           onTap: () {},

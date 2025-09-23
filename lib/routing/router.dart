@@ -85,6 +85,11 @@ final router = GoRouter(
       path: '/payment_methods',
       builder: (context, state) => PaymentMethodsScreen(),
     ),
+    GoRoute(
+      name: 'festivals_history',
+      path: '/festivals_history',
+      builder: (context, state) => FestivalsHistoryScreen(),
+    ),
   ],
 );
 

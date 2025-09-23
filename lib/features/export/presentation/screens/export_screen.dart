@@ -79,7 +79,7 @@ class _ExportScreenState extends State<ExportScreen> {
           order.createdAt.millisecondsSinceEpoch,
           order.festival.toJson(),
           order.paymentMethod.toJson(),
-          order.totalAmount.toString(),
+          order.totalEarned.toString(),
         ],
       ),
     ];

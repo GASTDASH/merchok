@@ -38,79 +38,84 @@ class PaymentMethodStat extends StatelessWidget {
             paymentMethodCount = null;
           }
 
-          return BaseContainer(
-            elevation: 4,
-            padding: EdgeInsets.all(24),
-            child: Column(
-              spacing: 24,
-              children: [
-                FittedBox(
-                  child: Text(
-                    S.of(context).customerPreferences,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+          return ConstrainedBox(
+            constraints: BoxConstraints(minHeight: 100),
+            child: BaseContainer(
+              elevation: 4,
+              padding: EdgeInsets.all(24),
+              child: Column(
+                spacing: 24,
+                children: [
+                  FittedBox(
+                    child: Text(
+                      S.of(context).customerPreferences,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ),
-                Builder(
-                  builder: (context) {
-                    if (state is PaymentMethodLoading) {
-                      return SizedBox(
-                        height: 200,
-                        child: Skeletonizer(
-                          enabled: true,
-                          effect: PulseEffect(),
-                          child: _PaymentMethodPieChart(
-                            paymentMethodCount: paymentMethodCount,
-                          ),
-                        ),
-                      );
-                    } else if (paymentMethodCount != null) {
-                      if (paymentMethodCount.isNotEmpty) {
+                  Builder(
+                    builder: (context) {
+                      if (state is PaymentMethodLoading) {
                         return SizedBox(
                           height: 200,
-                          child: _PaymentMethodPieChart(
-                            paymentMethodCount: paymentMethodCount,
+                          child: Skeletonizer(
+                            enabled: true,
+                            effect: PulseEffect(),
+                            child: _PaymentMethodPieChart(
+                              paymentMethodCount: paymentMethodCount,
+                            ),
                           ),
                         );
-                      } else {
-                        return SizedBox(
-                          height: 30,
-                          child: FittedBox(child: Text('Не хватает данных')),
-                        );
-                      }
-                    } else if (paymentMethodCount == null) {
-                      return Expanded(child: Container(color: Colors.red));
-                    } else if (state is PaymentMethodError) {
-                      return Text(S.of(context).errorLoadingPaymentMethods);
-                    } else if (state is PaymentMethodInitial) {
-                      return SizedBox.shrink();
-                    }
-                    return SizedBox.shrink();
-                  },
-                ),
-                Builder(
-                  builder: (context) {
-                    if (paymentMethodCount != null) {
-                      return Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: List.generate(paymentMethodCount.length, (i) {
-                          final paymentMethod = paymentMethodCount!.keys
-                              .toList()[i];
-                          return Indicator(
-                            text: paymentMethod.name,
-                            color: _genColorBy(paymentMethod),
+                      } else if (paymentMethodCount != null) {
+                        if (paymentMethodCount.isNotEmpty) {
+                          return SizedBox(
+                            height: 200,
+                            child: _PaymentMethodPieChart(
+                              paymentMethodCount: paymentMethodCount,
+                            ),
                           );
-                        }),
-                      );
-                    } else {
-                      return SizedBox.shrink();
-                    }
-                  },
-                ),
-              ],
+                        } else {
+                          return SizedBox(
+                            height: 30,
+                            child: FittedBox(child: Text('Не хватает данных')),
+                          );
+                        }
+                      } else if (paymentMethodCount == null) {
+                        return Expanded(child: Container(color: Colors.red));
+                      } else if (state is PaymentMethodError) {
+                        return Text(S.of(context).errorLoadingPaymentMethods);
+                      } else if (state is PaymentMethodInitial) {
+                        return SizedBox.shrink();
+                      }
+                      return Text(S.of(context).unexpectedState);
+                    },
+                  ),
+                  Builder(
+                    builder: (context) {
+                      if (paymentMethodCount != null) {
+                        return Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: List.generate(paymentMethodCount.length, (
+                            i,
+                          ) {
+                            final paymentMethod = paymentMethodCount!.keys
+                                .toList()[i];
+                            return Indicator(
+                              text: paymentMethod.name,
+                              color: _genColorBy(paymentMethod),
+                            );
+                          }),
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },

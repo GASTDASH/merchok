@@ -22,7 +22,6 @@ class OrderAdapter extends TypeAdapter<Order> {
       createdAt: fields[2] as DateTime,
       festival: fields[3] as Festival,
       paymentMethod: fields[4] as PaymentMethod,
-      totalAmount: fields[5] as double,
     );
   }
 
@@ -41,7 +40,7 @@ class OrderAdapter extends TypeAdapter<Order> {
       ..writeByte(4)
       ..write(obj.paymentMethod)
       ..writeByte(5)
-      ..write(obj.totalAmount);
+      ..write(obj.totalEarned);
   }
 
   @override

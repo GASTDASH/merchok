@@ -15,7 +15,6 @@ class Order extends Equatable {
     required this.createdAt,
     required this.festival,
     required this.paymentMethod,
-    required this.totalAmount,
   });
 
   @HiveField(2)
@@ -33,9 +32,6 @@ class Order extends Equatable {
   @HiveField(4)
   final PaymentMethod paymentMethod;
 
-  @HiveField(5)
-  final double totalAmount;
-
   @override
   List<Object?> get props => [
     id,
@@ -43,8 +39,22 @@ class Order extends Equatable {
     createdAt,
     festival,
     paymentMethod,
-    totalAmount,
   ];
+
+  double get totalEarned => orderItems.fold<double>(0, (sum, orderItem) {
+    return sum + orderItem.merch.price * orderItem.quantity;
+  });
+
+  double get totalSpent => orderItems.fold<double>(
+    0,
+    (sum, orderItem) =>
+        sum + (orderItem.merch.purchasePrice ?? 0) * orderItem.quantity,
+  );
+
+  int get salesCount =>
+      orderItems.fold(0, (sum, orderItem) => sum + orderItem.quantity);
+
+  double get revenue => totalEarned - totalSpent;
 
   Order copyWith({
     String? id,
@@ -52,7 +62,6 @@ class Order extends Equatable {
     DateTime? createdAt,
     Festival? festival,
     PaymentMethod? paymentMethod,
-    double? totalAmount,
   }) {
     return Order(
       id: id ?? this.id,
@@ -60,7 +69,6 @@ class Order extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       festival: festival ?? this.festival,
       paymentMethod: paymentMethod ?? this.paymentMethod,
-      totalAmount: totalAmount ?? this.totalAmount,
     );
   }
 }

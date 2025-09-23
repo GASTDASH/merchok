@@ -32,7 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen>
         break;
       case OrderSortBy.totalAmount:
         orderList.sort(
-          (a, b) => sortOrdering(a.totalAmount.compareTo(b.totalAmount)),
+          (a, b) => sortOrdering(a.totalEarned.compareTo(b.totalEarned)),
         );
         break;
     }
@@ -52,8 +52,8 @@ class _OrdersScreenState extends State<OrdersScreen>
         filteredOrderList = filteredOrderList
             .where(
               (order) =>
-                  order.totalAmount >= currentFilter!.rangeValues!.start &&
-                  order.totalAmount <= currentFilter!.rangeValues!.end,
+                  order.totalEarned >= currentFilter!.rangeValues!.start &&
+                  order.totalEarned <= currentFilter!.rangeValues!.end,
             )
             .toList();
       }
@@ -128,8 +128,8 @@ class _OrdersScreenState extends State<OrdersScreen>
                                     onTap: () async {
                                       double maxAmount = 0;
                                       for (Order order in state.orderList) {
-                                        if (maxAmount < order.totalAmount) {
-                                          maxAmount = order.totalAmount;
+                                        if (maxAmount < order.totalEarned) {
+                                          maxAmount = order.totalEarned;
                                         }
                                       }
 

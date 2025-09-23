@@ -92,7 +92,7 @@ class ReceiptWidget extends StatelessWidget {
           children: [
             Text(S.of(context).total, style: theme.textTheme.titleLarge),
             Text(
-              '${order.totalAmount.truncateIfInt()} ₽',
+              '${order.totalEarned.truncateIfInt()} ₽',
               textAlign: TextAlign.right,
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w800,
