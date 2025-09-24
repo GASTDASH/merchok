@@ -85,8 +85,6 @@ class PaymentMethodStat extends StatelessWidget {
                             ),
                           );
                         }
-                      } else if (paymentMethodCount == null) {
-                        return Expanded(child: Container(color: Colors.red));
                       } else if (state is PaymentMethodError) {
                         return Text(S.of(context).errorLoadingPaymentMethods);
                       } else if (state is PaymentMethodInitial) {
