@@ -3,4 +3,5 @@
 
 
 export 'festivals_history_screen.dart';
+export 'popular_merch_screen.dart';
 export 'stat_screen.dart';

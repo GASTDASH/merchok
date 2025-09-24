@@ -7,5 +7,6 @@ export 'festivals_history_tile.dart';
 export 'indicator.dart';
 export 'past_festivals_list.dart';
 export 'payment_method_stat.dart';
+export 'popular_merch_list.dart';
 export 'stat_button_card.dart';
 export 'stat_info_card.dart';

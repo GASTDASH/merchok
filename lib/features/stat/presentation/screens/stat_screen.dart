@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/stat/stat.dart';
@@ -162,18 +163,50 @@ class _OtherStatCards extends StatelessWidget {
           builder: (context) {
             final state = context.watch<OrderBloc>().state;
             return StatButtonCard(
-              onTap: state is OrderLoaded && state.orderList.isNotEmpty
-                  ? () => context.push('/festivals_history')
-                  : () => Fluttertoast.showToast(msg: S.of(context).noReceipts),
+              onTap: () {
+                if (state is! OrderLoaded) {
+                  Fluttertoast.showToast(msg: S.of(context).ordersIsNotLoaded);
+                  return;
+                }
+                if (state.orderList.isEmpty) {
+                  Fluttertoast.showToast(msg: S.of(context).noReceipts);
+                  return;
+                }
+                context.push('/festivals_history');
+              },
               text: S.of(context).historyOfFestivals,
               icon: IconNames.graph,
             );
           },
         ),
-        StatButtonCard(
-          onTap: () {},
-          text: S.of(context).popularMerch,
-          icon: IconNames.like,
+        Builder(
+          builder: (context) {
+            final orderState = context.watch<OrderBloc>().state;
+            final merchState = context.watch<MerchBloc>().state;
+            return StatButtonCard(
+              onTap: () {
+                if (orderState is! OrderLoaded) {
+                  Fluttertoast.showToast(msg: S.of(context).ordersIsNotLoaded);
+                  return;
+                }
+                if (orderState.orderList.isEmpty) {
+                  Fluttertoast.showToast(msg: S.of(context).noReceipts);
+                  return;
+                }
+                if (merchState is! MerchLoaded) {
+                  Fluttertoast.showToast(msg: S.of(context).merchIsNotLoaded);
+                  return;
+                }
+                if (merchState.merchList.isEmpty) {
+                  Fluttertoast.showToast(msg: S.of(context).noMerch);
+                  return;
+                }
+                context.push('/popular_merch');
+              },
+              text: S.of(context).popularMerch,
+              icon: IconNames.like,
+            );
+          },
         ),
       ]),
     );

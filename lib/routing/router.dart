@@ -90,6 +90,11 @@ final router = GoRouter(
       path: '/festivals_history',
       builder: (context, state) => FestivalsHistoryScreen(),
     ),
+    GoRoute(
+      name: 'popular_merch',
+      path: '/popular_merch',
+      builder: (context, state) => PopularMerchScreen(),
+    ),
   ],
 );
 
