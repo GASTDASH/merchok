@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/generated/l10n.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class FestivalsHistoryLineChart extends StatelessWidget {
@@ -36,11 +37,11 @@ class FestivalsHistoryLineChart extends StatelessWidget {
                 topTitles: AxisTitles(sideTitles: SideTitles()),
                 rightTitles: AxisTitles(sideTitles: SideTitles()),
                 leftTitles: AxisTitles(
-                  axisNameWidget: Text('Заработано'),
+                  axisNameWidget: Text(S.of(context).earned),
                   sideTitles: SideTitles(showTitles: true, reservedSize: 48),
                 ),
                 bottomTitles: AxisTitles(
-                  axisNameWidget: Text('Дата проведения'),
+                  axisNameWidget: Text(S.of(context).dateOfTheEvent),
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 24,

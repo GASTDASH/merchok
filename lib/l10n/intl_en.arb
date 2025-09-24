@@ -136,5 +136,11 @@
   "unexpectedFlutterError": "An unexpected Flutter error has occurred",
   "revenue": "Revenue",
   "sales": "Sales",
-  "orders": "Orders"
+  "orders": "Orders",
+  "earned": "Earned",
+  "dateOfTheEvent": "Date of the event",
+  "totalOrders": "Total orders",
+  "totalSales": "Total sales",
+  "pastFestivals": "Past festivals",
+  "notEnoughData": "Not enough data"
 }

@@ -79,7 +79,9 @@ class PaymentMethodStat extends StatelessWidget {
                         } else {
                           return SizedBox(
                             height: 30,
-                            child: FittedBox(child: Text('Не хватает данных')),
+                            child: FittedBox(
+                              child: Text(S.of(context).notEnoughData),
+                            ),
                           );
                         }
                       } else if (paymentMethodCount == null) {

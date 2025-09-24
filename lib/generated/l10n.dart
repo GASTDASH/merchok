@@ -1178,6 +1178,56 @@ class S {
   String get orders {
     return Intl.message('Orders', name: 'orders', desc: '', args: []);
   }
+
+  /// `Earned`
+  String get earned {
+    return Intl.message('Earned', name: 'earned', desc: '', args: []);
+  }
+
+  /// `Date of the event`
+  String get dateOfTheEvent {
+    return Intl.message(
+      'Date of the event',
+      name: 'dateOfTheEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total orders`
+  String get totalOrders {
+    return Intl.message(
+      'Total orders',
+      name: 'totalOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total sales`
+  String get totalSales {
+    return Intl.message('Total sales', name: 'totalSales', desc: '', args: []);
+  }
+
+  /// `Past festivals`
+  String get pastFestivals {
+    return Intl.message(
+      'Past festivals',
+      name: 'pastFestivals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not enough data`
+  String get notEnoughData {
+    return Intl.message(
+      'Not enough data',
+      name: 'notEnoughData',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

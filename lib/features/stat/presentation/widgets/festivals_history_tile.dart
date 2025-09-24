@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class FestivalsHistoryTile extends StatelessWidget {
   const FestivalsHistoryTile({super.key, required this.festivalHistory});
@@ -43,7 +44,7 @@ class FestivalsHistoryTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Заработано: '),
+                  Text('${S.of(context).earned}: '),
                   Text(
                     NumberFormat.simpleCurrency(
                       decimalDigits: 0,
@@ -54,14 +55,14 @@ class FestivalsHistoryTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Всего заказов: '),
+                  Text('${S.of(context).totalOrders}: '),
                   Text('${festivalHistory.orderCount}'),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Всего продаж: '),
+                  Text('${S.of(context).totalSales}: '),
                   Text('${festivalHistory.salesCount}'),
                 ],
               ),

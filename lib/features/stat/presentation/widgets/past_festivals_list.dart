@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class PastFestivalsList extends StatelessWidget {
   const PastFestivalsList({super.key, required this.historyFestivals});
@@ -16,7 +17,7 @@ class PastFestivalsList extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: Text(
-              'Прошедшие фестивали',
+              S.of(context).pastFestivals,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w600,
               ),

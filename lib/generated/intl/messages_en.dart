@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
+    "dateOfTheEvent": MessageLookupByLibrary.simpleMessage("Date of the event"),
     "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
       "Delete this category?",
     ),
@@ -75,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "donateDescription": MessageLookupByLibrary.simpleMessage(
       "Send tips for project growth",
     ),
+    "earned": MessageLookupByLibrary.simpleMessage("Earned"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Enter a correct number",
@@ -190,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(not available yet)",
     ),
+    "notEnoughData": MessageLookupByLibrary.simpleMessage("Not enough data"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "openingPage": MessageLookupByLibrary.simpleMessage("Opening a page"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Order amount"),
@@ -204,6 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The order list is not loaded",
     ),
+    "pastFestivals": MessageLookupByLibrary.simpleMessage("Past festivals"),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
       "Changing payment method information",
@@ -266,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "total": MessageLookupByLibrary.simpleMessage("Total:"),
+    "totalOrders": MessageLookupByLibrary.simpleMessage("Total orders"),
+    "totalSales": MessageLookupByLibrary.simpleMessage("Total sales"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a category that is being used",

@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Тёмная"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
+    "dateOfTheEvent": MessageLookupByLibrary.simpleMessage("Дата проведения"),
     "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
       "Удалить эту категорию?",
     ),
@@ -79,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "donateDescription": MessageLookupByLibrary.simpleMessage(
       "Отправить чаевые на развитие проекта",
     ),
+    "earned": MessageLookupByLibrary.simpleMessage("Заработано"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Введите правильное число",
@@ -192,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAvailableYet": MessageLookupByLibrary.simpleMessage(
       "(пока недоступно)",
     ),
+    "notEnoughData": MessageLookupByLibrary.simpleMessage("Не хватает данных"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "openingPage": MessageLookupByLibrary.simpleMessage("Открытие страницы"),
     "orderAmount": MessageLookupByLibrary.simpleMessage("Сумма заказа"),
@@ -205,6 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "orders": MessageLookupByLibrary.simpleMessage("Заказов"),
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Заказы не загружены",
+    ),
+    "pastFestivals": MessageLookupByLibrary.simpleMessage(
+      "Прошедшие фестивали",
     ),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Способ оплаты"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
@@ -266,6 +272,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "title": MessageLookupByLibrary.simpleMessage("Название"),
     "total": MessageLookupByLibrary.simpleMessage("Итого:"),
+    "totalOrders": MessageLookupByLibrary.simpleMessage("Всего заказов"),
+    "totalSales": MessageLookupByLibrary.simpleMessage("Всего продаж"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Невозможно удалить используемую категорию",

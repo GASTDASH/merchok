@@ -136,5 +136,11 @@
   "unexpectedFlutterError": "Произошла непредвиденная ошибка Flutter",
   "revenue": "Выручка",
   "sales": "Продаж",
-  "orders": "Заказов"
+  "orders": "Заказов",
+  "earned": "Заработано",
+  "dateOfTheEvent": "Дата проведения",
+  "totalOrders": "Всего заказов",
+  "totalSales": "Всего продаж",
+  "pastFestivals": "Прошедшие фестивали",
+  "notEnoughData": "Не хватает данных"
 }
