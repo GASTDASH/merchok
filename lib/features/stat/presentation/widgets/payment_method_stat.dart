@@ -44,6 +44,7 @@ class PaymentMethodStat extends StatelessWidget {
               elevation: 4,
               padding: EdgeInsets.all(24),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 spacing: 24,
                 children: [
                   FittedBox(
