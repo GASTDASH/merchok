@@ -142,5 +142,6 @@
   "totalOrders": "Всего заказов",
   "totalSales": "Всего продаж",
   "pastFestivals": "Прошедшие фестивали",
-  "notEnoughData": "Не хватает данных"
+  "notEnoughData": "Не хватает данных",
+  "displayType": "Тип отображения:"
 }

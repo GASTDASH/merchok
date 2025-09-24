@@ -142,5 +142,6 @@
   "totalOrders": "Total orders",
   "totalSales": "Total sales",
   "pastFestivals": "Past festivals",
-  "notEnoughData": "Not enough data"
+  "notEnoughData": "Not enough data",
+  "displayType": "Display type:"
 }

@@ -5,17 +5,17 @@ class HistoryFestival extends Equatable {
   const HistoryFestival({
     required this.festival,
     required this.totalEarned,
-    required this.orderCount,
+    required this.ordersCount,
     required this.salesCount,
     required this.revenue,
   });
 
   final Festival festival;
-  final int orderCount;
+  final int ordersCount;
   final int salesCount;
   final double totalEarned;
   final double revenue;
 
   @override
-  List<Object?> get props => [festival, orderCount, salesCount, totalEarned];
+  List<Object?> get props => [festival, ordersCount, salesCount, totalEarned];
 }

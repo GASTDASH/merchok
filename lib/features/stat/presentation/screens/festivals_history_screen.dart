@@ -24,7 +24,7 @@ class FestivalsHistoryScreen extends StatelessWidget {
     return HistoryFestival(
       festival: festival,
       totalEarned: totalEarned,
-      orderCount: ordersOnFestival.length,
+      ordersCount: ordersOnFestival.length,
       salesCount: ordersOnFestival.fold(
         0,
         (sum, order) => sum + order.orderItems.length,
@@ -53,7 +53,6 @@ class FestivalsHistoryScreen extends StatelessWidget {
                 final sortedOrderList = state.orderList.sorted(
                   (a, b) => a.totalEarned.compareTo(b.totalEarned),
                 );
-                final maxTotalAmount = sortedOrderList.last.totalEarned;
                 final historyFestivals = _toHistory(
                   _getFestivals(state.orderList),
                   sortedOrderList,
@@ -62,10 +61,12 @@ class FestivalsHistoryScreen extends StatelessWidget {
                 return SliverMainAxisGroup(
                   slivers: [
                     FestivalsHistoryLineChart(
-                      max: maxTotalAmount,
                       historyFestivals: historyFestivals,
                     ),
-                    PastFestivalsList(historyFestivals: historyFestivals),
+                    PastFestivalsList(
+                      historyFestivals: historyFestivals.reversed.toList(),
+                    ),
+                    SliverToBoxAdapter(child: SizedBox(height: 32)),
                   ],
                 );
               } else {

@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Удалить этот способ оплаты?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
+    "displayType": MessageLookupByLibrary.simpleMessage("Тип отображения:"),
     "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
     "donateDescription": MessageLookupByLibrary.simpleMessage(
       "Отправить чаевые на развитие проекта",

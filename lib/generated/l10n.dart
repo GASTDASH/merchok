@@ -1228,6 +1228,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Display type:`
+  String get displayType {
+    return Intl.message(
+      'Display type:',
+      name: 'displayType',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

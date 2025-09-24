@@ -56,7 +56,7 @@ class FestivalsHistoryTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('${S.of(context).totalOrders}: '),
-                  Text('${festivalHistory.orderCount}'),
+                  Text('${festivalHistory.ordersCount}'),
                 ],
               ),
               Row(
