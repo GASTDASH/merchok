@@ -172,6 +172,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCategories": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any categories yet",
     ),
+    "noDataToDisplay": MessageLookupByLibrary.simpleMessage(
+      "No data to display",
+    ),
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any festivals yet",
     ),

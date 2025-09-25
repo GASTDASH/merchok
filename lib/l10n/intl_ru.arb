@@ -143,5 +143,6 @@
   "totalSales": "Всего продаж",
   "pastFestivals": "Прошедшие фестивали",
   "notEnoughData": "Не хватает данных",
-  "displayType": "Тип отображения:"
+  "displayType": "Тип отображения:",
+  "noDataToDisplay": "Нет данных для отображения"
 }

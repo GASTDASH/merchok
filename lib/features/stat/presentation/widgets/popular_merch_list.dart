@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/material.dart';
@@ -20,11 +22,13 @@ class PopularMerchList extends StatelessWidget {
     final Set<Merch> merchListFromOrders = orderList
         .expand((order) => order.orderItems.map((item) => item.merch))
         .toSet();
+    log('[_countMerch] merchListFromOrders is ready');
 
     final List<Merch> uniqueMerchList = {
       ...merchListFromOrders,
       ...merchList,
     }.toList();
+    log('[_countMerch] uniqueMerchList is ready');
 
     final Map<Merch, int> merchesCount = {};
 
@@ -37,10 +41,12 @@ class PopularMerchList extends StatelessWidget {
       }
       merchesCount.addAll({merch: count});
     }
+    log('[_countMerch] merchesCount is ready');
 
     final Map<Merch, int> sortedMerchesCount = Map.fromEntries(
       merchesCount.entries.sorted((a, b) => b.value.compareTo(a.value)),
     );
+    log('[_countMerch] sortedMerchesCount is ready');
 
     return sortedMerchesCount;
   }
@@ -69,7 +75,7 @@ class PopularMerchList extends StatelessWidget {
             ),
           );
         } else {
-          return InfoBanner(text: 'Нет данных для отображения');
+          return InfoBanner(text: S.of(context).noDataToDisplay);
         }
       },
     );

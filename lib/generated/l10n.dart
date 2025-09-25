@@ -1238,6 +1238,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No data to display`
+  String get noDataToDisplay {
+    return Intl.message(
+      'No data to display',
+      name: 'noDataToDisplay',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -143,5 +143,6 @@
   "totalSales": "Total sales",
   "pastFestivals": "Past festivals",
   "notEnoughData": "Not enough data",
-  "displayType": "Display type:"
+  "displayType": "Display type:",
+  "noDataToDisplay": "No data to display"
 }
