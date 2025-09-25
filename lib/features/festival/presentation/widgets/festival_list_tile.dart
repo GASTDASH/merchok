@@ -64,7 +64,7 @@ class FestivalListTile extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async => await editFestivalName(context),
-            child: BaseSvgIcon(context, IconNames.edit, height: 16),
+            child: Icon(AppIcons.edit, size: 16),
           ),
         ],
       ),

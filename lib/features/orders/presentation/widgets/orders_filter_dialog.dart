@@ -148,7 +148,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                     dateRange!.start.toCompactString(),
                     style: theme.textTheme.bodyLarge,
                   ),
-                  BaseSvgIcon(context, IconNames.right, height: 16),
+                  Icon(AppIcons.right, size: 16),
                   Text(
                     dateRange!.end.toCompactString(),
                     style: theme.textTheme.bodyLarge,

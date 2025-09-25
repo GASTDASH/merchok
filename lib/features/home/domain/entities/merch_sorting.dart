@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart' show IconData;
 import 'package:merchok/core/core.dart';
 
 enum MerchSortBy {
-  alphabet(icon: IconNames.font),
-  createdAt(icon: IconNames.clock);
+  alphabet(icon: AppIcons.font),
+  createdAt(icon: AppIcons.clock);
 
-  final String icon;
+  final IconData icon;
 
   const MerchSortBy({required this.icon});
 }

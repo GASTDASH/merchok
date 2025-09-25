@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart' show IconData;
 import 'package:merchok/core/core.dart';
 
 enum OrderSortBy {
-  createdAt(icon: IconNames.clock),
-  totalAmount(icon: IconNames.creditCard);
+  createdAt(icon: AppIcons.clock),
+  totalAmount(icon: AppIcons.creditCard);
 
-  final String icon;
+  final IconData icon;
 
   const OrderSortBy({required this.icon});
 }

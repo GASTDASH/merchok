@@ -33,7 +33,7 @@ class SearchTextField extends StatelessWidget {
               ),
             ),
           ),
-          BaseSvgIcon(context, IconNames.search),
+          Icon(AppIcons.search),
         ],
       ),
     );

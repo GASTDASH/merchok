@@ -73,7 +73,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             actions: [
               IconButton(
                 onPressed: () async => await addPaymentMethod(context),
-                icon: BaseSvgIcon(context, IconNames.add),
+                icon: Icon(AppIcons.add),
               ),
             ],
           ),

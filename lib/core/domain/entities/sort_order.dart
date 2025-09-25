@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart' show IconData;
 import 'package:merchok/core/core.dart';
 
 enum SortOrder {
-  asc(icon: IconNames.sortAsc),
-  desc(icon: IconNames.sortDesc);
+  asc(icon: AppIcons.sortAsc),
+  desc(icon: AppIcons.sortDesc);
 
-  final String icon;
+  final IconData icon;
 
   const SortOrder({required this.icon});
 }

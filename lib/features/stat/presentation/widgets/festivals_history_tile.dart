@@ -30,7 +30,7 @@ class FestivalsHistoryTile extends StatelessWidget {
               spacing: 8,
               children: [
                 Text(festivalHistory.festival.startDate.toCompactString()),
-                BaseSvgIcon(context, IconNames.right, height: 12),
+                Icon(AppIcons.right, size: 12),
                 Text(festivalHistory.festival.endDate.toCompactString()),
               ],
             ),

@@ -39,16 +39,13 @@ class ReceiptWidget extends StatelessWidget {
                   onTap: () => context.read<OrderBloc>().add(
                     OrderDelete(orderId: order.id),
                   ),
-                  child: BaseSvgIcon(context, IconNames.delete),
+                  child: Icon(AppIcons.delete),
                 ),
               ],
             ),
             Row(
               spacing: 8,
-              children: [
-                BaseSvgIcon(context, IconNames.calendar),
-                Text(order.festival.name),
-              ],
+              children: [Icon(AppIcons.calendar), Text(order.festival.name)],
             ),
           ],
         ),

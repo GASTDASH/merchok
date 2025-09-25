@@ -86,7 +86,7 @@ class _EditFestivalDialogState extends State<EditFestivalDialog> {
                     },
                   ),
                 ),
-                BaseSvgIcon(context, IconNames.right),
+                Icon(AppIcons.right),
                 Expanded(
                   child: _DateButton(
                     text: endDate.toCompactString(),

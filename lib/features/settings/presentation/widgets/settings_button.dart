@@ -53,7 +53,7 @@ class SettingsButton extends StatelessWidget {
                 ],
               ),
             ),
-            BaseSvgIcon(context, IconNames.right),
+            Icon(AppIcons.right),
           ],
         ),
       ),

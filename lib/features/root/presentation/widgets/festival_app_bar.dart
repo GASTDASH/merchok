@@ -70,7 +70,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 context.push('/festival');
               },
-              icon: BaseSvgIcon(context, IconNames.calendar),
+              icon: Icon(AppIcons.calendar),
             ),
           ],
         ),

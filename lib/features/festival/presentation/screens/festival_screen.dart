@@ -89,7 +89,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
               IconButton(
                 tooltip: S.of(context).add,
                 onPressed: () async => await addFestival(context),
-                icon: BaseSvgIcon(context, IconNames.add, height: 32),
+                icon: Icon(AppIcons.add, size: 32),
               ),
             ],
           ),

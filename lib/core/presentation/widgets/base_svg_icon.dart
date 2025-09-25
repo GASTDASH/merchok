@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+@Deprecated('Use AppIcons instead')
 class BaseSvgIcon extends SvgPicture {
   BaseSvgIcon(
     BuildContext context,

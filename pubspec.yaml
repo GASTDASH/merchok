@@ -52,6 +52,9 @@ flutter:
     - assets/icons/banks/
 
   fonts:
+    - family: Merchok
+      fonts:
+        - asset: assets/fonts/Merchok-Icons.ttf
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Thin.ttf

@@ -343,14 +343,14 @@ class _AddButtons extends StatelessWidget {
             context.read<MerchBloc>().add(MerchAdd());
           },
           text: S.of(context).add,
-          icon: IconNames.add,
+          icon: AppIcons.add,
         ),
         AddButton(
           onTap: () {
             showImportBottomSheet(context);
           },
           text: S.of(context).import,
-          icon: IconNames.import,
+          icon: AppIcons.import,
         ),
       ],
     );
@@ -387,7 +387,7 @@ class _MerchList extends StatelessWidget {
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseSvgIcon(context, IconNames.delete, height: 32),
+              Icon(AppIcons.delete, size: 32),
               Text(
                 S.of(context).unableToDeleteMerch,
                 style: theme.textTheme.titleMedium,

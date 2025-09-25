@@ -18,7 +18,7 @@ class ExitDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: 16,
           children: [
-            BaseSvgIcon(context, IconNames.logout, height: 48),
+            Icon(AppIcons.logout, size: 48),
             Text(S.of(context).exitTheApp, style: theme.textTheme.titleLarge),
             SizedBox(
               height: 48,

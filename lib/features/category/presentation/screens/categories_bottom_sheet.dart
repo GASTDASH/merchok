@@ -34,7 +34,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseSvgIcon(context, IconNames.delete, height: 32),
+              Icon(Icons.delete, size: 32),
               Text(
                 S.of(context).unableToDeleteCategory,
                 style: Theme.of(context).textTheme.titleMedium,

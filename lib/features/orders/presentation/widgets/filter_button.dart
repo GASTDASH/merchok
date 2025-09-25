@@ -19,10 +19,7 @@ class FilterButton extends StatelessWidget {
       child: Row(
         spacing: 8,
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(S.of(context).filter),
-          BaseSvgIcon(context, IconNames.filter),
-        ],
+        children: [Text(S.of(context).filter), Icon(AppIcons.filter)],
       ),
     );
   }

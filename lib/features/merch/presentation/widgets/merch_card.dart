@@ -148,7 +148,7 @@ class _MerchCardState extends State<MerchCard> {
                     if (widget.editable)
                       GestureDetector(
                         onTap: () async => await editName(context),
-                        child: BaseSvgIcon(context, IconNames.edit, height: 16),
+                        child: Icon(AppIcons.edit, size: 16),
                       ),
                   ],
                 ),
@@ -156,13 +156,13 @@ class _MerchCardState extends State<MerchCard> {
               widget.onTapDelete != null
                   ? GestureDetector(
                       onTap: widget.onTapDelete,
-                      child: BaseSvgIcon(context, IconNames.delete),
+                      child: Icon(AppIcons.delete),
                     )
                   : GestureDetector(
                       onTap: () async => await changeCategory(context),
                       child: Badge(
                         isLabelVisible: widget.merch.categoryId != null,
-                        child: BaseSvgIcon(context, IconNames.tag),
+                        child: Icon(AppIcons.tag),
                       ),
                     ),
             ],
@@ -220,7 +220,7 @@ class _MerchCardState extends State<MerchCard> {
                   if (widget.editable)
                     GestureDetector(
                       onTap: () async => await editPrices(context),
-                      child: BaseSvgIcon(context, IconNames.edit, height: 16),
+                      child: Icon(AppIcons.edit, size: 16),
                     ),
                 ],
               ),

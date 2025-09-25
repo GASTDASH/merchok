@@ -6,7 +6,7 @@ class SortButton extends StatelessWidget {
   const SortButton({super.key, required this.onTap, required this.icons});
 
   final VoidCallback onTap;
-  final List<String> icons;
+  final List<IconData> icons;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SortButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(S.of(context).sorting),
-              ...icons.map((icon) => BaseSvgIcon(context, icon)),
+              ...icons.map((icon) => Icon(icon)),
             ],
           ),
         ),

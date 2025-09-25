@@ -58,10 +58,7 @@ class PaymentMethodCard extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: onTapEdit,
-            child: BaseSvgIcon(context, IconNames.edit),
-          ),
+          GestureDetector(onTap: onTapEdit, child: Icon(AppIcons.edit)),
         ],
       ),
     );
