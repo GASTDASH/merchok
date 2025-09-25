@@ -174,11 +174,14 @@ class _MerchCardState extends State<MerchCard> {
                 deletable: widget.merch.image != null,
                 editable: widget.editable,
                 image: widget.merch.image,
+                thumbnail: widget.merch.thumbnail,
                 onImageDeleted: () => context.read<MerchBloc>().add(
-                  MerchEdit(merch: widget.merch.copyWith(image: null)),
+                  MerchEdit(
+                    merch: widget.merch.copyWith(image: null, thumbnail: null),
+                  ),
                 ),
                 onImagePicked: (image) => context.read<MerchBloc>().add(
-                  MerchEdit(merch: widget.merch.copyWith(image: image)),
+                  MerchUpdateImage(merch: widget.merch, image: image),
                 ),
               ),
               Expanded(
@@ -295,6 +298,7 @@ class _ImageBox extends StatelessWidget {
     required this.deletable,
     required this.editable,
     this.image,
+    this.thumbnail,
     required this.onImageDeleted,
     required this.onImagePicked,
   });
@@ -304,6 +308,29 @@ class _ImageBox extends StatelessWidget {
   final Uint8List? image;
   final void Function() onImageDeleted;
   final void Function(Uint8List image) onImagePicked;
+  final Uint8List? thumbnail;
+
+  Widget? buildImage() {
+    final Uint8List? imageToShow = thumbnail ?? image;
+
+    if (imageToShow == null) return null;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Image.memory(
+        imageToShow,
+        fit: BoxFit.cover,
+        cacheWidth: 150,
+        cacheHeight: 150,
+        errorBuilder: (context, error, st) => Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).disabledColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Icon(Icons.broken_image, size: 32),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -322,12 +349,7 @@ class _ImageBox extends StatelessWidget {
               color: theme.disabledColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: image != null
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.memory(image!, fit: BoxFit.cover),
-                  )
-                : null,
+            child: buildImage(),
           ),
           if (editable)
             Align(

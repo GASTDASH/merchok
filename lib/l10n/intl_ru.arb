@@ -144,5 +144,6 @@
   "pastFestivals": "Прошедшие фестивали",
   "notEnoughData": "Не хватает данных",
   "displayType": "Тип отображения:",
-  "noDataToDisplay": "Нет данных для отображения"
+  "noDataToDisplay": "Нет данных для отображения",
+  "merchUpdatingImage": "Изменение фотографии мерча"
 }

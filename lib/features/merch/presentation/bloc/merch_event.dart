@@ -37,3 +37,13 @@ final class MerchImport extends MerchEvent {
   @override
   List<Object> get props => super.props..addAll([merchList]);
 }
+
+final class MerchUpdateImage extends MerchEvent {
+  const MerchUpdateImage({required this.merch, required this.image});
+
+  final Merch merch;
+  final Uint8List image;
+
+  @override
+  List<Object> get props => super.props..addAll([merch, image]);
+}

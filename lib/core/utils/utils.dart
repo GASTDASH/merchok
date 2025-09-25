@@ -3,3 +3,4 @@
 
 export 'extensions/extensions.dart';
 export 'mixins/mixins.dart';
+export 'image_utils.dart';

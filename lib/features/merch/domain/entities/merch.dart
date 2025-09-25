@@ -16,6 +16,7 @@ class Merch extends Equatable {
     required this.price,
     this.purchasePrice,
     this.image,
+    this.thumbnail,
     this.categoryId,
   });
 
@@ -35,6 +36,9 @@ class Merch extends Equatable {
           : null,
       image: map['image'] != null
           ? Uint8List.fromList((map['image'] as List).cast<int>())
+          : null,
+      thumbnail: map['thumbnail'] != null
+          ? Uint8List.fromList((map['thumbnail'] as List).cast<int>())
           : null,
       categoryId: map['categoryId'] != null
           ? map['categoryId'] as String
@@ -63,6 +67,9 @@ class Merch extends Equatable {
   @HiveField(4)
   final double? purchasePrice;
 
+  @HiveField(7)
+  final Uint8List? thumbnail;
+
   static const _omit = Object();
 
   @override
@@ -83,6 +90,7 @@ class Merch extends Equatable {
     double? price,
     Object? purchasePrice = _omit,
     Object? image = _omit,
+    Object? thumbnail = _omit,
     Object? categoryId = _omit,
   }) => Merch(
     id: id ?? this.id,
@@ -94,7 +102,8 @@ class Merch extends Equatable {
     purchasePrice: purchasePrice == _omit
         ? this.purchasePrice
         : purchasePrice as double?,
-    image: image == _omit ? this.image : image as Uint8List,
+    image: image == _omit ? this.image : image as Uint8List?,
+    thumbnail: thumbnail == _omit ? this.thumbnail : thumbnail as Uint8List?,
     categoryId: categoryId == _omit ? this.categoryId : categoryId as String?,
   );
 
@@ -106,6 +115,7 @@ class Merch extends Equatable {
       'price': price,
       'purchasePrice': purchasePrice,
       'image': image,
+      'thumbnail': thumbnail,
       'categoryId': categoryId,
     };
   }

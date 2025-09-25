@@ -68,6 +68,7 @@ Future<void> _initTalker() async {
     settings: TalkerBlocLoggerSettings(
       printTransitions: false,
       printChanges: true,
+      printStateFullData: false,
     ),
   );
 }

@@ -79,6 +79,7 @@
   "merchCreating": "Creating a new merch",
   "merchChangeInfo": "Changing merch information",
   "merchDeleting": "Deleting a merch",
+  "merchUpdatingImage": "Updating merch image",
   "minus100": "-100",
   "minus50": "-50",
   "minus10": "-10",

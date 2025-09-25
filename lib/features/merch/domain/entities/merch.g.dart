@@ -23,6 +23,7 @@ class MerchAdapter extends TypeAdapter<Merch> {
       price: fields[3] as double,
       purchasePrice: fields[4] as double?,
       image: fields[5] as Uint8List?,
+      thumbnail: fields[7] as Uint8List?,
       categoryId: fields[6] as String?,
     );
   }
@@ -30,21 +31,23 @@ class MerchAdapter extends TypeAdapter<Merch> {
   @override
   void write(BinaryWriter writer, Merch obj) {
     writer
-      ..writeByte(7)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
+      ..writeByte(8)
+      ..writeByte(6)
+      ..write(obj.categoryId)
       ..writeByte(2)
       ..write(obj.description)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(5)
+      ..write(obj.image)
+      ..writeByte(1)
+      ..write(obj.name)
       ..writeByte(3)
       ..write(obj.price)
       ..writeByte(4)
       ..write(obj.purchasePrice)
-      ..writeByte(5)
-      ..write(obj.image)
-      ..writeByte(6)
-      ..write(obj.categoryId);
+      ..writeByte(7)
+      ..write(obj.thumbnail);
   }
 
   @override

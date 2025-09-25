@@ -679,6 +679,16 @@ class S {
     );
   }
 
+  /// `Updating merch image`
+  String get merchUpdatingImage {
+    return Intl.message(
+      'Updating merch image',
+      name: 'merchUpdatingImage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `-100`
   String get minus100 {
     return Intl.message('-100', name: 'minus100', desc: '', args: []);

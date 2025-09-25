@@ -165,6 +165,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchLoading": MessageLookupByLibrary.simpleMessage(
       "Loading the merch list",
     ),
+    "merchUpdatingImage": MessageLookupByLibrary.simpleMessage(
+      "Updating merch image",
+    ),
     "minus10": MessageLookupByLibrary.simpleMessage("-10"),
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
