@@ -24,23 +24,23 @@ class BottomNavBar extends StatelessWidget {
           children: [
             NavItem(
               onTap: () => context.go('/home'),
-              icon: IconNames.house,
+              icon: AppIcons.house,
               selected: index == 0,
             ),
             NavItem(
               onTap: () => context.go('/orders'),
-              icon: IconNames.archive,
+              icon: AppIcons.archive,
               selected: index == 1,
             ),
             SizedBox(width: 64),
             NavItem(
               onTap: () => context.go('/stat'),
-              icon: IconNames.chartBar,
+              icon: AppIcons.chartBar,
               selected: index == 2,
             ),
             NavItem(
               onTap: () => context.go('/settings'),
-              icon: IconNames.settings,
+              icon: AppIcons.settings,
               selected: index == 3,
             ),
           ],

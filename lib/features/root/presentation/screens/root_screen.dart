@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -49,7 +48,11 @@ class _RootScreenState extends State<RootScreen> {
               child: FloatingActionButton(
                 onPressed: () => showCartBottomSheet(context),
                 backgroundColor: theme.primaryColor,
-                child: SvgPicture.asset(IconNames.shoppingBag, height: 32),
+                child: Icon(
+                  AppIcons.shoppingBag,
+                  size: 32,
+                  color: Colors.white,
+                ),
               ),
             ),
             floatingActionButtonLocation:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class NavItem extends StatelessWidget {
   const NavItem({
@@ -9,7 +8,7 @@ class NavItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final String icon;
+  final IconData icon;
   final VoidCallback onTap;
   final bool selected;
 
@@ -32,7 +31,7 @@ class NavItem extends StatelessWidget {
           builder: (context, color, child) {
             return ColorFiltered(
               colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
-              child: SvgPicture.asset(icon, height: 32),
+              child: Icon(icon, size: 32),
             );
           },
         ),
