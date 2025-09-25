@@ -27,7 +27,8 @@ class FestivalsHistoryScreen extends StatelessWidget {
       ordersCount: ordersOnFestival.length,
       salesCount: ordersOnFestival.fold(
         0,
-        (sum, order) => sum + order.orderItems.length,
+        (sum, order) =>
+            sum + order.orderItems.fold(0, (sum, item) => sum + item.quantity),
       ),
       revenue:
           totalEarned -
