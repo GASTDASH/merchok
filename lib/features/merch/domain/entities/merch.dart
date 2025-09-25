@@ -63,6 +63,8 @@ class Merch extends Equatable {
   @HiveField(4)
   final double? purchasePrice;
 
+  static const _omit = Object();
+
   @override
   List<Object?> get props => [
     id,
@@ -77,29 +79,23 @@ class Merch extends Equatable {
   Merch copyWith({
     String? id,
     String? name,
-    String? description,
+    Object? description = _omit,
     double? price,
-    double? purchasePrice,
-    Uint8List? image,
-    String? categoryId,
+    Object? purchasePrice = _omit,
+    Object? image = _omit,
+    Object? categoryId = _omit,
   }) => Merch(
     id: id ?? this.id,
     name: name ?? this.name,
-    description: description ?? this.description,
+    description: description == _omit
+        ? this.description
+        : description as String?,
     price: price ?? this.price,
-    purchasePrice: purchasePrice ?? this.purchasePrice,
-    image: image ?? this.image,
-    categoryId: categoryId ?? this.categoryId,
-  );
-
-  Merch clearCategoryId() => Merch(
-    id: id,
-    name: name,
-    description: description,
-    price: price,
-    purchasePrice: purchasePrice,
-    image: image,
-    categoryId: null,
+    purchasePrice: purchasePrice == _omit
+        ? this.purchasePrice
+        : purchasePrice as double?,
+    image: image == _omit ? this.image : image as Uint8List,
+    categoryId: categoryId == _omit ? this.categoryId : categoryId as String?,
   );
 
   Map<String, dynamic> toMap() {

@@ -92,7 +92,7 @@ class _MerchCardState extends State<MerchCard> {
     );
     if (category == null) return;
     if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: widget.merch.clearCategoryId()));
+      merchBloc.add(MerchEdit(merch: widget.merch.copyWith(categoryId: null)));
     } else {
       merchBloc.add(
         MerchEdit(merch: widget.merch.copyWith(categoryId: category.id)),
@@ -171,8 +171,12 @@ class _MerchCardState extends State<MerchCard> {
             spacing: 24,
             children: [
               _ImageBox(
+                deletable: widget.merch.image != null,
                 editable: widget.editable,
                 image: widget.merch.image,
+                onImageDeleted: () => context.read<MerchBloc>().add(
+                  MerchEdit(merch: widget.merch.copyWith(image: null)),
+                ),
                 onImagePicked: (image) => context.read<MerchBloc>().add(
                   MerchEdit(merch: widget.merch.copyWith(image: image)),
                 ),
@@ -288,13 +292,17 @@ class _MerchCardState extends State<MerchCard> {
 
 class _ImageBox extends StatelessWidget {
   const _ImageBox({
+    required this.deletable,
     required this.editable,
     this.image,
+    required this.onImageDeleted,
     required this.onImagePicked,
   });
 
+  final bool deletable;
   final bool editable;
   final Uint8List? image;
+  final void Function() onImageDeleted;
   final void Function(Uint8List image) onImagePicked;
 
   @override
@@ -307,7 +315,9 @@ class _ImageBox extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 5, top: 5),
+            height: double.infinity,
+            width: double.infinity,
+            margin: EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: theme.disabledColor,
               borderRadius: BorderRadius.circular(16),
@@ -345,6 +355,31 @@ class _ImageBox extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(4),
                       child: SvgPicture.asset(IconNames.edit),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          if (deletable)
+            Align(
+              alignment: AlignmentGeometry.topLeft,
+              child: Material(
+                borderRadius: BorderRadius.circular(24),
+                child: InkWell(
+                  onTap: onImageDeleted,
+                  borderRadius: BorderRadius.circular(24),
+                  splashColor: Colors.white.withValues(alpha: 0.3),
+                  child: Ink(
+                    height: 24,
+                    width: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: theme.primaryColor,
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: SvgPicture.asset(IconNames.delete),
                     ),
                   ),
                 ),
