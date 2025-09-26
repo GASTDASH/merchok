@@ -8,12 +8,14 @@ class BaseContainer extends StatelessWidget {
     this.height,
     this.margin,
     this.padding,
-    this.elevation = 12,
+    @Deprecated('Use boxShadow instead') this.elevation = 12,
+    this.boxShadow,
     this.onTap,
     this.onLongPress,
     this.inkWellAnimation = false,
   });
 
+  final List<BoxShadow>? boxShadow;
   final Widget? child;
   final double elevation;
   final double? height;
@@ -24,15 +26,18 @@ class BaseContainer extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? width;
 
+  static const _defaultShadow = [
+    BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 8)),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final boxDecoration = BoxDecoration(
       color: theme.cardColor,
       borderRadius: BorderRadius.circular(24),
-      boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 8)),
-      ],
+      boxShadow: boxShadow ?? _defaultShadow,
     );
 
     if (inkWellAnimation) {
