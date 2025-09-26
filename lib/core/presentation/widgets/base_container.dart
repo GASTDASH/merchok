@@ -11,11 +11,13 @@ class BaseContainer extends StatelessWidget {
     this.elevation = 12,
     this.onTap,
     this.onLongPress,
+    this.inkWellAnimation = false,
   });
 
   final Widget? child;
   final double elevation;
   final double? height;
+  final bool inkWellAnimation;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onLongPress;
   final VoidCallback? onTap;
@@ -25,12 +27,17 @@ class BaseContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final boxDecoration = BoxDecoration(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(24),
+      boxShadow: [
+        BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 8)),
+      ],
+    );
 
-    return Padding(
-      padding: margin ?? EdgeInsets.zero,
-      child: Material(
-        elevation: elevation,
-        borderRadius: BorderRadius.circular(24),
+    if (inkWellAnimation) {
+      return Padding(
+        padding: margin ?? EdgeInsets.zero,
         child: InkWell(
           onTap: onTap,
           onLongPress: onLongPress,
@@ -39,13 +46,22 @@ class BaseContainer extends StatelessWidget {
             height: height,
             width: width,
             padding: padding,
-            decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: BorderRadius.circular(24),
-            ),
+            decoration: boxDecoration,
             child: child,
           ),
         ),
+      );
+    }
+    return GestureDetector(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: Container(
+        height: height,
+        width: width,
+        padding: padding,
+        margin: margin,
+        decoration: boxDecoration,
+        child: child,
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -240,7 +239,7 @@ class _MerchCardState extends State<MerchCard> {
                           CartAdd(merchId: widget.merch.id),
                         ),
                         padding: EdgeInsets.all(12),
-                        child: SvgPicture.asset(IconNames.shoppingCart),
+                        child: Icon(AppIcons.shoppingCart, color: Colors.white),
                       )
                     : Row(
                         key: ValueKey('plus_minus'),
@@ -257,7 +256,7 @@ class _MerchCardState extends State<MerchCard> {
                             ),
                             borderRadius: BorderRadius.circular(100),
                             color: theme.disabledColor,
-                            child: SvgPicture.asset(IconNames.remove),
+                            child: Icon(AppIcons.remove, color: Colors.white),
                           ),
                           ConstrainedBox(
                             constraints: BoxConstraints(minWidth: 50),
@@ -280,7 +279,7 @@ class _MerchCardState extends State<MerchCard> {
                               minHeight: 48,
                             ),
                             borderRadius: BorderRadius.circular(100),
-                            child: SvgPicture.asset(IconNames.add),
+                            child: Icon(AppIcons.add, color: Colors.white),
                           ),
                         ],
                       ),
@@ -354,60 +353,51 @@ class _ImageBox extends StatelessWidget {
           if (editable)
             Align(
               alignment: AlignmentGeometry.topRight,
-              child: Material(
-                borderRadius: BorderRadius.circular(24),
-                child: InkWell(
-                  onTap: () async {
-                    final pickedImage = await ImagePicker().pickImage(
-                      source: ImageSource.gallery,
-                    );
-                    if (pickedImage == null) return;
-                    onImagePicked(await File(pickedImage.path).readAsBytes());
-                  },
-                  borderRadius: BorderRadius.circular(24),
-                  splashColor: Colors.white.withValues(alpha: 0.3),
-                  child: Ink(
-                    height: 24,
-                    width: 24,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: theme.primaryColor,
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: SvgPicture.asset(IconNames.edit),
-                    ),
-                  ),
-                ),
+              child: _ImageIconButton(
+                onTap: () async {
+                  final pickedImage = await ImagePicker().pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (pickedImage == null) return;
+                  onImagePicked(await File(pickedImage.path).readAsBytes());
+                },
+                icon: AppIcons.edit,
               ),
             ),
           if (deletable)
             Align(
               alignment: AlignmentGeometry.topLeft,
-              child: Material(
-                borderRadius: BorderRadius.circular(24),
-                child: InkWell(
-                  onTap: onImageDeleted,
-                  borderRadius: BorderRadius.circular(24),
-                  splashColor: Colors.white.withValues(alpha: 0.3),
-                  child: Ink(
-                    height: 24,
-                    width: 24,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: theme.primaryColor,
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: SvgPicture.asset(IconNames.delete),
-                    ),
-                  ),
-                ),
+              child: _ImageIconButton(
+                onTap: onImageDeleted,
+                icon: AppIcons.delete,
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _ImageIconButton extends StatelessWidget {
+  const _ImageIconButton({required this.onTap, required this.icon});
+
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 24,
+        width: 24,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: Theme.of(context).primaryColor,
+          border: Border.all(color: Colors.white),
+        ),
+        padding: EdgeInsets.all(4),
+        child: FittedBox(child: Icon(icon, color: Colors.white)),
       ),
     );
   }

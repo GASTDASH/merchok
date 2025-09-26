@@ -34,7 +34,7 @@ class InfoBanner extends StatelessWidget {
 
   const InfoBanner.icon({super.key, required this.text, required this.icon});
 
-  final String? icon;
+  final dynamic icon;
   final String text;
 
   @override
@@ -45,7 +45,8 @@ class InfoBanner extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineLarge,
         textAlign: TextAlign.center,
       ),
-      if (icon != null) SvgPicture.asset(icon!, height: 64),
+      if (icon is String) SvgPicture.asset(icon, height: 64),
+      if (icon is IconData) Icon(icon!, size: 64),
     ]);
   }
 }

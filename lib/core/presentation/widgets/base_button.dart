@@ -9,6 +9,7 @@ class BaseButton extends StatelessWidget {
     this.onTap,
     this.color,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.inkWellAnimation = false,
   }) : _outlined = false,
        backgroundColor = null;
 
@@ -21,6 +22,7 @@ class BaseButton extends StatelessWidget {
     this.color,
     this.backgroundColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.inkWellAnimation = false,
   }) : _outlined = true;
 
   final Color? backgroundColor;
@@ -28,6 +30,7 @@ class BaseButton extends StatelessWidget {
   final Widget child;
   final Color? color;
   final BoxConstraints constraints;
+  final bool inkWellAnimation;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
 
@@ -36,51 +39,67 @@ class BaseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final boxDecoration = BoxDecoration(
+      color: _outlined
+          ? backgroundColor ?? Colors.transparent
+          : onTap == null
+          ? theme.disabledColor
+          : color ?? theme.primaryColor,
+      borderRadius: borderRadius,
+      border: _outlined ? Border.all(color: color ?? theme.primaryColor) : null,
+    );
 
     return ConstrainedBox(
       constraints: constraints,
-      child: Material(
-        color: _outlined ? Colors.transparent : null,
-        borderRadius: borderRadius,
-        child: InkWell(
-          splashColor: _outlined ? null : Colors.white.withValues(alpha: 0.3),
-          onTap: onTap,
-          borderRadius: borderRadius,
-          child: Ink(
-            decoration: BoxDecoration(
-              color: _outlined
-                  ? backgroundColor ?? Colors.transparent
-                  : onTap == null
-                  ? theme.disabledColor
-                  : color ?? theme.primaryColor,
+      child: inkWellAnimation
+          ? InkWell(
+              onTap: onTap,
+              splashColor: _outlined
+                  ? null
+                  : Colors.white.withValues(alpha: 0.3),
               borderRadius: borderRadius,
-              border: _outlined
-                  ? Border.all(color: color ?? theme.primaryColor)
-                  : null,
-            ),
-            child: Padding(
-              padding: padding,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DefaultTextStyle(
-                      style:
-                          theme.textTheme.bodyMedium?.copyWith(
-                            color: _outlined
-                                ? theme.colorScheme.onSurface
-                                : Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ) ??
-                          TextStyle(),
-                      child: child,
-                    ),
-                  ],
-                ),
+              child: Ink(
+                padding: padding,
+                decoration: boxDecoration,
+                child: _BaseButtonContent(outlined: _outlined, child: child),
+              ),
+            )
+          : GestureDetector(
+              onTap: onTap,
+              child: Container(
+                padding: padding,
+                decoration: boxDecoration,
+                child: _BaseButtonContent(outlined: _outlined, child: child),
               ),
             ),
+    );
+  }
+}
+
+class _BaseButtonContent extends StatelessWidget {
+  const _BaseButtonContent({required this.outlined, required this.child});
+
+  final Widget child;
+  final bool outlined;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DefaultTextStyle(
+            style:
+                theme.textTheme.bodyMedium?.copyWith(
+                  color: outlined ? theme.colorScheme.onSurface : Colors.white,
+                  fontWeight: FontWeight.w500,
+                ) ??
+                TextStyle(),
+            child: child,
           ),
-        ),
+        ],
       ),
     );
   }

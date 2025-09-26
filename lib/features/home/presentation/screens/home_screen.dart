@@ -99,10 +99,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverToBoxAdapter(
-                      child: SearchTextField(
-                        controller: searchController,
-                        onChanged: (_) => setState(() {}),
-                      ),
+                      child: SearchTextField(controller: searchController),
                     ),
                   );
                 } else {
@@ -116,7 +113,10 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
               sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
             ),
             ListenableBuilder(
-              listenable: merchSortingProvider,
+              listenable: Listenable.merge([
+                merchSortingProvider,
+                searchController,
+              ]),
               builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
                 listener: (context, state) {
                   if (state is MerchLoaded) restoreScrollPosition();

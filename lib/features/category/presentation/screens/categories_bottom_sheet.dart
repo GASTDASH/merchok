@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/category/category.dart';
@@ -94,7 +93,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                     width: 48,
                     child: BaseButton(
                       onTap: () async => await showAddCategoryDialog(context),
-                      child: SvgPicture.asset(IconNames.add),
+                      child: Icon(AppIcons.add),
                     ),
                   ),
                 ],
