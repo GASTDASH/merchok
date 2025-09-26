@@ -155,15 +155,22 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                         sliver: SliverMainAxisGroup(
                           slivers: [
                             SliverToBoxAdapter(
-                              child: SortButton(
-                                onTap: () =>
-                                    merchSortingProvider.changeMerchSorting(),
-                                icons: [
-                                  merchSortingProvider.merchSorting.sortBy.icon,
-                                  merchSortingProvider
-                                      .merchSorting
-                                      .sortOrder
-                                      .icon,
+                              child: Row(
+                                children: [
+                                  SortButton(
+                                    onTap: () => merchSortingProvider
+                                        .changeMerchSorting(),
+                                    icons: [
+                                      merchSortingProvider
+                                          .merchSorting
+                                          .sortBy
+                                          .icon,
+                                      merchSortingProvider
+                                          .merchSorting
+                                          .sortOrder
+                                          .icon,
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
