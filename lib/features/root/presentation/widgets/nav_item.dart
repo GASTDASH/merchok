@@ -22,18 +22,10 @@ class NavItem extends StatelessWidget {
         height: 64,
         width: 64,
         padding: const EdgeInsets.all(16),
-        child: TweenAnimationBuilder<Color?>(
-          duration: const Duration(milliseconds: 200),
-          tween: ColorTween(
-            begin: selected ? theme.hintColor : theme.primaryColor,
-            end: selected ? theme.primaryColor : theme.hintColor,
-          ),
-          builder: (context, color, child) {
-            return ColorFiltered(
-              colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
-              child: Icon(icon, size: 32),
-            );
-          },
+        child: Icon(
+          icon,
+          size: 32,
+          color: selected ? theme.primaryColor : theme.hintColor,
         ),
       ),
     );
