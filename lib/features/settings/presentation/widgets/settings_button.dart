@@ -26,7 +26,7 @@ class SettingsButton extends StatelessWidget {
       child: BaseContainer(
         onTap: onTap,
         padding: EdgeInsets.all(24),
-        elevation: 4,
+        inkWellAnimation: true,
         child: Row(
           spacing: 4,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
