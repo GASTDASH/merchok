@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<FestivalBloc>().add(FestivalLoad());
     context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
+    context.read<CartBloc>().add(CartLoad());
   }
 
   void sortMerchList(List<Merch> merchList) {

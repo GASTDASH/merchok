@@ -11,7 +11,7 @@ import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class MerchCard extends StatefulWidget {
+class MerchCard extends StatelessWidget {
   const MerchCard({
     super.key,
     required this.merch,
@@ -27,34 +27,19 @@ class MerchCard extends StatefulWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
 
-  @override
-  State<MerchCard> createState() => _MerchCardState();
-}
-
-class _MerchCardState extends State<MerchCard> {
-  final TextEditingController descriptionController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.merch.description != null)
-      descriptionController.text = widget.merch.description!;
-  }
-
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
     final bloc = context.read<MerchBloc>();
 
     String? newName = await showEditDialog(
       context: context,
-      previous: widget.merch.name,
+      previous: merch.name,
       hintText: S.of(context).enterName,
     );
     if (newName == null) return;
     if (newName == '') newName = defaultName;
 
-    bloc.add(MerchEdit(merch: widget.merch.copyWith(name: newName)));
+    bloc.add(MerchEdit(merch: merch.copyWith(name: newName)));
   }
 
   Future<void> editPrices(BuildContext context) async {
@@ -67,10 +52,7 @@ class _MerchCardState extends State<MerchCard> {
 
     bloc.add(
       MerchEdit(
-        merch: widget.merch.copyWith(
-          price: newPrice,
-          purchasePrice: newPurchasePrice,
-        ),
+        merch: merch.copyWith(price: newPrice, purchasePrice: newPurchasePrice),
       ),
     );
   }
@@ -78,7 +60,7 @@ class _MerchCardState extends State<MerchCard> {
   Future<void> changeCategory(BuildContext context) async {
     final merchBloc = context.read<MerchBloc>();
     final categoryState = context.read<CategoryBloc>().state;
-    if (widget.merch.categoryId != null && categoryState is! CategoryLoaded) {
+    if (merch.categoryId != null && categoryState is! CategoryLoaded) {
       return;
     }
     categoryState as CategoryLoaded;
@@ -86,16 +68,14 @@ class _MerchCardState extends State<MerchCard> {
     final category = await showCategoriesBottomSheet(
       context,
       categoryState.categoryList.firstWhereOrNull(
-        (c) => c.id == widget.merch.categoryId,
+        (c) => c.id == merch.categoryId,
       ),
     );
     if (category == null) return;
     if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: widget.merch.copyWith(categoryId: null)));
+      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: null)));
     } else {
-      merchBloc.add(
-        MerchEdit(merch: widget.merch.copyWith(categoryId: category.id)),
-      );
+      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: category.id)));
     }
   }
 
@@ -109,8 +89,8 @@ class _MerchCardState extends State<MerchCard> {
     builder: (context) => Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: ChangePriceBottomSheet(
-        previousPrice: widget.merch.price,
-        previousPurchasePrice: widget.merch.purchasePrice,
+        previousPrice: merch.price,
+        previousPurchasePrice: merch.purchasePrice,
       ),
     ),
   );
@@ -120,7 +100,7 @@ class _MerchCardState extends State<MerchCard> {
     final theme = Theme.of(context);
 
     return BaseContainer(
-      onLongPress: widget.onLongPress,
+      onLongPress: onLongPress,
       margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
       child: Column(
@@ -138,13 +118,13 @@ class _MerchCardState extends State<MerchCard> {
                   children: [
                     Flexible(
                       child: Text(
-                        widget.merch.name,
+                        merch.name,
                         // ?? S.of(context).merchDefaultName,
                         style: theme.textTheme.bodyLarge,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    if (widget.editable)
+                    if (editable)
                       GestureDetector(
                         onTap: () async => await editName(context),
                         child: Icon(AppIcons.edit, size: 16),
@@ -152,15 +132,15 @@ class _MerchCardState extends State<MerchCard> {
                   ],
                 ),
               ),
-              widget.onTapDelete != null
+              onTapDelete != null
                   ? GestureDetector(
-                      onTap: widget.onTapDelete,
+                      onTap: onTapDelete,
                       child: Icon(AppIcons.delete),
                     )
                   : GestureDetector(
                       onTap: () async => await changeCategory(context),
                       child: Badge(
-                        isLabelVisible: widget.merch.categoryId != null,
+                        isLabelVisible: merch.categoryId != null,
                         child: Icon(AppIcons.tag),
                       ),
                     ),
@@ -170,38 +150,27 @@ class _MerchCardState extends State<MerchCard> {
             spacing: 24,
             children: [
               _ImageBox(
-                deletable: widget.merch.image != null,
-                editable: widget.editable,
-                image: widget.merch.image,
-                thumbnail: widget.merch.thumbnail,
+                deletable: merch.image != null,
+                editable: editable,
+                image: merch.image,
+                thumbnail: merch.thumbnail,
                 onImageDeleted: () => context.read<MerchBloc>().add(
                   MerchEdit(
-                    merch: widget.merch.copyWith(image: null, thumbnail: null),
+                    merch: merch.copyWith(image: null, thumbnail: null),
                   ),
                 ),
                 onImagePicked: (image) => context.read<MerchBloc>().add(
-                  MerchUpdateImage(merch: widget.merch, image: image),
+                  MerchUpdateImage(merch: merch, image: image),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: theme.disabledColor),
-                  ),
-                  child: DescriptionTextField(
-                    controller: descriptionController,
-                    onTapOutside: (_) => context.read<MerchBloc>().add(
-                      MerchEdit(
-                        merch: widget.merch.copyWith(
-                          description: descriptionController.text,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              DescriptionSection(
+                description: merch.description,
+                onTapOutside: (text) {
+                  if (merch.description == text) return;
+                  context.read<MerchBloc>().add(
+                    MerchEdit(merch: merch.copyWith(description: text)),
+                  );
+                },
               ),
             ],
           ),
@@ -213,82 +182,77 @@ class _MerchCardState extends State<MerchCard> {
                 spacing: 8,
                 children: [
                   Text(
-                    '${widget.merch.price.truncateIfInt()} ₽',
+                    '${merch.price.truncateIfInt()} ₽',
                     style: theme.textTheme.headlineSmall,
                   ),
-                  if (widget.editable)
+                  if (editable)
                     GestureDetector(
                       onTap: () async => await editPrices(context),
                       child: Icon(AppIcons.edit, size: 16),
                     ),
                 ],
               ),
-              AnimatedSwitcher(
-                duration: Durations.short3,
-                layoutBuilder: (currentChild, previousChildren) => Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    if (currentChild != null) currentChild,
-                    ...previousChildren,
-                  ],
-                ),
-                child: widget.count == 0
-                    ? BaseButton(
-                        key: ValueKey('cart'),
-                        onTap: () => context.read<CartBloc>().add(
-                          CartAdd(merchId: widget.merch.id),
-                        ),
-                        padding: EdgeInsets.all(12),
-                        child: Icon(AppIcons.shoppingCart, color: Colors.white),
-                      )
-                    : Row(
-                        key: ValueKey('plus_minus'),
-                        spacing: 8,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          BaseButton(
-                            onTap: () => context.read<CartBloc>().add(
-                              CartMinus(merchId: widget.merch.id),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 48,
-                              minHeight: 48,
-                            ),
-                            borderRadius: BorderRadius.circular(100),
-                            color: theme.disabledColor,
-                            child: Icon(AppIcons.remove, color: Colors.white),
-                          ),
-                          ConstrainedBox(
-                            constraints: BoxConstraints(minWidth: 50),
-                            child: AnimatedSwitcher(
-                              duration: Durations.short3,
-                              child: Text(
-                                key: ValueKey(widget.count),
-                                '${widget.count}',
-                                style: theme.textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          BaseButton(
-                            onTap: () => context.read<CartBloc>().add(
-                              CartPlus(merchId: widget.merch.id),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 48,
-                              minHeight: 48,
-                            ),
-                            borderRadius: BorderRadius.circular(100),
-                            child: Icon(AppIcons.add, color: Colors.white),
-                          ),
-                        ],
-                      ),
-              ),
+              _CartManager(merch: merch, count: count),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class _CartManager extends StatelessWidget {
+  const _CartManager({required this.merch, required this.count});
+
+  final int count;
+  final Merch merch;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return count == 0
+        ? BaseButton(
+            // key: ValueKey('cart'),
+            onTap: () =>
+                context.read<CartBloc>().add(CartAdd(merchId: merch.id)),
+            padding: EdgeInsets.all(12),
+            child: Icon(AppIcons.shoppingCart, color: Colors.white),
+          )
+        : Row(
+            // key: ValueKey('plus_minus'),
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseButton(
+                onTap: () =>
+                    context.read<CartBloc>().add(CartMinus(merchId: merch.id)),
+                constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+                borderRadius: BorderRadius.circular(100),
+                color: theme.disabledColor,
+                child: Icon(AppIcons.remove, color: Colors.white),
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 50),
+                child: AnimatedSwitcher(
+                  duration: Durations.short3,
+                  child: Text(
+                    key: ValueKey(count),
+                    '$count',
+                    style: theme.textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              BaseButton(
+                onTap: () =>
+                    context.read<CartBloc>().add(CartPlus(merchId: merch.id)),
+                constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+                borderRadius: BorderRadius.circular(100),
+                child: Icon(AppIcons.add, color: Colors.white),
+              ),
+            ],
+          );
   }
 }
 
