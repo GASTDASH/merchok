@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class AddButton extends StatelessWidget {
@@ -15,23 +14,18 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return GestureDetector(
       onTap: onTap,
-      child: DottedBorder(
-        options: RoundedRectDottedBorderOptions(
-          radius: Radius.circular(16),
-          dashPattern: [4, 4],
-          color: theme.colorScheme.onSurface,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(16),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: 10,
-            children: [Text(text), Icon(icon)],
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 10,
+          children: [Text(text), Icon(icon)],
         ),
       ),
     );
