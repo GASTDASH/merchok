@@ -66,11 +66,11 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 },
               ),
             ),
-            IconButton(
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 context.push('/festival');
               },
-              icon: Icon(AppIcons.calendar),
+              child: Icon(AppIcons.calendar),
             ),
           ],
         ),
