@@ -19,32 +19,37 @@ class ReceiptWidget extends StatelessWidget {
         Column(
           spacing: 4,
           children: [
-            FittedBox(
-              child: Row(
-                spacing: 8,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: S.of(context).receiptFrom,
-                      style: theme.textTheme.titleLarge,
-                      children: [
-                        TextSpan(
-                          text: order.createdAt.toCompactString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: RichText(
+                        text: TextSpan(
+                          text: S.of(context).receiptFrom,
+                          style: theme.textTheme.titleLarge,
+                          children: [
+                            TextSpan(
+                              text: order.createdAt.toCompactString(),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: ' ${order.createdAt.toTime()}'),
+                          ],
                         ),
-                        TextSpan(text: ' ${order.createdAt.toTime()}'),
-                      ],
+                      ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => context.read<OrderBloc>().add(
-                      OrderDelete(orderId: order.id),
-                    ),
-                    child: Icon(AppIcons.delete),
+                ),
+                GestureDetector(
+                  onTap: () => context.read<OrderBloc>().add(
+                    OrderDelete(orderId: order.id),
                   ),
-                ],
-              ),
+                  child: Icon(AppIcons.delete),
+                ),
+              ],
             ),
             Row(
               spacing: 8,
