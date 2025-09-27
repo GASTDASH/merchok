@@ -94,7 +94,11 @@ class _FestivalsHistoryLineChartState extends State<FestivalsHistoryLineChart> {
                   maxY: lineChartTypes[selectedLineChartTypeId]!.max * 1.2,
                   gridData: FlGridData(
                     horizontalInterval:
-                        lineChartTypes[selectedLineChartTypeId]!.max / 10,
+                        lineChartTypes[selectedLineChartTypeId]!.max.clamp(
+                          1,
+                          double.infinity,
+                        ) /
+                        10,
                     verticalInterval: 1,
                   ),
                   titlesData: FlTitlesData(
