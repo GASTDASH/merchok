@@ -2,10 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:merchok/features/stat/stat.dart';
 import 'package:merchok/generated/l10n.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class FestivalsHistoryLineChart extends StatefulWidget {
   const FestivalsHistoryLineChart({super.key, required this.historyFestivals});
@@ -119,18 +117,15 @@ class _FestivalsHistoryLineChartState extends State<FestivalsHistoryLineChart> {
                         minIncluded: false,
                         maxIncluded: false,
                         interval: 1,
-                        getTitlesWidget: (value, meta) {
-                          GetIt.I<Talker>().debug(value);
-                          return Text(
-                            widget
-                                .historyFestivals[value.toInt() - 1]
-                                .festival
-                                .startDate
-                                .day
-                                .toString(),
-                            // value.toString(),
-                          );
-                        },
+                        getTitlesWidget: (value, meta) => Text(
+                          widget
+                              .historyFestivals[value.toInt() - 1]
+                              .festival
+                              .startDate
+                              .day
+                              .toString(),
+                          // value.toString(),
+                        ),
                       ),
                     ),
                   ),
