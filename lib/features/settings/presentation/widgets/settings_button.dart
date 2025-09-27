@@ -41,7 +41,10 @@ class SettingsButton extends StatelessWidget {
                     children: [
                       Text(title, style: theme.textTheme.headlineSmall),
                       if (icon != null)
-                        BaseSvgIcon(context, icon!, width: iconSize),
+                        SizedBox(
+                          height: 32,
+                          child: BaseSvgIcon(context, icon!, width: iconSize),
+                        ),
                     ],
                   ),
                   Text(
