@@ -21,7 +21,6 @@ class StatButtonCard extends StatelessWidget {
     return BaseContainer(
       onTap: onTap,
       padding: EdgeInsets.all(24),
-      elevation: 8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

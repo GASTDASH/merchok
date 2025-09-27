@@ -41,7 +41,13 @@ class PaymentMethodStat extends StatelessWidget {
           return ConstrainedBox(
             constraints: BoxConstraints(minHeight: 100),
             child: BaseContainer(
-              elevation: 4,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                ),
+              ],
               padding: EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

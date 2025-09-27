@@ -14,7 +14,9 @@ class StatInfoCard extends StatelessWidget {
 
     return BaseContainer(
       padding: EdgeInsets.all(24),
-      elevation: 4,
+      boxShadow: [
+        BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 4)),
+      ],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

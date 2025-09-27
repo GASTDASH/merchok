@@ -22,7 +22,6 @@ class ExportCard extends StatelessWidget {
       onTap: onTap,
       height: 230,
       padding: EdgeInsets.all(24),
-      elevation: 8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

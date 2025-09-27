@@ -138,7 +138,9 @@ class _DateButton extends StatelessWidget {
     return BaseContainer(
       onTap: onTap,
       padding: EdgeInsets.all(8),
-      elevation: 4,
+      boxShadow: [
+        BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 4)),
+      ],
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyLarge,

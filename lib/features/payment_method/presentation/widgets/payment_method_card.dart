@@ -23,7 +23,6 @@ class PaymentMethodCard extends StatelessWidget {
       onLongPress: onLongPress,
       margin: EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.all(24),
-      elevation: 8,
       child: Row(
         spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -145,7 +145,6 @@ class ImportBottomSheet extends StatelessWidget {
                   child: BaseContainer(
                     onTap: () {},
                     height: 150,
-                    elevation: 8,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,7 +167,6 @@ class ImportBottomSheet extends StatelessWidget {
                       if (context.mounted) context.pop();
                     },
                     height: 150,
-                    elevation: 8,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
