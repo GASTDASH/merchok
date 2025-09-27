@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BaseDraggableScrollableSheet extends StatefulWidget {
   const BaseDraggableScrollableSheet({
@@ -23,7 +24,9 @@ class BaseDraggableScrollableSheet extends StatefulWidget {
 
 class _BaseDraggableScrollableSheetState
     extends State<BaseDraggableScrollableSheet> {
+  static const double minBottomSheetSize = 0.3;
   bool expanded = false;
+  bool isDismissing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +39,18 @@ class _BaseDraggableScrollableSheetState
         } else if (expanded) {
           setState(() => expanded = false);
         }
+        // Закрываем если размер стал меньше минимального
+        if (notification.extent < minBottomSheetSize && !isDismissing) {
+          isDismissing = true;
+          context.pop();
+        }
         return true;
       },
       child: DraggableScrollableSheet(
+        // snap: true,
+        // snapSizes: [widget.minChildSize],
         initialChildSize: widget.initialChildSize,
-        minChildSize: widget.minChildSize,
+        minChildSize: minBottomSheetSize * 0.8,
         maxChildSize: widget.maxChildSize,
         builder: (context, scrollController) => Padding(
           padding: EdgeInsets.zero,
