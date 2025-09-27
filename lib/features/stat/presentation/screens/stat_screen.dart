@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -56,15 +59,22 @@ class _StatList extends StatelessWidget {
 
   final List<Order> orderList;
 
-  int get salesCount =>
+  Future<Map<String, dynamic>> getGeneralStat() async {
+    log('getGeneralStat() called');
+    final data = compute((_) => _getGeneralStatCompute(), null);
+    log('got generalStat');
+    return data;
+  }
+
+  int get _salesCount =>
       orderList.fold(0, (sum, order) => sum + order.salesCount);
 
-  int get ordersCount => orderList.length;
+  int get _ordersCount => orderList.length;
 
-  double get averageAmount =>
-      _sumTotalEarned / ordersCount.clamp(1, double.infinity);
+  double get _averageAmount =>
+      _sumTotalEarned / _ordersCount.clamp(1, double.infinity);
 
-  double get revenue => _sumTotalEarned - _sumTotalSpent;
+  double get _revenue => _sumTotalEarned - _sumTotalSpent;
 
   double get _sumTotalEarned =>
       orderList.fold(0, (sum, order) => sum + order.totalEarned);
@@ -79,24 +89,46 @@ class _StatList extends StatelessWidget {
         ),
   );
 
+  Map<String, dynamic> _getGeneralStatCompute() => {
+    'salesCount': _salesCount,
+    'ordersCount': _ordersCount,
+    'averageAmount': _averageAmount,
+    'revenue': _revenue,
+  };
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(24),
-      sliver: SliverMainAxisGroup(
-        slivers: [
-          _GeneralStat(
-            salesCount: salesCount,
-            ordersCount: ordersCount,
-            averageAmount: averageAmount,
-            revenue: revenue,
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          PaymentMethodStat(orderList: orderList),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          _OtherStatCards(),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
-        ],
+      sliver: FutureBuilder(
+        future: getGeneralStat(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return LoadingBanner(message: S.of(context).loading);
+          }
+          if (snapshot.hasError) {
+            return ErrorBanner(message: snapshot.error.toString());
+          }
+          if (snapshot.hasData) {
+            return SliverMainAxisGroup(
+              slivers: [
+                _GeneralStat(
+                  salesCount: snapshot.data!['salesCount'],
+                  ordersCount: snapshot.data!['ordersCount'],
+                  averageAmount: snapshot.data!['averageAmount'],
+                  revenue: snapshot.data!['revenue'],
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                PaymentMethodStat(orderList: orderList),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                _OtherStatCards(),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+              ],
+            );
+          } else {
+            return InfoBanner(text: S.of(context).noDataToDisplay);
+          }
+        },
       ),
     );
   }
