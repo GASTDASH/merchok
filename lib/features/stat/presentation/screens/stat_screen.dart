@@ -221,16 +221,17 @@ class _OtherStatCards extends StatelessWidget {
                   Fluttertoast.showToast(msg: S.of(context).ordersIsNotLoaded);
                   return;
                 }
-                if (orderState.orderList.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).noReceipts);
-                  return;
-                }
+
                 if (merchState is! MerchLoaded) {
                   Fluttertoast.showToast(msg: S.of(context).merchIsNotLoaded);
                   return;
                 }
-                if (merchState.merchList.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).noMerch);
+                if (orderState.orderList.isEmpty &&
+                    merchState.merchList.isEmpty) {
+                  Fluttertoast.showToast(
+                    msg:
+                        '${S.of(context).noReceipts}\n${S.of(context).noMerch}',
+                  );
                   return;
                 }
                 context.push('/popular_merch');
