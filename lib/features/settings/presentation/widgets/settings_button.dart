@@ -7,12 +7,10 @@ class SettingsButton extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.icon,
-    this.iconSize = 24,
     this.onTap,
   });
 
-  final String? icon;
-  final double? iconSize;
+  final IconData? icon;
   final VoidCallback? onTap;
   final String subtitle;
   final String title;
@@ -40,11 +38,7 @@ class SettingsButton extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(title, style: theme.textTheme.headlineSmall),
-                      if (icon != null)
-                        SizedBox(
-                          height: 32,
-                          child: BaseSvgIcon(context, icon!, width: iconSize),
-                        ),
+                      if (icon != null) Icon(icon),
                     ],
                   ),
                   Text(

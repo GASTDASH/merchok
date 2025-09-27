@@ -29,8 +29,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                   title: S.of(context).theme,
                   subtitle: S.of(context).themeDescription,
-                  icon: IconNames.theme,
-                  iconSize: 32,
+                  icon: AppIcons.theme,
                 ),
                 SettingsButton(
                   onTap: () {
@@ -38,8 +37,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                   title: S.of(context).language,
                   subtitle: S.of(context).languageDescription,
-                  icon: IconNames.language,
-                  iconSize: 32,
+                  icon: AppIcons.language,
                 ),
                 SettingsButton(
                   onTap: () {
@@ -47,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                   title: S.of(context).dataExport,
                   subtitle: S.of(context).exportDataDescription,
-                  icon: IconNames.downloadPackage,
+                  icon: AppIcons.downloadPackage,
                 ),
                 SettingsButton(
                   onTap: () {
@@ -55,19 +53,19 @@ class SettingsScreen extends StatelessWidget {
                   },
                   title: S.of(context).paymentMethods,
                   subtitle: S.of(context).paymentMethodsDescription,
-                  icon: IconNames.payment,
+                  icon: AppIcons.creditCard,
                 ),
                 SettingsButton(
                   onTap: () => showDonateDialog(context),
                   title: S.of(context).donate,
                   subtitle: S.of(context).donateDescription,
-                  icon: IconNames.gift,
+                  icon: AppIcons.gift,
                 ),
                 SettingsButton(
                   onTap: () {},
                   title: S.of(context).about,
                   subtitle: S.of(context).aboutDescription,
-                  icon: IconNames.info,
+                  icon: AppIcons.info,
                 ),
               ],
             ),
