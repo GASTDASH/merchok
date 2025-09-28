@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class OrdersFilterDialog extends StatefulWidget {
   const OrdersFilterDialog({
@@ -23,6 +26,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
   DateTimeRange? dateRange;
   final TextEditingController endController = TextEditingController();
   final TextEditingController startController = TextEditingController();
+  final ValueNotifier<Festival?> festivalController = ValueNotifier(null);
 
   @override
   void initState() {
@@ -41,6 +45,9 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
 
       final dateTimeRange = previousFilter.dateTimeRange;
       if (dateTimeRange != null) dateRange = dateTimeRange;
+
+      final festival = previousFilter.festival;
+      if (festival != null) festivalController.value = festival;
     }
   }
 
@@ -60,7 +67,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
 
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -114,9 +121,9 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
-            Divider(),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
+            const Divider(),
+            const SizedBox(height: 24),
             Align(
               alignment: AlignmentGeometry.centerLeft,
               child: Text(
@@ -124,7 +131,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                 style: theme.textTheme.titleLarge,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             SizedBox(
               height: 48,
               child: BaseButton.outlined(
@@ -139,7 +146,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                 child: Text(S.of(context).selectPeriod),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             if (dateRange != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -148,16 +155,28 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                     dateRange!.start.toCompactString(),
                     style: theme.textTheme.bodyLarge,
                   ),
-                  Icon(AppIcons.right, size: 16),
+                  const Icon(AppIcons.right, size: 16),
                   Text(
                     dateRange!.end.toCompactString(),
                     style: theme.textTheme.bodyLarge,
                   ),
                 ],
               ),
-            if (dateRange != null) SizedBox(height: 16),
-            Divider(),
-            SizedBox(height: 16),
+            if (dateRange != null) const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 16),
+            Align(
+              alignment: AlignmentGeometry.centerLeft,
+              child: Text(
+                'Выбрать фестиваль:',
+                style: theme.textTheme.titleLarge,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _SelectFestivalMenu(festivalController),
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 16),
             SizedBox(
               height: 48,
               child: BaseButton(
@@ -165,16 +184,17 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
                   OrderFilter(
                     rangeValues: amountRange,
                     dateTimeRange: dateRange,
+                    festival: festivalController.value,
                   ),
                 ),
                 child: Text(S.of(context).apply),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             SizedBox(
               height: 48,
               child: BaseButton.outlined(
-                onTap: () => context.pop(OrderFilter()),
+                onTap: () => context.pop(const OrderFilter()),
                 color: theme.colorScheme.onSurface,
                 child: Text(S.of(context).clearFilter),
               ),
@@ -203,6 +223,53 @@ class _MinMaxTextField extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
+    );
+  }
+}
+
+class _SelectFestivalMenu extends StatelessWidget {
+  const _SelectFestivalMenu(this.controller);
+
+  final ValueNotifier<Festival?> controller;
+
+  Future<List<Festival>> getFestivalsFromOrders(BuildContext context) async {
+    final state = context.read<OrderBloc>().state;
+    if (state is! OrderLoaded) return [];
+    return await compute(
+      (orderList) => _getFestivalsFromOrdersInIsolate(orderList),
+      state.orderList,
+    );
+  }
+
+  List<Festival> _getFestivalsFromOrdersInIsolate(List<Order> orderList) =>
+      {...orderList.map((order) => order.festival)}.toList();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getFestivalsFromOrders(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: LoadingIndicator());
+        }
+        if (snapshot.hasData) {
+          return DropdownMenu(
+            initialSelection: controller.value,
+            width: double.infinity,
+            onSelected: (value) => controller.value = value,
+            dropdownMenuEntries: [
+              ...snapshot.data!.map(
+                (festival) =>
+                    DropdownMenuEntry(value: festival, label: festival.name),
+              ),
+            ],
+          );
+        }
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
+        return Text(S.of(context).loadingError);
+      },
     );
   }
 }
