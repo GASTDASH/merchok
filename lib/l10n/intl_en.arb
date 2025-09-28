@@ -145,5 +145,12 @@
   "pastFestivals": "Past festivals",
   "notEnoughData": "Not enough data",
   "displayType": "Display type:",
-  "noDataToDisplay": "No data to display"
+  "noDataToDisplay": "No data to display",
+  "privacyPolicy": "Privacy policy",
+  "developedBy": "Developed by",
+  "view": "View",
+  "specialThanks": "Special thanks",
+  "jjsh": "JJSH",
+  "gastdash": "GASTDASH",
+  "termsAndConditions": "Terms and conditions"
 }

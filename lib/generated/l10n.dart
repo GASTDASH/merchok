@@ -1258,6 +1258,61 @@ class S {
       args: [],
     );
   }
+
+  /// `Privacy policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Developed by`
+  String get developedBy {
+    return Intl.message(
+      'Developed by',
+      name: 'developedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View`
+  String get view {
+    return Intl.message('View', name: 'view', desc: '', args: []);
+  }
+
+  /// `Special thanks`
+  String get specialThanks {
+    return Intl.message(
+      'Special thanks',
+      name: 'specialThanks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `JJSH`
+  String get jjsh {
+    return Intl.message('JJSH', name: 'jjsh', desc: '', args: []);
+  }
+
+  /// `GASTDASH`
+  String get gastdash {
+    return Intl.message('GASTDASH', name: 'gastdash', desc: '', args: []);
+  }
+
+  /// `Terms and conditions`
+  String get termsAndConditions {
+    return Intl.message(
+      'Terms and conditions',
+      name: 'termsAndConditions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

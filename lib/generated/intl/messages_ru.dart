@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Удалить этот способ оплаты?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
+    "developedBy": MessageLookupByLibrary.simpleMessage("Разработано"),
     "displayType": MessageLookupByLibrary.simpleMessage("Тип отображения:"),
     "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
     "donateDescription": MessageLookupByLibrary.simpleMessage(
@@ -128,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
+    "gastdash": MessageLookupByLibrary.simpleMessage("GASTDASH"),
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "Общая статистика продаж",
     ),
@@ -141,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "icon": MessageLookupByLibrary.simpleMessage("Иконка"),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
+    "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Изменение региональных настроек",
@@ -247,6 +250,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Популярный мерч"),
     "price": MessageLookupByLibrary.simpleMessage("Цена"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "Политика конфиденциальности",
+    ),
     "profit": MessageLookupByLibrary.simpleMessage("Выгода"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Закупочная цена"),
     "receiptDeleting": MessageLookupByLibrary.simpleMessage("Удаление чека"),
@@ -270,8 +276,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Что-то пошло не так",
     ),
     "sorting": MessageLookupByLibrary.simpleMessage("Сортировка"),
+    "specialThanks": MessageLookupByLibrary.simpleMessage(
+      "Особая благодарность",
+    ),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Временно недоступно",
+    ),
+    "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+      "Условия использования",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
@@ -295,6 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Неожиданное состояние",
     ),
     "untitled": MessageLookupByLibrary.simpleMessage("Без названия"),
+    "view": MessageLookupByLibrary.simpleMessage("Посмотреть"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Откуда будем импортировать?",

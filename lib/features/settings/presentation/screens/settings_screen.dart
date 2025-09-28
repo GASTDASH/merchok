@@ -10,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
   Future<void> showDonateDialog(BuildContext context) async {
     return await showAdaptiveDialog(
       context: context,
-      builder: (context) => DonateDialog(),
+      builder: (context) => const DonateDialog(),
     );
   }
 
@@ -20,37 +20,29 @@ class SettingsScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
             sliver: SliverList.list(
               children: [
                 SettingsButton(
-                  onTap: () {
-                    context.push('/theme');
-                  },
+                  onTap: () => context.push('/theme'),
                   title: S.of(context).theme,
                   subtitle: S.of(context).themeDescription,
                   icon: AppIcons.theme,
                 ),
                 SettingsButton(
-                  onTap: () {
-                    context.push('/language');
-                  },
+                  onTap: () => context.push('/language'),
                   title: S.of(context).language,
                   subtitle: S.of(context).languageDescription,
                   icon: AppIcons.language,
                 ),
                 SettingsButton(
-                  onTap: () {
-                    context.push('/export');
-                  },
+                  onTap: () => context.push('/export'),
                   title: S.of(context).dataExport,
                   subtitle: S.of(context).exportDataDescription,
                   icon: AppIcons.downloadPackage,
                 ),
                 SettingsButton(
-                  onTap: () {
-                    context.push('/payment_methods');
-                  },
+                  onTap: () => context.push('/payment_methods'),
                   title: S.of(context).paymentMethods,
                   subtitle: S.of(context).paymentMethodsDescription,
                   icon: AppIcons.creditCard,
@@ -62,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: AppIcons.gift,
                 ),
                 SettingsButton(
-                  onTap: () {},
+                  onTap: () => context.push('/about'),
                   title: S.of(context).about,
                   subtitle: S.of(context).aboutDescription,
                   icon: AppIcons.info,

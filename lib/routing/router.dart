@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:merchok/features/about/about.dart';
 import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
@@ -26,7 +27,7 @@ final router = GoRouter(
             GoRoute(
               name: 'home',
               path: '/home',
-              builder: (context, state) => HomeScreen(),
+              builder: (context, state) => const HomeScreen(),
             ),
           ],
         ),
@@ -35,7 +36,7 @@ final router = GoRouter(
             GoRoute(
               name: 'orders',
               path: '/orders',
-              builder: (context, state) => OrdersScreen(),
+              builder: (context, state) => const OrdersScreen(),
             ),
           ],
         ),
@@ -44,7 +45,7 @@ final router = GoRouter(
             GoRoute(
               name: 'stat',
               path: '/stat',
-              builder: (context, state) => StatScreen(),
+              builder: (context, state) => const StatScreen(),
             ),
           ],
         ),
@@ -53,7 +54,7 @@ final router = GoRouter(
             GoRoute(
               name: 'settings',
               path: '/settings',
-              builder: (context, state) => SettingsScreen(),
+              builder: (context, state) => const SettingsScreen(),
             ),
           ],
         ),
@@ -63,37 +64,58 @@ final router = GoRouter(
       name: 'festival',
       path: '/festival',
       pageBuilder: (context, state) =>
-          SlideDownTransitionPage(state: state, child: FestivalScreen()),
+          SlideDownTransitionPage(state: state, child: const FestivalScreen()),
     ),
     GoRoute(
       name: 'theme',
       path: '/theme',
-      builder: (context, state) => ThemeScreen(),
+      builder: (context, state) => const ThemeScreen(),
     ),
     GoRoute(
       name: 'language',
       path: '/language',
-      builder: (context, state) => LanguageScreen(),
+      builder: (context, state) => const LanguageScreen(),
     ),
     GoRoute(
       name: 'export',
       path: '/export',
-      builder: (context, state) => ExportScreen(),
+      builder: (context, state) => const ExportScreen(),
     ),
     GoRoute(
       name: 'payment_methods',
       path: '/payment_methods',
-      builder: (context, state) => PaymentMethodsScreen(),
+      builder: (context, state) => const PaymentMethodsScreen(),
     ),
     GoRoute(
       name: 'festivals_history',
       path: '/festivals_history',
-      builder: (context, state) => FestivalsHistoryScreen(),
+      builder: (context, state) => const FestivalsHistoryScreen(),
     ),
     GoRoute(
       name: 'popular_merch',
       path: '/popular_merch',
-      builder: (context, state) => PopularMerchScreen(),
+      builder: (context, state) => const PopularMerchScreen(),
+    ),
+    GoRoute(
+      name: 'about',
+      path: '/about',
+      builder: (context, state) => const AboutScreen(),
+      routes: [
+        GoRoute(
+          name: 'privacy_policy',
+          path: 'privacy_policy/:languageCode',
+          builder: (context, state) => PrivacyPolicyScreen(
+            languageCode: state.pathParameters['languageCode']!,
+          ),
+        ),
+        GoRoute(
+          name: 'terms_conditions',
+          path: 'terms_conditions/:languageCode',
+          builder: (context, state) => TermsConditionsScreen(
+            languageCode: state.pathParameters['languageCode']!,
+          ),
+        ),
+      ],
     ),
   ],
 );
@@ -109,12 +131,16 @@ class SlideDownTransitionPage extends CustomTransitionPage<void> {
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             SlideTransition(
-              position: Tween(begin: Offset(0, -1), end: Offset(0, 0)).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeInOutCubic,
-                ),
-              ),
+              position:
+                  Tween(
+                    begin: const Offset(0, -1),
+                    end: const Offset(0, 0),
+                  ).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOutCubic,
+                    ),
+                  ),
               child: child,
             ),
       );

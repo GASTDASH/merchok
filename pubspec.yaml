@@ -29,6 +29,7 @@ dependencies:
   image: ^4.5.4
   image_picker: ^1.2.0
   intl: ^0.20.2
+  markdown_widget: ^2.3.2+8
   provider: ^6.1.5+1
   shared_preferences: ^2.5.3
   skeletonizer: ^2.1.0+1
@@ -48,8 +49,11 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/docs/privacy_policy/
+    - assets/docs/terms_conditions/
     - assets/icons/
     - assets/icons/banks/
+    - assets/images/
 
   fonts:
     - family: Merchok

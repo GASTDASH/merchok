@@ -72,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Delete this payment method?",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
+    "developedBy": MessageLookupByLibrary.simpleMessage("Developed by"),
     "displayType": MessageLookupByLibrary.simpleMessage("Display type:"),
     "donate": MessageLookupByLibrary.simpleMessage("Donate"),
     "donateDescription": MessageLookupByLibrary.simpleMessage(
@@ -124,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
+    "gastdash": MessageLookupByLibrary.simpleMessage("GASTDASH"),
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "General sales statistics",
     ),
@@ -137,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "icon": MessageLookupByLibrary.simpleMessage("Icon"),
     "import": MessageLookupByLibrary.simpleMessage("Import"),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Change regional settings",
@@ -243,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
     "popularMerch": MessageLookupByLibrary.simpleMessage("Popular merch"),
     "price": MessageLookupByLibrary.simpleMessage("Price"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
     "profit": MessageLookupByLibrary.simpleMessage("Profit"),
     "purchasePrice": MessageLookupByLibrary.simpleMessage("Purchase Price"),
     "receiptDeleting": MessageLookupByLibrary.simpleMessage(
@@ -268,8 +272,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Something went wrong",
     ),
     "sorting": MessageLookupByLibrary.simpleMessage("Sorting"),
+    "specialThanks": MessageLookupByLibrary.simpleMessage("Special thanks"),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Temporary unavailable",
+    ),
+    "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+      "Terms and conditions",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "themeDescription": MessageLookupByLibrary.simpleMessage(
@@ -291,6 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
     "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
+    "view": MessageLookupByLibrary.simpleMessage("View"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(
       "Where to import from?",

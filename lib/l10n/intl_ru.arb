@@ -145,5 +145,12 @@
   "notEnoughData": "Не хватает данных",
   "displayType": "Тип отображения:",
   "noDataToDisplay": "Нет данных для отображения",
-  "merchUpdatingImage": "Изменение фотографии мерча"
+  "merchUpdatingImage": "Изменение фотографии мерча",
+  "privacyPolicy": "Политика конфиденциальности",
+  "developedBy": "Разработано",
+  "view": "Посмотреть",
+  "specialThanks": "Особая благодарность",
+  "jjsh": "JJSH",
+  "gastdash": "GASTDASH",
+  "termsAndConditions": "Условия использования"
 }
