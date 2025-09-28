@@ -19,7 +19,7 @@ class AddButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          border: Border.all(),
+          border: Border.all(color: Theme.of(context).colorScheme.onSurface),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
