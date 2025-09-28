@@ -20,7 +20,7 @@ final _lightTheme = ThemeData(
 final _darkTheme = ThemeData(
   primaryColor: _primary,
   primaryColorDark: Color(0xFFE7B73F),
-  disabledColor: Color(0xFFD9D9D9),
+  disabledColor: Color(0xFF8E8E8E),
   cardColor: Color(0xFF33312c),
   scaffoldBackgroundColor: Color(0xFF1a1815),
   fontFamily: 'Montserrat',
