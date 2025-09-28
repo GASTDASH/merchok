@@ -153,5 +153,6 @@
   "jjsh": "JJSH",
   "gastdash": "GASTDASH",
   "termsAndConditions": "Условия использования",
-  "version": "Версия"
+  "version": "Версия",
+  "selectFestival": "Выбрать фестиваль"
 }

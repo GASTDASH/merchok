@@ -264,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sales": MessageLookupByLibrary.simpleMessage("Sales"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "selectFestival": MessageLookupByLibrary.simpleMessage("Select festival"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Select a payment method",
     ),

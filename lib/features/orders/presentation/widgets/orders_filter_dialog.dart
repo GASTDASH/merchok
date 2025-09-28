@@ -168,7 +168,7 @@ class _OrdersFilterDialogState extends State<OrdersFilterDialog> {
             Align(
               alignment: AlignmentGeometry.centerLeft,
               child: Text(
-                'Выбрать фестиваль:',
+                '${S.of(context).selectFestival}:',
                 style: theme.textTheme.titleLarge,
               ),
             ),

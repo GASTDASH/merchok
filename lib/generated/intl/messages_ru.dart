@@ -268,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sales": MessageLookupByLibrary.simpleMessage("Продаж"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
+    "selectFestival": MessageLookupByLibrary.simpleMessage("Выбрать фестиваль"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Выберите способ оплаты",
     ),

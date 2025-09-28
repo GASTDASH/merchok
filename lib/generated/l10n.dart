@@ -1318,6 +1318,16 @@ class S {
   String get version {
     return Intl.message('Version', name: 'version', desc: '', args: []);
   }
+
+  /// `Select festival`
+  String get selectFestival {
+    return Intl.message(
+      'Select festival',
+      name: 'selectFestival',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
