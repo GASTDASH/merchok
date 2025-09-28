@@ -307,6 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Неожиданное состояние",
     ),
     "untitled": MessageLookupByLibrary.simpleMessage("Без названия"),
+    "version": MessageLookupByLibrary.simpleMessage("Версия"),
     "view": MessageLookupByLibrary.simpleMessage("Посмотреть"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(

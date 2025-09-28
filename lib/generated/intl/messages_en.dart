@@ -299,6 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
     "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
+    "version": MessageLookupByLibrary.simpleMessage("Version"),
     "view": MessageLookupByLibrary.simpleMessage("View"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),
     "whereToImportFrom": MessageLookupByLibrary.simpleMessage(

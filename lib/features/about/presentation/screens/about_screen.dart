@@ -1,12 +1,23 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
+
+  Future<String> getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return version;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +51,24 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    'Version 0.2.0_alpha', // translate-me-ignore
-                    style: theme.textTheme.titleMedium,
+                  FutureBuilder(
+                    future: getAppVersion(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          '${S.of(context).version} ${snapshot.data!}',
+                          style: theme.textTheme.titleMedium,
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const LoadingIndicator();
+                      }
+                      if (snapshot.hasError) {
+                        log(snapshot.error.toString());
+                        return Text(S.of(context).loadingError);
+                      }
+                      return Text(S.of(context).noDataToDisplay);
+                    },
                   ),
                   const SizedBox(height: 24),
                   const _DevelopedBy(),
