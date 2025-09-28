@@ -11,13 +11,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
-  Future<String> getAppVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-    return version;
-  }
+  Future<String> getAppVersion() async =>
+      (await PackageInfo.fromPlatform()).version;
 
   @override
   Widget build(BuildContext context) {
