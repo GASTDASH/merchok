@@ -132,6 +132,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "General sales statistics",
     ),
+    "githubRepository": MessageLookupByLibrary.simpleMessage(
+      "GitHub repository",
+    ),
     "goToOrders": MessageLookupByLibrary.simpleMessage("Go to Orders"),
     "goToTheDonatePage": MessageLookupByLibrary.simpleMessage(
       "Go to the tip payment page?",

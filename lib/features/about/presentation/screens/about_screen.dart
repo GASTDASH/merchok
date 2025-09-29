@@ -11,6 +11,37 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          BaseSliverAppBar(title: S.of(context).about),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                spacing: 24,
+                children: [
+                  _TitleInfo(),
+                  _DevelopedBy(),
+                  _PrivacyPolicy(),
+                  _TermsAndConditions(),
+                  _GitHubInfo(),
+                  _SpecialThanks(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TitleInfo extends StatelessWidget {
+  const _TitleInfo();
+
   Future<String> getAppVersion() async =>
       (await PackageInfo.fromPlatform()).version;
 
@@ -18,67 +49,47 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          BaseSliverAppBar(title: S.of(context).about),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    height: 128,
-                    width: 128,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/Merchok Icon.png'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'MerchOK',
-                    style: theme.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  FutureBuilder(
-                    future: getAppVersion(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(
-                          '${S.of(context).version} ${snapshot.data!}',
-                          style: theme.textTheme.titleMedium,
-                        );
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const LoadingIndicator();
-                      }
-                      if (snapshot.hasError) {
-                        log(snapshot.error.toString());
-                        return Text(S.of(context).loadingError);
-                      }
-                      return Text(S.of(context).noDataToDisplay);
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  const _DevelopedBy(),
-                  const SizedBox(height: 24),
-                  const _PrivacyPolicy(),
-                  const SizedBox(height: 24),
-                  const _TermsAndConditions(),
-                  const SizedBox(height: 24),
-                  const _SpecialThanks(),
-                ],
-              ),
+    return Column(
+      children: [
+        Container(
+          height: 128,
+          width: 128,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            image: const DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/Merchok Icon.png'),
             ),
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'MerchOK',
+          style: theme.textTheme.displaySmall?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 6),
+        FutureBuilder(
+          future: getAppVersion(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                '${S.of(context).version} ${snapshot.data!}',
+                style: theme.textTheme.titleMedium,
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const LoadingIndicator();
+            }
+            if (snapshot.hasError) {
+              log(snapshot.error.toString());
+              return Text(S.of(context).loadingError);
+            }
+            return Text(S.of(context).noDataToDisplay);
+          },
+        ),
+      ],
     );
   }
 }
@@ -188,6 +199,34 @@ class _TermsAndConditions extends StatelessWidget {
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GitHubInfo extends StatelessWidget {
+  const _GitHubInfo();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return BaseContainer(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        spacing: 12,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            S.of(context).githubRepository,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const LinkText(url: 'https://github.com/gastdash/merchok'),
         ],
       ),
     );

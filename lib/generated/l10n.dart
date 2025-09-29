@@ -1358,6 +1358,16 @@ class S {
       args: [],
     );
   }
+
+  /// `GitHub repository`
+  String get githubRepository {
+    return Intl.message(
+      'GitHub repository',
+      name: 'githubRepository',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

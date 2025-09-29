@@ -136,6 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalSalesStatistics": MessageLookupByLibrary.simpleMessage(
       "Общая статистика продаж",
     ),
+    "githubRepository": MessageLookupByLibrary.simpleMessage(
+      "GitHub репозиторий",
+    ),
     "goToOrders": MessageLookupByLibrary.simpleMessage("Перейти к заказам"),
     "goToTheDonatePage": MessageLookupByLibrary.simpleMessage(
       "Перейти на страницу оплаты чаевых?",
