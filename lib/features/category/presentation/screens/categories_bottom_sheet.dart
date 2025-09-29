@@ -16,11 +16,20 @@ class CategoriesBottomSheet extends StatefulWidget {
 }
 
 class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
 
     context.read<CategoryBloc>().add(CategoryLoad());
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+
+    super.dispose();
   }
 
   Future<void> showUnableToDeleteDialog(BuildContext context) async {
@@ -88,14 +97,14 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                 spacing: 10,
                 children: [
                   Expanded(
-                    child: SearchTextField(controller: TextEditingController()),
+                    child: SearchTextField(controller: searchController),
                   ),
                   SizedBox(
                     height: 48,
                     width: 48,
                     child: BaseButton(
                       onTap: () async => await showAddCategoryDialog(context),
-                      child: const Icon(AppIcons.add),
+                      child: const Icon(AppIcons.add, color: Colors.white),
                     ),
                   ),
                 ],
@@ -110,43 +119,62 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                 if (state.categoryList.isNotEmpty) {
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    sliver: SliverToBoxAdapter(
-                      child: Wrap(
-                        spacing: 10,
-                        children: List.generate(state.categoryList.length, (
-                          index,
-                        ) {
-                          final category = state.categoryList[index];
-                          return CategoryChip(
-                            category: category,
-                            selected: category == widget.selectedCategory,
-                            onSelected: (unselected) {
-                              if (unselected) return context.pop(category);
-                              return context.pop(const Category.empty());
-                            },
-                            onLongPress: () async {
-                              final merchState = context
-                                  .read<MerchBloc>()
-                                  .state;
-                              if (merchState is! MerchLoaded) return;
-                              final hasMerch = merchState.merchList
-                                  .where(
-                                    (merch) => merch.categoryId == category.id,
-                                  )
-                                  .isNotEmpty;
+                    sliver: ValueListenableBuilder(
+                      valueListenable: searchController,
+                      builder: (context, value, child) {
+                        final categoryList = state.categoryList
+                            .where(
+                              (category) => category.name.contains(value.text),
+                            )
+                            .toList();
 
-                              if (!hasMerch) {
-                                await showDeleteCategoryDialog(
-                                  context,
-                                  category.id,
-                                );
-                              } else {
-                                await showUnableToDeleteDialog(context);
-                              }
-                            },
+                        if (searchController.text.isNotEmpty &&
+                            categoryList.isEmpty) {
+                          return InfoBanner(
+                            text: S.of(context).noMatchingCategories,
                           );
-                        }),
-                      ),
+                        }
+
+                        return SliverToBoxAdapter(
+                          child: Wrap(
+                            spacing: 10,
+                            children: List.generate(categoryList.length, (
+                              index,
+                            ) {
+                              final category = categoryList[index];
+                              return CategoryChip(
+                                category: category,
+                                selected: category == widget.selectedCategory,
+                                onSelected: (unselected) {
+                                  if (unselected) return context.pop(category);
+                                  return context.pop(const Category.empty());
+                                },
+                                onLongPress: () async {
+                                  final merchState = context
+                                      .read<MerchBloc>()
+                                      .state;
+                                  if (merchState is! MerchLoaded) return;
+                                  final hasMerch = merchState.merchList
+                                      .where(
+                                        (merch) =>
+                                            merch.categoryId == category.id,
+                                      )
+                                      .isNotEmpty;
+
+                                  if (!hasMerch) {
+                                    await showDeleteCategoryDialog(
+                                      context,
+                                      category.id,
+                                    );
+                                  } else {
+                                    await showUnableToDeleteDialog(context);
+                                  }
+                                },
+                              );
+                            }),
+                          ),
+                        );
+                      },
                     ),
                   );
                 }

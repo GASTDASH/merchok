@@ -158,5 +158,6 @@
   "updateInReceipts": "Update in receipts?",
   "updateInReceiptsDescription": "This product is present in {ordersCount} checks. Update information about it in all checks? This may also change the statistics.",
   "receiptUpdating": "Updating receipts",
-  "githubRepository": "GitHub repository"
+  "githubRepository": "GitHub repository",
+  "noMatchingCategories": "No matching categories was found"
 }

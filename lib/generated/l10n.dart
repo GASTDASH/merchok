@@ -1368,6 +1368,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No matching categories was found`
+  String get noMatchingCategories {
+    return Intl.message(
+      'No matching categories was found',
+      name: 'noMatchingCategories',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

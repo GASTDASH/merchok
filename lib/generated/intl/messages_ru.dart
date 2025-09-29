@@ -194,6 +194,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noFestivals": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет фестивалей",
     ),
+    "noMatchingCategories": MessageLookupByLibrary.simpleMessage(
+      "Не найдено подходящих категорий",
+    ),
     "noMatchingMerch": MessageLookupByLibrary.simpleMessage(
       "Не найдено подходящего мерча",
     ),
