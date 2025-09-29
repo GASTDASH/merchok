@@ -45,6 +45,14 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     }
   }
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    merchSortingProvider.dispose();
+
+    super.dispose();
+  }
+
   int sortOrdering(int comparison) {
     return merchSortingProvider.merchSorting.sortOrder == SortOrder.asc
         ? comparison
