@@ -1,14 +1,17 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class MerchCard extends StatelessWidget {
@@ -27,9 +30,62 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
 
+  void _editMerch(BuildContext context, {required Merch updatedMerch}) =>
+      context.read<MerchBloc>().add(MerchEdit(merch: updatedMerch));
+
+  Future<void> _handleMerchEdit(
+    BuildContext context, {
+    required Merch updatedMerch,
+  }) async {
+    final theme = Theme.of(context);
+    final orderBloc = context.read<OrderBloc>();
+
+    final orderState = orderBloc.state;
+    if (orderState is! OrderLoaded) {
+      _editMerch(context, updatedMerch: updatedMerch);
+      return;
+    }
+
+    final ordersCount = orderState.orderList
+        .where(
+          (order) => order.orderItems.any((item) => item.merch.id == merch.id),
+        )
+        .length;
+
+    log(ordersCount.toString());
+
+    if (ordersCount == 0) {
+      _editMerch(context, updatedMerch: updatedMerch);
+      return;
+    }
+
+    await showYesNoDialog(
+      context: context,
+      customTitle: Column(
+        spacing: 16,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            S.of(context).updateInReceipts,
+            style: theme.textTheme.titleLarge,
+          ),
+          Text(S.of(context).updateInReceiptsDescription(ordersCount)),
+        ],
+      ),
+      onYes: () {
+        _editMerch(context, updatedMerch: updatedMerch);
+        orderBloc.add(OrderUpdateAllMerch(updatedMerch: updatedMerch));
+        context.pop();
+      },
+      onNo: () {
+        _editMerch(context, updatedMerch: updatedMerch);
+        context.pop();
+      },
+    );
+  }
+
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
-    final bloc = context.read<MerchBloc>();
 
     String? newName = await showEditDialog(
       context: context,
@@ -39,20 +95,28 @@ class MerchCard extends StatelessWidget {
     if (newName == null) return;
     if (newName == '') newName = defaultName;
 
-    bloc.add(MerchEdit(merch: merch.copyWith(name: newName)));
+    if (!context.mounted) return;
+
+    await _handleMerchEdit(
+      context,
+      updatedMerch: merch.copyWith(name: newName),
+    );
   }
 
   Future<void> editPrices(BuildContext context) async {
-    final bloc = context.read<MerchBloc>();
     final newValues = await showChangePriceBottomSheet(context);
     if (newValues == null) return;
 
     final double newPrice = newValues['price']!;
     final double? newPurchasePrice = newValues['purchasePrice'];
 
-    bloc.add(
-      MerchEdit(
-        merch: merch.copyWith(price: newPrice, purchasePrice: newPurchasePrice),
+    if (!context.mounted) return;
+
+    await _handleMerchEdit(
+      context,
+      updatedMerch: merch.copyWith(
+        price: newPrice,
+        purchasePrice: newPurchasePrice,
       ),
     );
   }
@@ -101,8 +165,8 @@ class MerchCard extends StatelessWidget {
 
     return BaseContainer(
       onLongPress: onLongPress,
-      margin: EdgeInsets.symmetric(vertical: 12),
-      padding: EdgeInsets.all(24),
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 12,
@@ -127,7 +191,7 @@ class MerchCard extends StatelessWidget {
                     if (editable)
                       GestureDetector(
                         onTap: () async => await editName(context),
-                        child: Icon(AppIcons.edit, size: 16),
+                        child: const Icon(AppIcons.edit, size: 16),
                       ),
                   ],
                 ),
@@ -135,13 +199,13 @@ class MerchCard extends StatelessWidget {
               onTapDelete != null
                   ? GestureDetector(
                       onTap: onTapDelete,
-                      child: Icon(AppIcons.delete),
+                      child: const Icon(AppIcons.delete),
                     )
                   : GestureDetector(
                       onTap: () async => await changeCategory(context),
                       child: Badge(
                         isLabelVisible: merch.categoryId != null,
-                        child: Icon(AppIcons.tag),
+                        child: const Icon(AppIcons.tag),
                       ),
                     ),
             ],
@@ -188,7 +252,7 @@ class MerchCard extends StatelessWidget {
                   if (editable)
                     GestureDetector(
                       onTap: () async => await editPrices(context),
-                      child: Icon(AppIcons.edit, size: 16),
+                      child: const Icon(AppIcons.edit, size: 16),
                     ),
                 ],
               ),
@@ -216,8 +280,8 @@ class _CartManager extends StatelessWidget {
             // key: ValueKey('cart'),
             onTap: () =>
                 context.read<CartBloc>().add(CartAdd(merchId: merch.id)),
-            padding: EdgeInsets.all(12),
-            child: Icon(AppIcons.shoppingCart, color: Colors.white),
+            padding: const EdgeInsets.all(12),
+            child: const Icon(AppIcons.shoppingCart, color: Colors.white),
           )
         : Row(
             // key: ValueKey('plus_minus'),
@@ -227,13 +291,13 @@ class _CartManager extends StatelessWidget {
               BaseButton(
                 onTap: () =>
                     context.read<CartBloc>().add(CartMinus(merchId: merch.id)),
-                constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                 borderRadius: BorderRadius.circular(100),
                 color: theme.disabledColor,
-                child: Icon(AppIcons.remove, color: Colors.white),
+                child: const Icon(AppIcons.remove, color: Colors.white),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints(minWidth: 50),
+                constraints: const BoxConstraints(minWidth: 50),
                 child: AnimatedSwitcher(
                   duration: Durations.short3,
                   child: Text(
@@ -247,9 +311,9 @@ class _CartManager extends StatelessWidget {
               BaseButton(
                 onTap: () =>
                     context.read<CartBloc>().add(CartPlus(merchId: merch.id)),
-                constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                 borderRadius: BorderRadius.circular(100),
-                child: Icon(AppIcons.add, color: Colors.white),
+                child: const Icon(AppIcons.add, color: Colors.white),
               ),
             ],
           );
@@ -289,7 +353,7 @@ class _ImageBox extends StatelessWidget {
             color: Theme.of(context).disabledColor,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Icon(Icons.broken_image, size: 32),
+          child: const Icon(Icons.broken_image, size: 32),
         ),
       ),
     );
@@ -307,7 +371,7 @@ class _ImageBox extends StatelessWidget {
           Container(
             height: double.infinity,
             width: double.infinity,
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: theme.disabledColor,
               borderRadius: BorderRadius.circular(16),
@@ -360,7 +424,7 @@ class _ImageIconButton extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           border: Border.all(color: Colors.white),
         ),
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         child: FittedBox(child: Icon(icon, color: Colors.white)),
       ),
     );

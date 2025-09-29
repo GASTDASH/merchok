@@ -33,7 +33,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.delete, size: 32),
+              const Icon(Icons.delete, size: 32),
               Text(
                 S.of(context).unableToDeleteCategory,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -61,7 +61,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     BuildContext context,
     String categoryId,
   ) async {
-    return await showDeleteDialog(
+    return await showYesNoDialog(
       context: context,
       message: S.of(context).deleteThisCategory,
       onYes: () {
@@ -87,13 +87,13 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
               child: Row(
                 spacing: 10,
                 children: [
-                  Expanded(child: SearchTextField()),
+                  const Expanded(child: SearchTextField()),
                   SizedBox(
                     height: 48,
                     width: 48,
                     child: BaseButton(
                       onTap: () async => await showAddCategoryDialog(context),
-                      child: Icon(AppIcons.add),
+                      child: const Icon(AppIcons.add),
                     ),
                   ),
                 ],
@@ -120,7 +120,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                             selected: category == widget.selectedCategory,
                             onSelected: (unselected) {
                               if (unselected) return context.pop(category);
-                              return context.pop(Category.empty());
+                              return context.pop(const Category.empty());
                             },
                             onLongPress: () async {
                               final merchState = context
@@ -152,9 +152,9 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
               } else if (state is CategoryError) {
                 return ErrorBanner(message: state.error.toString());
               } else if (state is CategoryInitial) {
-                return SliverFillRemaining();
+                return const SliverFillRemaining();
               }
-              return UnexpectedStateBanner();
+              return const UnexpectedStateBanner();
             },
           ),
         ],

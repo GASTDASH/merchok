@@ -23,7 +23,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   Future<void> deletePaymentMethod(
     BuildContext context,
     String paymentMethodId,
-  ) async => await showDeleteDialog(
+  ) async => await showYesNoDialog(
     context: context,
     message: S.of(context).deleteThisPaymentMethod,
     onNo: () => context.pop(),
@@ -40,7 +40,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
 
     final paymentMethod = await showDialog(
       context: context,
-      builder: (context) => EditPaymentMethodDialog(),
+      builder: (context) => const EditPaymentMethodDialog(),
     );
     if (paymentMethod == null) return;
 
@@ -73,7 +73,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             actions: [
               IconButton(
                 onPressed: () async => await addPaymentMethod(context),
-                icon: Icon(AppIcons.add),
+                icon: const Icon(AppIcons.add),
               ),
             ],
           ),
@@ -82,7 +82,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             sliver: BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
               builder: (context, state) {
                 if (state is PaymentMethodLoading) {
-                  return LoadingBanner();
+                  return const LoadingBanner();
                 } else if (state is PaymentMethodLoaded) {
                   if (state.paymentMethodList.isNotEmpty) {
                     return SliverList.builder(
@@ -108,9 +108,9 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 } else if (state is PaymentMethodError) {
                   return ErrorBanner(message: state.error.toString());
                 } else if (state is PaymentMethodInitial) {
-                  return SliverFillRemaining();
+                  return const SliverFillRemaining();
                 }
-                return UnexpectedStateBanner();
+                return const UnexpectedStateBanner();
               },
             ),
           ),

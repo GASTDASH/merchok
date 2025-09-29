@@ -154,5 +154,8 @@
   "gastdash": "GASTDASH",
   "termsAndConditions": "Условия использования",
   "version": "Версия",
-  "selectFestival": "Выбрать фестиваль"
+  "selectFestival": "Выбрать фестиваль",
+  "updateInReceipts": "Обновить в чеках?",
+  "updateInReceiptsDescription": "Этот товар присутствует в {ordersCount} чеках. Обновить информацию о нём во всех чеках? Это также может изменить статистику.",
+  "receiptUpdating": "Обновление чеков"
 }

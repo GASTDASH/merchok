@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class DeleteDialog extends StatelessWidget {
-  const DeleteDialog({
+class YesNoDialog extends StatelessWidget {
+  const YesNoDialog({
     super.key,
-    required this.message,
+    this.customTitle,
+    this.message,
     required this.onYes,
     required this.onNo,
-  });
+  }) : assert(customTitle == null || message == null),
+       assert(customTitle != null || message != null);
 
-  final String message;
+  final Widget? customTitle;
+  final String? message;
   final VoidCallback onNo;
   final VoidCallback onYes;
 
@@ -20,18 +23,20 @@ class DeleteDialog extends StatelessWidget {
 
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           spacing: 16,
           children: [
-            Center(
-              child: Text(
-                message,
-                style: theme.textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-            ),
+            message != null
+                ? Center(
+                    child: Text(
+                      message!,
+                      style: theme.textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : customTitle!,
             SizedBox(
               height: 48,
               child: Row(
@@ -60,13 +65,18 @@ class DeleteDialog extends StatelessWidget {
   }
 }
 
-Future<dynamic> showDeleteDialog({
+Future<dynamic> showYesNoDialog({
   required BuildContext context,
-  required String message,
+  Widget? customTitle,
+  String? message,
   required VoidCallback onYes,
   required VoidCallback onNo,
 }) async => await showDialog(
   context: context,
-  builder: (context) =>
-      DeleteDialog(message: message, onYes: onYes, onNo: onNo),
+  builder: (context) => YesNoDialog(
+    customTitle: customTitle,
+    message: message,
+    onYes: onYes,
+    onNo: onNo,
+  ),
 );

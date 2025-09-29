@@ -52,7 +52,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
   }
 
   Future<void> deleteFestival(BuildContext context, String festivalId) async {
-    return await showDeleteDialog(
+    return await showYesNoDialog(
       context: context,
       message: S.of(context).deleteThisFestival,
       onYes: () {
@@ -89,7 +89,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
               IconButton(
                 tooltip: S.of(context).add,
                 onPressed: () async => await addFestival(context),
-                icon: Icon(AppIcons.add, size: 32),
+                icon: const Icon(AppIcons.add, size: 32),
               ),
             ],
           ),
@@ -104,7 +104,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
                   return SliverList.separated(
                     itemCount: state.festivalList.length,
                     separatorBuilder: (context, index) =>
-                        Divider(indent: 32, endIndent: 32, height: 0),
+                        const Divider(indent: 32, endIndent: 32, height: 0),
                     itemBuilder: (context, index) {
                       final cubit = context.watch<CurrentFestivalCubit>();
                       final festival = state.festivalList[index];
@@ -123,9 +123,9 @@ class _FestivalScreenState extends State<FestivalScreen> {
               } else if (state is FestivalError) {
                 return ErrorBanner(message: state.error.toString());
               } else if (state is FestivalInitial) {
-                return SliverFillRemaining();
+                return const SliverFillRemaining();
               }
-              return UnexpectedStateBanner();
+              return const UnexpectedStateBanner();
             },
           ),
         ],

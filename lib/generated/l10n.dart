@@ -1328,6 +1328,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Update in receipts?`
+  String get updateInReceipts {
+    return Intl.message(
+      'Update in receipts?',
+      name: 'updateInReceipts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This product is present in {ordersCount} checks. Update information about it in all checks? This may also change the statistics.`
+  String updateInReceiptsDescription(Object ordersCount) {
+    return Intl.message(
+      'This product is present in $ordersCount checks. Update information about it in all checks? This may also change the statistics.',
+      name: 'updateInReceiptsDescription',
+      desc: '',
+      args: [ordersCount],
+    );
+  }
+
+  /// `Updating receipts`
+  String get receiptUpdating {
+    return Intl.message(
+      'Updating receipts',
+      name: 'receiptUpdating',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

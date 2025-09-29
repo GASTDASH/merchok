@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
         body: CustomScrollView(
           controller: scrollController,
           slivers: [
-            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
             BlocBuilder<MerchBloc, MerchState>(
               builder: (context, state) {
                 if (state is MerchLoaded && state.merchList.isNotEmpty) {
@@ -105,13 +105,13 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                     ),
                   );
                 } else {
-                  return SliverToBoxAdapter(child: SizedBox.shrink());
+                  return const SliverToBoxAdapter(child: SizedBox.shrink());
                 }
               },
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
             SliverPadding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 24),
               sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
             ),
             ListenableBuilder(
@@ -200,9 +200,9 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                   } else if (state is MerchError) {
                     return ErrorBanner(message: state.error.toString());
                   } else if (state is MerchInitial) {
-                    return SliverFillRemaining();
+                    return const SliverFillRemaining();
                   }
-                  return UnexpectedStateBanner();
+                  return const UnexpectedStateBanner();
                 },
               ),
             ),
@@ -223,7 +223,7 @@ class _CategoriesWrap extends StatelessWidget {
             spacing: 8,
             children: [
               if (state.message != null) Text(state.message!),
-              LoadingIndicator(),
+              const LoadingIndicator(),
             ],
           );
         } else if (state is CategoryLoaded) {
@@ -263,7 +263,10 @@ class _CategoriesWrap extends StatelessWidget {
                         if (category.isEmpty) return cubit.clearCategory();
                         cubit.selectCategory(category);
                       },
-                      constraints: BoxConstraints(minWidth: 72, maxWidth: 72),
+                      constraints: const BoxConstraints(
+                        minWidth: 72,
+                        maxWidth: 72,
+                      ),
                       child: Text(
                         S.of(context).all,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -274,23 +277,23 @@ class _CategoriesWrap extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
               ],
             );
           }
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         } else if (state is CategoryError) {
           return Row(
             spacing: 8,
             children: [
               Text(S.of(context).loadingError),
-              Icon(Icons.warning_outlined),
+              const Icon(Icons.warning_outlined),
             ],
           );
         } else if (state is CategoryInitial) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }
@@ -316,7 +319,7 @@ class _NoMerchBanner extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Expanded(
             child: Align(
               alignment: Alignment.topCenter,
@@ -326,7 +329,7 @@ class _NoMerchBanner extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 128),
+          const SizedBox(height: 128),
         ],
       ),
     );
@@ -338,7 +341,7 @@ class _AddButtons extends StatelessWidget {
     return showModalBottomSheet(
       useRootNavigator: true,
       context: context,
-      builder: (context) => ImportBottomSheet(),
+      builder: (context) => const ImportBottomSheet(),
     );
   }
 
@@ -377,7 +380,7 @@ class _MerchList extends StatelessWidget {
   Future<void> showDeleteMerchDialog(
     BuildContext context,
     String merchId,
-  ) async => await showDeleteDialog(
+  ) async => await showYesNoDialog(
     context: context,
     message: S.of(context).deleteThisMerch,
     onYes: () {
@@ -393,12 +396,12 @@ class _MerchList extends StatelessWidget {
       context: context,
       builder: (context) => Dialog(
         child: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(AppIcons.delete, size: 32),
+              const Icon(AppIcons.delete, size: 32),
               Text(
                 S.of(context).unableToDeleteMerch,
                 style: theme.textTheme.titleMedium,

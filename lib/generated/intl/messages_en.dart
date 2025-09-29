@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(ordersCount) =>
+      "This product is present in ${ordersCount} checks. Update information about it in all checks? This may also change the statistics.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
@@ -257,6 +260,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Importing the receipt list",
     ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Saving the receipt"),
+    "receiptUpdating": MessageLookupByLibrary.simpleMessage(
+      "Updating receipts",
+    ),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
     "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
@@ -300,6 +306,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unexpectedState": MessageLookupByLibrary.simpleMessage("Unexpected state"),
     "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
+    "updateInReceipts": MessageLookupByLibrary.simpleMessage(
+      "Update in receipts?",
+    ),
+    "updateInReceiptsDescription": m0,
     "version": MessageLookupByLibrary.simpleMessage("Version"),
     "view": MessageLookupByLibrary.simpleMessage("View"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("What to export?"),

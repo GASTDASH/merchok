@@ -154,5 +154,8 @@
   "gastdash": "GASTDASH",
   "termsAndConditions": "Terms and conditions",
   "version": "Version",
-  "selectFestival": "Select festival"
+  "selectFestival": "Select festival",
+  "updateInReceipts": "Update in receipts?",
+  "updateInReceiptsDescription": "This product is present in {ordersCount} checks. Update information about it in all checks? This may also change the statistics.",
+  "receiptUpdating": "Updating receipts"
 }

@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
+  static String m0(ordersCount) =>
+      "Этот товар присутствует в ${ordersCount} чеках. Обновить информацию о нём во всех чеках? Это также может изменить статистику.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("О приложении"),
@@ -261,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Импортирование чеков",
     ),
     "receiptSaving": MessageLookupByLibrary.simpleMessage("Сохранение чека"),
+    "receiptUpdating": MessageLookupByLibrary.simpleMessage("Обновление чеков"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
     "revenue": MessageLookupByLibrary.simpleMessage("Выручка"),
@@ -308,6 +312,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Неожиданное состояние",
     ),
     "untitled": MessageLookupByLibrary.simpleMessage("Без названия"),
+    "updateInReceipts": MessageLookupByLibrary.simpleMessage(
+      "Обновить в чеках?",
+    ),
+    "updateInReceiptsDescription": m0,
     "version": MessageLookupByLibrary.simpleMessage("Версия"),
     "view": MessageLookupByLibrary.simpleMessage("Посмотреть"),
     "whatToExport": MessageLookupByLibrary.simpleMessage("Что экспортировать?"),

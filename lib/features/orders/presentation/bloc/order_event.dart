@@ -44,3 +44,12 @@ final class OrderImport extends OrderEvent {
   @override
   List<Object> get props => super.props..addAll([orderList]);
 }
+
+final class OrderUpdateAllMerch extends OrderEvent {
+  const OrderUpdateAllMerch({required this.updatedMerch});
+
+  final Merch updatedMerch;
+
+  @override
+  List<Object> get props => super.props..addAll([updatedMerch]);
+}

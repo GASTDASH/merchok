@@ -31,7 +31,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderLoading(message: S.current.receiptSaving));
         await _orderRepository.addOrder(
           Order(
-            id: Uuid().v4(),
+            id: const Uuid().v4(),
             orderItems: event.cartItems
                 .map(
                   (cartItem) => OrderItem.fromCartItem(
@@ -65,6 +65,34 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         for (var order in event.orderList) {
           await _orderRepository.addOrder(order);
         }
+        add(OrderLoad());
+      } catch (e) {
+        emit(OrderError(error: e));
+      }
+    });
+    on<OrderUpdateAllMerch>((event, emit) async {
+      try {
+        emit(OrderLoading(message: S.current.receiptUpdating));
+
+        final orderList = await _orderRepository.getOrders();
+
+        for (var order in orderList) {
+          bool needsUpdate = false;
+          final updatedOrderItems = order.orderItems.map((item) {
+            if (item.merch.id == event.updatedMerch.id) {
+              needsUpdate = true;
+              return item.copyWith(merch: event.updatedMerch);
+            }
+            return item;
+          }).toList();
+
+          if (needsUpdate) {
+            await _orderRepository.addOrder(
+              order.copyWith(orderItems: updatedOrderItems),
+            );
+          }
+        }
+
         add(OrderLoad());
       } catch (e) {
         emit(OrderError(error: e));
