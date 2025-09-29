@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
-class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key, this.controller, this.onChanged});
+class SearchTextField extends StatefulWidget {
+  const SearchTextField({super.key, required this.controller, this.onChanged});
 
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final ValueChanged<String>? onChanged;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  State<SearchTextField> createState() => _SearchTextFieldState();
+}
 
+class _SearchTextFieldState extends State<SearchTextField> {
+  bool hasText = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 48,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: theme.hintColor.withValues(alpha: 0.1),
+        color: Theme.of(context).hintColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -25,15 +30,27 @@ class SearchTextField extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              onChanged: onChanged,
-              controller: controller,
+              onChanged: widget.onChanged,
+              controller: widget.controller
+                ..addListener(() {
+                  if (widget.controller.text.isNotEmpty && !hasText) {
+                    setState(() => hasText = true);
+                  } else if (widget.controller.text.isEmpty && hasText) {
+                    setState(() => hasText = false);
+                  }
+                }),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: S.of(context).search,
               ),
             ),
           ),
-          Icon(AppIcons.search),
+          hasText
+              ? GestureDetector(
+                  onTap: () => widget.controller.text = '',
+                  child: const Icon(Icons.close_rounded),
+                )
+              : const Icon(AppIcons.search),
         ],
       ),
     );
