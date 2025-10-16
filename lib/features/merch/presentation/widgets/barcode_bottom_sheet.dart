@@ -13,14 +13,9 @@ class BarcodeBottomSheet extends StatelessWidget {
   final Merch merch;
 
   Future<String?> _save() async {
-    String svg = Barcode.dataMatrix().toSvg(merch.id);
-    svg = svg.replaceFirst(
-      '<svg viewBox="0.00000 0.00000 200.00000 80.00000" xmlns="http://www.w3.org/2000/svg">',
-      '<svg viewBox="0.00000 0.00000 200.00000 110.00000" xmlns="http://www.w3.org/2000/svg">',
-    );
-    svg = svg.replaceFirst(
-      '<text style="fill: #000000; font-family: &quot;monospace&quot;; font-size: 16.00000px" x="0.00000" y="0.00000"></text>',
-      '<text style="fill: #000000; font-family: sans-serif; font-size: 15px" x="50%" y="82%" dominant-baseline="middle" text-anchor="middle">${merch.name}</text><text style="fill: #000000; font-family: sans-serif; font-size: 12px" x="50%" y="95%" dominant-baseline="middle" text-anchor="middle">${merch.price.truncateIfInt()}</text>',
+    final svg = BarcodeUtils.addMerchInfo(
+      svg: Barcode.dataMatrix().toSvg(merch.id),
+      merch: merch,
     );
     final bytes = utf8.encode(svg);
     return await FileSaver.instance.saveAs(

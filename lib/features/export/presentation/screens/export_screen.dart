@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:barcode/barcode.dart';
 import 'package:csv/csv.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +145,29 @@ class _ExportScreenState extends State<ExportScreen> {
     );
   }
 
+  Export _exportCodes(List<Merch> merchList) async {
+    List<Uint8List> svgList = [];
+    for (Merch merch in merchList) {
+      svgList.add(
+        utf8.encode(
+          BarcodeUtils.addMerchInfo(
+            svg: Barcode.dataMatrix().toSvg(merch.id),
+            merch: merch,
+          ),
+        ),
+      );
+    }
+
+    final mergedSvg = BarcodeUtils.merge(svgList);
+
+    return await FileSaver.instance.saveAs(
+      name: 'codes',
+      bytes: mergedSvg,
+      fileExtension: 'svg',
+      mimeType: MimeType.svg,
+    );
+  }
+
   Future<void> _showSuccessfullySavedDialog(
     BuildContext context,
     String path,
@@ -174,6 +199,40 @@ class _ExportScreenState extends State<ExportScreen> {
                 //   text: S.of(context).allAtOnce,
                 //   icon: IconNames.puzzle,
                 // ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    BlocBuilder<MerchBloc, MerchState>(
+                      builder: (context, state) {
+                        return Expanded(
+                          child: Skeletonizer(
+                            enabled: state is! MerchLoaded,
+                            ignoreContainers: true,
+                            child: ExportCard(
+                              onTap:
+                                  state is MerchLoaded &&
+                                      state.merchList.isNotEmpty
+                                  ? () async {
+                                      final path = await _exportCodes(
+                                        state.merchList,
+                                      );
+                                      if (path == null) return;
+                                      if (!context.mounted) return;
+                                      _showSuccessfullySavedDialog(
+                                        context,
+                                        path,
+                                      );
+                                    }
+                                  : null,
+                              text: 'QR-коды',
+                              icon: IconNames.discount,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 12),
                 Row(
                   spacing: 10,
