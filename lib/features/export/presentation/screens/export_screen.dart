@@ -146,12 +146,10 @@ class _ExportScreenState extends State<ExportScreen> {
   Future<void> _showSuccessfullySavedDialog(
     BuildContext context,
     String path,
-  ) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => SuccessfullySavedDialog(path: path),
-    );
-  }
+  ) async => await showDialog(
+    context: context,
+    builder: (context) => SuccessfullySavedDialog(path: path),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +174,7 @@ class _ExportScreenState extends State<ExportScreen> {
                 //   text: S.of(context).allAtOnce,
                 //   icon: IconNames.puzzle,
                 // ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   spacing: 10,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,7 +235,7 @@ class _ExportScreenState extends State<ExportScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   spacing: 10,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

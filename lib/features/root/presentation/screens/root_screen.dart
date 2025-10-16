@@ -17,12 +17,15 @@ class _RootScreenState extends State<RootScreen> {
   Future<void> showCartBottomSheet(BuildContext context) {
     return showBaseDraggableBottomSheet(
       context: context,
-      builder: (context) => CartBottomSheet(),
+      builder: (context) => const CartBottomSheet(),
     );
   }
 
   Future<void> showExitDialog(BuildContext context) {
-    return showDialog(context: context, builder: (context) => ExitDialog());
+    return showDialog(
+      context: context,
+      builder: (context) => const ExitDialog(),
+    );
   }
 
   @override
@@ -40,15 +43,16 @@ class _RootScreenState extends State<RootScreen> {
         child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: FestivalAppBar(),
+            appBar: const FestivalAppBar(),
             body: widget.navigationShell,
             floatingActionButton: SizedBox(
               height: 64,
               width: 64,
               child: FloatingActionButton(
+                heroTag: const ValueKey('cart'),
                 onPressed: () => showCartBottomSheet(context),
                 backgroundColor: theme.primaryColor,
-                child: Icon(
+                child: const Icon(
                   AppIcons.shoppingBag,
                   size: 32,
                   color: Colors.white,

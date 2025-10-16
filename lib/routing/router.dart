@@ -9,6 +9,7 @@ import 'package:merchok/features/language/language.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/root/root.dart';
+import 'package:merchok/features/scanner/scanner.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/stat/stat.dart';
 import 'package:merchok/features/theme/theme.dart';
@@ -116,6 +117,11 @@ final router = GoRouter(
           ),
         ),
       ],
+    ),
+    GoRoute(
+      name: 'scan',
+      path: '/scan',
+      builder: (context, state) => const ScannerScreen(),
     ),
   ],
 );

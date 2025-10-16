@@ -23,6 +23,14 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   final TextEditingController searchController = TextEditingController();
 
   @override
+  void dispose() {
+    searchController.dispose();
+    merchSortingProvider.dispose();
+
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -31,6 +39,15 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<MerchBloc>().add(MerchLoad());
     context.read<CartBloc>().add(CartLoad());
   }
+
+  Future<String?> scan(BuildContext context) async =>
+      await context.push<String?>('/scan');
+
+  Future<void> showScannedMerchNotFoundDialog(BuildContext context) async =>
+      await showDialog(
+        context: context,
+        builder: (context) => const NotFoundDialog(),
+      );
 
   void sortMerchList(List<Merch> merchList) {
     switch (merchSortingProvider.merchSorting.sortBy) {
@@ -43,14 +60,6 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
       default:
         break;
     }
-  }
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    merchSortingProvider.dispose();
-
-    super.dispose();
   }
 
   int sortOrdering(int comparison) {
@@ -99,123 +108,188 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     return BlocProvider(
       create: (context) => CurrentCategoryCubit(),
       child: Scaffold(
-        body: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
-            BlocBuilder<MerchBloc, MerchState>(
-              builder: (context, state) {
-                if (state is MerchLoaded && state.merchList.isNotEmpty) {
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    sliver: SliverToBoxAdapter(
-                      child: SearchTextField(controller: searchController),
-                    ),
-                  );
-                } else {
-                  return const SliverToBoxAdapter(child: SizedBox.shrink());
-                }
-              },
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
-            SliverPadding(
-              padding: const EdgeInsetsGeometry.symmetric(horizontal: 24),
-              sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
-            ),
-            ListenableBuilder(
-              listenable: Listenable.merge([
-                merchSortingProvider,
-                searchController,
-              ]),
-              builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
-                listener: (context, state) {
-                  if (state is MerchLoaded) restoreScrollPosition();
-                },
-                listenWhen: (previous, current) {
-                  if (current is MerchLoading && previous is MerchLoaded) {
-                    saveScrollPosition();
-                  }
-                  return true;
-                },
-                builder: (context, state) {
-                  if (state is MerchLoading) {
-                    return LoadingBanner(message: state.message);
-                  } else if (state is MerchLoaded) {
-                    if (state.merchList.isNotEmpty) {
-                      final cartState = context.watch<CartBloc>().state;
-                      final selectedCategory = context
-                          .watch<CurrentCategoryCubit>()
-                          .state;
-
-                      List<Merch> merchList = filterMerchList(
-                        state.merchList,
-                        selectedCategory,
-                      );
-
-                      sortMerchList(merchList);
-
-                      // Если пустой список при какой-то фильтрации
-                      if (merchList.isEmpty &&
-                          (searchController.text.isNotEmpty ||
-                              selectedCategory != null)) {
-                        return InfoBanner(text: S.of(context).noMatchingMerch);
-                      }
+        body: Stack(
+          children: [
+            CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                BlocBuilder<MerchBloc, MerchState>(
+                  builder: (context, state) {
+                    if (state is MerchLoaded && state.merchList.isNotEmpty) {
                       return SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
-                        sliver: SliverMainAxisGroup(
-                          slivers: [
-                            SliverToBoxAdapter(
-                              child: Row(
-                                children: [
-                                  SortButton(
-                                    onTap: () => merchSortingProvider
-                                        .changeMerchSorting(),
-                                    icons: [
-                                      merchSortingProvider
-                                          .merchSorting
-                                          .sortBy
-                                          .icon,
-                                      merchSortingProvider
-                                          .merchSorting
-                                          .sortOrder
-                                          .icon,
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            _MerchList(
-                              merchList: merchList,
-                              cartItems: [
-                                if (cartState is CartLoaded &&
-                                    cartState.cartItems.isNotEmpty)
-                                  ...cartState.cartItems,
-                              ],
-                            ),
-                            SliverPadding(
-                              padding: const EdgeInsets.only(
-                                top: 12,
-                                bottom: 128,
-                              ),
-                              sliver: SliverToBoxAdapter(child: _AddButtons()),
-                            ),
-                          ],
+                        sliver: SliverToBoxAdapter(
+                          child: SearchTextField(controller: searchController),
                         ),
                       );
                     } else {
-                      return _NoMerchBanner();
+                      return const SliverToBoxAdapter(child: SizedBox.shrink());
                     }
-                  } else if (state is MerchError) {
-                    return ErrorBanner(message: state.error.toString());
-                  } else if (state is MerchInitial) {
-                    return const SliverFillRemaining();
-                  }
-                  return const UnexpectedStateBanner();
-                },
-              ),
+                  },
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverPadding(
+                  padding: const EdgeInsetsGeometry.symmetric(horizontal: 24),
+                  sliver: SliverToBoxAdapter(child: _CategoriesWrap()),
+                ),
+                ListenableBuilder(
+                  listenable: Listenable.merge([
+                    merchSortingProvider,
+                    searchController,
+                  ]),
+                  builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
+                    listener: (context, state) {
+                      if (state is MerchLoaded) restoreScrollPosition();
+                    },
+                    listenWhen: (previous, current) {
+                      if (current is MerchLoading && previous is MerchLoaded) {
+                        saveScrollPosition();
+                      }
+                      return true;
+                    },
+                    builder: (context, state) {
+                      if (state is MerchLoading) {
+                        return LoadingBanner(message: state.message);
+                      } else if (state is MerchLoaded) {
+                        if (state.merchList.isNotEmpty) {
+                          final cartState = context.watch<CartBloc>().state;
+                          final selectedCategory = context
+                              .watch<CurrentCategoryCubit>()
+                              .state;
+
+                          List<Merch> merchList = filterMerchList(
+                            state.merchList,
+                            selectedCategory,
+                          );
+
+                          sortMerchList(merchList);
+
+                          // Если пустой список при какой-то фильтрации
+                          if (merchList.isEmpty &&
+                              (searchController.text.isNotEmpty ||
+                                  selectedCategory != null)) {
+                            return InfoBanner(
+                              text: S.of(context).noMatchingMerch,
+                            );
+                          }
+                          return SliverPadding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            sliver: SliverMainAxisGroup(
+                              slivers: [
+                                _SortRow(
+                                  merchSortingProvider: merchSortingProvider,
+                                ),
+                                _MerchList(
+                                  merchList: merchList,
+                                  cartItems: [
+                                    if (cartState is CartLoaded &&
+                                        cartState.cartItems.isNotEmpty)
+                                      ...cartState.cartItems,
+                                  ],
+                                ),
+                                SliverPadding(
+                                  padding: const EdgeInsets.only(
+                                    top: 12,
+                                    bottom: 128,
+                                  ),
+                                  sliver: SliverToBoxAdapter(
+                                    child: _AddButtons(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return _NoMerchBanner();
+                        }
+                      } else if (state is MerchError) {
+                        return ErrorBanner(message: state.error.toString());
+                      } else if (state is MerchInitial) {
+                        return const SliverFillRemaining();
+                      }
+                      return const UnexpectedStateBanner();
+                    },
+                  ),
+                ),
+              ],
+            ),
+            BlocBuilder<MerchBloc, MerchState>(
+              builder: (context, state) {
+                if (state is MerchLoaded && state.merchList.isNotEmpty) {
+                  return Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: SizedBox(
+                        height: 64,
+                        width: 64,
+                        child: FloatingActionButton(
+                          heroTag: const ValueKey('scan'),
+                          onPressed: () async {
+                            final String? id = await scan(context);
+                            if (id == null) return;
+
+                            final sortedMerchList =
+                                merchSortingProvider.merchSorting.sortOrder ==
+                                    SortOrder.asc
+                                ? state.merchList
+                                : state.merchList.reversed.toList();
+
+                            final merchIndex = sortedMerchList.indexWhere(
+                              (merch) => merch.id == id,
+                            );
+                            if (merchIndex == -1) {
+                              if (!context.mounted) return;
+                              return showScannedMerchNotFoundDialog(context);
+                            }
+
+                            scrollController.animateTo(
+                              merchIndex * 274 - 84,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeOutQuart,
+                            );
+                          },
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.white,
+                          child: const Icon(
+                            Icons.qr_code_scanner_rounded,
+                            size: 32,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _SortRow extends StatelessWidget {
+  const _SortRow({required this.merchSortingProvider});
+
+  final MerchSortingProvider merchSortingProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Row(
+        children: [
+          SortButton(
+            onTap: () => merchSortingProvider.changeMerchSorting(),
+            icons: [
+              merchSortingProvider.merchSorting.sortBy.icon,
+              merchSortingProvider.merchSorting.sortOrder.icon,
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -30,60 +30,6 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
 
-  void _editMerch(BuildContext context, {required Merch updatedMerch}) =>
-      context.read<MerchBloc>().add(MerchEdit(merch: updatedMerch));
-
-  Future<void> _handleMerchEdit(
-    BuildContext context, {
-    required Merch updatedMerch,
-  }) async {
-    final theme = Theme.of(context);
-    final orderBloc = context.read<OrderBloc>();
-
-    final orderState = orderBloc.state;
-    if (orderState is! OrderLoaded) {
-      _editMerch(context, updatedMerch: updatedMerch);
-      return;
-    }
-
-    final ordersCount = orderState.orderList
-        .where(
-          (order) => order.orderItems.any((item) => item.merch.id == merch.id),
-        )
-        .length;
-
-    log(ordersCount.toString());
-
-    if (ordersCount == 0) {
-      _editMerch(context, updatedMerch: updatedMerch);
-      return;
-    }
-
-    await showYesNoDialog(
-      context: context,
-      customTitle: Column(
-        spacing: 16,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            S.of(context).updateInReceipts,
-            style: theme.textTheme.titleLarge,
-          ),
-          Text(S.of(context).updateInReceiptsDescription(ordersCount)),
-        ],
-      ),
-      onYes: () {
-        _editMerch(context, updatedMerch: updatedMerch);
-        orderBloc.add(OrderUpdateAllMerch(updatedMerch: updatedMerch));
-        context.pop();
-      },
-      onNo: () {
-        _editMerch(context, updatedMerch: updatedMerch);
-        context.pop();
-      },
-    );
-  }
-
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
 
@@ -159,6 +105,68 @@ class MerchCard extends StatelessWidget {
     ),
   );
 
+  Future<dynamic> showBarcodeBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      builder: (context) => BarcodeBottomSheet(merch: merch),
+    );
+  }
+
+  void _editMerch(BuildContext context, {required Merch updatedMerch}) =>
+      context.read<MerchBloc>().add(MerchEdit(merch: updatedMerch));
+
+  Future<void> _handleMerchEdit(
+    BuildContext context, {
+    required Merch updatedMerch,
+  }) async {
+    final theme = Theme.of(context);
+    final orderBloc = context.read<OrderBloc>();
+
+    final orderState = orderBloc.state;
+    if (orderState is! OrderLoaded) {
+      _editMerch(context, updatedMerch: updatedMerch);
+      return;
+    }
+
+    final ordersCount = orderState.orderList
+        .where(
+          (order) => order.orderItems.any((item) => item.merch.id == merch.id),
+        )
+        .length;
+
+    log(ordersCount.toString());
+
+    if (ordersCount == 0) {
+      _editMerch(context, updatedMerch: updatedMerch);
+      return;
+    }
+
+    await showYesNoDialog(
+      context: context,
+      customTitle: Column(
+        spacing: 16,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            S.of(context).updateInReceipts,
+            style: theme.textTheme.titleLarge,
+          ),
+          Text(S.of(context).updateInReceiptsDescription(ordersCount)),
+        ],
+      ),
+      onYes: () {
+        _editMerch(context, updatedMerch: updatedMerch);
+        orderBloc.add(OrderUpdateAllMerch(updatedMerch: updatedMerch));
+        context.pop();
+      },
+      onNo: () {
+        _editMerch(context, updatedMerch: updatedMerch);
+        context.pop();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -196,18 +204,28 @@ class MerchCard extends StatelessWidget {
                   ],
                 ),
               ),
-              onTapDelete != null
-                  ? GestureDetector(
-                      onTap: onTapDelete,
-                      child: const Icon(AppIcons.delete),
-                    )
-                  : GestureDetector(
+              if (onTapDelete != null)
+                GestureDetector(
+                  onTap: onTapDelete,
+                  child: const Icon(AppIcons.delete),
+                )
+              else
+                Row(
+                  spacing: 16,
+                  children: [
+                    GestureDetector(
+                      onTap: () => showBarcodeBottomSheet(context),
+                      child: const Icon(Icons.qr_code_rounded),
+                    ),
+                    GestureDetector(
                       onTap: () async => await changeCategory(context),
                       child: Badge(
                         isLabelVisible: merch.categoryId != null,
                         child: const Icon(AppIcons.tag),
                       ),
                     ),
+                  ],
+                ),
             ],
           ),
           Row(

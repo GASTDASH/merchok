@@ -14,7 +14,7 @@ class SuccessfullySavedDialog extends StatelessWidget {
 
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32),
         child: Column(
           spacing: 32,
           mainAxisSize: MainAxisSize.min,

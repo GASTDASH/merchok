@@ -16,4 +16,5 @@ export 'loading_indicator.dart';
 export 'search_text_field.dart';
 export 'settings_radio_option.dart';
 export 'sort_button.dart';
+export 'successfully_saved_dialog.dart';
 export 'yes_no_dialog.dart';
