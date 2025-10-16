@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:merchok/generated/l10n.dart';
 
+// translate-me-ignore-all-file
 class NotFoundDialog extends StatelessWidget {
   const NotFoundDialog({super.key});
 
@@ -14,13 +16,11 @@ class NotFoundDialog extends StatelessWidget {
           children: [
             const Icon(Icons.qr_code_rounded, size: 48),
             Text(
-              'Отсканированный мерч не найден',
+              S.of(context).scannedMerchNotFound,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
-            const Text(
-              'Попробуйте ещё раз, или, возможно, у вас нет этого мерча',
-            ),
+            Text(S.of(context).tryAgainOrNoMerch),
           ],
         ),
       ),

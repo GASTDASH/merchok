@@ -277,6 +277,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "sales": MessageLookupByLibrary.simpleMessage("Продаж"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
+    "scannedMerchNotFound": MessageLookupByLibrary.simpleMessage(
+      "Отсканированный мерч не найден",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
     "selectFestival": MessageLookupByLibrary.simpleMessage("Выбрать фестиваль"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
@@ -305,6 +308,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "totalOrders": MessageLookupByLibrary.simpleMessage("Всего заказов"),
     "totalSales": MessageLookupByLibrary.simpleMessage("Всего продаж"),
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
+    "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
+      "Попробуйте ещё раз, или, возможно, у вас нет этого мерча",
+    ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Невозможно удалить используемую категорию",
     ),

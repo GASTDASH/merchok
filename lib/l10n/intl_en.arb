@@ -159,5 +159,7 @@
   "updateInReceiptsDescription": "This product is present in {ordersCount} checks. Update information about it in all checks? This may also change the statistics.",
   "receiptUpdating": "Updating receipts",
   "githubRepository": "GitHub repository",
-  "noMatchingCategories": "No matching categories was found"
+  "noMatchingCategories": "No matching categories was found",
+  "scannedMerchNotFound": "The scanned merch was not found",
+  "tryAgainOrNoMerch": "Try again, or maybe you don't have this merch."
 }

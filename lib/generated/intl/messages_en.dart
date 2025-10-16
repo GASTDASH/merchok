@@ -275,6 +275,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "sales": MessageLookupByLibrary.simpleMessage("Sales"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
+    "scannedMerchNotFound": MessageLookupByLibrary.simpleMessage(
+      "The scanned merch was not found",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectFestival": MessageLookupByLibrary.simpleMessage("Select festival"),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
@@ -301,6 +304,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "totalOrders": MessageLookupByLibrary.simpleMessage("Total orders"),
     "totalSales": MessageLookupByLibrary.simpleMessage("Total sales"),
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
+    "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
+      "Try again, or maybe you don\'t have this merch.",
+    ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a category that is being used",
     ),

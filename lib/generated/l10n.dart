@@ -1378,6 +1378,26 @@ class S {
       args: [],
     );
   }
+
+  /// `The scanned merch was not found`
+  String get scannedMerchNotFound {
+    return Intl.message(
+      'The scanned merch was not found',
+      name: 'scannedMerchNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again, or maybe you don't have this merch.`
+  String get tryAgainOrNoMerch {
+    return Intl.message(
+      'Try again, or maybe you don\'t have this merch.',
+      name: 'tryAgainOrNoMerch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

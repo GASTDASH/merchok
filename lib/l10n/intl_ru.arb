@@ -159,5 +159,7 @@
   "updateInReceiptsDescription": "Этот товар присутствует в {ordersCount} чеках. Обновить информацию о нём во всех чеках? Это также может изменить статистику.",
   "receiptUpdating": "Обновление чеков",
   "githubRepository": "GitHub репозиторий",
-  "noMatchingCategories": "Не найдено подходящих категорий"
+  "noMatchingCategories": "Не найдено подходящих категорий",
+  "scannedMerchNotFound": "Отсканированный мерч не найден",
+  "tryAgainOrNoMerch": "Попробуйте ещё раз, или, возможно, у вас нет этого мерча"
 }
