@@ -144,6 +144,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "icon": MessageLookupByLibrary.simpleMessage("Icon"),
     "import": MessageLookupByLibrary.simpleMessage("Import"),
+    "importError": MessageLookupByLibrary.simpleMessage(
+      "An error occurred during import",
+    ),
+    "importErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Make sure that the file name has not been changed.",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
     "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),

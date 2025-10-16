@@ -148,6 +148,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "icon": MessageLookupByLibrary.simpleMessage("Иконка"),
     "import": MessageLookupByLibrary.simpleMessage("Импортировать"),
+    "importError": MessageLookupByLibrary.simpleMessage(
+      "Произошла ошибка при импорте",
+    ),
+    "importErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Убедитесь, что название файла не было изменено",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),

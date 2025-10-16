@@ -161,5 +161,7 @@
   "githubRepository": "GitHub репозиторий",
   "noMatchingCategories": "Не найдено подходящих категорий",
   "scannedMerchNotFound": "Отсканированный мерч не найден",
-  "tryAgainOrNoMerch": "Попробуйте ещё раз, или, возможно, у вас нет этого мерча"
+  "tryAgainOrNoMerch": "Попробуйте ещё раз, или, возможно, у вас нет этого мерча",
+  "importError": "Произошла ошибка при импорте",
+  "importErrorDescription": "Убедитесь, что название файла не было изменено"
 }

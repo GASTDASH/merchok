@@ -130,10 +130,10 @@ class ImportBottomSheet extends StatelessWidget {
               spacing: 16,
               children: [
                 Text(
-                  'Произошла ошибка при импорте',
+                  S.of(context).importError,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                const Text('Убедитесь, что название файла не было изменено'),
+                Text(S.of(context).importErrorDescription),
               ],
             ),
           ),

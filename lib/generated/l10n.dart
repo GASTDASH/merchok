@@ -1398,6 +1398,26 @@ class S {
       args: [],
     );
   }
+
+  /// `An error occurred during import`
+  String get importError {
+    return Intl.message(
+      'An error occurred during import',
+      name: 'importError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make sure that the file name has not been changed.`
+  String get importErrorDescription {
+    return Intl.message(
+      'Make sure that the file name has not been changed.',
+      name: 'importErrorDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
