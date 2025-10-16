@@ -51,7 +51,7 @@ class _ExportScreenState extends State<ExportScreen> {
           merch.description ?? '',
           merch.price.toString(),
           merch.purchasePrice.toString(),
-          merch.image,
+          merch.thumbnail,
           merch.categoryId ?? '',
         ],
       ),

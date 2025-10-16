@@ -32,13 +32,13 @@ class ImportBottomSheet extends StatelessWidget {
     final file = File(result.files.first.path!);
     final fileName = file.path.split('/').last.split('-').first;
 
-    final table = CsvToListConverter().convert(await file.readAsString());
+    final table = const CsvToListConverter().convert(await file.readAsString());
 
     switch (fileName) {
       case 'merch':
         final List<Merch> merchList = [
           ...table.skip(1).map((row) {
-            final List? image = jsonDecode(row[5].toString());
+            final List? thumbnail = jsonDecode(row[5].toString());
 
             return Merch(
               id: row[0],
@@ -46,8 +46,8 @@ class ImportBottomSheet extends StatelessWidget {
               description: row[2] != '' ? row[2] : null,
               price: double.parse(row[3].toString()),
               purchasePrice: double.tryParse(row[4].toString()),
-              image: image != null
-                  ? Uint8List.fromList(image.cast<int>())
+              thumbnail: thumbnail != null
+                  ? Uint8List.fromList(thumbnail.cast<int>())
                   : null,
               categoryId: row[6] != '' ? row[6] : null,
             );
@@ -119,6 +119,27 @@ class ImportBottomSheet extends StatelessWidget {
     }
   }
 
+  Future<void> _showImportErrorDialog(BuildContext context) async =>
+      await showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 16,
+              children: [
+                Text(
+                  'Произошла ошибка при импорте',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Text('Убедитесь, что название файла не было изменено'),
+              ],
+            ),
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -129,7 +150,7 @@ class ImportBottomSheet extends StatelessWidget {
         borderRadius: BorderRadius.circular(32),
       ),
       height: 300,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         spacing: 12,
         children: [
@@ -162,7 +183,12 @@ class ImportBottomSheet extends StatelessWidget {
                 Expanded(
                   child: BaseContainer(
                     onTap: () async {
-                      await _import(context);
+                      try {
+                        await _import(context);
+                      } catch (e) {
+                        if (!context.mounted) return;
+                        _showImportErrorDialog(context);
+                      }
 
                       if (context.mounted) context.pop();
                     },
