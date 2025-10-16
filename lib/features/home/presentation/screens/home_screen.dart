@@ -10,6 +10,7 @@ import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
   final TextEditingController searchController = TextEditingController();
+  final ListController listController = ListController();
 
   @override
   void dispose() {
@@ -187,6 +189,8 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                                         cartState.cartItems.isNotEmpty)
                                       ...cartState.cartItems,
                                   ],
+                                  scrollController: scrollController,
+                                  listController: listController,
                                 ),
                                 SliverPadding(
                                   padding: const EdgeInsets.only(
@@ -227,16 +231,13 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                         child: FloatingActionButton(
                           heroTag: const ValueKey('scan'),
                           onPressed: () async {
+                            final currentCategoryCubit = context
+                                .read<CurrentCategoryCubit>();
+
                             final String? id = await scan(context);
                             if (id == null) return;
 
-                            final sortedMerchList =
-                                merchSortingProvider.merchSorting.sortOrder ==
-                                    SortOrder.asc
-                                ? state.merchList
-                                : state.merchList.reversed.toList();
-
-                            final merchIndex = sortedMerchList.indexWhere(
+                            final merchIndex = state.merchList.indexWhere(
                               (merch) => merch.id == id,
                             );
                             if (merchIndex == -1) {
@@ -244,10 +245,26 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                               return showScannedMerchNotFoundDialog(context);
                             }
 
-                            scrollController.animateTo(
-                              merchIndex * 274 - 84,
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeOutQuart,
+                            if (searchController.text.isNotEmpty ||
+                                currentCategoryCubit.state != null) {
+                              searchController.clear();
+                              currentCategoryCubit.clearCategory();
+
+                              await Future.delayed(
+                                const Duration(milliseconds: 300),
+                              );
+                            }
+
+                            listController.animateToItem(
+                              index: merchIndex,
+                              scrollController: scrollController,
+                              duration: (estimatedDistance) =>
+                                  const Duration(milliseconds: 500),
+                              curve: (estimatedDistance) => Curves.easeOutQuart,
+                              alignment: 0.5,
+                              rect: merchIndex == state.merchList.length - 1
+                                  ? const Rect.fromLTRB(0, 0, 0, 100)
+                                  : null,
                             );
                           },
                           shape: const CircleBorder(),
@@ -454,10 +471,17 @@ class _AddButtons extends StatelessWidget {
 }
 
 class _MerchList extends StatelessWidget {
-  const _MerchList({required this.merchList, required this.cartItems});
+  const _MerchList({
+    required this.merchList,
+    required this.cartItems,
+    required this.scrollController,
+    required this.listController,
+  });
 
   final List<CartItem> cartItems;
   final List<Merch> merchList;
+  final ScrollController scrollController;
+  final ListController listController;
 
   Future<void> showDeleteMerchDialog(
     BuildContext context,
@@ -498,7 +522,8 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.builder(
+    return SuperSliverList.builder(
+      listController: listController,
       itemCount: merchList.length,
       itemBuilder: (context, index) {
         final merch = merchList[index];
