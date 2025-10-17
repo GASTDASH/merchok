@@ -42,17 +42,27 @@ class BarcodeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(32),
       ),
       height: 400,
       child: Column(
-        spacing: 32,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BarcodeWidget(data: merch.id, barcode: Barcode.dataMatrix()),
+          const SizedBox(height: 8),
+          Text(
+            merch.name,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(merch.price.truncateIfInt(), style: theme.textTheme.titleMedium),
+          const SizedBox(height: 16),
           FittedBox(
             child: BaseButton(
               onTap: () async {
@@ -62,10 +72,7 @@ class BarcodeBottomSheet extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(
-                  S.of(context).save,
-                  style: const TextStyle(fontSize: 18),
-                ),
+                child: Text(S.of(context).save),
               ),
             ),
           ),
