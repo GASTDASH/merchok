@@ -36,12 +36,14 @@ Future<void> _initHive() async {
     ..registerAdapter(FestivalAdapter())
     ..registerAdapter(PaymentMethodAdapter())
     ..registerAdapter(OrderItemAdapter())
-    ..registerAdapter(OrderAdapter());
+    ..registerAdapter(OrderAdapter())
+    ..registerAdapter(CategoryAdapter());
 
   await Hive.openBox<Merch>(HiveBoxesNames.merches);
   await Hive.openBox<Festival>(HiveBoxesNames.festivals);
   await Hive.openBox<PaymentMethod>(HiveBoxesNames.paymentMethods);
   await Hive.openBox<Order>(HiveBoxesNames.orders);
+  await Hive.openBox<Category>(HiveBoxesNames.categories);
 }
 
 Future<void> _registerRepositories() async {
@@ -65,7 +67,7 @@ Future<void> _initTalker() async {
 
   Bloc.observer = TalkerBlocObserver(
     talker: talker,
-    settings: TalkerBlocLoggerSettings(
+    settings: const TalkerBlocLoggerSettings(
       printTransitions: false,
       printChanges: true,
       printStateFullData: false,

@@ -2,5 +2,6 @@ abstract class HiveBoxesNames {
   static const String festivals = 'festivals',
       merches = 'merches',
       orders = 'orders',
-      paymentMethods = 'paymentMethods';
+      paymentMethods = 'paymentMethods',
+      categories = 'categories';
 }

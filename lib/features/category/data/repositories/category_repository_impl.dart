@@ -1,20 +1,22 @@
+import 'package:hive/hive.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/category/category.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
-  final Map<String, Category> categories = {};
+  final Box<Category> categoryBox = Hive.box(HiveBoxesNames.categories);
 
   @override
   Future<void> addCategory(Category category) async =>
-      categories.addAll({category.id: category});
+      categoryBox.put(category.id, category);
 
   @override
   Future<void> deleteCategory(String categoryId) async =>
-      categories.remove(categoryId);
+      categoryBox.delete(categoryId);
 
   @override
   Future<void> editCategory(Category category) async =>
-      categories.addAll({category.id: category});
+      categoryBox.put(category.id, category);
 
   @override
-  Future<List<Category>> getCategories() async => categories.values.toList();
+  Future<List<Category>> getCategories() async => categoryBox.values.toList();
 }
