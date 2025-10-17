@@ -28,7 +28,6 @@ class OrderAdapter extends TypeAdapter<Order> {
   @override
   void write(BinaryWriter writer, Order obj) {
     writer
-      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,9 +37,7 @@ class OrderAdapter extends TypeAdapter<Order> {
       ..writeByte(3)
       ..write(obj.festival)
       ..writeByte(4)
-      ..write(obj.paymentMethod)
-      ..writeByte(5)
-      ..write(obj.totalEarned);
+      ..write(obj.paymentMethod);
   }
 
   @override
