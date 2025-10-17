@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -12,17 +11,24 @@ class BarcodeBottomSheet extends StatelessWidget {
 
   final Merch merch;
 
-  Future<String?> _save() async {
+  Future<String?> _save(BuildContext context) async {
     final svg = BarcodeUtils.addMerchInfo(
       svg: Barcode.dataMatrix().toSvg(merch.id),
       merch: merch,
     );
-    final bytes = utf8.encode(svg);
+
+    final bytes = await SvgUtils.svgToPng(
+      SvgStringLoader(svg),
+      context,
+      width: 200,
+      height: 110,
+    );
+
     return await FileSaver.instance.saveAs(
       name: 'code-${merch.id}',
       bytes: bytes,
-      fileExtension: 'svg',
-      mimeType: MimeType.svg,
+      fileExtension: 'png',
+      mimeType: MimeType.png,
     );
   }
 
@@ -50,7 +56,7 @@ class BarcodeBottomSheet extends StatelessWidget {
           FittedBox(
             child: BaseButton(
               onTap: () async {
-                final path = await _save();
+                final path = await _save(context);
                 if (path == null || !context.mounted) return;
                 _showSuccessfullySavedDialog(context, path);
               },

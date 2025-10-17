@@ -6,6 +6,7 @@ import 'package:csv/csv.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/export/export.dart';
@@ -157,14 +158,25 @@ class _ExportScreenState extends State<ExportScreen> {
         ),
       );
     }
-
     final mergedSvg = BarcodeUtils.merge(svgList);
+
+    final RegExp widthRegex = RegExp(r'width="([\d.]+)"');
+    final RegExp heightRegex = RegExp(r'height="([\d.]+)"');
+    final wMatch = widthRegex.firstMatch(utf8.decode(mergedSvg));
+    final hMatch = heightRegex.firstMatch(utf8.decode(mergedSvg));
+
+    final bytes = await SvgUtils.svgToPng(
+      SvgBytesLoader(mergedSvg),
+      context,
+      width: double.tryParse(wMatch?.group(1) ?? '')?.toInt() ?? 200,
+      height: double.tryParse(hMatch?.group(1) ?? '')?.toInt() ?? 200,
+    );
 
     return await FileSaver.instance.saveAs(
       name: 'codes',
-      bytes: mergedSvg,
-      fileExtension: 'svg',
-      mimeType: MimeType.svg,
+      bytes: bytes,
+      fileExtension: 'png',
+      mimeType: MimeType.png,
     );
   }
 
