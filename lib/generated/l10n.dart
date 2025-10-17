@@ -1418,6 +1418,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Barcodes`
+  String get barcodes {
+    return Intl.message('Barcodes', name: 'barcodes', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -163,5 +163,6 @@
   "scannedMerchNotFound": "The scanned merch was not found",
   "tryAgainOrNoMerch": "Try again, or maybe you don't have this merch.",
   "importError": "An error occurred during import",
-  "importErrorDescription": "Make sure that the file name has not been changed."
+  "importErrorDescription": "Make sure that the file name has not been changed.",
+  "barcodes": "Barcodes"
 }

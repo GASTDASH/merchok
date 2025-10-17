@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("Применить"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
+    "barcodes": MessageLookupByLibrary.simpleMessage("Штрихкоды"),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Загрузка корзины"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "categoryCreating": MessageLookupByLibrary.simpleMessage(

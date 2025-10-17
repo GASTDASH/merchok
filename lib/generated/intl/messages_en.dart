@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("Apply"),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "barcodes": MessageLookupByLibrary.simpleMessage("Barcodes"),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Loading the cart"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "categoryCreating": MessageLookupByLibrary.simpleMessage(

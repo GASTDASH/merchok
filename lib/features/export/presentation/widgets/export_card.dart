@@ -21,7 +21,7 @@ class ExportCard extends StatelessWidget {
     return BaseContainer(
       onTap: onTap,
       height: 230,
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,12 @@ class ExportCard extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Expanded(child: SvgPicture.asset(icon, width: double.infinity)),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: SvgPicture.asset(icon, width: double.infinity),
+            ),
+          ),
         ],
       ),
     );

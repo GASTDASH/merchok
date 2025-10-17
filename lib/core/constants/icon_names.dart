@@ -10,6 +10,7 @@ abstract class IconNames {
       money = 'assets/icons/Money.svg',
       presentation = 'assets/icons/Presentation.svg',
       puzzle = 'assets/icons/Puzzle.svg',
+      qr = 'assets/icons/QR.svg',
       success = 'assets/icons/Success.svg',
           // BANKS
           alfabank =

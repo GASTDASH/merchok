@@ -224,8 +224,8 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                     }
                                   : null,
-                              text: 'QR-коды',
-                              icon: IconNames.discount,
+                              text: S.of(context).barcodes,
+                              icon: IconNames.qr,
                             ),
                           ),
                         );
