@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "barcodes": MessageLookupByLibrary.simpleMessage("Barcodes"),
+    "cameraPermissionDenied": MessageLookupByLibrary.simpleMessage(
+      "To scan the merch codes, the app must have access to the camera.",
+    ),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Loading the cart"),
     "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "categoryCreating": MessageLookupByLibrary.simpleMessage(

@@ -10,6 +10,7 @@ import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -234,6 +235,26 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                             final currentCategoryCubit = context
                                 .read<CurrentCategoryCubit>();
 
+                            if (!await Permission.camera.request().isGranted) {
+                              if (!context.mounted) return;
+                              return showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(32),
+                                    child: Text(
+                                      S.of(context).cameraPermissionDenied,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleLarge,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+
+                            if (!context.mounted) return;
                             final String? id = await scan(context);
                             if (id == null) return;
 

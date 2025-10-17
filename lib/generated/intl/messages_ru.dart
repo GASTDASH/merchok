@@ -45,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "barcodes": MessageLookupByLibrary.simpleMessage("Штрихкоды"),
+    "cameraPermissionDenied": MessageLookupByLibrary.simpleMessage(
+      "Для сканирования кодов мерча приложение должно иметь доступ к камере",
+    ),
     "cartLoading": MessageLookupByLibrary.simpleMessage("Загрузка корзины"),
     "cash": MessageLookupByLibrary.simpleMessage("Наличными"),
     "categoryCreating": MessageLookupByLibrary.simpleMessage(

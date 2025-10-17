@@ -1423,6 +1423,16 @@ class S {
   String get barcodes {
     return Intl.message('Barcodes', name: 'barcodes', desc: '', args: []);
   }
+
+  /// `To scan the merch codes, the app must have access to the camera.`
+  String get cameraPermissionDenied {
+    return Intl.message(
+      'To scan the merch codes, the app must have access to the camera.',
+      name: 'cameraPermissionDenied',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
