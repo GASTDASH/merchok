@@ -13,11 +13,13 @@ class BaseContainer extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.inkWellAnimation = false,
+    this.foregroundDecoration,
   });
 
   final List<BoxShadow>? boxShadow;
   final Widget? child;
   final double elevation;
+  final Decoration? foregroundDecoration;
   final double? height;
   final bool inkWellAnimation;
   final EdgeInsetsGeometry? margin;
@@ -66,6 +68,7 @@ class BaseContainer extends StatelessWidget {
         padding: padding,
         margin: margin,
         decoration: boxDecoration,
+        foregroundDecoration: foregroundDecoration,
         child: child,
       ),
     );

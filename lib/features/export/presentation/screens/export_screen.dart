@@ -14,6 +14,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -227,6 +228,20 @@ class _ExportScreenState extends State<ExportScreen> {
                                   : null,
                               text: S.of(context).barcodes,
                               icon: IconNames.qr,
+                              foregroundDecoration:
+                                  RotatedCornerDecoration.withColor(
+                                    color: Colors.redAccent,
+                                    badgeSize: const Size(64, 64),
+                                    badgeCornerRadius: const Radius.circular(
+                                      24,
+                                    ),
+                                    textSpan: TextSpan(
+                                      text: S.of(context).new1,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                             ),
                           ),
                         );

@@ -190,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "minus10": MessageLookupByLibrary.simpleMessage("-10"),
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
+    "new1": MessageLookupByLibrary.simpleMessage("New"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
     "noCategories": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any categories yet",

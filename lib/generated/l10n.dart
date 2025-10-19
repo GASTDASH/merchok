@@ -1433,6 +1433,11 @@ class S {
       args: [],
     );
   }
+
+  /// `New`
+  String get new1 {
+    return Intl.message('New', name: 'new1', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

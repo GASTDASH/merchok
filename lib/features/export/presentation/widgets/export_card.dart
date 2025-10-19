@@ -8,8 +8,10 @@ class ExportCard extends StatelessWidget {
     required this.text,
     required this.icon,
     this.onTap,
+    this.foregroundDecoration,
   });
 
+  final Decoration? foregroundDecoration;
   final String icon;
   final VoidCallback? onTap;
   final String text;
@@ -22,6 +24,8 @@ class ExportCard extends StatelessWidget {
       onTap: onTap,
       height: 230,
       padding: const EdgeInsets.all(24),
+      foregroundDecoration: foregroundDecoration,
+
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
