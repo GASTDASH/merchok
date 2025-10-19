@@ -18,7 +18,7 @@ class BarcodeBottomSheet extends StatelessWidget {
     );
 
     final bytes = await SvgUtils.svgToPng(
-      SvgStringLoader(svg),
+      SvgStringLoader(SvgUtils.addBackground(svg)),
       context,
       width: 200,
       height: 110,

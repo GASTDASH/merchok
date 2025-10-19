@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/merch/merch.dart';
 
@@ -15,49 +12,18 @@ abstract class BarcodeUtils {
         '<text style="fill: #000000; font-family: sans-serif; font-size: 15px" y="82%" dominant-baseline="middle">${merch.name}</text><text style="fill: #000000; font-family: sans-serif; font-size: 12px" y="95%" dominant-baseline="middle">${merch.price.truncateIfInt()}</text>',
       );
 
-  static Uint8List merge(
-    List<Uint8List> svgFiles, {
+  static String merge(
+    List<String> svgStrings, {
     int columns = 7, // 7 колонок и 9 строк = A4
     double spacing = 20,
   }) {
-    if (svgFiles.isEmpty) {
-      throw ArgumentError('Список svgFiles не может быть пустым');
-    }
+    assert(svgStrings.isNotEmpty, 'Список svgStrings не может быть пустым');
 
-    final svgStrings = svgFiles.map((e) => utf8.decode(e)).toList();
+    final size = SvgUtils.getSize(svgStrings.first);
 
-    // Извлекаем viewBox или размеры каждого SVG (по возможности)
-    final RegExp viewBoxRegex = RegExp(r'viewBox="([\d.\s-]+)"');
-    final RegExp widthRegex = RegExp(r'width="([\d.]+)"');
-    final RegExp heightRegex = RegExp(r'height="([\d.]+)"');
-
-    final List<Map<String, double>> sizes = [];
-
-    for (final svg in svgStrings) {
-      double width = 200, height = 110;
-      final vbMatch = viewBoxRegex.firstMatch(svg);
-      if (vbMatch != null) {
-        final parts = vbMatch
-            .group(1)!
-            .split(RegExp(r'\s+'))
-            .map(double.parse)
-            .toList();
-        width = parts[2];
-        height = parts[3];
-      } else {
-        final wMatch = widthRegex.firstMatch(svg);
-        final hMatch = heightRegex.firstMatch(svg);
-        if (wMatch != null)
-          width = double.tryParse(wMatch.group(1) ?? '') ?? 100;
-        if (hMatch != null)
-          height = double.tryParse(hMatch.group(1) ?? '') ?? 100;
-      }
-      sizes.add({'width': width, 'height': height});
-    }
-
-    final double itemWidth = sizes.first['width']!;
-    final double itemHeight = sizes.first['height']!;
-    final int rows = (svgFiles.length / columns).ceil();
+    final double itemWidth = size.width;
+    final double itemHeight = size.height;
+    final int rows = (svgStrings.length / columns).ceil();
 
     final double totalWidth = columns * itemWidth + (columns - 1) * spacing;
     final double totalHeight = rows * itemHeight + (rows - 1) * spacing;
@@ -83,6 +49,6 @@ abstract class BarcodeUtils {
 
     buffer.writeln('</svg>');
 
-    return Uint8List.fromList(utf8.encode(buffer.toString()));
+    return buffer.toString();
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:barcode/barcode.dart';
 import 'package:csv/csv.dart';
@@ -147,10 +146,10 @@ class _ExportScreenState extends State<ExportScreen> {
   }
 
   Export _exportCodes(List<Merch> merchList) async {
-    List<Uint8List> svgList = [];
+    List<String> svgList = [];
     for (Merch merch in merchList) {
       svgList.add(
-        utf8.encode(
+        SvgUtils.addBackground(
           BarcodeUtils.addMerchInfo(
             svg: Barcode.dataMatrix().toSvg(merch.id),
             merch: merch,
@@ -159,17 +158,13 @@ class _ExportScreenState extends State<ExportScreen> {
       );
     }
     final mergedSvg = BarcodeUtils.merge(svgList);
-
-    final RegExp widthRegex = RegExp(r'width="([\d.]+)"');
-    final RegExp heightRegex = RegExp(r'height="([\d.]+)"');
-    final wMatch = widthRegex.firstMatch(utf8.decode(mergedSvg));
-    final hMatch = heightRegex.firstMatch(utf8.decode(mergedSvg));
+    final size = SvgUtils.getSize(mergedSvg);
 
     final bytes = await SvgUtils.svgToPng(
-      SvgBytesLoader(mergedSvg),
+      SvgStringLoader(mergedSvg),
       context,
-      width: double.tryParse(wMatch?.group(1) ?? '')?.toInt() ?? 200,
-      height: double.tryParse(hMatch?.group(1) ?? '')?.toInt() ?? 200,
+      width: size.width.toInt(),
+      height: size.height.toInt(),
     );
 
     return await FileSaver.instance.saveAs(
@@ -205,12 +200,6 @@ class _ExportScreenState extends State<ExportScreen> {
                   style: theme.textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
-                // SizedBox(height: 24),
-                // ExportCard(
-                //   onTap: () {},
-                //   text: S.of(context).allAtOnce,
-                //   icon: IconNames.puzzle,
-                // ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
