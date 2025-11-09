@@ -9,6 +9,7 @@ import 'package:merchok/features/current_category/current_category.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
     context.read<CartBloc>().add(CartLoad());
+    context.read<StockBloc>().add(const StockLoad());
   }
 
   Future<String?> scan(BuildContext context) async =>

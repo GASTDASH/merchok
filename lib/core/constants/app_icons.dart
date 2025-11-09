@@ -36,5 +36,6 @@ abstract class AppIcons {
       delete = IconData(0xe91e, fontFamily: _fontFamily),
       user = IconData(0xe91f, fontFamily: _fontFamily),
       theme = IconData(0xe920, fontFamily: _fontFamily),
-      language = IconData(0xe921, fontFamily: _fontFamily);
+      language = IconData(0xe921, fontFamily: _fontFamily),
+      cube = IconData(0xe922, fontFamily: _fontFamily);
 }

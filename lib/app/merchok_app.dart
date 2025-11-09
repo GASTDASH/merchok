@@ -11,6 +11,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:merchok/routing/router.dart';
@@ -64,6 +65,10 @@ class MerchokApp extends StatelessWidget {
           create: (context) =>
               CategoryBloc(categoryRepository: GetIt.I<CategoryRepository>()),
         ),
+        BlocProvider(
+          create: (context) =>
+              StockBloc(stockRepository: GetIt.I<StockRepository>()),
+        ),
       ],
       child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
         selector: (state) => state.themeStyle,
@@ -78,7 +83,7 @@ class MerchokApp extends StatelessWidget {
                 locale: languageCode != null
                     ? Locale.fromSubtags(languageCode: languageCode)
                     : null,
-                localizationsDelegates: [
+                localizationsDelegates: const [
                   S.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
