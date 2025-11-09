@@ -14,6 +14,7 @@ import 'package:merchok/features/settings/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:yandex_mobileads/mobile_ads.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ Future<void> main() async {
   await _initHive();
   _initTalker();
   await _registerRepositories();
+  await MobileAds.initialize();
 
   runApp(const MerchokApp());
 }

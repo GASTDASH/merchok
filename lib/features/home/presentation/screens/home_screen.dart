@@ -12,6 +12,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
+import 'package:yandex_mobileads/mobile_ads.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,9 +22,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
+  final ListController listController = ListController();
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
   final TextEditingController searchController = TextEditingController();
-  final ListController listController = ListController();
 
   @override
   void dispose() {
@@ -104,6 +105,17 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
         .where((merch) => merch.name.contains(searchController.text))
         .toList();
     return filteredMerchList;
+  }
+
+  BannerAd createBanner(BuildContext context) {
+    return BannerAd(
+      adUnitId: 'demo-banner-yandex',
+      adSize: BannerAdSize.inline(
+        width: MediaQuery.of(context).size.width.round() - 48,
+        maxHeight: 300,
+      ),
+      adRequest: const AdRequest(),
+    );
   }
 
   @override
@@ -194,13 +206,22 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                                   listController: listController,
                                 ),
                                 SliverPadding(
-                                  padding: const EdgeInsets.only(
-                                    top: 12,
-                                    bottom: 128,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 24,
                                   ),
                                   sliver: SliverToBoxAdapter(
                                     child: _AddButtons(),
                                   ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: RepaintBoundary(
+                                    child: AdWidget(
+                                      bannerAd: createBanner(context),
+                                    ),
+                                  ),
+                                ),
+                                const SliverToBoxAdapter(
+                                  child: SizedBox(height: 128),
                                 ),
                               ],
                             ),
@@ -500,9 +521,9 @@ class _MerchList extends StatelessWidget {
   });
 
   final List<CartItem> cartItems;
+  final ListController listController;
   final List<Merch> merchList;
   final ScrollController scrollController;
-  final ListController listController;
 
   Future<void> showDeleteMerchDialog(
     BuildContext context,
@@ -543,32 +564,36 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SuperSliverList.builder(
-      listController: listController,
-      itemCount: merchList.length,
-      itemBuilder: (context, index) {
-        final merch = merchList[index];
+    return SliverMainAxisGroup(
+      slivers: [
+        SuperSliverList.builder(
+          listController: listController,
+          itemCount: merchList.length,
+          itemBuilder: (context, index) {
+            final merch = merchList[index];
 
-        return BlocSelector<CartBloc, CartState, int?>(
-          selector: (state) {
-            if (state is CartLoaded) {
-              return state.cartItems
-                  .firstWhereOrNull((item) => item.merchId == merch.id)
-                  ?.quantity;
-            }
-            return 0;
-          },
-          builder: (context, quantity) {
-            return MerchCard(
-              onLongPress: quantity == null
-                  ? () => showDeleteMerchDialog(context, merch.id)
-                  : () => showUnableToDeleteMerchDialog(context),
-              merch: merch,
-              count: quantity ?? 0,
+            return BlocSelector<CartBloc, CartState, int?>(
+              selector: (state) {
+                if (state is CartLoaded) {
+                  return state.cartItems
+                      .firstWhereOrNull((item) => item.merchId == merch.id)
+                      ?.quantity;
+                }
+                return 0;
+              },
+              builder: (context, quantity) {
+                return MerchCard(
+                  onLongPress: quantity == null
+                      ? () => showDeleteMerchDialog(context, merch.id)
+                      : () => showUnableToDeleteMerchDialog(context),
+                  merch: merch,
+                  count: quantity ?? 0,
+                );
+              },
             );
           },
-        );
-      },
+        ),
+      ],
     );
   }
 }
