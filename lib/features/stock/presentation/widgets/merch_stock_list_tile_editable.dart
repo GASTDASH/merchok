@@ -64,7 +64,7 @@ class _MerchStockListTileEditableState
             Column(
               spacing: 4,
               children: [
-                const Text('Привоз:'),
+                const Text('Привезено:'),
                 SizedBox(
                   width: 80,
                   child: TextField(
@@ -87,7 +87,7 @@ class _MerchStockListTileEditableState
             ),
           ],
         ),
-        Text('Остаток: ', style: theme.textTheme.titleLarge),
+        Text('Остаток: {remainder}', style: theme.textTheme.titleLarge),
       ],
     );
   }

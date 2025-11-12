@@ -545,28 +545,42 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SuperSliverList.builder(
-      listController: listController,
-      itemCount: merchList.length,
-      itemBuilder: (context, index) {
-        final merch = merchList[index];
+    return BlocSelector<StockBloc, StockState, Map<String, int>>(
+      selector: (state) {
+        if (state is! StockLoaded) return {};
 
-        return BlocSelector<CartBloc, CartState, int?>(
-          selector: (state) {
-            if (state is CartLoaded) {
-              return state.cartItems
-                  .firstWhereOrNull((item) => item.merchId == merch.id)
-                  ?.quantity;
-            }
-            return 0;
-          },
-          builder: (context, quantity) {
-            return MerchCard(
-              onLongPress: quantity == null
-                  ? () => showDeleteMerchDialog(context, merch.id)
-                  : () => showUnableToDeleteMerchDialog(context),
-              merch: merch,
-              count: quantity ?? 0,
+        final Map<String, int> merchRemainders = Map.fromEntries(
+          state.stockItems.map((item) => MapEntry(item.merchId, item.quantity)),
+        );
+
+        return merchRemainders;
+      },
+      builder: (context, merchRemainders) {
+        return SuperSliverList.builder(
+          listController: listController,
+          itemCount: merchList.length,
+          itemBuilder: (context, index) {
+            final merch = merchList[index];
+
+            return BlocSelector<CartBloc, CartState, int?>(
+              selector: (state) {
+                if (state is CartLoaded) {
+                  return state.cartItems
+                      .firstWhereOrNull((item) => item.merchId == merch.id)
+                      ?.quantity;
+                }
+                return 0;
+              },
+              builder: (context, quantity) {
+                return MerchCard(
+                  onLongPress: quantity == null
+                      ? () => showDeleteMerchDialog(context, merch.id)
+                      : () => showUnableToDeleteMerchDialog(context),
+                  merch: merch,
+                  count: quantity ?? 0,
+                  remainder: merchRemainders[merch.id],
+                );
+              },
             );
           },
         );

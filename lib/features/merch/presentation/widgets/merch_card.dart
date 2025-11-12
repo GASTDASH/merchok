@@ -22,6 +22,7 @@ class MerchCard extends StatelessWidget {
     this.editable = true,
     this.onLongPress,
     this.onTapDelete,
+    this.remainder,
   });
 
   final int count;
@@ -29,6 +30,7 @@ class MerchCard extends StatelessWidget {
   final Merch merch;
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
+  final int? remainder;
 
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
@@ -256,6 +258,11 @@ class MerchCard extends StatelessWidget {
               ),
             ],
           ),
+          if (remainder != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('Осталось: $remainder'),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -274,7 +281,11 @@ class MerchCard extends StatelessWidget {
                     ),
                 ],
               ),
-              _CartManager(merch: merch, count: count),
+              _CartManager(
+                merch: merch,
+                count: count,
+                remainder: remainder ?? 0,
+              ),
             ],
           ),
         ],
@@ -284,10 +295,15 @@ class MerchCard extends StatelessWidget {
 }
 
 class _CartManager extends StatelessWidget {
-  const _CartManager({required this.merch, required this.count});
+  const _CartManager({
+    required this.merch,
+    required this.count,
+    required this.remainder,
+  });
 
   final int count;
   final Merch merch;
+  final int remainder;
 
   @override
   Widget build(BuildContext context) {
@@ -296,8 +312,9 @@ class _CartManager extends StatelessWidget {
     return count == 0
         ? BaseButton(
             // key: ValueKey('cart'),
-            onTap: () =>
-                context.read<CartBloc>().add(CartAdd(merchId: merch.id)),
+            onTap: remainder != 0
+                ? () => context.read<CartBloc>().add(CartAdd(merchId: merch.id))
+                : null,
             padding: const EdgeInsets.all(12),
             child: const Icon(AppIcons.shoppingCart, color: Colors.white),
           )
@@ -327,8 +344,11 @@ class _CartManager extends StatelessWidget {
                 ),
               ),
               BaseButton(
-                onTap: () =>
-                    context.read<CartBloc>().add(CartPlus(merchId: merch.id)),
+                onTap: count < remainder
+                    ? () => context.read<CartBloc>().add(
+                        CartPlus(merchId: merch.id),
+                      )
+                    : null,
                 constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                 borderRadius: BorderRadius.circular(100),
                 child: const Icon(AppIcons.add, color: Colors.white),
