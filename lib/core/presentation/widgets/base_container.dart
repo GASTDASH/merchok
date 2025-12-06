@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BaseContainer extends StatelessWidget {
+class BaseContainer extends StatefulWidget {
   const BaseContainer({
     super.key,
     this.child,
@@ -33,44 +33,79 @@ class BaseContainer extends StatelessWidget {
   ];
 
   @override
+  State<BaseContainer> createState() => _BaseContainerState();
+}
+
+class _BaseContainerState extends State<BaseContainer>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController controller;
+  late final Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      duration: Durations.medium1,
+      reverseDuration: Durations.short1,
+      vsync: this,
+    );
+    scaleAnimation = Tween<double>(
+      begin: 1,
+      end: 1.03,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     final boxDecoration = BoxDecoration(
       color: theme.cardColor,
       borderRadius: BorderRadius.circular(24),
-      boxShadow: boxShadow ?? _defaultShadow,
+      boxShadow: widget.boxShadow ?? BaseContainer._defaultShadow,
     );
 
-    if (inkWellAnimation) {
+    if (widget.inkWellAnimation) {
       return Padding(
-        padding: margin ?? EdgeInsets.zero,
+        padding: widget.margin ?? EdgeInsets.zero,
         child: InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
+          onTap: widget.onTap,
+          onLongPress: widget.onLongPress,
           borderRadius: BorderRadius.circular(24),
           child: Ink(
-            height: height,
-            width: width,
-            padding: padding,
+            height: widget.height,
+            width: widget.width,
+            padding: widget.padding,
             decoration: boxDecoration,
-            child: child,
+            child: widget.child,
           ),
         ),
       );
     }
-    return GestureDetector(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      child: Container(
-        height: height,
-        width: width,
-        padding: padding,
-        margin: margin,
-        decoration: boxDecoration,
-        foregroundDecoration: foregroundDecoration,
-        child: child,
-      ),
+    return AnimatedBuilder(
+      animation: scaleAnimation,
+      builder: (context, child) {
+        return GestureDetector(
+          onTap: widget.onTap,
+          onTapDown: (_) => controller.forward(),
+          onTapUp: (_) => controller.reverse(),
+          onTapCancel: () => controller.reverse(),
+          onLongPress: widget.onLongPress,
+          child: Transform.scale(
+            scale: scaleAnimation.value,
+            child: Container(
+              height: widget.height,
+              width: widget.width,
+              padding: widget.padding,
+              margin: widget.margin,
+              decoration: boxDecoration,
+              foregroundDecoration: widget.foregroundDecoration,
+              child: widget.child,
+            ),
+          ),
+        );
+      },
     );
   }
 }
