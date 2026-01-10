@@ -28,14 +28,14 @@ class FestivalAdapter extends TypeAdapter<Festival> {
   void write(BinaryWriter writer, Festival obj) {
     writer
       ..writeByte(4)
+      ..writeByte(3)
+      ..write(obj.endDate)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.startDate)
-      ..writeByte(3)
-      ..write(obj.endDate);
+      ..write(obj.startDate);
   }
 
   @override
