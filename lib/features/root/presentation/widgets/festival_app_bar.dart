@@ -31,7 +31,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: BlocBuilder<FestivalBloc, FestivalState>(
                 builder: (context, state) {
-                  final cubit = context.read<CurrentFestivalCubit>();
+                  final cubit = context.watch<CurrentFestivalCubit>();
 
                   if (state is FestivalLoading) {
                     return Row(
@@ -47,7 +47,8 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                         const LoadingIndicator(size: 32),
                       ],
                     );
-                  } else if (state is FestivalLoaded &&
+                  }
+                  if (state is FestivalLoaded &&
                       state.festivalList.isNotEmpty &&
                       cubit.state != null) {
                     return Text(
