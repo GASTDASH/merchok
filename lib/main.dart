@@ -22,11 +22,15 @@ Future<void> main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) =>
       CustomErrorWidget(details);
 
-  await _initHive();
-  _initTalker();
-  await _registerRepositories();
+  try {
+    await _initHive();
+    _initTalker();
+    await _registerRepositories();
 
-  runApp(const MerchokApp());
+    runApp(const MerchokApp());
+  } catch (e, st) {
+    runApp(ErrorApp(exception: e, stack: st));
+  }
 }
 
 Future<void> _initHive() async {

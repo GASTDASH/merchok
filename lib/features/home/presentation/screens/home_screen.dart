@@ -9,6 +9,7 @@ import 'package:merchok/features/current_category/current_category.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<MerchBloc>().add(MerchLoad());
     context.read<CartBloc>().add(CartLoad());
     context.read<StockBloc>().add(const StockLoad());
+    context.read<OrderBloc>().add(OrderLoad());
   }
 
   Future<String?> scan(BuildContext context) async =>
@@ -545,17 +547,12 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<StockBloc, StockState, Map<String, int>>(
-      selector: (state) {
-        if (state is! StockLoaded) return {};
+    return BlocBuilder<StockBloc, StockState>(
+      builder: (context, state) {
+        final Map<String, int> remainder = (state is StockLoaded)
+            ? state.remainders
+            : {};
 
-        final Map<String, int> merchRemainders = Map.fromEntries(
-          state.stockItems.map((item) => MapEntry(item.merchId, item.quantity)),
-        );
-
-        return merchRemainders;
-      },
-      builder: (context, merchRemainders) {
         return SuperSliverList.builder(
           listController: listController,
           itemCount: merchList.length,
@@ -572,7 +569,7 @@ class _MerchList extends StatelessWidget {
                   : () => showUnableToDeleteMerchDialog(context),
               merch: merch,
               count: quantity ?? 0,
-              remainder: merchRemainders[merch.id],
+              remainder: remainder[merch.id],
             );
           },
         );

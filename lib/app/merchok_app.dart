@@ -66,35 +66,47 @@ class MerchokApp extends StatelessWidget {
               CategoryBloc(categoryRepository: GetIt.I<CategoryRepository>()),
         ),
         BlocProvider(
-          create: (context) =>
-              StockBloc(stockRepository: GetIt.I<StockRepository>()),
+          create: (context) => StockBloc(
+            stockRepository: GetIt.I<StockRepository>(),
+            orderRepository: GetIt.I<OrderRepository>(),
+          ),
         ),
       ],
-      child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
-        selector: (state) => state.themeStyle,
-        builder: (context, themeStyle) {
-          return BlocSelector<LanguageCubit, LanguageState, String?>(
-            selector: (state) => state.languageCode,
-            builder: (context, languageCode) {
-              return MaterialApp.router(
-                title: 'MerchOK',
-                routerConfig: router,
-                theme: themes[themeStyle],
-                locale: languageCode != null
-                    ? Locale.fromSubtags(languageCode: languageCode)
-                    : null,
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-              );
+      child:
+          /// Пересчёт остатков на складе при изменении заказов
+          BlocListener<OrderBloc, OrderState>(
+            listenWhen: (previous, current) {
+              return current is OrderLoaded;
             },
-          );
-        },
-      ),
+            listener: (context, state) {
+              context.read<StockBloc>().add(const StockRecalculate());
+            },
+            child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
+              selector: (state) => state.themeStyle,
+              builder: (context, themeStyle) {
+                return BlocSelector<LanguageCubit, LanguageState, String?>(
+                  selector: (state) => state.languageCode,
+                  builder: (context, languageCode) {
+                    return MaterialApp.router(
+                      title: 'MerchOK',
+                      routerConfig: router,
+                      theme: themes[themeStyle],
+                      locale: languageCode != null
+                          ? Locale.fromSubtags(languageCode: languageCode)
+                          : null,
+                      localizationsDelegates: const [
+                        S.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      supportedLocales: S.delegate.supportedLocales,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
     );
   }
 }

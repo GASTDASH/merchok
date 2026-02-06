@@ -258,11 +258,12 @@ class MerchCard extends StatelessWidget {
               ),
             ],
           ),
-          if (remainder != null)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Осталось: $remainder'),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              (remainder != null) ? 'Осталось: $remainder' : 'Не привезено',
             ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -310,13 +311,18 @@ class _CartManager extends StatelessWidget {
     final theme = Theme.of(context);
 
     return count == 0
-        ? BaseButton(
-            // key: ValueKey('cart'),
-            onTap: remainder != 0
-                ? () => context.read<CartBloc>().add(CartAdd(merchId: merch.id))
-                : null,
-            padding: const EdgeInsets.all(12),
-            child: const Icon(AppIcons.shoppingCart, color: Colors.white),
+        ? Tooltip(
+            message: 'Товара нет в запасе',
+            triggerMode: TooltipTriggerMode.tap,
+            child: BaseButton(
+              // key: ValueKey('cart'),
+              onTap: remainder != 0
+                  ? () =>
+                        context.read<CartBloc>().add(CartAdd(merchId: merch.id))
+                  : null,
+              padding: const EdgeInsets.all(12),
+              child: const Icon(AppIcons.shoppingCart, color: Colors.white),
+            ),
           )
         : Row(
             // key: ValueKey('plus_minus'),

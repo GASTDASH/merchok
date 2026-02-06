@@ -10,9 +10,13 @@ sealed class StockState extends Equatable {
 final class StockInitial extends StockState {}
 
 final class StockLoaded extends StockState {
-  const StockLoaded({required this.stockItems});
+  const StockLoaded({required this.stockItems, required this.remainders});
 
   final List<StockItem> stockItems;
+
+  /// Остаток мерча с учётом заказов
+  /// {merchId: остаток}
+  final Map<String, int> remainders;
 
   @override
   List<Object?> get props => super.props..addAll([stockItems]);

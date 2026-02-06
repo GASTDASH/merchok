@@ -87,7 +87,10 @@ class _MerchStockListTileEditableState
             ),
           ],
         ),
-        Text('Остаток: {remainder}', style: theme.textTheme.titleLarge),
+        Text(
+          'Остаток: ${widget.stockItem.quantity}',
+          style: theme.textTheme.titleLarge,
+        ),
       ],
     );
   }

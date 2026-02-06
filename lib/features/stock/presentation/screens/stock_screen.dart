@@ -44,6 +44,8 @@ class StockScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -69,6 +71,26 @@ class StockScreen extends StatelessWidget {
                             icon: const Icon(AppIcons.add),
                           ),
                         ],
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: theme.colorScheme.error.withValues(
+                                green: theme.colorScheme.error.g / 1.5,
+                                blue: theme.colorScheme.error.g / 1.5,
+                              ),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            'Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!',
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                        ),
                       ),
                       _StockList(
                         merchState: merchState,

@@ -5,6 +5,8 @@ class StockItem extends Equatable {
   const StockItem({required this.merchId, required this.quantity});
 
   final String merchId;
+
+  /// Количество привезённого товара
   final int quantity;
 
   @override

@@ -38,3 +38,7 @@ final class StockDelete extends StockEvent {
   @override
   List<Object> get props => super.props..addAll([merchId]);
 }
+
+final class StockRecalculate extends StockEvent {
+  const StockRecalculate();
+}
