@@ -10,9 +10,11 @@ class MerchStockListTileEditable extends StatefulWidget {
     super.key,
     required this.merch,
     required this.stockItem,
+    this.remainder,
   });
 
   final Merch merch;
+  final int? remainder;
   final StockItem stockItem;
 
   @override
@@ -37,61 +39,65 @@ class _MerchStockListTileEditableState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: MerchStockListTile(
-                merch: widget.merch,
-                onLongPress: () {
-                  showYesNoDialog(
-                    context: context,
-                    message: 'Удалить мерч из запаса?',
-                    onYes: () {
-                      context.read<StockBloc>().add(
-                        StockDelete(merchId: widget.stockItem.merchId),
-                      );
-                      context.pop();
-                    },
-                    onNo: () => context.pop(),
-                  );
-                },
-              ),
-            ),
-            Column(
-              spacing: 4,
-              children: [
-                const Text('Привезено:'),
-                SizedBox(
-                  width: 80,
-                  child: TextField(
-                    controller: quantityController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    onTapOutside: (_) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      context.read<StockBloc>().add(
-                        StockEdit(
-                          merchId: widget.stockItem.merchId,
-                          quantity: int.tryParse(quantityController.text) ?? 0,
-                        ),
-                      );
-                    },
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: MerchStockListTile(
+                  merch: widget.merch,
+                  onLongPress: () {
+                    showYesNoDialog(
+                      context: context,
+                      message: 'Удалить мерч из запаса?',
+                      onYes: () {
+                        context.read<StockBloc>().add(
+                          StockDelete(merchId: widget.stockItem.merchId),
+                        );
+                        context.pop();
+                      },
+                      onNo: () => context.pop(),
+                    );
+                  },
                 ),
-              ],
-            ),
-          ],
-        ),
-        Text(
-          'Остаток: ${widget.stockItem.quantity}',
-          style: theme.textTheme.titleLarge,
-        ),
-      ],
+              ),
+              Column(
+                spacing: 4,
+                children: [
+                  const Text('Привезено:'),
+                  SizedBox(
+                    width: 80,
+                    child: TextField(
+                      controller: quantityController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      onTapOutside: (_) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        context.read<StockBloc>().add(
+                          StockEdit(
+                            merchId: widget.stockItem.merchId,
+                            quantity:
+                                int.tryParse(quantityController.text) ?? 0,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Text(
+            'Остаток: ${widget.remainder}',
+            style: theme.textTheme.titleLarge,
+          ),
+        ],
+      ),
     );
   }
 }

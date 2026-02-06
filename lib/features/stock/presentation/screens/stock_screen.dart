@@ -136,10 +136,12 @@ class _StockList extends StatelessWidget {
                       .firstWhere((merch) {
                         return merch.id == stockItem.merchId;
                       });
+                  final remainder = (stockState as StockLoaded).remainders;
 
                   return MerchStockListTileEditable(
                     merch: merch,
                     stockItem: stockItem,
+                    remainder: remainder[merch.id],
                   );
                 },
                 separatorBuilder: (context, index) => const Divider(),
