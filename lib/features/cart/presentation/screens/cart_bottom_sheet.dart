@@ -8,6 +8,7 @@ import 'package:merchok/features/current_payment_method/current_payment_method.d
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class CartBottomSheet extends StatefulWidget {
@@ -44,7 +45,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               context.pop(); // Close 'Cart Bottom Sheet'
               showDialog(
                 context: context,
-                builder: (context) => OrderCreatedDialog(),
+                builder: (context) => const OrderCreatedDialog(),
               );
             } else if (current is OrderError) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -75,9 +76,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   } else if (state is CartError) {
                     return ErrorBanner(message: state.error.toString());
                   } else if (state is CartInitial) {
-                    return SliverFillRemaining();
+                    return const SliverFillRemaining();
                   }
-                  return UnexpectedStateBanner();
+                  return const UnexpectedStateBanner();
                 },
               ),
             ],
@@ -107,9 +108,9 @@ class _CartContent extends StatelessWidget {
       sliver: SliverMainAxisGroup(
         slivers: [
           _CartTotal(cartItems: cartItems),
-          SliverToBoxAdapter(child: SizedBox(height: 12)),
+          const SliverToBoxAdapter(child: SizedBox(height: 12)),
           _PaymentMethodSection(),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
+          const SliverToBoxAdapter(child: SizedBox(height: 24)),
           _CartItemsList(cartItems: cartItems),
         ],
       ),
@@ -131,6 +132,16 @@ class _CartItemsList extends StatelessWidget {
           return InfoBanner(text: S.of(context).merchListNotLoaded);
         }
 
+        final stockState = context.read<StockBloc>().state;
+        if (stockState is! StockLoaded) {
+          return const InfoBanner(text: 'Запас не загружен');
+        }
+        final Map<String, int> merchRemainders = Map.fromEntries(
+          stockState.stockItems.map(
+            (item) => MapEntry(item.merchId, item.quantity),
+          ),
+        );
+
         return SliverList.builder(
           itemCount: cartItems.length,
           itemBuilder: (context, i) {
@@ -143,6 +154,7 @@ class _CartItemsList extends StatelessWidget {
               merch: merch,
               count: cartItem.quantity,
               editable: false,
+              remainder: merchRemainders[merch.id],
               onTapDelete: () {
                 context.read<CartBloc>().add(CartDelete(merchId: merch.id));
               },
@@ -224,7 +236,7 @@ class _PaymentMethodSection extends StatelessWidget {
             style: theme.textTheme.bodyLarge,
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 8)),
+        const SliverToBoxAdapter(child: SizedBox(height: 8)),
         // DropdownMenu
         BlocBuilder<CurrentPaymentMethodCubit, PaymentMethod?>(
           builder: (context, selectedPaymentMethod) {
@@ -234,7 +246,7 @@ class _PaymentMethodSection extends StatelessWidget {
                   child: BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
                     builder: (context, state) {
                       if (state is PaymentMethodLoading) {
-                        return LoadingIndicator();
+                        return const LoadingIndicator();
                       } else if (state is PaymentMethodLoaded) {
                         if (state.paymentMethodList.isNotEmpty) {
                           return PaymentMethodDropdownMenu(
@@ -253,7 +265,7 @@ class _PaymentMethodSection extends StatelessWidget {
                     },
                   ),
                 ),
-                SliverToBoxAdapter(child: SizedBox(height: 24)),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
                 SliverToBoxAdapter(
                   child: _CheckoutButton(
                     enabled: selectedPaymentMethod != null,
@@ -305,7 +317,7 @@ class _CheckoutButton extends StatelessWidget {
                       );
                     }
                   : null,
-              padding: EdgeInsetsGeometry.all(12),
+              padding: const EdgeInsetsGeometry.all(12),
               child: Text(
                 S.of(context).checkout,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
