@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/merch/merch.dart';
@@ -25,6 +26,19 @@ class MerchStockListTileEditable extends StatefulWidget {
 class _MerchStockListTileEditableState
     extends State<MerchStockListTileEditable> {
   late final TextEditingController quantityController;
+
+  void saveValue(String value) {
+    final int? quantity = int.tryParse(value);
+
+    if (quantity != null) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      context.read<StockBloc>().add(
+        StockEdit(merchId: widget.stockItem.merchId, quantity: quantity),
+      );
+    } else {
+      Fluttertoast.showToast(msg: 'Введите корректное количество');
+    }
+  }
 
   @override
   void initState() {
@@ -76,16 +90,8 @@ class _MerchStockListTileEditableState
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
-                      onTapOutside: (_) {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        context.read<StockBloc>().add(
-                          StockEdit(
-                            merchId: widget.stockItem.merchId,
-                            quantity:
-                                int.tryParse(quantityController.text) ?? 0,
-                          ),
-                        );
-                      },
+                      onTapOutside: (_) => saveValue(quantityController.text),
+                      onSubmitted: (value) => saveValue(value),
                     ),
                   ),
                 ],
