@@ -11,6 +11,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class StatScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _StatScreenState extends State<StatScreen> {
 
     context.read<OrderBloc>().add(OrderLoad());
     context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
+    context.read<MerchBloc>().add(MerchLoad());
   }
 
   @override
@@ -35,17 +37,52 @@ class _StatScreenState extends State<StatScreen> {
       body: CustomScrollView(
         slivers: [
           BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, state) {
-              if (state is OrderLoading) {
-                return LoadingBanner(message: state.message);
-              } else if (state is OrderLoaded) {
-                return _StatList(orderList: state.orderList);
-              } else if (state is OrderError) {
-                return ErrorBanner(message: state.error.toString());
-              } else if (state is OrderInitial) {
-                return SliverFillRemaining();
-              }
-              return UnexpectedStateBanner();
+            builder: (context, orderState) {
+              return BlocBuilder<StockBloc, StockState>(
+                builder: (context, stockState) {
+                  return BlocBuilder<MerchBloc, MerchState>(
+                    builder: (context, merchState) {
+                      if (orderState is OrderLoading ||
+                          stockState is StockLoading ||
+                          merchState is MerchLoading) {
+                        return LoadingBanner(
+                          message: orderState is OrderLoading
+                              ? orderState.message
+                              : stockState is StockLoading
+                              ? stockState.message
+                              : (merchState as MerchLoading).message,
+                        );
+                      }
+                      if (orderState is OrderLoaded &&
+                          stockState is StockLoaded &&
+                          merchState is MerchLoaded) {
+                        return _StatList(
+                          orderList: orderState.orderList,
+                          stockItems: stockState.stockItems,
+                          merchList: merchState.merchList,
+                        );
+                      }
+                      if (orderState is OrderError ||
+                          stockState is StockError ||
+                          merchState is MerchError) {
+                        return ErrorBanner(
+                          message: orderState is OrderError
+                              ? orderState.error.toString()
+                              : stockState is StockError
+                              ? stockState.error.toString()
+                              : (merchState as MerchError).error.toString(),
+                        );
+                      }
+                      if (orderState is OrderInitial ||
+                          stockState is StockInitial ||
+                          merchState is MerchInitial) {
+                        return const SliverFillRemaining();
+                      }
+                      return const UnexpectedStateBanner();
+                    },
+                  );
+                },
+              );
             },
           ),
         ],
@@ -55,9 +92,15 @@ class _StatScreenState extends State<StatScreen> {
 }
 
 class _StatList extends StatelessWidget {
-  const _StatList({required this.orderList});
+  const _StatList({
+    required this.orderList,
+    required this.stockItems,
+    required this.merchList,
+  });
 
   final List<Order> orderList;
+  final List<StockItem> stockItems;
+  final List<Merch> merchList;
 
   Future<Map<String, dynamic>> getGeneralStat() async {
     log('getGeneralStat() called');
@@ -74,11 +117,12 @@ class _StatList extends StatelessWidget {
   double get _averageAmount =>
       _sumTotalEarned / _ordersCount.clamp(1, double.infinity);
 
-  double get _revenue => _sumTotalEarned - _sumTotalSpent;
+  double get _revenue => _sumTotalEarned - _sumTotalSpentViaStock;
 
   double get _sumTotalEarned =>
       orderList.fold(0, (sum, order) => sum + order.totalEarned);
 
+  @Deprecated('Use _sumTotalSpentViaStock instead')
   double get _sumTotalSpent => orderList.fold(
     0,
     (sum, order) =>
@@ -88,6 +132,26 @@ class _StatList extends StatelessWidget {
           (sum, item) => sum + (item.merch.purchasePrice ?? 0 * item.quantity),
         ),
   );
+
+  double get _sumTotalSpentViaStock {
+    double totalSpent = 0;
+
+    final Map<String, Merch> merchById = {
+      for (final merch in merchList) merch.id: merch,
+    };
+
+    for (final item in stockItems) {
+      if (merchById[item.merchId] == null) continue;
+
+      if (merchById[item.merchId]!.purchasePrice != null) {
+        totalSpent += merchById[item.merchId]!.purchasePrice! * item.quantity;
+      }
+    }
+
+    log(totalSpent.toString());
+
+    return totalSpent;
+  }
 
   Map<String, dynamic> _getGeneralStatCompute() => {
     'salesCount': _salesCount,
@@ -150,7 +214,7 @@ class _GeneralStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 12,
@@ -184,7 +248,7 @@ class _OtherStatCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 12,
