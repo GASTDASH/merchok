@@ -79,33 +79,55 @@ class MerchokApp extends StatelessWidget {
               return current is OrderLoaded;
             },
             listener: (context, state) {
-              context.read<StockBloc>().add(const StockRecalculate());
-            },
-            child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
-              selector: (state) => state.themeStyle,
-              builder: (context, themeStyle) {
-                return BlocSelector<LanguageCubit, LanguageState, String?>(
-                  selector: (state) => state.languageCode,
-                  builder: (context, languageCode) {
-                    return MaterialApp.router(
-                      title: 'MerchOK',
-                      routerConfig: router,
-                      theme: themes[themeStyle],
-                      locale: languageCode != null
-                          ? Locale.fromSubtags(languageCode: languageCode)
-                          : null,
-                      localizationsDelegates: const [
-                        S.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: S.delegate.supportedLocales,
-                    );
-                  },
+              final currentFestival = context
+                  .read<CurrentFestivalCubit>()
+                  .state;
+              if (currentFestival != null) {
+                context.read<StockBloc>().add(
+                  StockRecalculate(festivalId: currentFestival.id),
                 );
-              },
-            ),
+              }
+            },
+            child:
+                // Загрузка запасов при смене фестиваля
+                BlocListener<CurrentFestivalCubit, Festival?>(
+                  listener: (context, newFestival) {
+                    if (newFestival != null) {
+                      context.read<StockBloc>().add(
+                        StockLoad(festivalId: newFestival.id),
+                      );
+                    }
+                  },
+                  child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
+                    selector: (state) => state.themeStyle,
+                    builder: (context, themeStyle) {
+                      return BlocSelector<
+                        LanguageCubit,
+                        LanguageState,
+                        String?
+                      >(
+                        selector: (state) => state.languageCode,
+                        builder: (context, languageCode) {
+                          return MaterialApp.router(
+                            title: 'MerchOK',
+                            routerConfig: router,
+                            theme: themes[themeStyle],
+                            locale: languageCode != null
+                                ? Locale.fromSubtags(languageCode: languageCode)
+                                : null,
+                            localizationsDelegates: const [
+                              S.delegate,
+                              GlobalMaterialLocalizations.delegate,
+                              GlobalWidgetsLocalizations.delegate,
+                              GlobalCupertinoLocalizations.delegate,
+                            ],
+                            supportedLocales: S.delegate.supportedLocales,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
           ),
     );
   }

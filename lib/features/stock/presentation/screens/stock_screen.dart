@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -12,6 +14,7 @@ class StockScreen extends StatelessWidget {
     BuildContext context, {
     required List<Merch> merchList,
     required List<StockItem> stockItems,
+    required String festivalId,
   }) async {
     final stockBloc = context.read<StockBloc>();
 
@@ -23,7 +26,7 @@ class StockScreen extends StatelessWidget {
 
     if (merch == null || merch is! Merch) return;
 
-    stockBloc.add(StockAdd(merchId: merch.id));
+    stockBloc.add(StockAdd(festivalId: festivalId, merchId: merch.id));
   }
 
   Future<dynamic> _showSelectMerchBottomSheet(
@@ -49,54 +52,66 @@ class StockScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          BlocBuilder<MerchBloc, MerchState>(
-            builder: (context, merchState) {
-              return BlocBuilder<StockBloc, StockState>(
-                builder: (context, stockState) {
-                  return SliverMainAxisGroup(
-                    slivers: [
-                      BaseSliverAppBar(
-                        title: 'Запас',
-                        actions: [
-                          IconButton(
-                            onPressed:
-                                merchState is MerchLoaded &&
-                                    stockState is StockLoaded
-                                ? () async => await _addMerch(
-                                    context,
-                                    merchList: merchState.merchList,
-                                    stockItems: stockState.stockItems,
-                                  )
-                                : null,
-                            icon: const Icon(AppIcons.add),
+          BlocBuilder<CurrentFestivalCubit, Festival?>(
+            builder: (context, currentFestival) {
+              if (currentFestival == null) {
+                return const InfoBanner.icon(
+                  text: 'Выберите фестиваль для управления запасами',
+                  icon: AppIcons.cube,
+                );
+              }
+
+              return BlocBuilder<MerchBloc, MerchState>(
+                builder: (context, merchState) {
+                  return BlocBuilder<StockBloc, StockState>(
+                    builder: (context, stockState) {
+                      return SliverMainAxisGroup(
+                        slivers: [
+                          BaseSliverAppBar(
+                            title: 'Запас: ${currentFestival.name}',
+                            actions: [
+                              IconButton(
+                                onPressed:
+                                    merchState is MerchLoaded &&
+                                        stockState is StockLoaded
+                                    ? () async => await _addMerch(
+                                        context,
+                                        merchList: merchState.merchList,
+                                        stockItems: stockState.stockItems,
+                                        festivalId: currentFestival.id,
+                                      )
+                                    : null,
+                                icon: const Icon(AppIcons.add),
+                              ),
+                            ],
+                          ),
+                          SliverToBoxAdapter(
+                            child: Container(
+                              margin: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: theme.colorScheme.error.withValues(
+                                    green: theme.colorScheme.error.g / 1.5,
+                                    blue: theme.colorScheme.error.g / 1.5,
+                                  ),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                'Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!',
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          _StockList(
+                            merchState: merchState,
+                            stockState: stockState,
                           ),
                         ],
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          margin: const EdgeInsets.all(16),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: theme.colorScheme.error.withValues(
-                                green: theme.colorScheme.error.g / 1.5,
-                                blue: theme.colorScheme.error.g / 1.5,
-                              ),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            'Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!',
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                        ),
-                      ),
-                      _StockList(
-                        merchState: merchState,
-                        stockState: stockState,
-                      ),
-                    ],
+                      );
+                    },
                   );
                 },
               );

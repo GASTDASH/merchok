@@ -20,7 +20,14 @@ class StockBloc extends Bloc<StockEvent, StockState> {
       try {
         emit(const StockLoading(message: 'Загрузка информации о запасе'));
 
-        final stockItems = await _stockRepository.getStockItems();
+        if (event.festivalId == null) {
+          emit(const StockError(error: 'Не выбран фестиваль'));
+          return;
+        }
+
+        final stockItems = await _stockRepository.getStockItems(
+          festivalId: event.festivalId!,
+        );
         final orders = await _orderRepository.getOrders();
 
         /// {merchId: остаток}
@@ -46,8 +53,11 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     on<StockAdd>((event, emit) async {
       try {
         emit(const StockLoading(message: 'Добавление в запас'));
-        await _stockRepository.addStockItem(event.merchId);
-        add(const StockLoad());
+        await _stockRepository.addStockItem(
+          festivalId: event.festivalId,
+          merchId: event.merchId,
+        );
+        add(StockLoad(festivalId: event.festivalId));
       } catch (e) {
         emit(StockError(error: e));
       }
@@ -55,8 +65,12 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     on<StockEdit>((event, emit) async {
       try {
         emit(const StockLoading(message: 'Изменение запаса'));
-        await _stockRepository.editStockItem(event.merchId, event.quantity);
-        add(const StockLoad());
+        await _stockRepository.editStockItem(
+          festivalId: event.festivalId,
+          merchId: event.merchId,
+          quantity: event.quantity,
+        );
+        add(StockLoad(festivalId: event.festivalId));
       } catch (e) {
         emit(StockError(error: e));
       }
@@ -64,14 +78,17 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     on<StockDelete>((event, emit) async {
       try {
         emit(const StockLoading(message: 'Удаление из запаса'));
-        await _stockRepository.deleteStockItem(event.merchId);
-        add(const StockLoad());
+        await _stockRepository.deleteStockItem(
+          festivalId: event.festivalId,
+          merchId: event.merchId,
+        );
+        add(StockLoad(festivalId: event.festivalId));
       } catch (e) {
         emit(StockError(error: e));
       }
     });
     on<StockRecalculate>((event, emit) {
-      add(const StockLoad());
+      add(StockLoad(festivalId: event.festivalId));
     });
   }
 }
