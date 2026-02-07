@@ -147,59 +147,63 @@ class _OrderListState extends State<_OrderList> {
 
   @override
   Widget build(BuildContext context) {
-    List<Order> filteredOrderList = filterOrderList(widget.orderList);
+    return ListenableBuilder(
+      listenable: orderSortingProvider,
+      builder: (context, _) {
+        final List<Order> filteredOrderList = filterOrderList(widget.orderList);
+        sortOrderList(filteredOrderList);
 
-    sortOrderList(filteredOrderList);
+        return SliverMainAxisGroup(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Row(
+                spacing: 12,
+                children: [
+                  FilterButton(
+                    onTap: () async {
+                      double maxAmount = 0;
+                      for (Order order in widget.orderList) {
+                        if (maxAmount < order.totalEarned) {
+                          maxAmount = order.totalEarned;
+                        }
+                      }
 
-    return SliverMainAxisGroup(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Row(
-            spacing: 12,
-            children: [
-              FilterButton(
-                onTap: () async {
-                  double maxAmount = 0;
-                  for (Order order in filteredOrderList) {
-                    if (maxAmount < order.totalEarned) {
-                      maxAmount = order.totalEarned;
-                    }
-                  }
-
-                  final filter = await showOrdersFilterDialog(
-                    context,
-                    maxAmount,
-                    currentFilter,
-                  );
-                  if (filter == null) return;
-                  if (filter.isEmpty) {
-                    return setState(() => currentFilter = null);
-                  }
-                  setState(() => currentFilter = filter);
-                },
-                active: currentFilter != null,
-              ),
-              SortButton(
-                onTap: () => orderSortingProvider.changeOrderSorting(),
-                icons: [
-                  orderSortingProvider.orderSorting.sortBy.icon,
-                  orderSortingProvider.orderSorting.sortOrder.icon,
+                      final filter = await showOrdersFilterDialog(
+                        context,
+                        maxAmount,
+                        currentFilter,
+                      );
+                      if (filter == null) return;
+                      if (filter.isEmpty) {
+                        return setState(() => currentFilter = null);
+                      }
+                      setState(() => currentFilter = filter);
+                    },
+                    active: currentFilter != null,
+                  ),
+                  SortButton(
+                    onTap: () => orderSortingProvider.changeOrderSorting(),
+                    icons: [
+                      orderSortingProvider.orderSorting.sortBy.icon,
+                      orderSortingProvider.orderSorting.sortOrder.icon,
+                    ],
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        filteredOrderList.isEmpty && currentFilter != null
-            ? InfoBanner(text: S.of(context).noMatchingOrders)
-            : SliverList.separated(
-                itemCount: filteredOrderList.length,
-                separatorBuilder: (context, index) =>
-                    const Divider(indent: 32, endIndent: 32, height: 48),
-                itemBuilder: (context, index) =>
-                    ReceiptWidget(order: filteredOrderList[index]),
-              ),
-      ],
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            filteredOrderList.isEmpty && currentFilter != null
+                ? InfoBanner(text: S.of(context).noMatchingOrders)
+                : SliverList.separated(
+                    itemCount: filteredOrderList.length,
+                    separatorBuilder: (context, index) =>
+                        const Divider(indent: 32, endIndent: 32, height: 48),
+                    itemBuilder: (context, index) =>
+                        ReceiptWidget(order: filteredOrderList[index]),
+                  ),
+          ],
+        );
+      },
     );
   }
 }
