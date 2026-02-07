@@ -42,20 +42,47 @@ class BaseContainer extends StatelessWidget {
       boxShadow: boxShadow ?? _defaultShadow,
     );
 
+    // if (inkWellAnimation) {
+    //   return Padding(
+    //     padding: margin ?? EdgeInsets.zero,
+    //     child: InkWell(
+    //       onTap: onTap,
+    //       onLongPress: onLongPress,
+    //       borderRadius: BorderRadius.circular(24),
+    //       child: Ink(
+    //         height: height,
+    //         width: width,
+    //         padding: padding,
+    //         decoration: boxDecoration,
+    //         child: child,
+    //       ),
+    //     ),
+    //   );
+    // }
     if (inkWellAnimation) {
       return Padding(
         padding: margin ?? EdgeInsets.zero,
-        child: InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          borderRadius: BorderRadius.circular(24),
-          child: Ink(
-            height: height,
-            width: width,
-            padding: padding,
-            decoration: boxDecoration,
-            child: child,
-          ),
+        child: Stack(
+          fit: .passthrough,
+          children: [
+            Positioned.fill(child: DecoratedBox(decoration: boxDecoration)),
+            Material(
+              color: theme.cardColor,
+              borderRadius: BorderRadius.circular(24),
+              elevation: 0,
+              child: InkWell(
+                onTap: onTap,
+                onLongPress: onLongPress,
+                borderRadius: BorderRadius.circular(24),
+                child: Ink(
+                  height: height,
+                  width: width,
+                  padding: padding,
+                  child: child,
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }

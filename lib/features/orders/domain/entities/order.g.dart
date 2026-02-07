@@ -28,14 +28,15 @@ class OrderAdapter extends TypeAdapter<Order> {
   @override
   void write(BinaryWriter writer, Order obj) {
     writer
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.orderItems)
+      ..writeByte(5)
       ..writeByte(2)
       ..write(obj.createdAt)
       ..writeByte(3)
       ..write(obj.festival)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.orderItems)
       ..writeByte(4)
       ..write(obj.paymentMethod);
   }

@@ -6,9 +6,12 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/current_category/current_category.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
@@ -42,6 +45,12 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
     context.read<CartBloc>().add(CartLoad());
+    context.read<OrderBloc>().add(OrderLoad());
+
+    final Festival? currentFestival = context
+        .read<CurrentFestivalCubit>()
+        .state;
+    context.read<StockBloc>().add(StockLoad(festivalId: currentFestival?.id));
   }
 
   Future<String?> scan(BuildContext context) async =>
@@ -564,36 +573,33 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverMainAxisGroup(
-      slivers: [
-        SuperSliverList.builder(
+    return BlocBuilder<StockBloc, StockState>(
+      builder: (context, state) {
+        final Map<String, int> remainder = (state is StockLoaded)
+            ? state.remainders
+            : {};
+
+        return SuperSliverList.builder(
           listController: listController,
           itemCount: merchList.length,
           itemBuilder: (context, index) {
             final merch = merchList[index];
 
-            return BlocSelector<CartBloc, CartState, int?>(
-              selector: (state) {
-                if (state is CartLoaded) {
-                  return state.cartItems
-                      .firstWhereOrNull((item) => item.merchId == merch.id)
-                      ?.quantity;
-                }
-                return 0;
-              },
-              builder: (context, quantity) {
-                return MerchCard(
-                  onLongPress: quantity == null
-                      ? () => showDeleteMerchDialog(context, merch.id)
-                      : () => showUnableToDeleteMerchDialog(context),
-                  merch: merch,
-                  count: quantity ?? 0,
-                );
-              },
+            final int? quantity = cartItems
+                .firstWhereOrNull((item) => item.merchId == merch.id)
+                ?.quantity;
+
+            return MerchCard(
+              onLongPress: quantity == null
+                  ? () => showDeleteMerchDialog(context, merch.id)
+                  : () => showUnableToDeleteMerchDialog(context),
+              merch: merch,
+              count: quantity ?? 0,
+              remainder: remainder[merch.id],
             );
           },
-        ),
-      ],
+        );
+      },
     );
   }
 }
