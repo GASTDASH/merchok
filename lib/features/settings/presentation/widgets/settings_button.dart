@@ -23,7 +23,7 @@ class SettingsButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: BaseContainer(
         onTap: onTap,
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         inkWellAnimation: true,
         child: Row(
           spacing: 4,
@@ -50,7 +50,7 @@ class SettingsButton extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(AppIcons.right),
+            const Icon(AppIcons.right),
           ],
         ),
       ),

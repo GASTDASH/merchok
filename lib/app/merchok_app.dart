@@ -11,6 +11,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:merchok/routing/router.dart';
@@ -64,32 +65,70 @@ class MerchokApp extends StatelessWidget {
           create: (context) =>
               CategoryBloc(categoryRepository: GetIt.I<CategoryRepository>()),
         ),
+        BlocProvider(
+          create: (context) => StockBloc(
+            stockRepository: GetIt.I<StockRepository>(),
+            orderRepository: GetIt.I<OrderRepository>(),
+          ),
+        ),
       ],
-      child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
-        selector: (state) => state.themeStyle,
-        builder: (context, themeStyle) {
-          return BlocSelector<LanguageCubit, LanguageState, String?>(
-            selector: (state) => state.languageCode,
-            builder: (context, languageCode) {
-              return MaterialApp.router(
-                title: 'MerchOK',
-                routerConfig: router,
-                theme: themes[themeStyle],
-                locale: languageCode != null
-                    ? Locale.fromSubtags(languageCode: languageCode)
-                    : null,
-                localizationsDelegates: [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-              );
+      child:
+          /// Пересчёт остатков на складе при изменении заказов
+          BlocListener<OrderBloc, OrderState>(
+            listenWhen: (previous, current) {
+              return current is OrderLoaded;
             },
-          );
-        },
-      ),
+            listener: (context, state) {
+              final currentFestival = context
+                  .read<CurrentFestivalCubit>()
+                  .state;
+              if (currentFestival != null) {
+                context.read<StockBloc>().add(
+                  StockRecalculate(festivalId: currentFestival.id),
+                );
+              }
+            },
+            child:
+                // Загрузка запасов при смене фестиваля
+                BlocListener<CurrentFestivalCubit, Festival?>(
+                  listener: (context, newFestival) {
+                    if (newFestival != null) {
+                      context.read<StockBloc>().add(
+                        StockLoad(festivalId: newFestival.id),
+                      );
+                    }
+                  },
+                  child: BlocSelector<ThemeCubit, ThemeState, ThemeStyle>(
+                    selector: (state) => state.themeStyle,
+                    builder: (context, themeStyle) {
+                      return BlocSelector<
+                        LanguageCubit,
+                        LanguageState,
+                        String?
+                      >(
+                        selector: (state) => state.languageCode,
+                        builder: (context, languageCode) {
+                          return MaterialApp.router(
+                            title: 'MerchOK',
+                            routerConfig: router,
+                            theme: themes[themeStyle],
+                            locale: languageCode != null
+                                ? Locale.fromSubtags(languageCode: languageCode)
+                                : null,
+                            localizationsDelegates: const [
+                              S.delegate,
+                              GlobalMaterialLocalizations.delegate,
+                              GlobalWidgetsLocalizations.delegate,
+                              GlobalCupertinoLocalizations.delegate,
+                            ],
+                            supportedLocales: S.delegate.supportedLocales,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+          ),
     );
   }
 }

@@ -1,10 +1,10 @@
 name: merchok
 # description: "A new Flutter project."
 publish_to: 'none'
-version: 0.3.3-dev
+version: 0.4.0-dev
 
 environment:
-  sdk: ^3.9.0
+  sdk: 3.10.0-290.1.beta
 
 dependencies:
   barcode: ^2.2.9
@@ -87,6 +87,6 @@ flutter:
           weight: 800
         - asset: assets/fonts/Montserrat-Black.ttf
           weight: 900
-          
+
 flutter_intl:
   enabled: true

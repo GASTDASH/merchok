@@ -4,23 +4,24 @@ import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
   const FestivalAppBar({super.key});
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return PreferredSize(
-      preferredSize: Size.fromHeight(70),
+      preferredSize: const Size.fromHeight(70),
       child: Container(
         height: 70,
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: theme.hintColor)),
         ),
@@ -30,7 +31,7 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: BlocBuilder<FestivalBloc, FestivalState>(
                 builder: (context, state) {
-                  final cubit = context.read<CurrentFestivalCubit>();
+                  final cubit = context.watch<CurrentFestivalCubit>();
 
                   if (state is FestivalLoading) {
                     return Row(
@@ -38,22 +39,23 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Text(
                           S.of(context).loading,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        LoadingIndicator(size: 32),
+                        const LoadingIndicator(size: 32),
                       ],
                     );
-                  } else if (state is FestivalLoaded &&
+                  }
+                  if (state is FestivalLoaded &&
                       state.festivalList.isNotEmpty &&
                       cubit.state != null) {
                     return Text(
                       state.festivalList
                           .firstWhere((f) => f.id == cubit.state!.id)
                           .name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,16 +63,37 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                   }
                   return Text(
                     S.of(context).festivalNotSelected,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   );
                 },
               ),
             ),
+            BlocBuilder<StockBloc, StockState>(
+              builder: (context, state) {
+                if (state is StockLoaded) {
+                  return GestureDetector(
+                    onTap: () {
+                      context.push('/stock');
+                    },
+                    child: const Icon(AppIcons.cube),
+                  );
+                }
+                if (state is StockLoading) {
+                  return const CircularProgressIndicator();
+                } else {
+                  return const Icon(Icons.warning_amber_rounded);
+                }
+              },
+            ),
+            const SizedBox(width: 16),
             GestureDetector(
               onTap: () {
                 context.push('/festival');
               },
-              child: Icon(AppIcons.calendar),
+              child: const Icon(AppIcons.calendar),
             ),
           ],
         ),

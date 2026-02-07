@@ -29,16 +29,16 @@ class PaymentMethodAdapter extends TypeAdapter<PaymentMethod> {
   void write(BinaryWriter writer, PaymentMethod obj) {
     writer
       ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
-      ..write(obj.information)
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.iconPath);
+      ..write(obj.iconPath)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(2)
+      ..write(obj.information)
+      ..writeByte(1)
+      ..write(obj.name);
   }
 
   @override
