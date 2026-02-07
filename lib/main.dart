@@ -11,6 +11,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -21,11 +22,15 @@ Future<void> main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) =>
       CustomErrorWidget(details);
 
-  await _initHive();
-  _initTalker();
-  await _registerRepositories();
+  try {
+    await _initHive();
+    _initTalker();
+    await _registerRepositories();
 
-  runApp(const MerchokApp());
+    runApp(const MerchokApp());
+  } catch (e, st) {
+    runApp(ErrorApp(exception: e, stack: st));
+  }
 }
 
 Future<void> _initHive() async {
@@ -58,7 +63,8 @@ Future<void> _registerRepositories() async {
     ..registerSingleton<FestivalRepository>(FestivalRepositoryImpl())
     ..registerSingleton<PaymentMethodRepository>(PaymentMethodRepositoryImpl())
     ..registerSingleton<OrderRepository>(OrderRepositoryImpl())
-    ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl());
+    ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl())
+    ..registerSingleton<StockRepository>(StockRepositoryImpl());
 }
 
 Future<void> _initTalker() async {

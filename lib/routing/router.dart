@@ -12,6 +12,7 @@ import 'package:merchok/features/root/root.dart';
 import 'package:merchok/features/scanner/scanner.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -122,6 +123,11 @@ final router = GoRouter(
       name: 'scan',
       path: '/scan',
       builder: (context, state) => const ScannerScreen(),
+    ),
+    GoRoute(
+      name: 'stock',
+      path: '/stock',
+      builder: (context, state) => const StockScreen(),
     ),
   ],
 );

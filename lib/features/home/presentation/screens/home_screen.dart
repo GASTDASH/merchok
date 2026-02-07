@@ -9,6 +9,8 @@ import 'package:merchok/features/current_category/current_category.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
@@ -21,9 +23,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
+  final ListController listController = ListController();
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
   final TextEditingController searchController = TextEditingController();
-  final ListController listController = ListController();
 
   @override
   void dispose() {
@@ -41,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
     context.read<CategoryBloc>().add(CategoryLoad());
     context.read<MerchBloc>().add(MerchLoad());
     context.read<CartBloc>().add(CartLoad());
+    context.read<StockBloc>().add(const StockLoad());
+    context.read<OrderBloc>().add(OrderLoad());
   }
 
   Future<String?> scan(BuildContext context) async =>
@@ -500,9 +504,9 @@ class _MerchList extends StatelessWidget {
   });
 
   final List<CartItem> cartItems;
+  final ListController listController;
   final List<Merch> merchList;
   final ScrollController scrollController;
-  final ListController listController;
 
   Future<void> showDeleteMerchDialog(
     BuildContext context,
@@ -543,28 +547,29 @@ class _MerchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SuperSliverList.builder(
-      listController: listController,
-      itemCount: merchList.length,
-      itemBuilder: (context, index) {
-        final merch = merchList[index];
+    return BlocBuilder<StockBloc, StockState>(
+      builder: (context, state) {
+        final Map<String, int> remainder = (state is StockLoaded)
+            ? state.remainders
+            : {};
 
-        return BlocSelector<CartBloc, CartState, int?>(
-          selector: (state) {
-            if (state is CartLoaded) {
-              return state.cartItems
-                  .firstWhereOrNull((item) => item.merchId == merch.id)
-                  ?.quantity;
-            }
-            return 0;
-          },
-          builder: (context, quantity) {
+        return SuperSliverList.builder(
+          listController: listController,
+          itemCount: merchList.length,
+          itemBuilder: (context, index) {
+            final merch = merchList[index];
+
+            final int? quantity = cartItems
+                .firstWhereOrNull((item) => item.merchId == merch.id)
+                ?.quantity;
+
             return MerchCard(
               onLongPress: quantity == null
                   ? () => showDeleteMerchDialog(context, merch.id)
                   : () => showUnableToDeleteMerchDialog(context),
               merch: merch,
               count: quantity ?? 0,
+              remainder: remainder[merch.id],
             );
           },
         );
