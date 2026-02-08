@@ -42,13 +42,15 @@ Future<void> _initHive() async {
     ..registerAdapter(PaymentMethodAdapter())
     ..registerAdapter(OrderItemAdapter())
     ..registerAdapter(OrderAdapter())
-    ..registerAdapter(CategoryAdapter());
+    ..registerAdapter(CategoryAdapter())
+    ..registerAdapter(StockItemAdapter());
 
   await Hive.openBox<Merch>(HiveBoxesNames.merches);
   await Hive.openBox<Festival>(HiveBoxesNames.festivals);
   await Hive.openBox<PaymentMethod>(HiveBoxesNames.paymentMethods);
   await Hive.openBox<Order>(HiveBoxesNames.orders);
   await Hive.openBox<Category>(HiveBoxesNames.categories);
+  await Hive.openBox<Map>(HiveBoxesNames.stock);
 }
 
 Future<void> _registerRepositories() async {
