@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/stock/stock.dart';
+import 'package:merchok/generated/l10n.dart';
 
 part 'stock_event.dart';
 part 'stock_state.dart';
@@ -26,7 +27,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
   Future<void> _onStockLoad(StockLoad event, Emitter<StockState> emit) async {
     try {
       if (event.festivalId == null) {
-        emit(const StockError(error: 'Не выбран фестиваль'));
+        emit(StockError(error: S.current.festivalNotSelected));
         return;
       }
 

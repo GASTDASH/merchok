@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
@@ -36,49 +38,59 @@ class _StatScreenState extends State<StatScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, orderState) {
-              return BlocBuilder<StockBloc, StockState>(
-                builder: (context, stockState) {
-                  return BlocBuilder<MerchBloc, MerchState>(
-                    builder: (context, merchState) {
-                      if (orderState is OrderLoading ||
-                          stockState is StockLoading ||
-                          merchState is MerchLoading) {
-                        return LoadingBanner(
-                          message: orderState is OrderLoading
-                              ? orderState.message
-                              : stockState is StockLoading
-                              ? stockState.message
-                              : (merchState as MerchLoading).message,
-                        );
-                      }
-                      if (orderState is OrderLoaded &&
-                          stockState is StockLoaded &&
-                          merchState is MerchLoaded) {
-                        return _StatList(
-                          orderList: orderState.orderList,
-                          stockItems: stockState.stockItems,
-                          merchList: merchState.merchList,
-                        );
-                      }
-                      if (orderState is OrderError ||
-                          stockState is StockError ||
-                          merchState is MerchError) {
-                        return ErrorBanner(
-                          message: orderState is OrderError
-                              ? orderState.error.toString()
-                              : stockState is StockError
-                              ? stockState.error.toString()
-                              : (merchState as MerchError).error.toString(),
-                        );
-                      }
-                      if (orderState is OrderInitial ||
-                          stockState is StockInitial ||
-                          merchState is MerchInitial) {
-                        return const SliverFillRemaining();
-                      }
-                      return const UnexpectedStateBanner();
+          BlocBuilder<CurrentFestivalCubit, Festival?>(
+            builder: (context, currentFestival) {
+              if (currentFestival == null) {
+                return InfoBanner.icon(
+                  text: S.of(context).festivalNotSelected,
+                  icon: AppIcons.calendar,
+                );
+              }
+              return BlocBuilder<OrderBloc, OrderState>(
+                builder: (context, orderState) {
+                  return BlocBuilder<StockBloc, StockState>(
+                    builder: (context, stockState) {
+                      return BlocBuilder<MerchBloc, MerchState>(
+                        builder: (context, merchState) {
+                          if (orderState is OrderLoading ||
+                              stockState is StockLoading ||
+                              merchState is MerchLoading) {
+                            return LoadingBanner(
+                              message: orderState is OrderLoading
+                                  ? orderState.message
+                                  : stockState is StockLoading
+                                  ? stockState.message
+                                  : (merchState as MerchLoading).message,
+                            );
+                          }
+                          if (orderState is OrderLoaded &&
+                              stockState is StockLoaded &&
+                              merchState is MerchLoaded) {
+                            return _StatList(
+                              orderList: orderState.orderList,
+                              stockItems: stockState.stockItems,
+                              merchList: merchState.merchList,
+                            );
+                          }
+                          if (orderState is OrderError ||
+                              stockState is StockError ||
+                              merchState is MerchError) {
+                            return ErrorBanner(
+                              message: orderState is OrderError
+                                  ? orderState.error.toString()
+                                  : stockState is StockError
+                                  ? stockState.error.toString()
+                                  : (merchState as MerchError).error.toString(),
+                            );
+                          }
+                          if (orderState is OrderInitial ||
+                              stockState is StockInitial ||
+                              merchState is MerchInitial) {
+                            return const SliverFillRemaining();
+                          }
+                          return const UnexpectedStateBanner();
+                        },
+                      );
                     },
                   );
                 },
