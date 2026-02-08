@@ -13,6 +13,7 @@ import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/stat/stat.dart';
 import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
+import 'package:yandex_mobileads/mobile_ads.dart';
 
 class StatScreen extends StatefulWidget {
   const StatScreen({super.key});
@@ -160,6 +161,17 @@ class _StatList extends StatelessWidget {
     'revenue': _revenue,
   };
 
+  BannerAd createBanner(BuildContext context) {
+    return BannerAd(
+      adUnitId: 'demo-banner-yandex',
+      adSize: BannerAdSize.inline(
+        width: MediaQuery.of(context).size.width.round() - 48,
+        maxHeight: 100,
+      ),
+      adRequest: const AdRequest(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -181,6 +193,12 @@ class _StatList extends StatelessWidget {
                   ordersCount: snapshot.data!['ordersCount'],
                   averageAmount: snapshot.data!['averageAmount'],
                   revenue: snapshot.data!['revenue'],
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(
+                  child: RepaintBoundary(
+                    child: AdWidget(bannerAd: createBanner(context)),
+                  ),
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: 24)),
                 PaymentMethodStat(orderList: orderList),
