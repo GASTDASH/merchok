@@ -59,9 +59,13 @@ class BarcodeBottomSheet extends StatelessWidget {
             merch.name,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
           ),
-          Text(merch.price.truncateIfInt(), style: theme.textTheme.titleMedium),
+          Text(
+            merch.price.truncateIfInt(),
+            style: theme.textTheme.titleMedium?.copyWith(color: Colors.black),
+          ),
           const SizedBox(height: 16),
           FittedBox(
             child: BaseButton(
