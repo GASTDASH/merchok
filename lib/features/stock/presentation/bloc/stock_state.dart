@@ -39,3 +39,7 @@ final class StockError extends StockState {
   @override
   List<Object?> get props => super.props..addAll([error]);
 }
+
+final class StockNoFestivalSelected extends StockLoaded {
+  StockNoFestivalSelected() : super(stockItems: [], remainders: {});
+}

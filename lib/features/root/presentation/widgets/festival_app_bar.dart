@@ -83,6 +83,13 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 }
                 if (state is StockLoading) {
                   return const CircularProgressIndicator();
+                }
+                if (state is StockError) {
+                  return Tooltip(
+                    triggerMode: TooltipTriggerMode.tap,
+                    message: state.error.toString(),
+                    child: const Icon(Icons.warning_amber_rounded),
+                  );
                 } else {
                   return Tooltip(
                     triggerMode: TooltipTriggerMode.tap,
