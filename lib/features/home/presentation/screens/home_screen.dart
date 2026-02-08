@@ -110,7 +110,11 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
 
   List<Merch> filterBySearch(List<Merch> filteredMerchList) {
     filteredMerchList = filteredMerchList
-        .where((merch) => merch.name.contains(searchController.text))
+        .where(
+          (merch) => merch.name.toLowerCase().contains(
+            searchController.text.toLowerCase(),
+          ),
+        )
         .toList();
     return filteredMerchList;
   }
