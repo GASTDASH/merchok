@@ -3,5 +3,6 @@ abstract class HiveBoxesNames {
       merches = 'merches',
       orders = 'orders',
       paymentMethods = 'paymentMethods',
-      categories = 'categories';
+      categories = 'categories',
+      stock = 'stock';
 }

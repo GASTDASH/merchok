@@ -1,6 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+part 'stock_item.g.dart';
+
+@HiveType(typeId: 6)
 class StockItem extends Equatable {
   const StockItem({
     required this.merchId,
@@ -8,10 +11,16 @@ class StockItem extends Equatable {
     required this.festivalId,
   });
 
+  /// Id фестиваля
+  @HiveField(0)
   final String festivalId;
+
+  /// Id мерча
+  @HiveField(1)
   final String merchId;
 
   /// Количество привезённого товара
+  @HiveField(2)
   final int quantity;
 
   @override
