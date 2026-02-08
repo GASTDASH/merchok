@@ -134,7 +134,7 @@ class _CartItemsList extends StatelessWidget {
 
         final stockState = context.read<StockBloc>().state;
         if (stockState is! StockLoaded) {
-          return const InfoBanner(text: 'Запас не загружен');
+          return InfoBanner(text: S.of(context).stockNotLoaded);
         }
         final Map<String, int> merchRemainders = Map.fromEntries(
           stockState.stockItems.map(

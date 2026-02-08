@@ -31,7 +31,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
         return;
       }
 
-      emit(const StockLoading(message: 'Загрузка информации о запасе'));
+      emit(StockLoading(message: S.current.stockLoading));
 
       final stockItems = await _stockRepository.getStockItems(
         festivalId: event.festivalId!,
@@ -67,7 +67,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
 
   Future<void> _onStockAdd(StockAdd event, Emitter<StockState> emit) async {
     try {
-      emit(const StockLoading(message: 'Добавление в запас'));
+      emit(StockLoading(message: S.current.addingToStock));
 
       await _stockRepository.addStockItem(
         festivalId: event.festivalId,
@@ -82,7 +82,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
 
   Future<void> _onStockEdit(StockEdit event, Emitter<StockState> emit) async {
     try {
-      emit(const StockLoading(message: 'Изменение запаса'));
+      emit(StockLoading(message: S.current.changingStock));
 
       await _stockRepository.editStockItem(
         festivalId: event.festivalId,
@@ -101,7 +101,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     Emitter<StockState> emit,
   ) async {
     try {
-      emit(const StockLoading(message: 'Удаление из запаса'));
+      emit(StockLoading(message: S.current.deletingFromStock));
 
       await _stockRepository.deleteStockItem(
         festivalId: event.festivalId,

@@ -55,8 +55,8 @@ class StockScreen extends StatelessWidget {
           BlocBuilder<CurrentFestivalCubit, Festival?>(
             builder: (context, currentFestival) {
               if (currentFestival == null) {
-                return const InfoBanner.icon(
-                  text: 'Выберите фестиваль для управления запасами',
+                return InfoBanner.icon(
+                  text: S.of(context).selectFestivalToManageStock,
                   icon: AppIcons.cube,
                 );
               }
@@ -68,7 +68,8 @@ class StockScreen extends StatelessWidget {
                       return SliverMainAxisGroup(
                         slivers: [
                           BaseSliverAppBar(
-                            title: 'Запас: ${currentFestival.name}',
+                            title:
+                                '${S.of(context).stock}: ${currentFestival.name}',
                             actions: [
                               IconButton(
                                 onPressed:
@@ -100,7 +101,7 @@ class StockScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                               ),
                               child: Text(
-                                'Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!',
+                                S.of(context).pleaseCountCarefully,
                                 style: theme.textTheme.bodyLarge,
                               ),
                             ),
@@ -135,8 +136,8 @@ class _StockList extends StatelessWidget {
       builder: (context) {
         if (merchState is MerchLoaded && stockState is StockLoaded) {
           if ((stockState as StockLoaded).stockItems.isEmpty) {
-            return const InfoBanner.icon(
-              text: 'Здесь будут ваш запас мерча',
+            return InfoBanner.icon(
+              text: S.of(context).yourStockWillBeHere,
               icon: AppIcons.cube,
             );
           } else {
