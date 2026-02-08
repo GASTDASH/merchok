@@ -39,16 +39,16 @@ class PaymentMethodStat extends StatelessWidget {
           }
 
           return ConstrainedBox(
-            constraints: BoxConstraints(minHeight: 100),
+            constraints: const BoxConstraints(minHeight: 100),
             child: BaseContainer(
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 4,
                   offset: Offset(0, 4),
                 ),
               ],
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 spacing: 24,
@@ -69,14 +69,15 @@ class PaymentMethodStat extends StatelessWidget {
                           height: 200,
                           child: Skeletonizer(
                             enabled: true,
-                            effect: PulseEffect(),
+                            effect: const PulseEffect(),
                             child: _PaymentMethodPieChart(
                               paymentMethodCount: paymentMethodCount,
                             ),
                           ),
                         );
                       } else if (paymentMethodCount != null) {
-                        if (paymentMethodCount.isNotEmpty) {
+                        if (paymentMethodCount.isNotEmpty &&
+                            orderList.isNotEmpty) {
                           return SizedBox(
                             height: 200,
                             child: _PaymentMethodPieChart(
@@ -94,7 +95,7 @@ class PaymentMethodStat extends StatelessWidget {
                       } else if (state is PaymentMethodError) {
                         return Text(S.of(context).errorLoadingPaymentMethods);
                       } else if (state is PaymentMethodInitial) {
-                        return SizedBox.shrink();
+                        return const SizedBox.shrink();
                       }
                       return Text(S.of(context).unexpectedState);
                     },
@@ -117,7 +118,7 @@ class PaymentMethodStat extends StatelessWidget {
                           }),
                         );
                       } else {
-                        return SizedBox.shrink();
+                        return const SizedBox.shrink();
                       }
                     },
                   ),
