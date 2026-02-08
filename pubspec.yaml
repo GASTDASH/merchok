@@ -1,7 +1,7 @@
 name: merchok
 # description: "A new Flutter project."
 publish_to: 'none'
-version: 0.4.0-dev
+version: 0.4.1-dev
 
 environment:
   sdk: 3.10.0-290.1.beta
