@@ -261,7 +261,9 @@ class MerchCard extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              (remainder != null) ? 'Осталось: $remainder' : 'Не привезено',
+              (remainder != null)
+                  ? '${S.of(context).remain}: $remainder'
+                  : S.of(context).outOfStock,
             ),
           ),
           Row(
@@ -312,7 +314,7 @@ class _CartManager extends StatelessWidget {
 
     return count == 0
         ? Tooltip(
-            message: 'Товара нет в запасе',
+            message: S.of(context).outOfStock1,
             triggerMode: TooltipTriggerMode.tap,
             child: BaseButton(
               // key: ValueKey('cart'),

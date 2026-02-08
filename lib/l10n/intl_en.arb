@@ -166,5 +166,22 @@
   "importErrorDescription": "Make sure that the file name has not been changed.",
   "barcodes": "Barcodes",
   "cameraPermissionDenied": "To scan the merch codes, the app must have access to the camera.",
-  "new1": "New"
+  "new1": "New",
+  "stockNotLoaded": "Stock is not loaded",
+  "remain": "In stock",
+  "outOfStock": "Out of stock",
+  "outOfStock1": "Out of stock",
+  "stockLoading": "Loading stock info",
+  "addingToStock": "Adding to stock",
+  "changingStock": "Updating stock",
+  "deletingFromStock": "Removing from stock",
+  "selectFestivalToManageStock": "Select a festival to manage stock",
+  "stock": "Stock",
+  "pleaseCountCarefully": "Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!",
+  "yourStockWillBeHere": "Your merch stock will appear here",
+  "invalidQuantityError": "Please enter a valid quantity",
+  "removeStockItem": "Remove merch from stock?",
+  "stockDelivered": "Delivered",
+  "sell": "Продажа",
+  "cost": "Закупка"
 }
