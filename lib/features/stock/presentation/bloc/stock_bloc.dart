@@ -27,7 +27,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
   Future<void> _onStockLoad(StockLoad event, Emitter<StockState> emit) async {
     try {
       if (event.festivalId == null) {
-        emit(StockError(error: S.current.festivalNotSelected));
+        emit(StockNoFestivalSelected());
         return;
       }
 
