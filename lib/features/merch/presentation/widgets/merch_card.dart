@@ -70,7 +70,6 @@ class MerchCard extends StatelessWidget {
   }
 
   Future<void> changeCategory(BuildContext context) async {
-    final merchBloc = context.read<MerchBloc>();
     final categoryState = context.read<CategoryBloc>().state;
     if (merch.categoryId != null && categoryState is! CategoryLoaded) {
       return;
@@ -85,10 +84,28 @@ class MerchCard extends StatelessWidget {
     );
     if (category == null) return;
     if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: null)));
+      if (!context.mounted) return;
+
+      await _handleMerchEdit(
+        context,
+        updatedMerch: merch.copyWith(categoryId: null),
+      );
     } else {
-      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: category.id)));
+      if (!context.mounted) return;
+
+      await _handleMerchEdit(
+        context,
+        updatedMerch: merch.copyWith(categoryId: category.id),
+      );
     }
+  }
+
+  Future<void> editDescription(BuildContext context, String? text) async {
+    if (merch.description == text) return;
+    await _handleMerchEdit(
+      context,
+      updatedMerch: merch.copyWith(description: text),
+    );
   }
 
   Future<Map<String, double?>?> showChangePriceBottomSheet(
@@ -249,12 +266,7 @@ class MerchCard extends StatelessWidget {
               ),
               DescriptionSection(
                 description: merch.description,
-                onTapOutside: (text) {
-                  if (merch.description == text) return;
-                  context.read<MerchBloc>().add(
-                    MerchEdit(merch: merch.copyWith(description: text)),
-                  );
-                },
+                onTapOutside: (text) => editDescription(context, text),
               ),
             ],
           ),
