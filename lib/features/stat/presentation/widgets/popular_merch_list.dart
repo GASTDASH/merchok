@@ -90,19 +90,19 @@ class _PopularMerchItem extends StatelessWidget {
 
   Widget buildMedalWidget() {
     return switch (index) {
-      0 => Text(
+      0 => const Text(
         '🥇', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      1 => Text(
+      1 => const Text(
         '🥈', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      2 => Text(
+      2 => const Text(
         '🥉', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      int() => SizedBox(),
+      int() => const SizedBox(),
     };
   }
 

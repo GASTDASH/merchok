@@ -8,7 +8,7 @@ part of 'stock_item.dart';
 
 class StockItemAdapter extends TypeAdapter<StockItem> {
   @override
-  final int typeId = 6;
+  final typeId = 6;
 
   @override
   StockItem read(BinaryReader reader) {
@@ -18,7 +18,7 @@ class StockItemAdapter extends TypeAdapter<StockItem> {
     };
     return StockItem(
       merchId: fields[1] as String,
-      quantity: fields[2] as int,
+      quantity: (fields[2] as num).toInt(),
       festivalId: fields[0] as String,
     );
   }

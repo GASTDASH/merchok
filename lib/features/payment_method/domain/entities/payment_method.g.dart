@@ -8,7 +8,7 @@ part of 'payment_method.dart';
 
 class PaymentMethodAdapter extends TypeAdapter<PaymentMethod> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   PaymentMethod read(BinaryReader reader) {
@@ -29,16 +29,16 @@ class PaymentMethodAdapter extends TypeAdapter<PaymentMethod> {
   void write(BinaryWriter writer, PaymentMethod obj) {
     writer
       ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.information)
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.iconPath)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(2)
-      ..write(obj.information)
-      ..writeByte(1)
-      ..write(obj.name);
+      ..write(obj.iconPath);
   }
 
   @override

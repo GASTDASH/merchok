@@ -8,7 +8,7 @@ part of 'order.dart';
 
 class OrderAdapter extends TypeAdapter<Order> {
   @override
-  final int typeId = 3;
+  final typeId = 3;
 
   @override
   Order read(BinaryReader reader) {
@@ -29,14 +29,14 @@ class OrderAdapter extends TypeAdapter<Order> {
   void write(BinaryWriter writer, Order obj) {
     writer
       ..writeByte(5)
-      ..writeByte(2)
-      ..write(obj.createdAt)
-      ..writeByte(3)
-      ..write(obj.festival)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.orderItems)
+      ..writeByte(2)
+      ..write(obj.createdAt)
+      ..writeByte(3)
+      ..write(obj.festival)
       ..writeByte(4)
       ..write(obj.paymentMethod);
   }

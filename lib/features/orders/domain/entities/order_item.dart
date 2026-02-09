@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/merch/merch.dart';
 

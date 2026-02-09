@@ -8,7 +8,7 @@ part of 'order_item.dart';
 
 class OrderItemAdapter extends TypeAdapter<OrderItem> {
   @override
-  final int typeId = 4;
+  final typeId = 4;
 
   @override
   OrderItem read(BinaryReader reader) {
@@ -18,7 +18,7 @@ class OrderItemAdapter extends TypeAdapter<OrderItem> {
     };
     return OrderItem(
       merch: fields[0] as Merch,
-      quantity: fields[1] as int,
+      quantity: (fields[1] as num).toInt(),
     );
   }
 
