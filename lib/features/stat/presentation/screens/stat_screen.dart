@@ -134,17 +134,6 @@ class _StatList extends StatelessWidget {
   double get _sumTotalEarned =>
       orderList.fold(0, (sum, order) => sum + order.totalEarned);
 
-  @Deprecated('Use _sumTotalSpentViaStock instead')
-  double get _sumTotalSpent => orderList.fold(
-    0,
-    (sum, order) =>
-        sum +
-        order.orderItems.fold(
-          0,
-          (sum, item) => sum + (item.merch.purchasePrice ?? 0 * item.quantity),
-        ),
-  );
-
   double get _sumTotalSpentViaStock {
     double totalSpent = 0;
 
