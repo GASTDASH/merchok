@@ -18,5 +18,7 @@ abstract class IconNames {
       sberbank = 'assets/icons/banks/sberbank.svg',
       tbank = 'assets/icons/banks/tbank.svg',
       vtb = 'assets/icons/banks/vtb.svg',
-      yoomoney = 'assets/icons/banks/yoomoney.svg';
+      yoomoney = 'assets/icons/banks/yoomoney.svg',
+      mail = 'assets/icons/Mail.svg',
+      vk = 'assets/icons/VK.svg';
 }
