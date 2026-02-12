@@ -1583,6 +1583,26 @@ class S {
   String get cost {
     return Intl.message('Закупка', name: 'cost', desc: '', args: []);
   }
+
+  /// `Alexey Shcherbakov`
+  String get alexeyShcherbakov {
+    return Intl.message(
+      'Alexey Shcherbakov',
+      name: 'alexeyShcherbakov',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flutter / Mobile`
+  String get flutterMobile {
+    return Intl.message(
+      'Flutter / Mobile',
+      name: 'flutterMobile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

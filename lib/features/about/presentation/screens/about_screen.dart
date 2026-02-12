@@ -150,11 +150,11 @@ class _DevelopedBy extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Алексей Щербаков',
+                S.of(context).alexeyShcherbakov,
                 style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
               ),
               Text(
-                'Flutter / Mobile',
+                S.of(context).flutterMobile,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontSize: 14,
                   color: theme.hintColor.withAlpha(100),

@@ -40,6 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "additionalInformation": MessageLookupByLibrary.simpleMessage(
       "Доп. информация",
     ),
+    "alexeyShcherbakov": MessageLookupByLibrary.simpleMessage(
+      "Алексей Щербаков",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
     "apply": MessageLookupByLibrary.simpleMessage("Применить"),
@@ -140,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Файл успешно сохранён",
     ),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
+    "flutterMobile": MessageLookupByLibrary.simpleMessage("Flutter / Mobile"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
     "gastdash": MessageLookupByLibrary.simpleMessage("GASTDASH"),

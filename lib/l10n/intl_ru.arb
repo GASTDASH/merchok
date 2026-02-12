@@ -183,5 +183,7 @@
   "removeStockItem": "Удалить мерч из запаса?",
   "stockDelivered": "Привезено",
   "sell": "Продажа",
-  "cost": "Закупка"
+  "cost": "Закупка",
+  "alexeyShcherbakov": "Алексей Щербаков",
+  "flutterMobile": "Flutter / Mobile"
 }

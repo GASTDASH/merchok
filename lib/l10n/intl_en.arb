@@ -183,5 +183,7 @@
   "removeStockItem": "Remove merch from stock?",
   "stockDelivered": "Delivered",
   "sell": "Продажа",
-  "cost": "Закупка"
+  "cost": "Закупка",
+  "alexeyShcherbakov": "Alexey Shcherbakov",
+  "flutterMobile": "Flutter / Mobile"
 }
