@@ -11,6 +11,7 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
+import 'package:merchok/features/stat/stat.dart';
 import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:merchok/generated/l10n.dart';
@@ -69,6 +70,13 @@ class MerchokApp extends StatelessWidget {
           create: (context) => StockBloc(
             stockRepository: GetIt.I<StockRepository>(),
             orderRepository: GetIt.I<OrderRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StatBloc(
+            orderRepository: GetIt.I<OrderRepository>(),
+            stockRepository: GetIt.I<StockRepository>(),
+            merchRepository: GetIt.I<MerchRepository>(),
           ),
         ),
       ],

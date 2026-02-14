@@ -34,6 +34,23 @@ class StockRepositoryImpl implements StockRepository {
     return rawMap.values.cast<StockItem>().toList();
   }
 
+  /// Получает все товары в запасе со всех фестивалей
+  @override
+  Future<List<StockItem>> getAllStockItems() async {
+    final List<StockItem> allStockItems = [];
+
+    for (final festivalId in _stockItemsBox.keys) {
+      if (festivalId is String) {
+        final rawMap = _stockItemsBox.get(festivalId);
+        if (rawMap != null) {
+          allStockItems.addAll(rawMap.values.cast<StockItem>());
+        }
+      }
+    }
+
+    return allStockItems;
+  }
+
   /// Добавляет товар с указанным [merchId] и в запас фестиваля с указанным [festivalId]
   @override
   Future<void> addStockItem({

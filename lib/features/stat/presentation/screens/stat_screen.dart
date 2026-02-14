@@ -28,6 +28,7 @@ class _StatScreenState extends State<StatScreen> {
   void initState() {
     super.initState();
 
+    context.read<StatBloc>().add(const StatLoad());
     context.read<OrderBloc>().add(OrderLoad());
     context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
     context.read<MerchBloc>().add(MerchLoad());
@@ -36,68 +37,45 @@ class _StatScreenState extends State<StatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          BlocBuilder<CurrentFestivalCubit, Festival?>(
-            builder: (context, currentFestival) {
-              if (currentFestival == null) {
-                return InfoBanner.icon(
-                  text: S.of(context).festivalNotSelected,
-                  icon: AppIcons.calendar,
-                );
-              }
-              return BlocBuilder<OrderBloc, OrderState>(
-                builder: (context, orderState) {
-                  return BlocBuilder<StockBloc, StockState>(
-                    builder: (context, stockState) {
-                      return BlocBuilder<MerchBloc, MerchState>(
-                        builder: (context, merchState) {
-                          if (orderState is OrderLoading ||
-                              stockState is StockLoading ||
-                              merchState is MerchLoading) {
-                            return LoadingBanner(
-                              message: orderState is OrderLoading
-                                  ? orderState.message
-                                  : stockState is StockLoading
-                                  ? stockState.message
-                                  : (merchState as MerchLoading).message,
-                            );
-                          }
-                          if (orderState is OrderLoaded &&
-                              stockState is StockLoaded &&
-                              merchState is MerchLoaded) {
-                            return _StatList(
-                              orderList: orderState.orderList,
-                              stockItems: stockState.stockItems,
-                              merchList: merchState.merchList,
-                            );
-                          }
-                          if (orderState is OrderError ||
-                              stockState is StockError ||
-                              merchState is MerchError) {
-                            return ErrorBanner(
-                              message: orderState is OrderError
-                                  ? orderState.error.toString()
-                                  : stockState is StockError
-                                  ? stockState.error.toString()
-                                  : (merchState as MerchError).error.toString(),
-                            );
-                          }
-                          if (orderState is OrderInitial ||
-                              stockState is StockInitial ||
-                              merchState is MerchInitial) {
-                            return const SliverFillRemaining();
-                          }
-                          return const UnexpectedStateBanner();
-                        },
-                      );
-                    },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<StatBloc>().add(const StatLoad());
+        },
+        child: CustomScrollView(
+          slivers: [
+            BlocBuilder<CurrentFestivalCubit, Festival?>(
+              builder: (context, currentFestival) {
+                if (currentFestival == null) {
+                  return InfoBanner.icon(
+                    text: S.of(context).festivalNotSelected,
+                    icon: AppIcons.calendar,
                   );
-                },
-              );
-            },
-          ),
-        ],
+                }
+                return BlocBuilder<StatBloc, StatState>(
+                  builder: (context, statState) {
+                    if (statState is StatLoading) {
+                      return LoadingBanner(message: statState.message);
+                    }
+                    if (statState is StatLoaded) {
+                      return _StatList(
+                        orderList: statState.orderList,
+                        allStockItems: statState.allStockItems,
+                        merchList: statState.merchList,
+                      );
+                    }
+                    if (statState is StatError) {
+                      return ErrorBanner(message: statState.error.toString());
+                    }
+                    if (statState is StatInitial) {
+                      return const SliverFillRemaining();
+                    }
+                    return const UnexpectedStateBanner();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -106,17 +84,17 @@ class _StatScreenState extends State<StatScreen> {
 class _StatList extends StatelessWidget {
   const _StatList({
     required this.orderList,
-    required this.stockItems,
+    required this.allStockItems,
     required this.merchList,
   });
 
   final List<Order> orderList;
-  final List<StockItem> stockItems;
+  final List<StockItem> allStockItems;
   final List<Merch> merchList;
 
   Future<Map<String, dynamic>> getGeneralStat() async {
     log('getGeneralStat() called');
-    final data = compute((_) => _getGeneralStatCompute(), null);
+    final data = await compute((_) => _getGeneralStatCompute(), null);
     log('got generalStat');
     return data;
   }
@@ -141,15 +119,13 @@ class _StatList extends StatelessWidget {
       for (final merch in merchList) merch.id: merch,
     };
 
-    for (final item in stockItems) {
+    for (final item in allStockItems) {
       if (merchById[item.merchId] == null) continue;
 
       if (merchById[item.merchId]!.purchasePrice != null) {
         totalSpent += merchById[item.merchId]!.purchasePrice! * item.quantity;
       }
     }
-
-    log(totalSpent.toString());
 
     return totalSpent;
   }
