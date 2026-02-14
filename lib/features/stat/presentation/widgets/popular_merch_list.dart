@@ -28,6 +28,8 @@ class PopularMerchList extends StatelessWidget {
       ...merchListFromOrders,
       ...merchList,
     }.toList();
+    final seenIds = <String>{};
+    uniqueMerchList.retainWhere((merch) => seenIds.add(merch.id));
     log('[_countMerch] uniqueMerchList is ready');
 
     final Map<Merch, int> merchesCount = {};
@@ -36,7 +38,7 @@ class PopularMerchList extends StatelessWidget {
       int count = 0;
       for (Order order in orderList) {
         count += order.orderItems
-            .where((item) => item.merch == merch)
+            .where((item) => item.merch.id == merch.id)
             .fold(0, (sum, item) => sum + item.quantity);
       }
       merchesCount.addAll({merch: count});
