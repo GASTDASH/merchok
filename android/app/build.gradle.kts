@@ -53,6 +53,8 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true // Включает удаление неиспользуемого кода
+            isShrinkResources = true // Удаляет неиспользуемые ресурсы
         }
     }
 }
