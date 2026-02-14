@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "496138794888",
+    "project_id": "merchok-gd",
+    "storage_bucket": "merchok-gd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496138794888:android:58984485f523835a81ec3d",
+        "android_client_info": {
+          "package_name": "com.gastdash.merchok"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk_sqB_oviS79brLaxx36oLY7OkhHq80Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
