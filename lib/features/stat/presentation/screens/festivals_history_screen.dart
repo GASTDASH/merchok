@@ -5,6 +5,7 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/features/festival/domain/entities/festival.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/stat/stat.dart';
+import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class FestivalsHistoryScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class FestivalsHistoryScreen extends StatelessWidget {
   List<HistoryFestival> _toHistory(
     List<Festival> festivals,
     List<Order> sortedOrderList,
+    List<StockItem> allStockItems,
   ) => festivals.map((festival) {
     final ordersOnFestival = sortedOrderList.where(
       (order) => order.festival == festival,
@@ -21,6 +23,13 @@ class FestivalsHistoryScreen extends StatelessWidget {
       0,
       (sum, order) => sum + order.totalEarned,
     );
+
+    double totalSpent = 0;
+    for (final stockItem in allStockItems) {
+      if (stockItem.festivalId != festival.id) continue;
+      totalSpent += (stockItem.purchasePrice ?? 0) * stockItem.quantity;
+    }
+
     return HistoryFestival(
       festival: festival,
       totalEarned: totalEarned,
@@ -30,9 +39,7 @@ class FestivalsHistoryScreen extends StatelessWidget {
         (sum, order) =>
             sum + order.orderItems.fold(0, (sum, item) => sum + item.quantity),
       ),
-      revenue:
-          totalEarned -
-          ordersOnFestival.fold(0, (sum, order) => sum + order.revenue),
+      revenue: totalEarned - totalSpent,
     );
   }).toList();
 
@@ -49,14 +56,15 @@ class FestivalsHistoryScreen extends StatelessWidget {
         slivers: [
           BaseSliverAppBar(title: S.of(context).historyOfFestivals),
           BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, state) {
-              if (state is OrderLoaded) {
-                final sortedOrderList = state.orderList.sorted(
+            builder: (context, orderState) {
+              if (orderState is OrderLoaded) {
+                final sortedOrderList = orderState.orderList.sorted(
                   (a, b) => a.totalEarned.compareTo(b.totalEarned),
                 );
                 final historyFestivals = _toHistory(
-                  _getFestivals(state.orderList),
+                  _getFestivals(orderState.orderList),
                   sortedOrderList,
+                  (context.read<StatBloc>().state as StatLoaded).allStockItems,
                 );
 
                 return SliverMainAxisGroup(
@@ -67,11 +75,11 @@ class FestivalsHistoryScreen extends StatelessWidget {
                     PastFestivalsList(
                       historyFestivals: historyFestivals.reversed.toList(),
                     ),
-                    SliverToBoxAdapter(child: SizedBox(height: 32)),
+                    const SliverToBoxAdapter(child: SizedBox(height: 32)),
                   ],
                 );
               } else {
-                return SliverFillRemaining();
+                return const SliverFillRemaining();
               }
             },
           ),
