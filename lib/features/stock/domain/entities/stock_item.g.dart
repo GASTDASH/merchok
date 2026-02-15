@@ -20,19 +20,22 @@ class StockItemAdapter extends TypeAdapter<StockItem> {
       merchId: fields[1] as String,
       quantity: (fields[2] as num).toInt(),
       festivalId: fields[0] as String,
+      purchasePrice: (fields[3] as num?)?.toDouble(),
     );
   }
 
   @override
   void write(BinaryWriter writer, StockItem obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.festivalId)
       ..writeByte(1)
       ..write(obj.merchId)
       ..writeByte(2)
-      ..write(obj.quantity);
+      ..write(obj.quantity)
+      ..writeByte(3)
+      ..write(obj.purchasePrice);
   }
 
   @override

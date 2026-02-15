@@ -73,6 +73,7 @@ class _MerchStockListTileEditableState
                   Expanded(
                     child: MerchStockListTile(
                       merch: widget.merch,
+                      purchasePrice: widget.stockItem.purchasePrice,
                       onLongPress: () {
                         showYesNoDialog(
                           context: context,

@@ -9,6 +9,7 @@ class StockItem extends Equatable {
     required this.merchId,
     required this.quantity,
     required this.festivalId,
+    required this.purchasePrice,
   });
 
   /// Id фестиваля
@@ -23,14 +24,24 @@ class StockItem extends Equatable {
   @HiveField(2)
   final int quantity;
 
+  /// Цена закупки на момент создания (привоза)
+  @HiveField(3)
+  final double? purchasePrice;
+
   @override
   List<Object?> get props => [merchId, quantity];
 
-  StockItem copyWith({String? merchId, int? quantity, String? festivalId}) {
+  StockItem copyWith({
+    String? merchId,
+    int? quantity,
+    String? festivalId,
+    double? purchasePrice,
+  }) {
     return StockItem(
       merchId: merchId ?? this.merchId,
       quantity: quantity ?? this.quantity,
       festivalId: festivalId ?? this.festivalId,
+      purchasePrice: purchasePrice ?? this.purchasePrice,
     );
   }
 }

@@ -72,6 +72,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
       await _stockRepository.addStockItem(
         festivalId: event.festivalId,
         merchId: event.merchId,
+        purchasePrice: event.purchasePrice,
       );
 
       add(StockLoad(festivalId: event.festivalId));

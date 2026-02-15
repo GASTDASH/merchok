@@ -572,6 +572,10 @@ class _MerchList extends StatelessWidget {
                 .firstWhereOrNull((item) => item.merchId == merch.id)
                 ?.quantity;
 
+            final purchasePriceEditable = (state is StockLoaded)
+                ? !state.stockItems.any((item) => item.merchId == merch.id)
+                : true;
+
             return MerchCard(
               onLongPress: quantity == null
                   ? () => showDeleteMerchDialog(context, merch.id)
@@ -579,6 +583,7 @@ class _MerchList extends StatelessWidget {
               merch: merch,
               count: quantity ?? 0,
               remainder: remainder[merch.id],
+              purchasePriceEditable: purchasePriceEditable,
             );
           },
         );

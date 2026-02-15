@@ -26,7 +26,13 @@ class StockScreen extends StatelessWidget {
 
     if (merch == null || merch is! Merch) return;
 
-    stockBloc.add(StockAdd(festivalId: festivalId, merchId: merch.id));
+    stockBloc.add(
+      StockAdd(
+        festivalId: festivalId,
+        merchId: merch.id,
+        purchasePrice: merch.purchasePrice,
+      ),
+    );
   }
 
   Future<dynamic> _showSelectMerchBottomSheet(

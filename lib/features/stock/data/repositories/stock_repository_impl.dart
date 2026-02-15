@@ -56,6 +56,7 @@ class StockRepositoryImpl implements StockRepository {
   Future<void> addStockItem({
     required String festivalId,
     required String merchId,
+    required double? purchasePrice,
   }) async {
     // Запас фестиваля
     final festivalStock = _getTypedMap(festivalId);
@@ -73,6 +74,7 @@ class StockRepositoryImpl implements StockRepository {
         merchId: merchId,
         festivalId: festivalId,
         quantity: 1,
+        purchasePrice: purchasePrice ?? 0,
       );
     }
 
@@ -88,10 +90,13 @@ class StockRepositoryImpl implements StockRepository {
   }) async {
     final festivalStock = _getTypedMap(festivalId);
 
+    if (festivalStock[merchId] == null) return;
+
     festivalStock[merchId] = StockItem(
       merchId: merchId,
       festivalId: festivalId,
       quantity: quantity,
+      purchasePrice: festivalStock[merchId]!.purchasePrice,
     );
 
     _stockItemsBox.put(festivalId, festivalStock);

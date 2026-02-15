@@ -6,6 +6,7 @@ abstract interface class StockRepository {
   Future<void> addStockItem({
     required String festivalId,
     required String merchId,
+    required double? purchasePrice,
   });
   Future<void> editStockItem({
     required String festivalId,

@@ -185,5 +185,7 @@
   "sell": "Продажа",
   "cost": "Закупка",
   "alexeyShcherbakov": "Алексей Щербаков",
-  "flutterMobile": "Flutter / Mobile"
+  "flutterMobile": "Flutter / Mobile",
+  "unableToChangePurchasePrice": "Невозможно изменить закупочную цену",
+  "merchIsAlreadyInStock": "мерч уже в запасе"
 }

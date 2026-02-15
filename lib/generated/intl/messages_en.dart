@@ -188,6 +188,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchImporting": MessageLookupByLibrary.simpleMessage(
       "Importing the merch list",
     ),
+    "merchIsAlreadyInStock": MessageLookupByLibrary.simpleMessage(
+      "the merch is already in stock",
+    ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The merch list is not loaded",
     ),
@@ -349,6 +352,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
       "Try again, or maybe you don\'t have this merch.",
+    ),
+    "unableToChangePurchasePrice": MessageLookupByLibrary.simpleMessage(
+      "Unable to change the purchase price",
     ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a category that is being used",

@@ -115,16 +115,8 @@ class _StatList extends StatelessWidget {
   double get _sumTotalSpentViaStock {
     double totalSpent = 0;
 
-    final Map<String, Merch> merchById = {
-      for (final merch in merchList) merch.id: merch,
-    };
-
     for (final item in allStockItems) {
-      if (merchById[item.merchId] == null) continue;
-
-      if (merchById[item.merchId]!.purchasePrice != null) {
-        totalSpent += merchById[item.merchId]!.purchasePrice! * item.quantity;
-      }
+      totalSpent += (item.purchasePrice ?? 0) * item.quantity;
     }
 
     return totalSpent;

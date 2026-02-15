@@ -17,13 +17,19 @@ final class StockLoad extends StockEvent {
 }
 
 final class StockAdd extends StockEvent {
-  const StockAdd({required this.merchId, required this.festivalId});
+  const StockAdd({
+    required this.merchId,
+    required this.festivalId,
+    required this.purchasePrice,
+  });
 
   final String festivalId;
   final String merchId;
+  final double? purchasePrice;
 
   @override
-  List<Object?> get props => super.props..addAll([merchId, festivalId]);
+  List<Object?> get props =>
+      super.props..addAll([merchId, festivalId, purchasePrice]);
 }
 
 final class StockEdit extends StockEvent {

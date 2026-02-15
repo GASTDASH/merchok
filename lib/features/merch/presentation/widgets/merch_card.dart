@@ -23,6 +23,7 @@ class MerchCard extends StatelessWidget {
     this.onLongPress,
     this.onTapDelete,
     this.remainder,
+    this.purchasePriceEditable = true,
   });
 
   final int count;
@@ -31,6 +32,7 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
   final int? remainder;
+  final bool purchasePriceEditable;
 
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
@@ -120,6 +122,7 @@ class MerchCard extends StatelessWidget {
       child: ChangePriceBottomSheet(
         previousPrice: merch.price,
         previousPurchasePrice: merch.purchasePrice,
+        purchasePriceEditable: purchasePriceEditable,
       ),
     ),
   );

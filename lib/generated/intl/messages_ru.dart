@@ -192,6 +192,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchImporting": MessageLookupByLibrary.simpleMessage(
       "Импортирование списка мерча",
     ),
+    "merchIsAlreadyInStock": MessageLookupByLibrary.simpleMessage(
+      "мерч уже в запасе",
+    ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Мерч не загружен",
     ),
@@ -353,6 +356,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
     "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
       "Попробуйте ещё раз, или, возможно, у вас нет этого мерча",
+    ),
+    "unableToChangePurchasePrice": MessageLookupByLibrary.simpleMessage(
+      "Невозможно изменить закупочную цену",
     ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Невозможно удалить используемую категорию",

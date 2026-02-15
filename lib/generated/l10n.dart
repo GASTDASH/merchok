@@ -1603,6 +1603,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Unable to change the purchase price`
+  String get unableToChangePurchasePrice {
+    return Intl.message(
+      'Unable to change the purchase price',
+      name: 'unableToChangePurchasePrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the merch is already in stock`
+  String get merchIsAlreadyInStock {
+    return Intl.message(
+      'the merch is already in stock',
+      name: 'merchIsAlreadyInStock',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

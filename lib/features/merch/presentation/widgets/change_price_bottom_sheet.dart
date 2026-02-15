@@ -8,10 +8,12 @@ class ChangePriceBottomSheet extends StatefulWidget {
     super.key,
     required this.previousPrice,
     this.previousPurchasePrice,
+    this.purchasePriceEditable = true,
   });
 
   final double previousPrice;
   final double? previousPurchasePrice;
+  final bool purchasePriceEditable;
 
   @override
   State<ChangePriceBottomSheet> createState() => _ChangePriceBottomSheetState();
@@ -44,8 +46,8 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
   }) {
     return BaseButton(
       onTap: onTap,
-      constraints: BoxConstraints(minWidth: 38),
-      padding: EdgeInsetsGeometry.all(4),
+      constraints: const BoxConstraints(minWidth: 38),
+      padding: const EdgeInsetsGeometry.all(4),
       color: color,
       child: Text(text),
     );
@@ -57,10 +59,10 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
 
     return Container(
       height: 390,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
       ),
       child: Form(
         key: formKey,
@@ -83,9 +85,9 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Text(S.of(context).price, style: theme.textTheme.bodyLarge),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -140,15 +142,16 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Text(S.of(context).purchasePrice, style: theme.textTheme.bodyLarge),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 128,
                   child: TextFormField(
+                    enabled: widget.purchasePriceEditable,
                     controller: purchasePriceController,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineSmall,
@@ -164,7 +167,12 @@ class _ChangePriceBottomSheetState extends State<ChangePriceBottomSheet> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            if (!widget.purchasePriceEditable)
+              Text(
+                '${S.of(context).unableToChangePurchasePrice}\n(${S.of(context).merchIsAlreadyInStock})',
+                textAlign: TextAlign.center,
+              ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
