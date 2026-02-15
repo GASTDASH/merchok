@@ -330,9 +330,10 @@ class _CartManager extends StatelessWidget {
     return count == 0
         ? Tooltip(
             message: S.of(context).outOfStock1,
-            triggerMode: TooltipTriggerMode.tap,
+            triggerMode: remainder == 0
+                ? TooltipTriggerMode.tap
+                : TooltipTriggerMode.manual,
             child: BaseButton(
-              // key: ValueKey('cart'),
               onTap: remainder != 0
                   ? () =>
                         context.read<CartBloc>().add(CartAdd(merchId: merch.id))
