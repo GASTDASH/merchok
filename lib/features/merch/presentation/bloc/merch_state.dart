@@ -15,7 +15,7 @@ final class MerchLoaded extends MerchState {
   final List<Merch> merchList;
 
   @override
-  List<Object> get props => super.props..addAll([merchList]);
+  List<Object> get props => super.props..addAll([Object.hashAll(merchList)]);
 }
 
 final class MerchLoading extends MerchState {
