@@ -237,7 +237,7 @@ class _OtherStatCards extends StatelessWidget {
                   Fluttertoast.showToast(msg: S.of(context).noReceipts);
                   return;
                 }
-                context.push('/festivals_history');
+                context.push(AppRoutes.festivalsHistory);
               },
               text: S.of(context).historyOfFestivals,
               icon: IconNames.graph,
@@ -267,7 +267,7 @@ class _OtherStatCards extends StatelessWidget {
                   );
                   return;
                 }
-                context.push('/popular_merch');
+                context.push(AppRoutes.popularMerch);
               },
               text: S.of(context).popularMerch,
               icon: IconNames.like,

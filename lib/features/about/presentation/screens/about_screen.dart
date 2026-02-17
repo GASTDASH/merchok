@@ -216,7 +216,7 @@ class _PrivacyPolicy extends StatelessWidget {
       onTap: () {
         final languageCode =
             GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
-        context.push('/about/privacy_policy/$languageCode');
+        context.push(AppRoutes.privacyPolicy(languageCode));
       },
       inkWellAnimation: true,
       width: .infinity,
@@ -246,7 +246,7 @@ class _TermsAndConditions extends StatelessWidget {
       onTap: () {
         final languageCode =
             GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
-        context.push('/about/terms_conditions/$languageCode');
+        context.push(AppRoutes.termsAndConditions(languageCode));
       },
       inkWellAnimation: true,
       width: .infinity,

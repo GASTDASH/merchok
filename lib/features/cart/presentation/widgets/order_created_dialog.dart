@@ -13,7 +13,7 @@ class OrderCreatedDialog extends StatelessWidget {
 
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           spacing: 24,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class OrderCreatedDialog extends StatelessWidget {
                     child: BaseButton.outlined(
                       onTap: () {
                         context.pop();
-                        context.go('/orders');
+                        context.go(AppRoutes.orders);
                       },
                       color: theme.colorScheme.onSurface,
                       child: Expanded(
@@ -53,7 +53,7 @@ class OrderCreatedDialog extends StatelessWidget {
                     onTap: () {
                       context.pop();
                     },
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+                    padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
                     child: Text(S.of(context).back),
                   ),
                 ],

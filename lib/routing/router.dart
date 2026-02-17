@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/about/about.dart';
 import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
@@ -20,7 +21,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 final router = GoRouter(
   observers: [TalkerRouteObserver(GetIt.I<Talker>())],
-  initialLocation: '/home',
+  initialLocation: AppRoutes.home,
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -30,7 +31,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               name: 'home',
-              path: '/home',
+              path: AppRoutes.home,
               builder: (context, state) => const HomeScreen(),
             ),
           ],
@@ -39,7 +40,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               name: 'orders',
-              path: '/orders',
+              path: AppRoutes.orders,
               builder: (context, state) => const OrdersScreen(),
             ),
           ],
@@ -48,7 +49,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               name: 'stat',
-              path: '/stat',
+              path: AppRoutes.stat,
               builder: (context, state) => const StatScreen(),
             ),
           ],
@@ -57,7 +58,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               name: 'settings',
-              path: '/settings',
+              path: AppRoutes.settings,
               builder: (context, state) => const SettingsScreen(),
             ),
           ],
@@ -66,55 +67,55 @@ final router = GoRouter(
     ),
     GoRoute(
       name: 'festival',
-      path: '/festival',
+      path: AppRoutes.festival,
       pageBuilder: (context, state) =>
           SlideDownTransitionPage(state: state, child: const FestivalScreen()),
     ),
     GoRoute(
       name: 'theme',
-      path: '/theme',
+      path: AppRoutes.theme,
       builder: (context, state) => const ThemeScreen(),
     ),
     GoRoute(
       name: 'language',
-      path: '/language',
+      path: AppRoutes.language,
       builder: (context, state) => const LanguageScreen(),
     ),
     GoRoute(
       name: 'export',
-      path: '/export',
+      path: AppRoutes.export,
       builder: (context, state) => const ExportScreen(),
     ),
     GoRoute(
       name: 'payment_methods',
-      path: '/payment_methods',
+      path: AppRoutes.paymentMethods,
       builder: (context, state) => const PaymentMethodsScreen(),
     ),
     GoRoute(
       name: 'festivals_history',
-      path: '/festivals_history',
+      path: AppRoutes.festivalsHistory,
       builder: (context, state) => const FestivalsHistoryScreen(),
     ),
     GoRoute(
       name: 'popular_merch',
-      path: '/popular_merch',
+      path: AppRoutes.popularMerch,
       builder: (context, state) => const PopularMerchScreen(),
     ),
     GoRoute(
       name: 'about',
-      path: '/about',
+      path: AppRoutes.about,
       builder: (context, state) => const AboutScreen(),
       routes: [
         GoRoute(
-          name: 'privacy_policy',
-          path: 'privacy_policy/:languageCode',
+          name: AppRoutes.privacyPolicyName,
+          path: '${AppRoutes.privacyPolicyName}/:languageCode',
           builder: (context, state) => PrivacyPolicyScreen(
             languageCode: state.pathParameters['languageCode']!,
           ),
         ),
         GoRoute(
-          name: 'terms_conditions',
-          path: 'terms_conditions/:languageCode',
+          name: AppRoutes.termsConditionsName,
+          path: '${AppRoutes.termsConditionsName}/:languageCode',
           builder: (context, state) => TermsConditionsScreen(
             languageCode: state.pathParameters['languageCode']!,
           ),
@@ -123,12 +124,12 @@ final router = GoRouter(
     ),
     GoRoute(
       name: 'scan',
-      path: '/scan',
+      path: AppRoutes.scan,
       builder: (context, state) => const ScannerScreen(),
     ),
     GoRoute(
       name: 'stock',
-      path: '/stock',
+      path: AppRoutes.stock,
       builder: (context, state) => const StockScreen(),
     ),
   ],

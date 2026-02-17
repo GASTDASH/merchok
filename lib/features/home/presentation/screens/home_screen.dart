@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   }
 
   Future<String?> scan(BuildContext context) async =>
-      await context.push<String?>('/scan');
+      await context.push<String?>(AppRoutes.scan);
 
   Future<void> showScannedMerchNotFoundDialog(BuildContext context) async =>
       await showDialog(

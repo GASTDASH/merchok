@@ -24,25 +24,25 @@ class SettingsScreen extends StatelessWidget {
             sliver: SliverList.list(
               children: [
                 SettingsButton(
-                  onTap: () => context.push('/theme'),
+                  onTap: () => context.push(AppRoutes.theme),
                   title: S.of(context).theme,
                   subtitle: S.of(context).themeDescription,
                   icon: AppIcons.theme,
                 ),
                 SettingsButton(
-                  onTap: () => context.push('/language'),
+                  onTap: () => context.push(AppRoutes.language),
                   title: S.of(context).language,
                   subtitle: S.of(context).languageDescription,
                   icon: AppIcons.language,
                 ),
                 SettingsButton(
-                  onTap: () => context.push('/export'),
+                  onTap: () => context.push(AppRoutes.export),
                   title: S.of(context).dataExport,
                   subtitle: S.of(context).exportDataDescription,
                   icon: AppIcons.downloadPackage,
                 ),
                 SettingsButton(
-                  onTap: () => context.push('/payment_methods'),
+                  onTap: () => context.push(AppRoutes.paymentMethods),
                   title: S.of(context).paymentMethods,
                   subtitle: S.of(context).paymentMethodsDescription,
                   icon: AppIcons.creditCard,
@@ -54,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: AppIcons.gift,
                 ),
                 SettingsButton(
-                  onTap: () => context.push('/about'),
+                  onTap: () => context.push(AppRoutes.about),
                   title: S.of(context).about,
                   subtitle: S.of(context).aboutDescription,
                   icon: AppIcons.info,
