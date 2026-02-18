@@ -583,7 +583,21 @@ class _MerchList extends StatelessWidget {
               merch: merch,
               count: quantity ?? 0,
               remainder: remainder[merch.id],
-              purchasePriceEditable: purchasePriceEditable,
+              showChangePriceBottomSheet: (context) async =>
+                  await showModalBottomSheet(
+                    useRootNavigator: true,
+                    isScrollControlled: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    context: context,
+                    builder: (context) => Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: ChangePriceBottomSheet(
+                        previousPrice: merch.price,
+                        previousPurchasePrice: merch.purchasePrice,
+                        purchasePriceEditable: purchasePriceEditable,
+                      ),
+                    ),
+                  ),
             );
           },
         );

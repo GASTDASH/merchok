@@ -23,8 +23,11 @@ class MerchCard extends StatelessWidget {
     this.onLongPress,
     this.onTapDelete,
     this.remainder,
-    this.purchasePriceEditable = true,
-  });
+    this.showChangePriceBottomSheet,
+  }) : assert(
+         editable == (showChangePriceBottomSheet != null),
+         'Editable MerchCard must have a showChangePriceBottomSheet',
+       );
 
   final int count;
   final bool editable;
@@ -32,7 +35,8 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
   final int? remainder;
-  final bool purchasePriceEditable;
+  final Future<Map<String, double?>?> Function(BuildContext context)?
+  showChangePriceBottomSheet;
 
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
@@ -54,7 +58,7 @@ class MerchCard extends StatelessWidget {
   }
 
   Future<void> editPrices(BuildContext context) async {
-    final newValues = await showChangePriceBottomSheet(context);
+    final newValues = await showChangePriceBottomSheet!(context);
     if (newValues == null) return;
 
     final double newPrice = newValues['price']!;
@@ -109,23 +113,6 @@ class MerchCard extends StatelessWidget {
       updatedMerch: merch.copyWith(description: text),
     );
   }
-
-  Future<Map<String, double?>?> showChangePriceBottomSheet(
-    BuildContext context,
-  ) async => await showModalBottomSheet(
-    useRootNavigator: true,
-    isScrollControlled: true,
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    context: context,
-    builder: (context) => Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: ChangePriceBottomSheet(
-        previousPrice: merch.price,
-        previousPurchasePrice: merch.purchasePrice,
-        purchasePriceEditable: purchasePriceEditable,
-      ),
-    ),
-  );
 
   Future<dynamic> showBarcodeBottomSheet(BuildContext context) {
     return showModalBottomSheet(
