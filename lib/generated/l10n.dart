@@ -1438,6 +1438,191 @@ class S {
   String get new1 {
     return Intl.message('New', name: 'new1', desc: '', args: []);
   }
+
+  /// `Stock is not loaded`
+  String get stockNotLoaded {
+    return Intl.message(
+      'Stock is not loaded',
+      name: 'stockNotLoaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In stock`
+  String get remain {
+    return Intl.message('In stock', name: 'remain', desc: '', args: []);
+  }
+
+  /// `Out of stock`
+  String get outOfStock {
+    return Intl.message('Out of stock', name: 'outOfStock', desc: '', args: []);
+  }
+
+  /// `Out of stock`
+  String get outOfStock1 {
+    return Intl.message(
+      'Out of stock',
+      name: 'outOfStock1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading stock info`
+  String get stockLoading {
+    return Intl.message(
+      'Loading stock info',
+      name: 'stockLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adding to stock`
+  String get addingToStock {
+    return Intl.message(
+      'Adding to stock',
+      name: 'addingToStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updating stock`
+  String get changingStock {
+    return Intl.message(
+      'Updating stock',
+      name: 'changingStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Removing from stock`
+  String get deletingFromStock {
+    return Intl.message(
+      'Removing from stock',
+      name: 'deletingFromStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a festival to manage stock`
+  String get selectFestivalToManageStock {
+    return Intl.message(
+      'Select a festival to manage stock',
+      name: 'selectFestivalToManageStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stock`
+  String get stock {
+    return Intl.message('Stock', name: 'stock', desc: '', args: []);
+  }
+
+  /// `Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!`
+  String get pleaseCountCarefully {
+    return Intl.message(
+      'Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!',
+      name: 'pleaseCountCarefully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your merch stock will appear here`
+  String get yourStockWillBeHere {
+    return Intl.message(
+      'Your merch stock will appear here',
+      name: 'yourStockWillBeHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid quantity`
+  String get invalidQuantityError {
+    return Intl.message(
+      'Please enter a valid quantity',
+      name: 'invalidQuantityError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove merch from stock?`
+  String get removeStockItem {
+    return Intl.message(
+      'Remove merch from stock?',
+      name: 'removeStockItem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivered`
+  String get stockDelivered {
+    return Intl.message(
+      'Delivered',
+      name: 'stockDelivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Продажа`
+  String get sell {
+    return Intl.message('Продажа', name: 'sell', desc: '', args: []);
+  }
+
+  /// `Закупка`
+  String get cost {
+    return Intl.message('Закупка', name: 'cost', desc: '', args: []);
+  }
+
+  /// `Alexey Shcherbakov`
+  String get alexeyShcherbakov {
+    return Intl.message(
+      'Alexey Shcherbakov',
+      name: 'alexeyShcherbakov',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flutter / Mobile`
+  String get flutterMobile {
+    return Intl.message(
+      'Flutter / Mobile',
+      name: 'flutterMobile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to change the purchase price`
+  String get unableToChangePurchasePrice {
+    return Intl.message(
+      'Unable to change the purchase price',
+      name: 'unableToChangePurchasePrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the merch is already in stock`
+  String get merchIsAlreadyInStock {
+    return Intl.message(
+      'the merch is already in stock',
+      name: 'merchIsAlreadyInStock',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -32,8 +32,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Add your first payment method",
     ),
     "addingToCart": MessageLookupByLibrary.simpleMessage("Adding to cart"),
+    "addingToStock": MessageLookupByLibrary.simpleMessage("Adding to stock"),
     "additionalInformation": MessageLookupByLibrary.simpleMessage(
       "Additional information",
+    ),
+    "alexeyShcherbakov": MessageLookupByLibrary.simpleMessage(
+      "Alexey Shcherbakov",
     ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
@@ -55,8 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryLoading": MessageLookupByLibrary.simpleMessage(
       "Loading the category list",
     ),
+    "changingStock": MessageLookupByLibrary.simpleMessage("Updating stock"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Clear filter"),
+    "cost": MessageLookupByLibrary.simpleMessage("Закупка"),
     "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t open the page",
     ),
@@ -77,6 +83,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "deleteThisPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Delete this payment method?",
+    ),
+    "deletingFromStock": MessageLookupByLibrary.simpleMessage(
+      "Removing from stock",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "developedBy": MessageLookupByLibrary.simpleMessage("Developed by"),
@@ -130,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "The file was saved successfully",
     ),
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
+    "flutterMobile": MessageLookupByLibrary.simpleMessage("Flutter / Mobile"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("From CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("From Excel"),
     "gastdash": MessageLookupByLibrary.simpleMessage("GASTDASH"),
@@ -155,6 +165,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Make sure that the file name has not been changed.",
     ),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "invalidQuantityError": MessageLookupByLibrary.simpleMessage(
+      "Please enter a valid quantity",
+    ),
     "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
@@ -174,6 +187,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Deleting a merch"),
     "merchImporting": MessageLookupByLibrary.simpleMessage(
       "Importing the merch list",
+    ),
+    "merchIsAlreadyInStock": MessageLookupByLibrary.simpleMessage(
+      "the merch is already in stock",
     ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The merch list is not loaded",
@@ -237,6 +253,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "The order list is not loaded",
     ),
+    "outOfStock": MessageLookupByLibrary.simpleMessage("Out of stock"),
+    "outOfStock1": MessageLookupByLibrary.simpleMessage("Out of stock"),
     "pastFestivals": MessageLookupByLibrary.simpleMessage("Past festivals"),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
     "paymentMethodChanging": MessageLookupByLibrary.simpleMessage(
@@ -261,6 +279,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Payment methods are not loaded",
     ),
+    "pleaseCountCarefully": MessageLookupByLibrary.simpleMessage(
+      "Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!",
+    ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
@@ -282,6 +303,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Loading receipts"),
     "recommended": MessageLookupByLibrary.simpleMessage("(recommended)"),
+    "remain": MessageLookupByLibrary.simpleMessage("In stock"),
+    "removeStockItem": MessageLookupByLibrary.simpleMessage(
+      "Remove merch from stock?",
+    ),
     "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "sales": MessageLookupByLibrary.simpleMessage("Sales"),
@@ -291,15 +316,25 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectFestival": MessageLookupByLibrary.simpleMessage("Select festival"),
+    "selectFestivalToManageStock": MessageLookupByLibrary.simpleMessage(
+      "Select a festival to manage stock",
+    ),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Select a payment method",
     ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Select a period"),
+    "sell": MessageLookupByLibrary.simpleMessage("Продажа"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
     "sorting": MessageLookupByLibrary.simpleMessage("Sorting"),
     "specialThanks": MessageLookupByLibrary.simpleMessage("Special thanks"),
+    "stock": MessageLookupByLibrary.simpleMessage("Stock"),
+    "stockDelivered": MessageLookupByLibrary.simpleMessage("Delivered"),
+    "stockLoading": MessageLookupByLibrary.simpleMessage("Loading stock info"),
+    "stockNotLoaded": MessageLookupByLibrary.simpleMessage(
+      "Stock is not loaded",
+    ),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Temporary unavailable",
     ),
@@ -317,6 +352,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
     "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
       "Try again, or maybe you don\'t have this merch.",
+    ),
+    "unableToChangePurchasePrice": MessageLookupByLibrary.simpleMessage(
+      "Unable to change the purchase price",
     ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a category that is being used",
@@ -340,6 +378,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Where to import from?",
     ),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+    "yourStockWillBeHere": MessageLookupByLibrary.simpleMessage(
+      "Your merch stock will appear here",
+    ),
     "zeroRubles": MessageLookupByLibrary.simpleMessage("0 ₽"),
   };
 }

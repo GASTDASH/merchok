@@ -15,7 +15,7 @@ final class OrderLoaded extends OrderState {
   final List<Order> orderList;
 
   @override
-  List<Object?> get props => super.props..addAll([orderList]);
+  List<Object?> get props => super.props..addAll([Object.hashAll(orderList)]);
 }
 
 final class OrderLoading extends OrderState {

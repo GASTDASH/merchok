@@ -36,8 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "addingToCart": MessageLookupByLibrary.simpleMessage(
       "Добавление в корзину",
     ),
+    "addingToStock": MessageLookupByLibrary.simpleMessage("Добавление в запас"),
     "additionalInformation": MessageLookupByLibrary.simpleMessage(
       "Доп. информация",
+    ),
+    "alexeyShcherbakov": MessageLookupByLibrary.simpleMessage(
+      "Алексей Щербаков",
     ),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
@@ -59,8 +63,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryLoading": MessageLookupByLibrary.simpleMessage(
       "Загрузка категорий",
     ),
+    "changingStock": MessageLookupByLibrary.simpleMessage("Изменение запаса"),
     "checkout": MessageLookupByLibrary.simpleMessage("Оформить"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Очистить фильтр"),
+    "cost": MessageLookupByLibrary.simpleMessage("Закупка"),
     "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
       "Не удалось открыть страницу",
     ),
@@ -81,6 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "deleteThisPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Удалить этот способ оплаты?",
+    ),
+    "deletingFromStock": MessageLookupByLibrary.simpleMessage(
+      "Удаление из запаса",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "developedBy": MessageLookupByLibrary.simpleMessage("Разработано"),
@@ -134,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Файл успешно сохранён",
     ),
     "filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
+    "flutterMobile": MessageLookupByLibrary.simpleMessage("Flutter / Mobile"),
     "fromCSV": MessageLookupByLibrary.simpleMessage("Из CSV"),
     "fromExcel": MessageLookupByLibrary.simpleMessage("Из Excel"),
     "gastdash": MessageLookupByLibrary.simpleMessage("GASTDASH"),
@@ -159,6 +169,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Убедитесь, что название файла не было изменено",
     ),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
+    "invalidQuantityError": MessageLookupByLibrary.simpleMessage(
+      "Введите корректное количество",
+    ),
     "jjsh": MessageLookupByLibrary.simpleMessage("JJSH"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
     "languageDescription": MessageLookupByLibrary.simpleMessage(
@@ -178,6 +191,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "merchDeleting": MessageLookupByLibrary.simpleMessage("Удаление мерча"),
     "merchImporting": MessageLookupByLibrary.simpleMessage(
       "Импортирование списка мерча",
+    ),
+    "merchIsAlreadyInStock": MessageLookupByLibrary.simpleMessage(
+      "мерч уже в запасе",
     ),
     "merchIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Мерч не загружен",
@@ -239,6 +255,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "ordersIsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Заказы не загружены",
     ),
+    "outOfStock": MessageLookupByLibrary.simpleMessage("Не привезено"),
+    "outOfStock1": MessageLookupByLibrary.simpleMessage("Товара нет в запасе"),
     "pastFestivals": MessageLookupByLibrary.simpleMessage(
       "Прошедшие фестивали",
     ),
@@ -265,6 +283,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsNotLoaded": MessageLookupByLibrary.simpleMessage(
       "Способы оплаты не загружены",
     ),
+    "pleaseCountCarefully": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!",
+    ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),
     "plus50": MessageLookupByLibrary.simpleMessage("+50"),
@@ -284,6 +305,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiptUpdating": MessageLookupByLibrary.simpleMessage("Обновление чеков"),
     "receiptsLoading": MessageLookupByLibrary.simpleMessage("Загрузка чеков"),
     "recommended": MessageLookupByLibrary.simpleMessage("(рекомендуется)"),
+    "remain": MessageLookupByLibrary.simpleMessage("Осталось"),
+    "removeStockItem": MessageLookupByLibrary.simpleMessage(
+      "Удалить мерч из запаса?",
+    ),
     "revenue": MessageLookupByLibrary.simpleMessage("Выручка"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
     "sales": MessageLookupByLibrary.simpleMessage("Продаж"),
@@ -293,10 +318,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "search": MessageLookupByLibrary.simpleMessage("Найти"),
     "selectFestival": MessageLookupByLibrary.simpleMessage("Выбрать фестиваль"),
+    "selectFestivalToManageStock": MessageLookupByLibrary.simpleMessage(
+      "Выберите фестиваль для управления запасами",
+    ),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Выберите способ оплаты",
     ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Выбрать период"),
+    "sell": MessageLookupByLibrary.simpleMessage("Продажа"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
@@ -304,6 +333,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "specialThanks": MessageLookupByLibrary.simpleMessage(
       "Особая благодарность",
     ),
+    "stock": MessageLookupByLibrary.simpleMessage("Запас"),
+    "stockDelivered": MessageLookupByLibrary.simpleMessage("Привезено"),
+    "stockLoading": MessageLookupByLibrary.simpleMessage(
+      "Загрузка информации о запасе",
+    ),
+    "stockNotLoaded": MessageLookupByLibrary.simpleMessage("Запас не загружен"),
     "temporaryUnavailable": MessageLookupByLibrary.simpleMessage(
       "Временно недоступно",
     ),
@@ -321,6 +356,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "transfer": MessageLookupByLibrary.simpleMessage("Переводом"),
     "tryAgainOrNoMerch": MessageLookupByLibrary.simpleMessage(
       "Попробуйте ещё раз, или, возможно, у вас нет этого мерча",
+    ),
+    "unableToChangePurchasePrice": MessageLookupByLibrary.simpleMessage(
+      "Невозможно изменить закупочную цену",
     ),
     "unableToDeleteCategory": MessageLookupByLibrary.simpleMessage(
       "Невозможно удалить используемую категорию",
@@ -346,6 +384,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Откуда будем импортировать?",
     ),
     "yes": MessageLookupByLibrary.simpleMessage("Да"),
+    "yourStockWillBeHere": MessageLookupByLibrary.simpleMessage(
+      "Здесь будут ваш запас мерча",
+    ),
     "zeroRubles": MessageLookupByLibrary.simpleMessage("0 ₽"),
   };
 }

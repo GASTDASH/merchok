@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -97,6 +99,27 @@ class _TitleInfo extends StatelessWidget {
 class _DevelopedBy extends StatelessWidget {
   const _DevelopedBy();
 
+  Future<void> openUrl({
+    required BuildContext context,
+    required ThemeData theme,
+    required String url,
+  }) async {
+    final s = S.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    final Uri uri = Uri.parse(url);
+
+    if (!await launchUrl(uri)) {
+      scaffoldMessenger.hideCurrentSnackBar();
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          backgroundColor: theme.colorScheme.error,
+          content: Text(s.couldntOpenPage),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -105,8 +128,7 @@ class _DevelopedBy extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       child: Column(
-        spacing: 12,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 10,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -115,14 +137,68 @@ class _DevelopedBy extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(),
+          Text(
+            S.of(context).gastdash,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontSize: 21,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Column(
+            spacing: 6,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                S.of(context).gastdash,
+                S.of(context).alexeyShcherbakov,
                 style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
               ),
-              const SizedBox(child: LinkText(url: 'https://vk.com/gastdash')),
+              Text(
+                S.of(context).flutterMobile,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontSize: 14,
+                  color: theme.hintColor.withAlpha(100),
+                ),
+              ),
+            ],
+          ),
+          Material(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 12,
+                children: [
+                  InkResponse(
+                    onTap: () async => await openUrl(
+                      context: context,
+                      theme: theme,
+                      // translate-me-ignore-next-line
+                      url: 'https://vk.com/gastdash',
+                    ),
+                    child: SvgPicture.asset(IconNames.vk, height: 52),
+                  ),
+                  InkResponse(
+                    onTap: () async => await openUrl(
+                      context: context,
+                      theme: theme,
+                      // translate-me-ignore-next-line
+                      url: 'mailto:gastdash@gmail.com',
+                    ),
+                    child: SvgPicture.asset(IconNames.mail, height: 52),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: .spaceBetween,
+            spacing: 8,
+            children: [
+              Expanded(child: Divider(color: theme.hintColor.withAlpha(32))),
+              // translate-me-ignore-next-line
+              const Text('© 2026'),
+              Expanded(child: Divider(color: theme.hintColor.withAlpha(32))),
             ],
           ),
         ],
@@ -137,31 +213,24 @@ class _PrivacyPolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      width: double.infinity,
+      onTap: () {
+        final languageCode =
+            GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
+        context.push(AppRoutes.privacyPolicy(languageCode));
+      },
+      inkWellAnimation: true,
+      width: .infinity,
       padding: const EdgeInsets.all(16),
-      child: Column(
-        spacing: 12,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
+        mainAxisAlignment: .spaceBetween,
         children: [
           Text(
             S.of(context).privacyPolicy,
             style: Theme.of(
               context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600),
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
-          Row(
-            children: [
-              BaseButton(
-                onTap: () {
-                  final languageCode =
-                      GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
-                  context.push('/about/privacy_policy/$languageCode');
-                },
-                child: Text(S.of(context).view),
-              ),
-            ],
-          ),
+          const Icon(Icons.chevron_right_rounded),
         ],
       ),
     );
@@ -174,31 +243,24 @@ class _TermsAndConditions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      width: double.infinity,
+      onTap: () {
+        final languageCode =
+            GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
+        context.push(AppRoutes.termsAndConditions(languageCode));
+      },
+      inkWellAnimation: true,
+      width: .infinity,
       padding: const EdgeInsets.all(16),
-      child: Column(
-        spacing: 12,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
+        mainAxisAlignment: .spaceBetween,
         children: [
           Text(
             S.of(context).termsAndConditions,
             style: Theme.of(
               context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600),
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
-          Row(
-            children: [
-              BaseButton(
-                onTap: () {
-                  final languageCode =
-                      GetIt.I<SettingsRepository>().currentLanguageCode ?? "en";
-                  context.push('/about/terms_conditions/$languageCode');
-                },
-                child: Text(S.of(context).view),
-              ),
-            ],
-          ),
+          const Icon(Icons.chevron_right_rounded),
         ],
       ),
     );

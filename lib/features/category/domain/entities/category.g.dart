@@ -8,7 +8,7 @@ part of 'category.dart';
 
 class CategoryAdapter extends TypeAdapter<Category> {
   @override
-  final int typeId = 5;
+  final typeId = 5;
 
   @override
   Category read(BinaryReader reader) {
@@ -16,10 +16,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Category(
-      id: fields[0] as String,
-      name: fields[1] as String,
-    );
+    return Category(id: fields[0] as String, name: fields[1] as String);
   }
 
   @override

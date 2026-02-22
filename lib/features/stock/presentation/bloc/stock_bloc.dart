@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/stock/stock.dart';
+import 'package:merchok/generated/l10n.dart';
 
 part 'stock_event.dart';
 part 'stock_state.dart';
@@ -26,11 +27,11 @@ class StockBloc extends Bloc<StockEvent, StockState> {
   Future<void> _onStockLoad(StockLoad event, Emitter<StockState> emit) async {
     try {
       if (event.festivalId == null) {
-        emit(const StockError(error: 'Не выбран фестиваль'));
+        emit(StockNoFestivalSelected());
         return;
       }
 
-      emit(const StockLoading(message: 'Загрузка информации о запасе'));
+      emit(StockLoading(message: S.current.stockLoading));
 
       final stockItems = await _stockRepository.getStockItems(
         festivalId: event.festivalId!,
@@ -66,11 +67,12 @@ class StockBloc extends Bloc<StockEvent, StockState> {
 
   Future<void> _onStockAdd(StockAdd event, Emitter<StockState> emit) async {
     try {
-      emit(const StockLoading(message: 'Добавление в запас'));
+      emit(StockLoading(message: S.current.addingToStock));
 
       await _stockRepository.addStockItem(
         festivalId: event.festivalId,
         merchId: event.merchId,
+        purchasePrice: event.purchasePrice,
       );
 
       add(StockLoad(festivalId: event.festivalId));
@@ -81,7 +83,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
 
   Future<void> _onStockEdit(StockEdit event, Emitter<StockState> emit) async {
     try {
-      emit(const StockLoading(message: 'Изменение запаса'));
+      emit(StockLoading(message: S.current.changingStock));
 
       await _stockRepository.editStockItem(
         festivalId: event.festivalId,
@@ -100,7 +102,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     Emitter<StockState> emit,
   ) async {
     try {
-      emit(const StockLoading(message: 'Удаление из запаса'));
+      emit(StockLoading(message: S.current.deletingFromStock));
 
       await _stockRepository.deleteStockItem(
         festivalId: event.festivalId,

@@ -8,7 +8,7 @@ part of 'merch.dart';
 
 class MerchAdapter extends TypeAdapter<Merch> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   Merch read(BinaryReader reader) {
@@ -20,8 +20,8 @@ class MerchAdapter extends TypeAdapter<Merch> {
       id: fields[0] as String,
       name: fields[1] as String,
       description: fields[2] as String?,
-      price: fields[3] as double,
-      purchasePrice: fields[4] as double?,
+      price: (fields[3] as num).toDouble(),
+      purchasePrice: (fields[4] as num?)?.toDouble(),
       image: fields[5] as Uint8List?,
       thumbnail: fields[7] as Uint8List?,
       categoryId: fields[6] as String?,
@@ -32,20 +32,20 @@ class MerchAdapter extends TypeAdapter<Merch> {
   void write(BinaryWriter writer, Merch obj) {
     writer
       ..writeByte(8)
-      ..writeByte(6)
-      ..write(obj.categoryId)
-      ..writeByte(2)
-      ..write(obj.description)
       ..writeByte(0)
       ..write(obj.id)
-      ..writeByte(5)
-      ..write(obj.image)
       ..writeByte(1)
       ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.description)
       ..writeByte(3)
       ..write(obj.price)
       ..writeByte(4)
       ..write(obj.purchasePrice)
+      ..writeByte(5)
+      ..write(obj.image)
+      ..writeByte(6)
+      ..write(obj.categoryId)
       ..writeByte(7)
       ..write(obj.thumbnail);
   }

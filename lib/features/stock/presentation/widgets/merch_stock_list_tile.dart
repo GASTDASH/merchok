@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class MerchStockListTile extends StatelessWidget {
   const MerchStockListTile({
@@ -8,11 +9,13 @@ class MerchStockListTile extends StatelessWidget {
     required this.merch,
     this.onTap,
     this.onLongPress,
+    required this.purchasePrice,
   });
 
   final Merch merch;
   final VoidCallback? onLongPress;
   final VoidCallback? onTap;
+  final double? purchasePrice;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class MerchStockListTile extends StatelessWidget {
       onLongPress: onLongPress,
       title: Text(merch.name, style: Theme.of(context).textTheme.titleLarge),
       subtitle: Text(
-        'Продажа: ${merch.price.truncateIfInt()} ₽ | Закупка: ${merch.purchasePrice?.truncateIfInt() ?? '0'} ₽',
+        '${S.of(context).purchasePrice}: ${purchasePrice != null ? purchasePrice?.truncateIfInt() ?? '0' : merch.purchasePrice?.truncateIfInt() ?? '0'} ₽',
       ),
     );
   }

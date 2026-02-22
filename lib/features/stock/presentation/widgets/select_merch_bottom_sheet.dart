@@ -21,6 +21,7 @@ class SelectMerchBottomSheet extends StatelessWidget {
               final merch = merchList[index];
               return MerchStockListTile(
                 merch: merch,
+                purchasePrice: null,
                 onTap: () => context.pop(merch),
               );
             },

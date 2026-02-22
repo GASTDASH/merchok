@@ -7,6 +7,7 @@ import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/stock/stock.dart';
+import 'package:merchok/generated/l10n.dart';
 
 class MerchStockListTileEditable extends StatefulWidget {
   const MerchStockListTileEditable({
@@ -42,7 +43,7 @@ class _MerchStockListTileEditableState
         ),
       );
     } else {
-      Fluttertoast.showToast(msg: 'Введите корректное количество');
+      Fluttertoast.showToast(msg: S.of(context).invalidQuantityError);
     }
   }
 
@@ -72,10 +73,11 @@ class _MerchStockListTileEditableState
                   Expanded(
                     child: MerchStockListTile(
                       merch: widget.merch,
+                      purchasePrice: widget.stockItem.purchasePrice,
                       onLongPress: () {
                         showYesNoDialog(
                           context: context,
-                          message: 'Удалить мерч из запаса?',
+                          message: S.of(context).removeStockItem,
                           onYes: () {
                             context.read<StockBloc>().add(
                               StockDelete(
@@ -93,7 +95,7 @@ class _MerchStockListTileEditableState
                   Column(
                     spacing: 4,
                     children: [
-                      const Text('Привезено:'),
+                      Text('${S.of(context).stockDelivered}:'),
                       SizedBox(
                         width: 80,
                         child: TextField(
@@ -118,7 +120,7 @@ class _MerchStockListTileEditableState
             },
           ),
           Text(
-            'Остаток: ${widget.remainder}',
+            '${S.of(context).remain}: ${widget.remainder}',
             style: theme.textTheme.titleLarge,
           ),
         ],

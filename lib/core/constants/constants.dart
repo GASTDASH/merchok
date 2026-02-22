@@ -3,6 +3,7 @@
 
 
 export 'app_icons.dart';
+export 'app_routes.dart';
 export 'hive_boxes_names.dart';
 export 'icon_names.dart';
 export 'language_codes.dart';

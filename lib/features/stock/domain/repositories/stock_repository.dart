@@ -2,9 +2,11 @@ import 'package:merchok/features/stock/stock.dart';
 
 abstract interface class StockRepository {
   Future<List<StockItem>> getStockItems({required String festivalId});
+  Future<List<StockItem>> getAllStockItems();
   Future<void> addStockItem({
     required String festivalId,
     required String merchId,
+    required double? purchasePrice,
   });
   Future<void> editStockItem({
     required String festivalId,

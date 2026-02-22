@@ -23,23 +23,23 @@ class BottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             NavItem(
-              onTap: () => context.go('/home'),
+              onTap: () => context.go(AppRoutes.home),
               icon: AppIcons.house,
               selected: index == 0,
             ),
             NavItem(
-              onTap: () => context.go('/orders'),
+              onTap: () => context.go(AppRoutes.orders),
               icon: AppIcons.archive,
               selected: index == 1,
             ),
-            SizedBox(width: 64),
+            const SizedBox(width: 64),
             NavItem(
-              onTap: () => context.go('/stat'),
+              onTap: () => context.go(AppRoutes.stat),
               icon: AppIcons.chartBar,
               selected: index == 2,
             ),
             NavItem(
-              onTap: () => context.go('/settings'),
+              onTap: () => context.go(AppRoutes.settings),
               icon: AppIcons.settings,
               selected: index == 3,
             ),

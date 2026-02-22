@@ -23,7 +23,11 @@ class MerchCard extends StatelessWidget {
     this.onLongPress,
     this.onTapDelete,
     this.remainder,
-  });
+    this.showChangePriceBottomSheet,
+  }) : assert(
+         editable == (showChangePriceBottomSheet != null),
+         'Editable MerchCard must have a showChangePriceBottomSheet',
+       );
 
   final int count;
   final bool editable;
@@ -31,6 +35,8 @@ class MerchCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
   final int? remainder;
+  final Future<Map<String, double?>?> Function(BuildContext context)?
+  showChangePriceBottomSheet;
 
   Future<void> editName(BuildContext context) async {
     final defaultName = S.of(context).untitled;
@@ -52,7 +58,7 @@ class MerchCard extends StatelessWidget {
   }
 
   Future<void> editPrices(BuildContext context) async {
-    final newValues = await showChangePriceBottomSheet(context);
+    final newValues = await showChangePriceBottomSheet!(context);
     if (newValues == null) return;
 
     final double newPrice = newValues['price']!;
@@ -70,7 +76,6 @@ class MerchCard extends StatelessWidget {
   }
 
   Future<void> changeCategory(BuildContext context) async {
-    final merchBloc = context.read<MerchBloc>();
     final categoryState = context.read<CategoryBloc>().state;
     if (merch.categoryId != null && categoryState is! CategoryLoaded) {
       return;
@@ -85,27 +90,29 @@ class MerchCard extends StatelessWidget {
     );
     if (category == null) return;
     if (category.isEmpty) {
-      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: null)));
+      if (!context.mounted) return;
+
+      await _handleMerchEdit(
+        context,
+        updatedMerch: merch.copyWith(categoryId: null),
+      );
     } else {
-      merchBloc.add(MerchEdit(merch: merch.copyWith(categoryId: category.id)));
+      if (!context.mounted) return;
+
+      await _handleMerchEdit(
+        context,
+        updatedMerch: merch.copyWith(categoryId: category.id),
+      );
     }
   }
 
-  Future<Map<String, double?>?> showChangePriceBottomSheet(
-    BuildContext context,
-  ) async => await showModalBottomSheet(
-    useRootNavigator: true,
-    isScrollControlled: true,
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    context: context,
-    builder: (context) => Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: ChangePriceBottomSheet(
-        previousPrice: merch.price,
-        previousPurchasePrice: merch.purchasePrice,
-      ),
-    ),
-  );
+  Future<void> editDescription(BuildContext context, String? text) async {
+    if (merch.description == text) return;
+    await _handleMerchEdit(
+      context,
+      updatedMerch: merch.copyWith(description: text),
+    );
+  }
 
   Future<dynamic> showBarcodeBottomSheet(BuildContext context) {
     return showModalBottomSheet(
@@ -249,19 +256,16 @@ class MerchCard extends StatelessWidget {
               ),
               DescriptionSection(
                 description: merch.description,
-                onTapOutside: (text) {
-                  if (merch.description == text) return;
-                  context.read<MerchBloc>().add(
-                    MerchEdit(merch: merch.copyWith(description: text)),
-                  );
-                },
+                onTapOutside: (text) => editDescription(context, text),
               ),
             ],
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              (remainder != null) ? 'Осталось: $remainder' : 'Не привезено',
+              (remainder != null)
+                  ? '${S.of(context).remain}: $remainder'
+                  : S.of(context).outOfStock,
             ),
           ),
           Row(
@@ -312,10 +316,11 @@ class _CartManager extends StatelessWidget {
 
     return count == 0
         ? Tooltip(
-            message: 'Товара нет в запасе',
-            triggerMode: TooltipTriggerMode.tap,
+            message: S.of(context).outOfStock1,
+            triggerMode: remainder == 0
+                ? TooltipTriggerMode.tap
+                : TooltipTriggerMode.manual,
             child: BaseButton(
-              // key: ValueKey('cart'),
               onTap: remainder != 0
                   ? () =>
                         context.read<CartBloc>().add(CartAdd(merchId: merch.id))

@@ -1,7 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:merchok/app/app.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/cart/cart.dart';
@@ -12,6 +13,8 @@ import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/features/stock/stock.dart';
+import 'package:merchok/firebase_options.dart';
+import 'package:merchok/hive_registrar.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -24,8 +27,11 @@ Future<void> main() async {
       CustomErrorWidget(details);
 
   try {
-    await _initHive();
     _initTalker();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await _initHive();
     await _registerRepositories();
     await MobileAds.initialize();
 
@@ -37,20 +43,14 @@ Future<void> main() async {
 
 Future<void> _initHive() async {
   await Hive.initFlutter();
-
-  Hive
-    ..registerAdapter(MerchAdapter())
-    ..registerAdapter(FestivalAdapter())
-    ..registerAdapter(PaymentMethodAdapter())
-    ..registerAdapter(OrderItemAdapter())
-    ..registerAdapter(OrderAdapter())
-    ..registerAdapter(CategoryAdapter());
+  Hive.registerAdapters();
 
   await Hive.openBox<Merch>(HiveBoxesNames.merches);
   await Hive.openBox<Festival>(HiveBoxesNames.festivals);
   await Hive.openBox<PaymentMethod>(HiveBoxesNames.paymentMethods);
   await Hive.openBox<Order>(HiveBoxesNames.orders);
   await Hive.openBox<Category>(HiveBoxesNames.categories);
+  await Hive.openBox<Map>(HiveBoxesNames.stock);
 }
 
 Future<void> _registerRepositories() async {

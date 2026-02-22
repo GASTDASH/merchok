@@ -28,6 +28,8 @@ class PopularMerchList extends StatelessWidget {
       ...merchListFromOrders,
       ...merchList,
     }.toList();
+    final seenIds = <String>{};
+    uniqueMerchList.retainWhere((merch) => seenIds.add(merch.id));
     log('[_countMerch] uniqueMerchList is ready');
 
     final Map<Merch, int> merchesCount = {};
@@ -36,7 +38,7 @@ class PopularMerchList extends StatelessWidget {
       int count = 0;
       for (Order order in orderList) {
         count += order.orderItems
-            .where((item) => item.merch == merch)
+            .where((item) => item.merch.id == merch.id)
             .fold(0, (sum, item) => sum + item.quantity);
       }
       merchesCount.addAll({merch: count});
@@ -90,19 +92,19 @@ class _PopularMerchItem extends StatelessWidget {
 
   Widget buildMedalWidget() {
     return switch (index) {
-      0 => Text(
+      0 => const Text(
         '🥇', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      1 => Text(
+      1 => const Text(
         '🥈', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      2 => Text(
+      2 => const Text(
         '🥉', // translate-me-ignore
         style: TextStyle(fontSize: 32),
       ),
-      int() => SizedBox(),
+      int() => const SizedBox(),
     };
   }
 

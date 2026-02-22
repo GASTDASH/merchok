@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/current_festival/current_festival.dart';
+import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
@@ -27,6 +29,7 @@ class _StatScreenState extends State<StatScreen> {
   void initState() {
     super.initState();
 
+    context.read<StatBloc>().add(const StatLoad());
     context.read<OrderBloc>().add(OrderLoad());
     context.read<PaymentMethodBloc>().add(PaymentMethodLoad());
     context.read<MerchBloc>().add(MerchLoad());
@@ -35,58 +38,45 @@ class _StatScreenState extends State<StatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          BlocBuilder<OrderBloc, OrderState>(
-            builder: (context, orderState) {
-              return BlocBuilder<StockBloc, StockState>(
-                builder: (context, stockState) {
-                  return BlocBuilder<MerchBloc, MerchState>(
-                    builder: (context, merchState) {
-                      if (orderState is OrderLoading ||
-                          stockState is StockLoading ||
-                          merchState is MerchLoading) {
-                        return LoadingBanner(
-                          message: orderState is OrderLoading
-                              ? orderState.message
-                              : stockState is StockLoading
-                              ? stockState.message
-                              : (merchState as MerchLoading).message,
-                        );
-                      }
-                      if (orderState is OrderLoaded &&
-                          stockState is StockLoaded &&
-                          merchState is MerchLoaded) {
-                        return _StatList(
-                          orderList: orderState.orderList,
-                          stockItems: stockState.stockItems,
-                          merchList: merchState.merchList,
-                        );
-                      }
-                      if (orderState is OrderError ||
-                          stockState is StockError ||
-                          merchState is MerchError) {
-                        return ErrorBanner(
-                          message: orderState is OrderError
-                              ? orderState.error.toString()
-                              : stockState is StockError
-                              ? stockState.error.toString()
-                              : (merchState as MerchError).error.toString(),
-                        );
-                      }
-                      if (orderState is OrderInitial ||
-                          stockState is StockInitial ||
-                          merchState is MerchInitial) {
-                        return const SliverFillRemaining();
-                      }
-                      return const UnexpectedStateBanner();
-                    },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<StatBloc>().add(const StatLoad());
+        },
+        child: CustomScrollView(
+          slivers: [
+            BlocBuilder<CurrentFestivalCubit, Festival?>(
+              builder: (context, currentFestival) {
+                if (currentFestival == null) {
+                  return InfoBanner.icon(
+                    text: S.of(context).festivalNotSelected,
+                    icon: AppIcons.calendar,
                   );
-                },
-              );
-            },
-          ),
-        ],
+                }
+                return BlocBuilder<StatBloc, StatState>(
+                  builder: (context, statState) {
+                    if (statState is StatLoading) {
+                      return LoadingBanner(message: statState.message);
+                    }
+                    if (statState is StatLoaded) {
+                      return _StatList(
+                        orderList: statState.orderList,
+                        allStockItems: statState.allStockItems,
+                        merchList: statState.merchList,
+                      );
+                    }
+                    if (statState is StatError) {
+                      return ErrorBanner(message: statState.error.toString());
+                    }
+                    if (statState is StatInitial) {
+                      return const SliverFillRemaining();
+                    }
+                    return const UnexpectedStateBanner();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -95,17 +85,17 @@ class _StatScreenState extends State<StatScreen> {
 class _StatList extends StatelessWidget {
   const _StatList({
     required this.orderList,
-    required this.stockItems,
+    required this.allStockItems,
     required this.merchList,
   });
 
   final List<Order> orderList;
-  final List<StockItem> stockItems;
+  final List<StockItem> allStockItems;
   final List<Merch> merchList;
 
   Future<Map<String, dynamic>> getGeneralStat() async {
     log('getGeneralStat() called');
-    final data = compute((_) => _getGeneralStatCompute(), null);
+    final data = await compute((_) => _getGeneralStatCompute(), null);
     log('got generalStat');
     return data;
   }
@@ -123,33 +113,12 @@ class _StatList extends StatelessWidget {
   double get _sumTotalEarned =>
       orderList.fold(0, (sum, order) => sum + order.totalEarned);
 
-  @Deprecated('Use _sumTotalSpentViaStock instead')
-  double get _sumTotalSpent => orderList.fold(
-    0,
-    (sum, order) =>
-        sum +
-        order.orderItems.fold(
-          0,
-          (sum, item) => sum + (item.merch.purchasePrice ?? 0 * item.quantity),
-        ),
-  );
-
   double get _sumTotalSpentViaStock {
     double totalSpent = 0;
 
-    final Map<String, Merch> merchById = {
-      for (final merch in merchList) merch.id: merch,
-    };
-
-    for (final item in stockItems) {
-      if (merchById[item.merchId] == null) continue;
-
-      if (merchById[item.merchId]!.purchasePrice != null) {
-        totalSpent += merchById[item.merchId]!.purchasePrice! * item.quantity;
-      }
+    for (final item in allStockItems) {
+      totalSpent += (item.purchasePrice ?? 0) * item.quantity;
     }
-
-    log(totalSpent.toString());
 
     return totalSpent;
   }
@@ -286,7 +255,7 @@ class _OtherStatCards extends StatelessWidget {
                   Fluttertoast.showToast(msg: S.of(context).noReceipts);
                   return;
                 }
-                context.push('/festivals_history');
+                context.push(AppRoutes.festivalsHistory);
               },
               text: S.of(context).historyOfFestivals,
               icon: IconNames.graph,
@@ -316,7 +285,7 @@ class _OtherStatCards extends StatelessWidget {
                   );
                   return;
                 }
-                context.push('/popular_merch');
+                context.push(AppRoutes.popularMerch);
               },
               text: S.of(context).popularMerch,
               icon: IconNames.like,

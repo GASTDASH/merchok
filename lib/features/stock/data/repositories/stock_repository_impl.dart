@@ -1,31 +1,65 @@
+import 'package:hive_ce/hive_ce.dart';
+import 'package:merchok/core/core.dart';
 import 'package:merchok/features/stock/stock.dart';
 
 class StockRepositoryImpl implements StockRepository {
-  // Map<festivalId, Map<merchId, StockItem>>
-  //
-  // {
-  //   festival1: {
-  //     merchId1: StockItem(merchId: merchId1, quantity: 1),
-  //     merchId2: StockItem(merchId: merchId2, quantity: 2),
-  //   }
-  //   festival2: {
-  //     merchId2: StockItem(merchId: merchId2, quantity: 1),
-  //     merchId3: StockItem(merchId: merchId3, quantity: 2),
-  //   }
-  // }
-  final Map<String, Map<String, StockItem>> _stockItems = {};
+  /// ### Map\<festivalId, Map\<merchId, StockItem>>
+  ///
+  ///  - festival1:
+  ///    + merchId1: StockItem(merchId: merchId1, quantity: 1),
+  ///    + merchId2: StockItem(merchId: merchId2, quantity: 2),<br/>
+  ///  - festival2:
+  ///    + merchId2: StockItem(merchId: merchId2, quantity: 1),
+  ///    + merchId3: StockItem(merchId: merchId3, quantity: 2),<br/>
+  // final Map<String, Map<String, StockItem>> _stockItems = {};
+  final Box<Map> _stockItemsBox = Hive.box<Map>(HiveBoxesNames.stock);
 
+  /// Вспомогательный метод для безопасного приведения типов
+  Map<String, StockItem> _getTypedMap(String festivalId) {
+    final raw = _stockItemsBox.get(festivalId);
+    if (raw == null) return <String, StockItem>{};
+
+    // Преобразуем Map<dynamic, dynamic> в Map<String, StockItem>
+    return Map<String, StockItem>.from(
+      raw.map((k, v) => MapEntry(k as String, v as StockItem)),
+    );
+  }
+
+  /// Получает список товаров в запасе фестиваля с указанным [festivalId]
   @override
-  Future<List<StockItem>> getStockItems({required String festivalId}) async =>
-      _stockItems[festivalId]?.values.toList() ?? [];
+  Future<List<StockItem>> getStockItems({required String festivalId}) async {
+    final rawMap = _stockItemsBox.get(festivalId);
+    if (rawMap == null) return [];
 
+    return rawMap.values.cast<StockItem>().toList();
+  }
+
+  /// Получает все товары в запасе со всех фестивалей
+  @override
+  Future<List<StockItem>> getAllStockItems() async {
+    final List<StockItem> allStockItems = [];
+
+    for (final festivalId in _stockItemsBox.keys) {
+      if (festivalId is String) {
+        final rawMap = _stockItemsBox.get(festivalId);
+        if (rawMap != null) {
+          allStockItems.addAll(rawMap.values.cast<StockItem>());
+        }
+      }
+    }
+
+    return allStockItems;
+  }
+
+  /// Добавляет товар с указанным [merchId] и в запас фестиваля с указанным [festivalId]
   @override
   Future<void> addStockItem({
     required String festivalId,
     required String merchId,
+    required double? purchasePrice,
   }) async {
     // Запас фестиваля
-    final festivalStock = _stockItems[festivalId] ??= {};
+    final festivalStock = _getTypedMap(festivalId);
     final stockItem = festivalStock[merchId];
 
     // Если товар уже есть в запасе фестиваля
@@ -40,30 +74,46 @@ class StockRepositoryImpl implements StockRepository {
         merchId: merchId,
         festivalId: festivalId,
         quantity: 1,
+        purchasePrice: purchasePrice ?? 0,
       );
     }
 
-    _stockItems[festivalId] = festivalStock;
+    _stockItemsBox.put(festivalId, festivalStock);
   }
 
+  /// Изменяет количество [quantity] товара с указанным [merchId] в запасе фестиваля с указанным [festivalId]
   @override
   Future<void> editStockItem({
     required String merchId,
     required String festivalId,
     required int quantity,
   }) async {
-    final festivalStock = _stockItems[festivalId] ??= {};
+    final festivalStock = _getTypedMap(festivalId);
+
+    if (festivalStock[merchId] == null) return;
 
     festivalStock[merchId] = StockItem(
       merchId: merchId,
       festivalId: festivalId,
       quantity: quantity,
+      purchasePrice: festivalStock[merchId]!.purchasePrice,
     );
+
+    _stockItemsBox.put(festivalId, festivalStock);
   }
 
+  /// Удаляет товар с указанным [merchId] из запаса фестиваля с указанным [festivalId]
   @override
   Future<void> deleteStockItem({
     required String festivalId,
     required String merchId,
-  }) async => _stockItems[festivalId]?.remove(merchId);
+  }) async {
+    final festivalStock = _getTypedMap(festivalId);
+
+    if (festivalStock.containsKey(merchId)) {
+      festivalStock.remove(merchId);
+    }
+
+    _stockItemsBox.put(festivalId, festivalStock);
+  }
 }

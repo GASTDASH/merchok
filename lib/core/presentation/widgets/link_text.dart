@@ -3,9 +3,10 @@ import 'package:merchok/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkText extends StatelessWidget {
-  const LinkText({super.key, required this.url, this.textStyle});
+  const LinkText({super.key, required this.url, this.textStyle, this.text});
 
   final String url;
+  final String? text;
   final TextStyle? textStyle;
 
   @override
@@ -30,7 +31,7 @@ class LinkText extends StatelessWidget {
         }
       },
       child: Text(
-        url,
+        text ?? url,
         style:
             textStyle ??
             theme.textTheme.bodyMedium?.copyWith(color: Colors.blue),

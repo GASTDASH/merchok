@@ -28,44 +28,78 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     });
     on<OrderAdd>((event, emit) async {
       try {
+        if (state is! OrderLoaded) return;
+        final loadedState = state as OrderLoaded;
+
         emit(OrderLoading(message: S.current.receiptSaving));
-        await _orderRepository.addOrder(
-          Order(
-            id: const Uuid().v4(),
-            orderItems: event.cartItems
-                .map(
-                  (cartItem) => OrderItem.fromCartItem(
-                    cartItem,
-                    event.merchList.firstWhere((m) => m.id == cartItem.merchId),
-                  ),
-                )
-                .toList(),
-            createdAt: DateTime.now(),
-            festival: event.festival,
-            paymentMethod: event.paymentMethod,
-          ),
+
+        final newOrder = Order(
+          id: const Uuid().v4(),
+          orderItems: event.cartItems
+              .map(
+                (cartItem) => OrderItem.fromCartItem(
+                  cartItem,
+                  event.merchList.firstWhere((m) => m.id == cartItem.merchId),
+                ),
+              )
+              .toList(),
+          createdAt: DateTime.now(),
+          festival: event.festival,
+          paymentMethod: event.paymentMethod,
         );
-        add(OrderLoad());
+
+        await _orderRepository.addOrder(newOrder);
+
+        emit(OrderLoaded(orderList: [...loadedState.orderList, newOrder]));
       } catch (e) {
         emit(OrderError(error: e));
       }
     });
     on<OrderDelete>((event, emit) async {
       try {
+        if (state is! OrderLoaded) return;
+        final loadedState = state as OrderLoaded;
+
         emit(OrderLoading(message: S.current.receiptDeleting));
+
         await _orderRepository.deleteOrder(event.orderId);
-        add(OrderLoad());
+
+        final newOrderList = [
+          ...loadedState.orderList.where((order) => order.id != event.orderId),
+        ];
+        emit(OrderLoaded(orderList: newOrderList));
       } catch (e) {
         emit(OrderError(error: e));
       }
     });
     on<OrderImport>((event, emit) async {
       try {
+        if (state is! OrderLoaded) return;
+        final loadedState = state as OrderLoaded;
+
         emit(OrderLoading(message: S.current.receiptImporting));
+
         for (var order in event.orderList) {
           await _orderRepository.addOrder(order);
         }
-        add(OrderLoad());
+
+        // Формируем новый список чеков
+        final newOrderList = [
+          // Проходит по старому списку и добавляет новый чек если id совпал
+          ...loadedState.orderList.map((order) {
+            final importedOrder = event.orderList.firstWhere(
+              (newOrder) => newOrder.id == order.id,
+              orElse: () => order,
+            );
+            return importedOrder;
+          }),
+          // Добавляем новые чеки, которых ещё нет в списке
+          ...event.orderList.where(
+            (newOrder) =>
+                !loadedState.orderList.any((order) => order.id == newOrder.id),
+          ),
+        ];
+        emit(OrderLoaded(orderList: newOrderList));
       } catch (e) {
         emit(OrderError(error: e));
       }

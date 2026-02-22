@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   }
 
   Future<String?> scan(BuildContext context) async =>
-      await context.push<String?>('/scan');
+      await context.push<String?>(AppRoutes.scan);
 
   Future<void> showScannedMerchNotFoundDialog(BuildContext context) async =>
       await showDialog(
@@ -111,7 +111,11 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
 
   List<Merch> filterBySearch(List<Merch> filteredMerchList) {
     filteredMerchList = filteredMerchList
-        .where((merch) => merch.name.contains(searchController.text))
+        .where(
+          (merch) => merch.name.toLowerCase().contains(
+            searchController.text.toLowerCase(),
+          ),
+        )
         .toList();
     return filteredMerchList;
   }
@@ -589,6 +593,10 @@ class _MerchList extends StatelessWidget {
                 .firstWhereOrNull((item) => item.merchId == merch.id)
                 ?.quantity;
 
+            final purchasePriceEditable = (state is StockLoaded)
+                ? !state.stockItems.any((item) => item.merchId == merch.id)
+                : true;
+
             return MerchCard(
               onLongPress: quantity == null
                   ? () => showDeleteMerchDialog(context, merch.id)
@@ -596,6 +604,21 @@ class _MerchList extends StatelessWidget {
               merch: merch,
               count: quantity ?? 0,
               remainder: remainder[merch.id],
+              showChangePriceBottomSheet: (context) async =>
+                  await showModalBottomSheet(
+                    useRootNavigator: true,
+                    isScrollControlled: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    context: context,
+                    builder: (context) => Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: ChangePriceBottomSheet(
+                        previousPrice: merch.price,
+                        previousPurchasePrice: merch.purchasePrice,
+                        purchasePriceEditable: purchasePriceEditable,
+                      ),
+                    ),
+                  ),
             );
           },
         );

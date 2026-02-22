@@ -76,22 +76,33 @@ class FestivalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 if (state is StockLoaded) {
                   return GestureDetector(
                     onTap: () {
-                      context.push('/stock');
+                      context.push(AppRoutes.stock);
                     },
                     child: const Icon(AppIcons.cube),
                   );
                 }
                 if (state is StockLoading) {
                   return const CircularProgressIndicator();
+                }
+                if (state is StockError) {
+                  return Tooltip(
+                    triggerMode: TooltipTriggerMode.tap,
+                    message: state.error.toString(),
+                    child: const Icon(Icons.warning_amber_rounded),
+                  );
                 } else {
-                  return const Icon(Icons.warning_amber_rounded);
+                  return Tooltip(
+                    triggerMode: TooltipTriggerMode.tap,
+                    message: '$state',
+                    child: const Icon(Icons.warning_amber_rounded),
+                  );
                 }
               },
             ),
             const SizedBox(width: 16),
             GestureDetector(
               onTap: () {
-                context.push('/festival');
+                context.push(AppRoutes.festival);
               },
               child: const Icon(AppIcons.calendar),
             ),
