@@ -136,11 +136,7 @@ class _CartItemsList extends StatelessWidget {
         if (stockState is! StockLoaded) {
           return InfoBanner(text: S.of(context).stockNotLoaded);
         }
-        final Map<String, int> merchRemainders = Map.fromEntries(
-          stockState.stockItems.map(
-            (item) => MapEntry(item.merchId, item.quantity),
-          ),
-        );
+        final Map<String, int> remainder = stockState.remainders;
 
         return SliverList.builder(
           itemCount: cartItems.length,
@@ -154,7 +150,7 @@ class _CartItemsList extends StatelessWidget {
               merch: merch,
               count: cartItem.quantity,
               editable: false,
-              remainder: merchRemainders[merch.id],
+              remainder: remainder[merch.id],
               onTapDelete: () {
                 context.read<CartBloc>().add(CartDelete(merchId: merch.id));
               },
