@@ -177,7 +177,7 @@
   "deletingFromStock": "Removing from stock",
   "selectFestivalToManageStock": "Select a festival to manage stock",
   "stock": "Stock",
-  "pleaseCountCarefully": "Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!",
+  "pleaseCountCarefully": "Please carefully count the delivered merchandise and check the purchase price to avoid issues with orders that have already been purchased!",
   "yourStockWillBeHere": "Your merch stock will appear here",
   "invalidQuantityError": "Please enter a valid quantity",
   "removeStockItem": "Remove merch from stock?",

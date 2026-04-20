@@ -1524,10 +1524,10 @@ class S {
     return Intl.message('Stock', name: 'stock', desc: '', args: []);
   }
 
-  /// `Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!`
+  /// `Please carefully count the delivered merchandise and check the purchase price to avoid issues with orders that have already been purchased!`
   String get pleaseCountCarefully {
     return Intl.message(
-      'Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!',
+      'Please carefully count the delivered merchandise and check the purchase price to avoid issues with orders that have already been purchased!',
       name: 'pleaseCountCarefully',
       desc: '',
       args: [],

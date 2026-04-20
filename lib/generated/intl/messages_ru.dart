@@ -284,7 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Способы оплаты не загружены",
     ),
     "pleaseCountCarefully": MessageLookupByLibrary.simpleMessage(
-      "Пожалуйста, внимательно считайте кол-во привезённого мерча для предотвращения возникновения проблем с изменением уже купленных позиций!",
+      "Пожалуйста, внимательно считайте кол-во привезённого мерча и его закупочную цену для предотвращения возникновения проблем с изменением уже купленных позиций!",
     ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),

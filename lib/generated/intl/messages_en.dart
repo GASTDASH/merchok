@@ -280,7 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment methods are not loaded",
     ),
     "pleaseCountCarefully": MessageLookupByLibrary.simpleMessage(
-      "Please count the delivered merchandise carefully to avoid issues with orders that have already been purchased!",
+      "Please carefully count the delivered merchandise and check the purchase price to avoid issues with orders that have already been purchased!",
     ),
     "plus10": MessageLookupByLibrary.simpleMessage("+10"),
     "plus100": MessageLookupByLibrary.simpleMessage("+100"),
