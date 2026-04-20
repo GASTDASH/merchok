@@ -163,6 +163,7 @@ class _DevelopedBy extends StatelessWidget {
             ],
           ),
           Material(
+            color: theme.cardColor,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
