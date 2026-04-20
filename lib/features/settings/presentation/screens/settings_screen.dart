@@ -24,6 +24,13 @@ class SettingsScreen extends StatelessWidget {
             sliver: SliverList.list(
               children: [
                 SettingsButton(
+                  onTap: () {
+                    throw Exception("test");
+                  },
+                  title: "",
+                  subtitle: "",
+                ),
+                SettingsButton(
                   onTap: () => context.push(AppRoutes.theme),
                   title: S.of(context).theme,
                   subtitle: S.of(context).themeDescription,
