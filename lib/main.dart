@@ -1,5 +1,8 @@
+// translate-me-ignore-all-file
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:merchok/app/app.dart';
@@ -20,17 +23,48 @@ import 'package:talker_flutter/talker_flutter.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Настройка обработки фатальных Flutter-ошибок
+  FlutterError.onError = (details) async {
+    await AppMetrica.reportError(
+      message: "Flutter.onError",
+      errorDescription: AppMetricaErrorDescription.fromFlutterErrorDetails(
+        details,
+      ),
+    );
+    await AppMetrica.sendEventsBuffer();
+  };
+
+  // Кастомный виджет для отображения ошибок
   ErrorWidget.builder = (FlutterErrorDetails details) =>
       CustomErrorWidget(details);
 
   try {
+    // Загрузка переменных окружения из .env
+    await loadDotEnv();
+
+    // Инициализация аналитики AppMetrica с отчётами о сбоях
+    await AppMetrica.activate(
+      AppMetricaConfig(
+        dotenv.env['APPMETRICA_API_KEY'].toString(),
+        crashReporting: true,
+        flutterCrashReporting: true,
+        logs: true,
+      ),
+    );
+
+    // Настройка системы логирования Talker
     _initTalker();
+
+    // Инициализация хранилища Hive и регистрация репозиториев
     await _initHive();
     await _registerRepositories();
 
+    // Запуск основного приложения
     runApp(const MerchokApp());
   } catch (e, st) {
+    // Обработка ошибок инициализации: отчёт и запуск экрана ошибки
     final details = FlutterErrorDetails(exception: e, stack: st);
+    FlutterError.reportError(details);
     runApp(ErrorApp(details));
   }
 }
@@ -75,4 +109,12 @@ Future<void> _initTalker() async {
       printStateFullData: false,
     ),
   );
+}
+
+Future<void> loadDotEnv() async {
+  try {
+    await dotenv.load(fileName: ".env"); // Load environment variables
+  } catch (e) {
+    throw Exception('Error loading .env file: $e'); // Print error if any
+  }
 }
