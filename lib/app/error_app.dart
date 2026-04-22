@@ -4,17 +4,21 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/generated/l10n.dart';
 
 class ErrorApp extends StatelessWidget {
-  const ErrorApp({super.key, required this.exception, this.stack});
+  const ErrorApp(this.details, {super.key});
 
-  final Object exception;
-  final StackTrace? stack;
+  final FlutterErrorDetails details;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MerchOK',
-      home: CustomErrorWidget(
-        FlutterErrorDetails(exception: exception, stack: stack),
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: CustomErrorWidget(details),
+          ),
+        ),
       ),
       localizationsDelegates: const [
         S.delegate,

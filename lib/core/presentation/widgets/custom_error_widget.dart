@@ -8,31 +8,24 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.warning_amber, size: 64, color: Colors.red),
-              Text(
-                S.of(context).unexpectedFlutterError,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  height: 1.2,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 16),
-              Text(details.exceptionAsString(), style: TextStyle(fontSize: 18)),
-              SizedBox(height: 32),
-              Text(details.toDiagnosticsNode().toStringDeep()),
-            ],
-          ),
+    return Column(
+      mainAxisAlignment: .center,
+      crossAxisAlignment: .start,
+      children: [
+        const Icon(Icons.warning_amber, size: 32, color: Colors.red),
+        const SizedBox(height: 8),
+        Text(
+          S.of(context).unexpectedFlutterError,
+          style: const TextStyle(fontSize: 18, fontWeight: .w500, height: 1.2),
         ),
-      ),
+        const SizedBox(height: 8),
+        Text(details.exceptionAsString(), style: const TextStyle(fontSize: 16)),
+        const SizedBox(height: 8),
+        Text(
+          details.toDiagnosticsNode().toStringDeep(),
+          style: const TextStyle(fontSize: 12),
+        ),
+      ],
     );
   }
 }

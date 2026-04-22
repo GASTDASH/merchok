@@ -30,7 +30,8 @@ Future<void> main() async {
 
     runApp(const MerchokApp());
   } catch (e, st) {
-    runApp(ErrorApp(exception: e, stack: st));
+    final details = FlutterErrorDetails(exception: e, stack: st);
+    runApp(ErrorApp(details));
   }
 }
 
