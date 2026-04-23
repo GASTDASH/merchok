@@ -25,13 +25,13 @@ Future<void> main() async {
 
   // Настройка обработки фатальных Flutter-ошибок
   FlutterError.onError = (details) async {
-    await AppMetrica.reportError(
+    AppMetrica.reportError(
       message: "Flutter.onError",
       errorDescription: AppMetricaErrorDescription.fromFlutterErrorDetails(
         details,
       ),
     );
-    await AppMetrica.sendEventsBuffer();
+    AppMetrica.sendEventsBuffer();
   };
 
   // Кастомный виджет для отображения ошибок
@@ -43,7 +43,7 @@ Future<void> main() async {
     await loadDotEnv();
 
     // Инициализация аналитики AppMetrica с отчётами о сбоях
-    await AppMetrica.activate(
+    AppMetrica.activate(
       AppMetricaConfig(
         dotenv.env['APPMETRICA_API_KEY'].toString(),
         crashReporting: true,
@@ -53,7 +53,24 @@ Future<void> main() async {
     );
 
     // Настройка системы логирования Talker
-    _initTalker();
+    final talker = _initTalker();
+
+    // Настройка глобального наблюдателя для всех BLoC-инстансов
+    // - AppmetricaBlocObserver: отправка метрик и аналитики переходов BLoC
+    // - TalkerBlocObserver: логирование изменений состояний с настройками:
+    Bloc.observer = MultiBlocObserver(
+      observers: [
+        AppmetricaBlocObserver(),
+        TalkerBlocObserver(
+          talker: talker,
+          settings: const TalkerBlocLoggerSettings(
+            printTransitions: false,
+            printChanges: true,
+            printStateFullData: false,
+          ),
+        ),
+      ],
+    );
 
     // Инициализация хранилища Hive и регистрация репозиториев
     await _initHive();
@@ -97,18 +114,10 @@ Future<void> _registerRepositories() async {
     ..registerSingleton<StockRepository>(StockRepositoryImpl());
 }
 
-Future<void> _initTalker() async {
+Talker _initTalker() {
   final talker = TalkerFlutter.init();
   GetIt.I.registerSingleton<Talker>(talker);
-
-  Bloc.observer = TalkerBlocObserver(
-    talker: talker,
-    settings: const TalkerBlocLoggerSettings(
-      printTransitions: false,
-      printChanges: true,
-      printStateFullData: false,
-    ),
-  );
+  return talker;
 }
 
 Future<void> loadDotEnv() async {
