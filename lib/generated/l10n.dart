@@ -1623,6 +1623,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Standard`
+  String get standard {
+    return Intl.message('Standard', name: 'standard', desc: '', args: []);
+  }
+
+  /// `Compact`
+  String get compact {
+    return Intl.message('Compact', name: 'compact', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

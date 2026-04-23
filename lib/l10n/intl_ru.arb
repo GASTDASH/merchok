@@ -187,5 +187,7 @@
   "alexeyShcherbakov": "Алексей Щербаков",
   "flutterMobile": "Flutter / Mobile",
   "unableToChangePurchasePrice": "Невозможно изменить закупочную цену",
-  "merchIsAlreadyInStock": "мерч уже в запасе"
+  "merchIsAlreadyInStock": "мерч уже в запасе",
+  "standard": "Обычный",
+  "compact": "Компактный"
 }

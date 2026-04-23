@@ -7,10 +7,12 @@ class DescriptionSection extends StatefulWidget {
     super.key,
     required this.description,
     required this.onTapOutside,
+    required this.height,
   });
 
   final String? description;
   final void Function(String? text) onTapOutside;
+  final double height;
 
   @override
   State<DescriptionSection> createState() => _DescriptionSectionState();
@@ -45,6 +47,7 @@ class _DescriptionSectionState extends State<DescriptionSection> {
     return Expanded(
       child: editing
           ? _DescriptionContainer(
+              height: widget.height,
               child: Stack(
                 children: [
                   Center(
@@ -75,6 +78,7 @@ class _DescriptionSectionState extends State<DescriptionSection> {
                 focusNode.requestFocus();
               },
               child: _DescriptionContainer(
+                height: widget.height,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   child: Text(
@@ -94,17 +98,18 @@ class _DescriptionSectionState extends State<DescriptionSection> {
 }
 
 class _DescriptionContainer extends StatelessWidget {
-  const _DescriptionContainer({required this.child});
+  const _DescriptionContainer({required this.child, required this.height});
 
   final Widget child;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Container(
-      height: 100,
-      padding: EdgeInsets.symmetric(horizontal: 12),
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: theme.disabledColor),

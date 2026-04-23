@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changingStock": MessageLookupByLibrary.simpleMessage("Updating stock"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "clearFilter": MessageLookupByLibrary.simpleMessage("Clear filter"),
+    "compact": MessageLookupByLibrary.simpleMessage("Compact"),
     "cost": MessageLookupByLibrary.simpleMessage("Закупка"),
     "couldntOpenPage": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t open the page",
@@ -329,6 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "sorting": MessageLookupByLibrary.simpleMessage("Sorting"),
     "specialThanks": MessageLookupByLibrary.simpleMessage("Special thanks"),
+    "standard": MessageLookupByLibrary.simpleMessage("Standard"),
     "stock": MessageLookupByLibrary.simpleMessage("Stock"),
     "stockDelivered": MessageLookupByLibrary.simpleMessage("Delivered"),
     "stockLoading": MessageLookupByLibrary.simpleMessage("Loading stock info"),

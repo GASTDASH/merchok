@@ -151,6 +151,7 @@ class _CartItemsList extends StatelessWidget {
               count: cartItem.quantity,
               editable: false,
               remainder: remainder[merch.id],
+              style: .standard,
               onTapDelete: () {
                 context.read<CartBloc>().add(CartDelete(merchId: merch.id));
               },

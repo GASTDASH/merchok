@@ -26,12 +26,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   final ListController listController = ListController();
   final MerchSortingProvider merchSortingProvider = MerchSortingProvider();
+  final MerchCardStyleProvider merchCardStyleProvider =
+      MerchCardStyleProvider();
   final TextEditingController searchController = TextEditingController();
 
   @override
   void dispose() {
     searchController.dispose();
     merchSortingProvider.dispose();
+    merchCardStyleProvider.dispose();
+    listController.dispose();
 
     super.dispose();
   }
@@ -152,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                 ListenableBuilder(
                   listenable: Listenable.merge([
                     merchSortingProvider,
+                    merchCardStyleProvider,
                     searchController,
                   ]),
                   builder: (context, _) => BlocConsumer<MerchBloc, MerchState>(
@@ -193,8 +198,10 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             sliver: SliverMainAxisGroup(
                               slivers: [
-                                _SortRow(
+                                _ViewSettingsRow(
                                   merchSortingProvider: merchSortingProvider,
+                                  merchCardStyleProvider:
+                                      merchCardStyleProvider,
                                 ),
                                 _MerchList(
                                   merchList: merchList,
@@ -205,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                                   ],
                                   scrollController: scrollController,
                                   listController: listController,
+                                  merchCardStyle: merchCardStyleProvider.style,
                                 ),
                                 SliverPadding(
                                   padding: const EdgeInsets.only(
@@ -323,22 +331,54 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
   }
 }
 
-class _SortRow extends StatelessWidget {
-  const _SortRow({required this.merchSortingProvider});
+class _ViewSettingsRow extends StatelessWidget {
+  const _ViewSettingsRow({
+    required this.merchSortingProvider,
+    required this.merchCardStyleProvider,
+  });
 
   final MerchSortingProvider merchSortingProvider;
+  final MerchCardStyleProvider merchCardStyleProvider;
+
+  static const double height = 42;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Row(
+      child: Wrap(
+        runSpacing: 8,
+        spacing: 12,
         children: [
-          SortButton(
-            onTap: () => merchSortingProvider.changeMerchSorting(),
-            icons: [
-              merchSortingProvider.merchSorting.sortBy.icon,
-              merchSortingProvider.merchSorting.sortOrder.icon,
-            ],
+          FittedBox(
+            child: SizedBox(
+              height: height,
+              child: SortButton(
+                onTap: () => merchSortingProvider.changeMerchSorting(),
+                icons: [
+                  merchSortingProvider.merchSorting.sortBy.icon,
+                  merchSortingProvider.merchSorting.sortOrder.icon,
+                ],
+              ),
+            ),
+          ),
+          FittedBox(
+            child: SizedBox(
+              height: height,
+              child: BaseButton.outlined(
+                onTap: () => merchCardStyleProvider.changeStyle(),
+                color: Theme.of(context).colorScheme.onSurface,
+                child: Row(
+                  spacing: 8,
+                  children: [
+                    Text(switch (merchCardStyleProvider.style) {
+                      .standard => S.of(context).standard,
+                      .compact => S.of(context).compact,
+                    }),
+                    const Icon(Icons.view_day_outlined),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -510,12 +550,14 @@ class _MerchList extends StatelessWidget {
     required this.cartItems,
     required this.scrollController,
     required this.listController,
+    required this.merchCardStyle,
   });
 
   final List<CartItem> cartItems;
   final ListController listController;
   final List<Merch> merchList;
   final ScrollController scrollController;
+  final MerchCardStyle merchCardStyle;
 
   Future<void> showDeleteMerchDialog(
     BuildContext context,
@@ -583,6 +625,7 @@ class _MerchList extends StatelessWidget {
               merch: merch,
               count: quantity ?? 0,
               remainder: remainder[merch.id],
+              style: merchCardStyle,
               showChangePriceBottomSheet: (context) async =>
                   await showModalBottomSheet(
                     useRootNavigator: true,

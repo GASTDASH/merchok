@@ -1,5 +1,6 @@
 // translate-me-ignore-all-file
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -43,14 +44,16 @@ Future<void> main() async {
     await loadDotEnv();
 
     // Инициализация аналитики AppMetrica с отчётами о сбоях
-    AppMetrica.activate(
-      AppMetricaConfig(
-        dotenv.env['APPMETRICA_API_KEY'].toString(),
-        crashReporting: true,
-        flutterCrashReporting: true,
-        logs: true,
-      ),
-    );
+    if (kReleaseMode) {
+      AppMetrica.activate(
+        AppMetricaConfig(
+          dotenv.env['APPMETRICA_API_KEY'].toString(),
+          crashReporting: true,
+          flutterCrashReporting: true,
+          logs: true,
+        ),
+      );
+    }
 
     // Настройка системы логирования Talker
     final talker = _initTalker();

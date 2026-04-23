@@ -14,6 +14,8 @@ import 'package:merchok/features/merch/merch.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/generated/l10n.dart';
 
+enum MerchCardStyle { standard, compact }
+
 class MerchCard extends StatelessWidget {
   const MerchCard({
     super.key,
@@ -24,6 +26,7 @@ class MerchCard extends StatelessWidget {
     this.onTapDelete,
     this.remainder,
     this.showChangePriceBottomSheet,
+    required this.style,
   }) : assert(
          editable == (showChangePriceBottomSheet != null),
          'Editable MerchCard must have a showChangePriceBottomSheet',
@@ -32,6 +35,7 @@ class MerchCard extends StatelessWidget {
   final int count;
   final bool editable;
   final Merch merch;
+  final MerchCardStyle style;
   final VoidCallback? onLongPress;
   final VoidCallback? onTapDelete;
   final int? remainder;
@@ -183,10 +187,16 @@ class MerchCard extends StatelessWidget {
     return BaseContainer(
       onLongPress: onLongPress,
       margin: const EdgeInsets.symmetric(vertical: 12),
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(switch (style) {
+        .standard => 24,
+        .compact => 18,
+      }),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        spacing: 12,
+        spacing: switch (style) {
+          .standard => 12,
+          .compact => 8,
+        },
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -241,6 +251,14 @@ class MerchCard extends StatelessWidget {
             spacing: 24,
             children: [
               _ImageBox(
+                height: switch (style) {
+                  .standard => 105,
+                  .compact => 70,
+                },
+                width: switch (style) {
+                  .standard => 105,
+                  .compact => 80,
+                },
                 deletable: merch.image != null,
                 editable: editable,
                 image: merch.image,
@@ -255,6 +273,10 @@ class MerchCard extends StatelessWidget {
                 ),
               ),
               DescriptionSection(
+                height: switch (style) {
+                  .standard => 100,
+                  .compact => 70,
+                },
                 description: merch.description,
                 onTapOutside: (text) => editDescription(context, text),
               ),
@@ -277,7 +299,10 @@ class MerchCard extends StatelessWidget {
                 children: [
                   Text(
                     '${merch.price.truncateIfInt()} ₽',
-                    style: theme.textTheme.headlineSmall,
+                    style: switch (style) {
+                      .standard => theme.textTheme.headlineSmall,
+                      .compact => theme.textTheme.titleLarge,
+                    },
                   ),
                   if (editable)
                     GestureDetector(
@@ -377,8 +402,12 @@ class _ImageBox extends StatelessWidget {
     this.thumbnail,
     required this.onImageDeleted,
     required this.onImagePicked,
+    required this.width,
+    required this.height,
   });
 
+  final double width;
+  final double height;
   final bool deletable;
   final bool editable;
   final Uint8List? image;
@@ -413,8 +442,8 @@ class _ImageBox extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SizedBox(
-      height: 105,
-      width: 105,
+      height: height,
+      width: width,
       child: Stack(
         children: [
           Container(

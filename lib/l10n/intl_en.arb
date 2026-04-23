@@ -187,5 +187,7 @@
   "alexeyShcherbakov": "Alexey Shcherbakov",
   "flutterMobile": "Flutter / Mobile",
   "unableToChangePurchasePrice": "Unable to change the purchase price",
-  "merchIsAlreadyInStock": "the merch is already in stock"
+  "merchIsAlreadyInStock": "the merch is already in stock",
+  "standard": "Standard",
+  "compact": "Compact"
 }

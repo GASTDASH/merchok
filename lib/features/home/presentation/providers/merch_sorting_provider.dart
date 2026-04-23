@@ -11,17 +11,14 @@ class MerchSortingProvider extends ChangeNotifier {
   ];
 
   int _index = 0;
-  MerchSorting _merchSorting = _merchSortingList[0];
 
-  MerchSorting get merchSorting => _merchSorting;
+  MerchSorting get merchSorting => _merchSortingList[_index];
 
   void changeMerchSorting() {
-    if (_index + 1 == _merchSortingList.length) {
+    _index++;
+    if (_index == _merchSortingList.length) {
       _index = 0;
-    } else {
-      _index++;
     }
-    _merchSorting = _merchSortingList[_index];
     notifyListeners();
   }
 }
