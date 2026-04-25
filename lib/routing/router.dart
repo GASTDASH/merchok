@@ -9,6 +9,7 @@ import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
 import 'package:merchok/features/language/language.dart';
+import 'package:merchok/features/onboarding/onboarding.dart';
 import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/payment_method/payment_method.dart';
 import 'package:merchok/features/root/root.dart';
@@ -21,7 +22,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 final router = GoRouter(
   observers: [TalkerRouteObserver(GetIt.I<Talker>())],
-  initialLocation: AppRoutes.home,
+  initialLocation: AppRoutes.onboarding,
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -131,6 +132,11 @@ final router = GoRouter(
       name: 'stock',
       path: AppRoutes.stock,
       builder: (context, state) => const StockScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.onboardingName,
+      path: AppRoutes.onboarding,
+      builder: (context, state) => const OnboardingScreen(),
     ),
   ],
 );
