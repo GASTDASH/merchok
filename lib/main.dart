@@ -26,13 +26,21 @@ Future<void> main() async {
 
   // Настройка обработки фатальных Flutter-ошибок
   FlutterError.onError = (details) async {
-    AppMetrica.reportError(
-      message: "Flutter.onError",
-      errorDescription: AppMetricaErrorDescription.fromFlutterErrorDetails(
-        details,
-      ),
-    );
-    AppMetrica.sendEventsBuffer();
+    if (kReleaseMode) {
+      final stack = details.stack;
+
+      AppMetrica.reportError(
+        message: "Flutter.onError",
+        errorDescription: AppMetricaErrorDescription(
+          stack != null && stack.toString().isNotEmpty
+              ? stack
+              : StackTrace.current,
+          message: details.exceptionAsString(),
+          type: details.exception.runtimeType.toString(),
+        ),
+      );
+      AppMetrica.sendEventsBuffer();
+    }
   };
 
   // Кастомный виджет для отображения ошибок
