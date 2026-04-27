@@ -30,7 +30,7 @@ class PaymentMethodStat extends StatelessWidget {
               state.paymentMethodList.map(
                 (pm) => MapEntry(
                   pm,
-                  orderList.where((o) => o.paymentMethod == pm).length,
+                  orderList.where((o) => o.paymentMethod.id == pm.id).length,
                 ),
               ),
             );
