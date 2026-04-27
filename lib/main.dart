@@ -1,6 +1,6 @@
 // translate-me-ignore-all-file
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-import 'package:flutter/foundation.dart' show kReleaseMode;
+import 'package:flutter/foundation.dart' show kDebugMode, kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -123,6 +123,8 @@ Future<void> _registerRepositories() async {
     ..registerSingleton<OrderRepository>(OrderRepositoryImpl())
     ..registerSingleton<CategoryRepository>(CategoryRepositoryImpl())
     ..registerSingleton<StockRepository>(StockRepositoryImpl());
+
+  if (kDebugMode) GetIt.I<SettingsRepository>().setOnboardingShown(false);
 }
 
 Talker _initTalker() {

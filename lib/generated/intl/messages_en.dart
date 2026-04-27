@@ -42,6 +42,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("All at once"),
     "apply": MessageLookupByLibrary.simpleMessage("Apply"),
+    "appmetrica1": MessageLookupByLibrary.simpleMessage(
+      "This app uses the AppMetrica analytical service provided by YANDEX LLC based on the ",
+    ),
+    "appmetrica2": MessageLookupByLibrary.simpleMessage("Terms of Use"),
+    "appmetrica3": MessageLookupByLibrary.simpleMessage(
+      "AppMetrica analyzes app usage data, including the device it is running on, the installation source, calculates conversion, collects statistics of your activity for product analytics, ad campaign analysis, and optimization, as well as for troubleshooting. Information collected in this way cannot identify you.\r\n\r\nDepersonalized information about your use of this app collected by AppMetrica tools will be transferred to Yandex and stored on Yandex’s server in the EU and the Russian Federation. Yandex will process this information to provide you with app usage statistics, generate app performance reports, and deliver other services.",
+    ),
+    "appmetrica_agree": MessageLookupByLibrary.simpleMessage(
+      "I agree to send statistics to improve the quality of the application.",
+    ),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Average receipt"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "barcodes": MessageLookupByLibrary.simpleMessage("Barcodes"),
@@ -95,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "donateDescription": MessageLookupByLibrary.simpleMessage(
       "Send tips for project growth",
     ),
+    "done": MessageLookupByLibrary.simpleMessage("Done"),
     "earned": MessageLookupByLibrary.simpleMessage("Earned"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
@@ -208,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "new1": MessageLookupByLibrary.simpleMessage("New"),
+    "next": MessageLookupByLibrary.simpleMessage("Next"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
     "noCategories": MessageLookupByLibrary.simpleMessage(
       "You don\'t have any categories yet",
@@ -325,6 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Select a period"),
     "sell": MessageLookupByLibrary.simpleMessage("Продажа"),
+    "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),

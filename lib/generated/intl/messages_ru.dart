@@ -46,6 +46,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allAtOnce": MessageLookupByLibrary.simpleMessage("Всё сразу"),
     "apply": MessageLookupByLibrary.simpleMessage("Применить"),
+    "appmetrica1": MessageLookupByLibrary.simpleMessage(
+      "Это приложение использует сервис аналитики AppMetrica, предоставляемый компанией ООО «ЯНДЕКС» на ",
+    ),
+    "appmetrica2": MessageLookupByLibrary.simpleMessage(
+      "Условиях использования сервиса",
+    ),
+    "appmetrica3": MessageLookupByLibrary.simpleMessage(
+      "AppMetrica анализирует данные об использовании приложения, в том числе об устройстве, на котором оно функционирует, источнике установки, составляет конверсию и статистику вашей активности в целях продуктовой аналитики, анализа и оптимизации рекламных кампаний, а также для устранения ошибок. Собранная таким образом информация не может идентифицировать вас.\r\n\r\nИнформация об использовании вами данного приложения, собранная при помощи инструментов AppMetrica, в обезличенном виде будет передаваться Яндексу и храниться на сервере Яндекса в ЕС и Российской Федерации. Яндекс будет обрабатывать эту информацию для предоставления статистики использования вами приложения, составления для нас отчетов о работе приложения и предоставления других услуг.",
+    ),
+    "appmetrica_agree": MessageLookupByLibrary.simpleMessage(
+      "Я согласен на отправку статистических данных для улучшения качества приложения",
+    ),
     "averageReceipt": MessageLookupByLibrary.simpleMessage("Средний чек"),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "barcodes": MessageLookupByLibrary.simpleMessage("Штрихкоды"),
@@ -99,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "donateDescription": MessageLookupByLibrary.simpleMessage(
       "Отправить чаевые на развитие проекта",
     ),
+    "done": MessageLookupByLibrary.simpleMessage("Начать"),
     "earned": MessageLookupByLibrary.simpleMessage("Заработано"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
@@ -212,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "minus100": MessageLookupByLibrary.simpleMessage("-100"),
     "minus50": MessageLookupByLibrary.simpleMessage("-50"),
     "new1": MessageLookupByLibrary.simpleMessage("Новое"),
+    "next": MessageLookupByLibrary.simpleMessage("Дальше"),
     "no": MessageLookupByLibrary.simpleMessage("Нет"),
     "noCategories": MessageLookupByLibrary.simpleMessage(
       "У вас пока нет категорий",
@@ -327,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "selectPeriod": MessageLookupByLibrary.simpleMessage("Выбрать период"),
     "sell": MessageLookupByLibrary.simpleMessage("Продажа"),
+    "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),

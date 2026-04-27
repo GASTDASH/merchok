@@ -7,13 +7,15 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
   final SharedPreferences prefs;
 
-  //
-  // Theme
-  //
   static const _themeStyleKey = 'themeStyle';
   static const _defaultThemeStyle = ThemeStyle.light;
   static const _selectedFestivalIdKey = 'selected_festival_id';
+  static const _languageCodeKey = 'languageCode';
+  static const _onboardingShownKey = 'onboarding_shown';
 
+  //
+  // Theme
+  //
   @override
   ThemeStyle get currentThemeStyle {
     final themeStyle = prefs.getString(_themeStyleKey);
@@ -29,8 +31,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
   //
   // Language
   //
-  static const _languageCodeKey = 'languageCode';
-
   @override
   String? get currentLanguageCode => prefs.getString(_languageCodeKey);
 
@@ -61,4 +61,14 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<void> clearSelectedFestivalId() async =>
       await prefs.remove(_selectedFestivalIdKey);
+
+  //
+  // Onboarding
+  //
+  @override
+  bool get isOnboardingShown => prefs.getBool(_onboardingShownKey) ?? false;
+
+  @override
+  Future<void> setOnboardingShown(bool shown) async =>
+      await prefs.setBool(_onboardingShownKey, shown);
 }

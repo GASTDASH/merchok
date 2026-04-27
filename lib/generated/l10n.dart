@@ -1633,6 +1633,61 @@ class S {
   String get compact {
     return Intl.message('Compact', name: 'compact', desc: '', args: []);
   }
+
+  /// `Next`
+  String get next {
+    return Intl.message('Next', name: 'next', desc: '', args: []);
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message('Done', name: 'done', desc: '', args: []);
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message('Skip', name: 'skip', desc: '', args: []);
+  }
+
+  /// `This app uses the AppMetrica analytical service provided by YANDEX LLC based on the `
+  String get appmetrica1 {
+    return Intl.message(
+      'This app uses the AppMetrica analytical service provided by YANDEX LLC based on the ',
+      name: 'appmetrica1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Use`
+  String get appmetrica2 {
+    return Intl.message(
+      'Terms of Use',
+      name: 'appmetrica2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AppMetrica analyzes app usage data, including the device it is running on, the installation source, calculates conversion, collects statistics of your activity for product analytics, ad campaign analysis, and optimization, as well as for troubleshooting. Information collected in this way cannot identify you.\r\n\r\nDepersonalized information about your use of this app collected by AppMetrica tools will be transferred to Yandex and stored on Yandex’s server in the EU and the Russian Federation. Yandex will process this information to provide you with app usage statistics, generate app performance reports, and deliver other services.`
+  String get appmetrica3 {
+    return Intl.message(
+      'AppMetrica analyzes app usage data, including the device it is running on, the installation source, calculates conversion, collects statistics of your activity for product analytics, ad campaign analysis, and optimization, as well as for troubleshooting. Information collected in this way cannot identify you.\r\n\r\nDepersonalized information about your use of this app collected by AppMetrica tools will be transferred to Yandex and stored on Yandex’s server in the EU and the Russian Federation. Yandex will process this information to provide you with app usage statistics, generate app performance reports, and deliver other services.',
+      name: 'appmetrica3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to send statistics to improve the quality of the application.`
+  String get appmetrica_agree {
+    return Intl.message(
+      'I agree to send statistics to improve the quality of the application.',
+      name: 'appmetrica_agree',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

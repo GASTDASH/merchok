@@ -13,4 +13,8 @@ abstract interface class SettingsRepository {
   String? get selectedFestivalId;
   Future<void> setSelectedFestivalId(String? selectedFestivalId);
   Future<void> clearSelectedFestivalId();
+
+  // Onboarding
+  bool get isOnboardingShown;
+  Future<void> setOnboardingShown(bool shown);
 }
