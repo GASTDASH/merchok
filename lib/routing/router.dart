@@ -20,9 +20,13 @@ import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/features/theme/theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+String get _initialRoute => GetIt.I<SettingsRepository>().isOnboardingShown
+    ? AppRoutes.home
+    : AppRoutes.onboarding;
+
 final router = GoRouter(
   observers: [TalkerRouteObserver(GetIt.I<Talker>())],
-  initialLocation: AppRoutes.onboarding,
+  initialLocation: _initialRoute,
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
