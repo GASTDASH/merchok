@@ -572,7 +572,10 @@ class _MerchList extends StatelessWidget {
     onNo: () => context.pop(),
   );
 
-  Future<void> showUnableToDeleteMerchDialog(BuildContext context) async {
+  Future<void> showUnableToDeleteMerchDialog(
+    BuildContext context,
+    String message,
+  ) async {
     final theme = Theme.of(context);
     return await showDialog(
       context: context,
@@ -585,7 +588,7 @@ class _MerchList extends StatelessWidget {
             children: [
               const Icon(AppIcons.delete, size: 32),
               Text(
-                S.of(context).unableToDeleteMerch,
+                message,
                 style: theme.textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
@@ -618,10 +621,36 @@ class _MerchList extends StatelessWidget {
                 ? !state.stockItems.any((item) => item.merchId == merch.id)
                 : true;
 
+            final isInStock = (state is StockLoaded)
+                ? state.stockItems.any((item) => item.merchId == merch.id)
+                : null;
+
+            late final void Function()? onLongPress;
+            // Мерч в корзине
+            if (quantity != null) {
+              onLongPress = () => showUnableToDeleteMerchDialog(
+                context,
+                S.of(context).unableToDeleteMerch,
+              );
+            }
+            // state is NOT StockLoaded
+            else if (isInStock == null) {
+              onLongPress = null;
+            }
+            // Мерч в запасе
+            else if (isInStock) {
+              onLongPress = () => showUnableToDeleteMerchDialog(
+                context,
+                S.of(context).unableToDeleteMerchStock,
+              );
+            }
+            // Можно удалять
+            else {
+              onLongPress = () => showDeleteMerchDialog(context, merch.id);
+            }
+
             return MerchCard(
-              onLongPress: quantity == null
-                  ? () => showDeleteMerchDialog(context, merch.id)
-                  : () => showUnableToDeleteMerchDialog(context),
+              onLongPress: onLongPress,
               merch: merch,
               count: quantity ?? 0,
               remainder: remainder[merch.id],

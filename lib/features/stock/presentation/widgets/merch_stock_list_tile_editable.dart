@@ -6,6 +6,7 @@ import 'package:merchok/core/core.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/merch/merch.dart';
+import 'package:merchok/features/orders/orders.dart';
 import 'package:merchok/features/stock/stock.dart';
 import 'package:merchok/generated/l10n.dart';
 
@@ -30,6 +31,15 @@ class _MerchStockListTileEditableState
     extends State<MerchStockListTileEditable> {
   late final TextEditingController quantityController;
 
+  @override
+  void initState() {
+    super.initState();
+
+    quantityController = TextEditingController(
+      text: widget.stockItem.quantity.toString(),
+    );
+  }
+
   void saveValue({required String value, required String festivalId}) {
     final int? quantity = int.tryParse(value);
 
@@ -47,12 +57,47 @@ class _MerchStockListTileEditableState
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
+  Future<void> showDeleteDialog(
+    BuildContext context,
+    Festival? currentFestival,
+  ) async {
+    return await showYesNoDialog(
+      context: context,
+      message: S.of(context).removeStockItem,
+      onYes: () {
+        context.read<StockBloc>().add(
+          StockDelete(
+            merchId: widget.stockItem.merchId,
+            festivalId: currentFestival!.id,
+          ),
+        );
+        context.pop();
+      },
+      onNo: () => context.pop(),
+    );
+  }
 
-    quantityController = TextEditingController(
-      text: widget.stockItem.quantity.toString(),
+  Future<void> showUnableToDeleteDialog(BuildContext context) async {
+    final theme = Theme.of(context);
+    return await showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(AppIcons.delete, size: 32),
+              Text(
+                S.of(context).unableToDeleteStock,
+                style: theme.textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -74,21 +119,17 @@ class _MerchStockListTileEditableState
                     child: MerchStockListTile(
                       merch: widget.merch,
                       purchasePrice: widget.stockItem.purchasePrice,
-                      onLongPress: () {
-                        showYesNoDialog(
-                          context: context,
-                          message: S.of(context).removeStockItem,
-                          onYes: () {
-                            context.read<StockBloc>().add(
-                              StockDelete(
-                                merchId: widget.stockItem.merchId,
-                                festivalId: currentFestival!.id,
-                              ),
-                            );
-                            context.pop();
-                          },
-                          onNo: () => context.pop(),
+                      onLongPress: () async {
+                        final orderState = context.read<OrderBloc>().state;
+                        if (orderState is! OrderLoaded) return;
+                        final ordersWithStockMerch = orderState.orderList.where(
+                          (order) => order.orderItems.any(
+                            (item) => item.merch.id == widget.stockItem.merchId,
+                          ),
                         );
+                        return ordersWithStockMerch.isNotEmpty
+                            ? await showUnableToDeleteDialog(context)
+                            : await showDeleteDialog(context, currentFestival);
                       },
                     ),
                   ),

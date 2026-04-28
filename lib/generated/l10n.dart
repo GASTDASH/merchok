@@ -1688,6 +1688,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Unable to delete a merch, because it's in the stock`
+  String get unableToDeleteMerchStock {
+    return Intl.message(
+      'Unable to delete a merch, because it\'s in the stock',
+      name: 'unableToDeleteMerchStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to delete the merch from the stock, because it's already present in the orders`
+  String get unableToDeleteStock {
+    return Intl.message(
+      'Unable to delete the merch from the stock, because it\'s already present in the orders',
+      name: 'unableToDeleteStock',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

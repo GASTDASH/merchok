@@ -377,6 +377,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "unableToDeleteMerch": MessageLookupByLibrary.simpleMessage(
       "Unable to delete a merch, because it\'s in the cart",
     ),
+    "unableToDeleteMerchStock": MessageLookupByLibrary.simpleMessage(
+      "Unable to delete a merch, because it\'s in the stock",
+    ),
+    "unableToDeleteStock": MessageLookupByLibrary.simpleMessage(
+      "Unable to delete the merch from the stock, because it\'s already present in the orders",
+    ),
     "unexpectedFlutterError": MessageLookupByLibrary.simpleMessage(
       "An unexpected Flutter error has occurred",
     ),
