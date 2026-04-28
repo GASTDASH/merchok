@@ -112,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Отправить чаевые на развитие проекта",
     ),
     "done": MessageLookupByLibrary.simpleMessage("Начать"),
-    "earned": MessageLookupByLibrary.simpleMessage("Заработано"),
+    "earned": MessageLookupByLibrary.simpleMessage("Выручка"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Введите правильное число",
@@ -324,9 +324,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "removeStockItem": MessageLookupByLibrary.simpleMessage(
       "Удалить мерч из запаса?",
     ),
-    "revenue": MessageLookupByLibrary.simpleMessage("Выручка"),
+    "revenue": MessageLookupByLibrary.simpleMessage("Прибыль"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
-    "sales": MessageLookupByLibrary.simpleMessage("Продаж"),
+    "sales": MessageLookupByLibrary.simpleMessage("Продано"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
     "scannedMerchNotFound": MessageLookupByLibrary.simpleMessage(
       "Отсканированный мерч не найден",

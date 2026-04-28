@@ -106,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Send tips for project growth",
     ),
     "done": MessageLookupByLibrary.simpleMessage("Done"),
-    "earned": MessageLookupByLibrary.simpleMessage("Earned"),
+    "earned": MessageLookupByLibrary.simpleMessage("Revenue"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Enter a correct number",
@@ -320,9 +320,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "removeStockItem": MessageLookupByLibrary.simpleMessage(
       "Remove merch from stock?",
     ),
-    "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
+    "revenue": MessageLookupByLibrary.simpleMessage("Profit"),
     "ruble": MessageLookupByLibrary.simpleMessage("₽"),
-    "sales": MessageLookupByLibrary.simpleMessage("Sales"),
+    "sales": MessageLookupByLibrary.simpleMessage("Sold"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "scannedMerchNotFound": MessageLookupByLibrary.simpleMessage(
       "The scanned merch was not found",

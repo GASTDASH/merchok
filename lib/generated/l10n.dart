@@ -1174,14 +1174,14 @@ class S {
     );
   }
 
-  /// `Revenue`
+  /// `Profit`
   String get revenue {
-    return Intl.message('Revenue', name: 'revenue', desc: '', args: []);
+    return Intl.message('Profit', name: 'revenue', desc: '', args: []);
   }
 
-  /// `Sales`
+  /// `Sold`
   String get sales {
-    return Intl.message('Sales', name: 'sales', desc: '', args: []);
+    return Intl.message('Sold', name: 'sales', desc: '', args: []);
   }
 
   /// `Orders`
@@ -1189,9 +1189,9 @@ class S {
     return Intl.message('Orders', name: 'orders', desc: '', args: []);
   }
 
-  /// `Earned`
+  /// `Revenue`
   String get earned {
-    return Intl.message('Earned', name: 'earned', desc: '', args: []);
+    return Intl.message('Revenue', name: 'earned', desc: '', args: []);
   }
 
   /// `Date of the event`
