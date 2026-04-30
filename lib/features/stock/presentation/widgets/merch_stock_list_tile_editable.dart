@@ -77,29 +77,12 @@ class _MerchStockListTileEditableState
     );
   }
 
-  Future<void> showUnableToDeleteDialog(BuildContext context) async {
-    final theme = Theme.of(context);
-    return await showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(AppIcons.delete, size: 32),
-              Text(
-                S.of(context).unableToDeleteStock,
-                style: theme.textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  Future<void> showUnableToDeleteStockDialog(BuildContext context) async =>
+      await showUnableToDeleteDialog(
+        context: context,
+        icon: const Icon(AppIcons.delete, size: 32),
+        message: S.of(context).unableToDeleteStock,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +111,7 @@ class _MerchStockListTileEditableState
                           ),
                         );
                         return ordersWithStockMerch.isNotEmpty
-                            ? await showUnableToDeleteDialog(context)
+                            ? await showUnableToDeleteStockDialog(context)
                             : await showDeleteDialog(context, currentFestival);
                       },
                     ),

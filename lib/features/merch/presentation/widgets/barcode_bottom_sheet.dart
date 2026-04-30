@@ -32,14 +32,6 @@ class BarcodeBottomSheet extends StatelessWidget {
     );
   }
 
-  Future<void> _showSuccessfullySavedDialog(
-    BuildContext context,
-    String path,
-  ) async => await showDialog(
-    context: context,
-    builder: (context) => SuccessfullySavedDialog(path: path),
-  );
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -72,7 +64,7 @@ class BarcodeBottomSheet extends StatelessWidget {
               onTap: () async {
                 final path = await _save(context);
                 if (path == null || !context.mounted) return;
-                _showSuccessfullySavedDialog(context, path);
+                showSuccessfullySavedDialog(context, path);
               },
               child: Padding(
                 padding: const EdgeInsets.all(8),

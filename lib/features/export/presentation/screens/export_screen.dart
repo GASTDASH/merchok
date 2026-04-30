@@ -176,14 +176,6 @@ class _ExportScreenState extends State<ExportScreen> {
     );
   }
 
-  Future<void> _showSuccessfullySavedDialog(
-    BuildContext context,
-    String path,
-  ) async => await showDialog(
-    context: context,
-    builder: (context) => SuccessfullySavedDialog(path: path),
-  );
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -220,7 +212,7 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                       if (path == null) return;
                                       if (!context.mounted) return;
-                                      _showSuccessfullySavedDialog(
+                                      showSuccessfullySavedDialog(
                                         context,
                                         path,
                                       );
@@ -268,7 +260,7 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                       if (path == null) return;
                                       if (!context.mounted) return;
-                                      _showSuccessfullySavedDialog(
+                                      showSuccessfullySavedDialog(
                                         context,
                                         path,
                                       );
@@ -295,7 +287,7 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                       if (path == null) return;
                                       if (!context.mounted) return;
-                                      _showSuccessfullySavedDialog(
+                                      showSuccessfullySavedDialog(
                                         context,
                                         path,
                                       );
@@ -329,7 +321,7 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                       if (path == null) return;
                                       if (!context.mounted) return;
-                                      _showSuccessfullySavedDialog(
+                                      showSuccessfullySavedDialog(
                                         context,
                                         path,
                                       );
@@ -356,7 +348,7 @@ class _ExportScreenState extends State<ExportScreen> {
                                       );
                                       if (path == null) return;
                                       if (!context.mounted) return;
-                                      _showSuccessfullySavedDialog(
+                                      showSuccessfullySavedDialog(
                                         context,
                                         path,
                                       );

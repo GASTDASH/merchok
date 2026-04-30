@@ -19,40 +19,17 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
   final TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-
-    context.read<CategoryBloc>().add(CategoryLoad());
-  }
-
-  @override
   void dispose() {
     searchController.dispose();
 
     super.dispose();
   }
 
-  Future<void> showUnableToDeleteDialog(BuildContext context) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.delete, size: 32),
-              Text(
-                S.of(context).unableToDeleteCategory,
-                style: Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CategoryBloc>().add(CategoryLoad());
   }
 
   Future<void> showAddCategoryDialog(BuildContext context) async {
@@ -82,6 +59,13 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
       onNo: () => context.pop(),
     );
   }
+
+  Future<void> showUnableToDeleteCategoryDialog(BuildContext context) async =>
+      await showUnableToDeleteDialog(
+        context: context,
+        icon: const Icon(Icons.delete, size: 32),
+        message: S.of(context).unableToDeleteCategory,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +151,9 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                                       category.id,
                                     );
                                   } else {
-                                    await showUnableToDeleteDialog(context);
+                                    await showUnableToDeleteCategoryDialog(
+                                      context,
+                                    );
                                   }
                                 },
                               );

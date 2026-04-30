@@ -9,7 +9,7 @@ class NotFoundDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(24),
         child: Column(
           spacing: 16,
           mainAxisSize: MainAxisSize.min,

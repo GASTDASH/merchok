@@ -258,20 +258,8 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
 
                             if (!await Permission.camera.request().isGranted) {
                               if (!context.mounted) return;
-                              return showDialog(
-                                context: context,
-                                builder: (context) => Dialog(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(32),
-                                    child: Text(
-                                      S.of(context).cameraPermissionDenied,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.titleLarge,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
+                              return await showCameraPermissionDeniedDialog(
+                                context,
                               );
                             }
 
@@ -284,7 +272,9 @@ class _HomeScreenState extends State<HomeScreen> with SaveScrollPositionMixin {
                             );
                             if (merchIndex == -1) {
                               if (!context.mounted) return;
-                              return showScannedMerchNotFoundDialog(context);
+                              return await showScannedMerchNotFoundDialog(
+                                context,
+                              );
                             }
 
                             if (searchController.text.isNotEmpty ||
@@ -575,29 +565,11 @@ class _MerchList extends StatelessWidget {
   Future<void> showUnableToDeleteMerchDialog(
     BuildContext context,
     String message,
-  ) async {
-    final theme = Theme.of(context);
-    return await showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(AppIcons.delete, size: 32),
-              Text(
-                message,
-                style: theme.textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  ) async => await showUnableToDeleteDialog(
+    context: context,
+    icon: const Icon(AppIcons.delete, size: 32),
+    message: message,
+  );
 
   @override
   Widget build(BuildContext context) {

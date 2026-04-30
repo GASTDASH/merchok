@@ -12,7 +12,7 @@ class LoadingDialog extends StatelessWidget {
       canPop: false,
       child: Dialog(
         child: Padding(
-          padding: EdgeInsetsGeometry.all(32),
+          padding: const EdgeInsetsGeometry.all(32),
           child: Column(
             spacing: 16,
             mainAxisSize: MainAxisSize.min,
@@ -23,7 +23,7 @@ class LoadingDialog extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.center,
                 ),
-              LoadingIndicator(),
+              const LoadingIndicator(),
             ],
           ),
         ),

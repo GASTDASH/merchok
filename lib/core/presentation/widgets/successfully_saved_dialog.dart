@@ -14,7 +14,7 @@ class SuccessfullySavedDialog extends StatelessWidget {
 
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(24),
         child: Column(
           spacing: 32,
           mainAxisSize: MainAxisSize.min,
@@ -49,3 +49,11 @@ class SuccessfullySavedDialog extends StatelessWidget {
     );
   }
 }
+
+Future<void> showSuccessfullySavedDialog(
+  BuildContext context,
+  String path,
+) async => await showDialog(
+  context: context,
+  builder: (context) => SuccessfullySavedDialog(path: path),
+);

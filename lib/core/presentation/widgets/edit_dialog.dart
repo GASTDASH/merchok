@@ -46,7 +46,7 @@ class _EditDialogState extends State<EditDialog> {
                 ),
                 IconButton(
                   onPressed: () => controller.text = '',
-                  icon: Icon(Icons.backspace_outlined),
+                  icon: const Icon(Icons.backspace_outlined),
                 ),
               ],
             ),
