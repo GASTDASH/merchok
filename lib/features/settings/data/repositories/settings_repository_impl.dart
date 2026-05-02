@@ -12,6 +12,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   static const _selectedFestivalIdKey = 'selected_festival_id';
   static const _languageCodeKey = 'languageCode';
   static const _onboardingShownKey = 'onboarding_shown';
+  static const _analyticsEnabledKey = 'analytics_enabled';
 
   //
   // Theme
@@ -71,4 +72,14 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<void> setOnboardingShown(bool shown) async =>
       await prefs.setBool(_onboardingShownKey, shown);
+
+  //
+  // Analytics
+  //
+  @override
+  bool get isAnalyticsEnabled => prefs.getBool(_analyticsEnabledKey) ?? false;
+
+  @override
+  Future<void> setAnalyticsEnabled(bool enabled) async =>
+      await prefs.setBool(_analyticsEnabledKey, enabled);
 }

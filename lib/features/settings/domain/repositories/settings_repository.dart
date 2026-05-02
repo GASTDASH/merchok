@@ -17,4 +17,8 @@ abstract interface class SettingsRepository {
   // Onboarding
   bool get isOnboardingShown;
   Future<void> setOnboardingShown(bool shown);
+
+  // Analytics
+  bool get isAnalyticsEnabled;
+  Future<void> setAnalyticsEnabled(bool enabled);
 }

@@ -1,6 +1,5 @@
 // translate-me-ignore-all-file
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-import 'package:flutter/foundation.dart' show kDebugMode, kReleaseMode;
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:merchok/app/app.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/analytics/analytics.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/festival/festival.dart';
@@ -26,21 +26,14 @@ Future<void> main() async {
 
   // Настройка обработки фатальных Flutter-ошибок
   FlutterError.onError = (details) async {
-    if (kReleaseMode) {
-      final stack = details.stack;
+    final analytics = GetIt.I<AnalyticsRepository>();
 
-      AppMetrica.reportError(
-        message: "Flutter.onError",
-        errorDescription: AppMetricaErrorDescription(
-          stack != null && stack.toString().isNotEmpty
-              ? stack
-              : StackTrace.current,
-          message: details.exceptionAsString(),
-          type: details.exception.runtimeType.toString(),
-        ),
-      );
-      AppMetrica.sendEventsBuffer();
-    }
+    await analytics.reportError(
+      message: "Flutter.onError",
+      error: details.exception,
+      stackTrace: details.stack ?? StackTrace.current,
+    );
+    await analytics.flushEvents();
   };
 
   // Кастомный виджет для отображения ошибок
@@ -51,27 +44,15 @@ Future<void> main() async {
     // Загрузка переменных окружения из .env
     await loadDotEnv();
 
-    // Инициализация аналитики AppMetrica с отчётами о сбоях
-    if (kReleaseMode) {
-      AppMetrica.activate(
-        AppMetricaConfig(
-          dotenv.env['APPMETRICA_API_KEY'].toString(),
-          crashReporting: true,
-          flutterCrashReporting: true,
-          logs: true,
-        ),
-      );
-    }
-
     // Настройка системы логирования Talker
     final talker = _initTalker();
 
     // Настройка глобального наблюдателя для всех BLoC-инстансов
-    // - AppmetricaBlocObserver: отправка метрик и аналитики переходов BLoC
+    // - AnalyticsBlocObserver: отправка метрик и аналитики переходов BLoC
     // - TalkerBlocObserver: логирование изменений состояний с настройками:
     Bloc.observer = MultiBlocObserver(
       observers: [
-        AppmetricaBlocObserver(),
+        AnalyticsBlocObserver(),
         TalkerBlocObserver(
           talker: talker,
           settings: const TalkerBlocLoggerSettings(
@@ -86,6 +67,9 @@ Future<void> main() async {
     // Инициализация хранилища Hive и регистрация репозиториев
     await _initHive();
     await _registerRepositories();
+
+    // Инициализация сервиса аналитики
+    await GetIt.I<AnalyticsRepository>().initialize();
 
     // Запуск основного приложения
     runApp(const MerchokApp());
@@ -112,7 +96,13 @@ Future<void> _initHive() async {
 Future<void> _registerRepositories() async {
   final prefs = await SharedPreferences.getInstance();
 
+  // Регистрация сервиса аналитики
+  final analyticsService = AppMetricaAnalyticsService();
+  final analyticsRepository = AnalyticsRepository(analyticsService);
+
   GetIt.I
+    ..registerSingleton<AnalyticsService>(analyticsService)
+    ..registerSingleton<AnalyticsRepository>(analyticsRepository)
     ..registerSingleton<SettingsRepository>(
       SettingsRepositoryImpl(prefs: prefs),
     )

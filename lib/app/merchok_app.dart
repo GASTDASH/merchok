@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:merchok/features/analytics/analytics.dart';
 import 'package:merchok/features/cart/cart.dart';
 import 'package:merchok/features/category/category.dart';
 import 'package:merchok/features/current_festival/current_festival.dart';
@@ -32,6 +33,12 @@ class MerchokApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit(
             initialThemeStyle: ThemeStyle.light,
+            settingsRepository: GetIt.I<SettingsRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => AnalyticsCubit(
+            analyticsRepository: GetIt.I<AnalyticsRepository>(),
             settingsRepository: GetIt.I<SettingsRepository>(),
           ),
         ),
