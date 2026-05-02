@@ -198,5 +198,9 @@
   "appmetrica3": "AppMetrica analyzes app usage data, including the device it is running on, the installation source, calculates conversion, collects statistics of your activity for product analytics, ad campaign analysis, and optimization, as well as for troubleshooting. Information collected in this way cannot identify you.\r\n\r\nDepersonalized information about your use of this app collected by AppMetrica tools will be transferred to Yandex and stored on Yandex’s server in the EU and the Russian Federation. Yandex will process this information to provide you with app usage statistics, generate app performance reports, and deliver other services.",
   "appmetrica_agree": "I agree to send statistics to improve the quality of the application.",
   "unableToDeleteMerchStock": "Unable to delete a merch, because it's in the stock",
-  "unableToDeleteStock": "Unable to delete the merch from the stock, because it's already present in the orders"
+  "unableToDeleteStock": "Unable to delete the merch from the stock, because it's already present in the orders",
+  "dataCollection": "Data Collection",
+  "enableDataCollection": "Enable or disable the collection of statistical data for analytics",
+  "enabled1": "Enabled",
+  "disabled1": "Disabled"
 }

@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Предпочтения покупателей",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Тёмная"),
+    "dataCollection": MessageLookupByLibrary.simpleMessage("Сбор данных"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Экспорт данных"),
     "dateOfTheEvent": MessageLookupByLibrary.simpleMessage("Дата проведения"),
     "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "description": MessageLookupByLibrary.simpleMessage("Описание..."),
     "developedBy": MessageLookupByLibrary.simpleMessage("Разработано"),
+    "disabled1": MessageLookupByLibrary.simpleMessage("Выключен"),
     "displayType": MessageLookupByLibrary.simpleMessage("Тип отображения:"),
     "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
     "donateDescription": MessageLookupByLibrary.simpleMessage(
@@ -114,6 +116,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "done": MessageLookupByLibrary.simpleMessage("Начать"),
     "earned": MessageLookupByLibrary.simpleMessage("Выручка"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Корзина пуста"),
+    "enableDataCollection": MessageLookupByLibrary.simpleMessage(
+      "Включение или отключение сбора статистических данных для аналитики",
+    ),
+    "enabled1": MessageLookupByLibrary.simpleMessage("Включён"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Введите правильное число",
     ),

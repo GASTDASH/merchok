@@ -1,11 +1,10 @@
 part of 'analytics_cubit.dart';
 
 /// Состояние Cubit для управления аналитикой
-class AnalyticsCubitState extends Equatable {
-  const AnalyticsCubitState({required this.enabled});
+class AnalyticsState extends Equatable {
+  const AnalyticsState({required this.enabled});
 
-  factory AnalyticsCubitState.initial() =>
-      const AnalyticsCubitState(enabled: true);
+  factory AnalyticsState.initial() => const AnalyticsState(enabled: true);
 
   final bool enabled;
 
@@ -15,7 +14,7 @@ class AnalyticsCubitState extends Equatable {
   @override
   String toString() => 'AnalyticsCubitState(enabled: $enabled)';
 
-  AnalyticsCubitState copyWith({bool? enabled}) {
-    return AnalyticsCubitState(enabled: enabled ?? this.enabled);
+  AnalyticsState copyWith({bool? enabled}) {
+    return AnalyticsState(enabled: enabled ?? this.enabled);
   }
 }

@@ -54,6 +54,12 @@ class SettingsScreen extends StatelessWidget {
                   icon: AppIcons.gift,
                 ),
                 SettingsButton(
+                  onTap: () => context.push(AppRoutes.analytics),
+                  title: S.of(context).dataCollection,
+                  subtitle: S.of(context).enableDataCollection,
+                  icon: Icons.monitor_heart_outlined,
+                ),
+                SettingsButton(
                   onTap: () => context.push(AppRoutes.about),
                   title: S.of(context).about,
                   subtitle: S.of(context).aboutDescription,

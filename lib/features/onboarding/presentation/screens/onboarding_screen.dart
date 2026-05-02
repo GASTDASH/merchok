@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:merchok/core/core.dart';
+import 'package:merchok/features/analytics/analytics.dart';
 import 'package:merchok/features/settings/settings.dart';
 import 'package:merchok/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,8 +28,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   bool isAppmetricaChecked = false;
 
-  void onDone() {
+  void onDone(BuildContext context) {
     GetIt.I<SettingsRepository>().setOnboardingShown(true);
+
+    final analyticsCubit = context.read<AnalyticsCubit>();
+    if (isAppmetricaChecked) {
+      analyticsCubit.enable();
+    } else {
+      analyticsCubit.disable();
+    }
+
     context.go(AppRoutes.home);
   }
 
@@ -63,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       // Done
       showDoneButton: true,
       done: Text(S.of(context).done),
-      onDone: onDone,
+      onDone: () => onDone(context),
       // Skip
       showSkipButton: true,
       skip: Text(S.of(context).skip),

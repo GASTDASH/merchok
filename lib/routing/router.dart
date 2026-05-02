@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:merchok/core/core.dart';
 import 'package:merchok/features/about/about.dart';
+import 'package:merchok/features/analytics/analytics.dart';
 import 'package:merchok/features/export/export.dart';
 import 'package:merchok/features/festival/festival.dart';
 import 'package:merchok/features/home/home.dart';
@@ -141,6 +142,11 @@ final router = GoRouter(
       name: AppRoutes.onboardingName,
       path: AppRoutes.onboarding,
       builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.analyticsName,
+      path: AppRoutes.analytics,
+      builder: (context, state) => const AnalyticsScreen(),
     ),
   ],
 );

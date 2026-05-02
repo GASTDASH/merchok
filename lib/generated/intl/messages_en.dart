@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Customer preferences",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "dataCollection": MessageLookupByLibrary.simpleMessage("Data Collection"),
     "dataExport": MessageLookupByLibrary.simpleMessage("Data export"),
     "dateOfTheEvent": MessageLookupByLibrary.simpleMessage("Date of the event"),
     "deleteThisCategory": MessageLookupByLibrary.simpleMessage(
@@ -100,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "description": MessageLookupByLibrary.simpleMessage("Description..."),
     "developedBy": MessageLookupByLibrary.simpleMessage("Developed by"),
+    "disabled1": MessageLookupByLibrary.simpleMessage("Disabled"),
     "displayType": MessageLookupByLibrary.simpleMessage("Display type:"),
     "donate": MessageLookupByLibrary.simpleMessage("Donate"),
     "donateDescription": MessageLookupByLibrary.simpleMessage(
@@ -108,6 +110,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "done": MessageLookupByLibrary.simpleMessage("Done"),
     "earned": MessageLookupByLibrary.simpleMessage("Revenue"),
     "emptyCart": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "enableDataCollection": MessageLookupByLibrary.simpleMessage(
+      "Enable or disable the collection of statistical data for analytics",
+    ),
+    "enabled1": MessageLookupByLibrary.simpleMessage("Enabled"),
     "enterCorrectNumber": MessageLookupByLibrary.simpleMessage(
       "Enter a correct number",
     ),

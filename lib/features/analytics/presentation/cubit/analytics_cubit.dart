@@ -6,13 +6,13 @@ import 'package:merchok/features/settings/settings.dart';
 part 'analytics_cubit_state.dart';
 
 /// Cubit для управления состоянием аналитики в UI
-class AnalyticsCubit extends Cubit<AnalyticsCubitState> {
+class AnalyticsCubit extends Cubit<AnalyticsState> {
   AnalyticsCubit({
     required AnalyticsRepository analyticsRepository,
     required SettingsRepository settingsRepository,
   }) : _analyticsRepository = analyticsRepository,
        _settingsRepository = settingsRepository,
-       super(AnalyticsCubitState.initial());
+       super(AnalyticsState.initial());
 
   final AnalyticsRepository _analyticsRepository;
   final SettingsRepository _settingsRepository;
@@ -21,13 +21,13 @@ class AnalyticsCubit extends Cubit<AnalyticsCubitState> {
   Future<void> enable() async {
     await _analyticsRepository.setEnabled(true);
     await _settingsRepository.setAnalyticsEnabled(true);
-    emit(const AnalyticsCubitState(enabled: true));
+    emit(const AnalyticsState(enabled: true));
   }
 
   /// Выключить аналитику
   Future<void> disable() async {
     await _analyticsRepository.setEnabled(false);
     await _settingsRepository.setAnalyticsEnabled(false);
-    emit(const AnalyticsCubitState(enabled: false));
+    emit(const AnalyticsState(enabled: false));
   }
 }

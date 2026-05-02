@@ -13,7 +13,8 @@ abstract class AppRoutes {
       about = '/about',
       scan = '/scan',
       stock = '/stock',
-      onboarding = '/onboarding';
+      onboarding = '/onboarding',
+      analytics = '/analytics';
 
   static const String homeName = 'home',
       ordersName = 'orders',
@@ -31,7 +32,8 @@ abstract class AppRoutes {
       termsConditionsName = 'terms_conditions',
       scanName = 'scan',
       stockName = 'stock',
-      onboardingName = 'onboarding';
+      onboardingName = 'onboarding',
+      analyticsName = 'analyticsName';
 
   static String privacyPolicy(String languageCode) =>
       '/about/privacy_policy/$languageCode';

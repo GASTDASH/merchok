@@ -1708,6 +1708,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Data Collection`
+  String get dataCollection {
+    return Intl.message(
+      'Data Collection',
+      name: 'dataCollection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable or disable the collection of statistical data for analytics`
+  String get enableDataCollection {
+    return Intl.message(
+      'Enable or disable the collection of statistical data for analytics',
+      name: 'enableDataCollection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enabled`
+  String get enabled1 {
+    return Intl.message('Enabled', name: 'enabled1', desc: '', args: []);
+  }
+
+  /// `Disabled`
+  String get disabled1 {
+    return Intl.message('Disabled', name: 'disabled1', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
