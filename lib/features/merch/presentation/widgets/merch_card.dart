@@ -81,16 +81,15 @@ class MerchCard extends StatelessWidget {
 
   Future<void> changeCategory(BuildContext context) async {
     final categoryState = context.read<CategoryBloc>().state;
-    if (merch.categoryId != null && categoryState is! CategoryLoaded) {
-      return;
-    }
-    categoryState as CategoryLoaded;
+    if (categoryState is! CategoryLoaded) return;
 
     final category = await showCategoriesBottomSheet(
       context,
-      categoryState.categoryList.firstWhereOrNull(
-        (c) => c.id == merch.categoryId,
-      ),
+      (merch.categoryId != null)
+          ? categoryState.categoryList.firstWhereOrNull(
+              (c) => c.id == merch.categoryId,
+            )
+          : null,
     );
     if (category == null) return;
     if (category.isEmpty) {
