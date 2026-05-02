@@ -37,7 +37,14 @@ class SettingsButton extends StatelessWidget {
                     spacing: 12,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(title, style: theme.textTheme.headlineSmall),
+                      Flexible(
+                        child: Text(
+                          title,
+                          style: theme.textTheme.headlineSmall,
+                          maxLines: 1,
+                          overflow: .ellipsis,
+                        ),
+                      ),
                       if (icon != null) Icon(icon),
                     ],
                   ),
